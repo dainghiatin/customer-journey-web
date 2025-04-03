@@ -9,6 +9,69 @@ const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
 
+
+const DataTable = () => {
+    return (
+      <div className="overflow-x-auto h-full w-full">
+        <table className="border border-black text-sm text-left h-full w-full">
+          <tbody style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}>
+            {/* Row 1 */}
+            <tr className="border border-black">
+              <td className="p-2 border border-black font-bold">
+                <span>GIÁ TRỊ LÊN SÀN:</span>
+                <br />
+                <span className="italic lowercase font-normal">(LISTED VALUE)</span>
+              </td>
+              <td className="p-2 border border-black">123456789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">LƯỢT GIAO DỊCH:<br /><span className="italic lowercase font-normal">(TRANSACTIONS)</span></td>
+              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">LƯỢT TRUY CẬP:<br /><span className="italic lowercase font-normal">(ACCESSES)</span></td>
+              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+            </tr>
+            
+            {/* Row 2 */}
+            <tr className="border border-black">
+              <td className="p-2 border border-black font-bold">THÀNH CÔNG:<br /><span className="italic lowercase font-normal">(SUCCESSFULLY)</span></td>
+              <td className="p-2 border border-black">23456789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">SỐ TIỀN:<br /><span className="italic lowercase font-normal">(AMOUNT)</span></td>
+              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">THỜI LƯỢNG:<br /><span className="italic lowercase font-normal">(DURATION)</span></td>
+              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+            </tr>
+            
+            {/* Row 3 - Single Row */}
+            <tr className="border border-black">
+              <td className="p-2 border border-black font-bold text-center" colSpan={2}>NGÂN HÀNG CẬP NHẬT<br /><span className="italic lowercase font-normal">(ẩn - hiện)</span></td>
+              <td className="p-2 border border-black font-bold">ĐÃ GỬI:<br /><span className="italic lowercase font-normal">(DEPOSITED)</span></td>
+              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">LƯỢT XEM VIDEO:<br /><span className="italic lowercase font-normal">(VIDEO VIEWS)</span></td>
+              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+            </tr>
+            
+            {/* Row 4 */}
+            <tr className="border border-black">
+              <td className="p-2 border border-black font-bold">CÓ KỲ HẠN</td>
+              <td className="p-2 border border-black">CẬP NHẬT</td>
+              <td className="p-2 border border-black font-bold">ĐÃ RÚT:<br /><span className="italic lowercase font-normal">(WITHDRAWED)</span></td>
+              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">THÀNH VIÊN:<br /><span className="italic lowercase font-normal">(MEMBERS)</span></td>
+              <td className="p-2 border border-black">56789<br /><strong>(LỆNH)</strong></td>
+            </tr>
+            
+            {/* Row 5 */}
+            <tr className="border border-black">
+              <td className="p-2 border border-black font-bold">KHÔNG KỲ HẠN</td>
+              <td className="p-2 border border-black">CẬP NHẬT</td>
+              <td className="p-2 border border-black font-bold">CÒN LẠI:<br /><span className="italic lowercase font-normal">(REMAINING)</span></td>
+              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black font-bold">TRUY CẬP:<br /><span className="italic lowercase font-normal">(ONLINE)</span></td>
+              <td className="p-2 border border-black">56789<br /><strong>(LỆNH)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  };
 function HomePage() {
     // const [color, setColor] = useState("#aabbcc");
     const [selectedLang, setSelectedLang] = useState("vi");
@@ -38,7 +101,14 @@ function HomePage() {
             <header className="grid-container">
                 <div className="grid-col-1" style={{ height: "100%", minWidth:"60px" }}>
                     <div style={{ width: "100%", height: "10%" }}>
-                        <p style={{ fontSize: "clamp(10px, 1vw, 20px)" }}><strong>APP</strong></p>
+                        <p className="flex sm:hidden text-[clamp(10px,1vw,20px)]">
+                            <strong>APP</strong>
+                        </p>
+
+                        {/* Chỉ hiển thị trên màn hình lớn hơn sm (md trở lên) */}
+                        <p className="hidden sm:flex text-[clamp(10px,1vw,20px)]">
+                            <strong>QR</strong>
+                        </p>
                     </div>
                     <div style={{ width: "100%", height: "10%" }}>
                         {/* <p><strong>MÁY TÍNH</strong></p><p><em>(COMPUTER)</em></p> */}
@@ -97,43 +167,12 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="grid-col-4" style={{}}>
-                    <div>
-                        <p><strong>TỔNG LƯỢT TRUY CẬP:</strong></p>
-                        <p className='text-sm'><em>(TOTAL OF ACCESES)</em></p>
-                    </div>
-                    <div style={{ alignItems: "center" }}>
-                        <p>12345678</p><p><strong>(LỆNH)</strong></p>
-                    </div>
-                    
-                    <div>
-                        <p><strong>TỔNG THỜI LƯỢNG TRUY CẬP:</strong></p>
-                        <p className='text-sm'><em>(TOTAL DURATION OF ACCESES)</em></p>
-                    </div>
-                    <div style={{ alignItems: "center" }}>
-                        <p>12345678</p><p><strong>(LỆNH)</strong></p>
-                    </div>
-                    <div>
-                        <p><strong>TỔNG LƯỢT XEM VIDEO:</strong></p>
-                        <p className='text-sm'><em>(TOTAL VIDEO VIEWS)</em></p>
-                    </div>
-                    <div style={{ alignItems: "center" }}>
-                        <p>12345678</p><p><strong>(LỆNH)</strong></p>
-                    </div>
-                    <div>
-                        <p><strong>SỐ THÀNH VIÊN:</strong></p>
-                        <p className='text-sm'><em>(NUMBER OF LEVEL 1 MENBERS)</em></p>
-                    </div>
-                    <div style={{ alignItems: "center" }}>
-                        <p>56789</p><p><strong>(LỆNH)</strong></p>
-                    </div>
-                    {/* <div style={{ border: 0 }}>
-                        <p style={{ color: "rgb(18 66 174 / 0%)" }}>0</p><p><strong style={{ color: "rgb(18 66 174 / 0%)" }}>(0)</strong></p>
-                    </div> */}
+                    <DataTable></DataTable>
                 </div>
             </header>
-            <Body />
-            <HeroHeader />
+            {/* <Body /> */}
             <DropdownAuth />
+            <HeroHeader />
             <ActionSection />
             <SearchSection />
             <footer className="footer">

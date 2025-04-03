@@ -28,66 +28,58 @@ export default function LoginPage() {
           />
           {/* Tiêu đề ở giữa */}
           <div className="text-center w-full">
-            <h1 className="text-3xl font-bold text-black">
-              2 - ĐĂNG NHẬP TÀI KHOẢN
-            </h1>
-            <h2 className="text-2xl text-black">(LOGIN)</h2>
+            <h1 className="text-3xl font-bold text-black">2 - ĐĂNG NHẬP</h1>
+            <h2 className="text-2xl text-black">
+              <i>(LOGIN)</i>
+            </h2>
           </div>
         </div>
 
         {/* LOGIN */}
         <div className="mt-6">
           <div className="space-y-4 mt-4">
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left text-black font-bold">ID</label>
+            <div className="grid grid-cols-1 items-center gap-4">
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="(nhập)   CCCD / MST"
+                placeholder="CCCD / MST (ID)"
               />
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left text-black font-bold">
-                MẬT KHẨU: <br />
-                (PASSWORD)
-              </label>
+            <div className="grid grid-cols-1 items-center gap-4">
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="(nhập) (chứa IN HOA, chữ thường, số, và ký tự đặc biệt)"
+                placeholder="MẬT KHẨU (PASSWORD)"
               />
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left text-black font-bold">
-                NHẬP MÃ CAPCHA, XÁC NHẬN
-              </label>
+            <div className="grid grid-cols-1 items-center gap-4">
               <div className="flex gap-4 w-full">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập mã Capcha"
+                  placeholder="NHẬP MÃ CAPCHA (INPUT CAPCHA CODE)"
                 />
-                <input
+                {/* <input
                   type="text"
                   className=" p-2 rounded w-full"
                   placeholder="(mã capcha, xác nhận)"
                   disabled
-                />
+                /> */}
+                <img src="https://www.tnc.com.vn/uploads/File/Image/c1_2.jpg" className="w-60" alt="" />
               </div>
             </div>
             <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
-                Đăng nhập bằng mã QR (mở app và quét mã QR)
-              </label>
               <div className="flex gap-4 w-full">
                 <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
                   ĐĂNG NHẬP <br />
-                  (LOG IN)
+                  <i>(LOG IN)</i>
                 </button>
+              </div>
+              <div className="flex gap-4 w-full">
                 <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
                   QUÊN MẬT KHẨU <br />
-                  (FORGOT PASSWORD)
+                  <i>(FORGOT PASSWORD)</i>
                 </button>
               </div>
             </div>
@@ -95,72 +87,24 @@ export default function LoginPage() {
               <label className="text-left"></label>
               <div className="flex gap-4 w-full">
                 <div className="flex-1">
-                  {/* <select name="" id="" className="border p-2 rounded">
-                    <option value="">ZALO</option>
-                    <option value="">WHATSAPP</option>
-                    <option value="">SMS</option>
-                  </select> */}
+                  <input
+                    type="text"
+                    className="border p-2 rounded w-full"
+                    placeholder="SĐT (PHONE)"
+                  />
                 </div>
                 <div className="flex-1">
-                  <div className="grid grid-cols-2 items-center gap-4">
-                    <label className="text-left text-red-500">
-                      NHẬP SỐ: <br />
-                      (INPUT YOUR NUMBER)
-                    </label>
-                    <input
-                      type="text"
-                      className="border p-2 rounded w-full"
-                      placeholder="Nhập"
-                    />
+                  <div className="grid grid-cols-1 items-center gap-4">
+                    <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
+                      GỬI
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 items-center gap-4">
-              <div>
-                <label className="text-left">
-                  NHẬP MÃ OTP NẾU LÀ THIẾT BỊ LẠ <br />
-                  (INPUT OTP CODE IF IT IS A STRANGE DEVICE )
-                </label>
-              </div>
-              <div className="flex gap-4 w-full">
-                <div className="flex-1 grid grid-cols-2 items-center gap-4">
-                  <input
-                    type="text"
-                    className="border p-2 rounded w-full"
-                    placeholder="Nhập"
-                  />
-                  <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                    GỬI
-                  </button>
-                </div>
-                <div className="flex-1 grid grid-cols-2 items-center gap-4">
-                  <label className="text-left text-red-500">ID</label>
-                  <input
-                    type="text"
-                    className="border p-2 rounded w-full"
-                    placeholder="Nhập"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
-                duy trì đăng nhập 168 giờ (7 ngày), sau đó tự động thoát và bắt
-                buộc đăng nhập lại.
-              </label>
-              <div className="flex gap-4 w-full">
-                <div className="px-6 py-2 rounded flex-1"></div>
-                <button className="border-2 border-black text-red-500 font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                  GỬI <br />
-                  (SEND)
-                </button>
-              </div>
-            </div>
             <h2 className="text-1xl text-center text-black">
               THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI <br />
-              (YOUR INFORMATION INPUTED IS NOT CORRECT, PLEASE TRY AGAIN)
+              <i>(YOUR INFORMATION INPUTED IS NOT CORRECT, PLEASE TRY AGAIN)</i>
             </h2>
 
             {/* CHANGE PASSWORD */}
@@ -171,40 +115,6 @@ export default function LoginPage() {
                 CHANGE PASSWORD TO LOG IN).
               </div>
             </div> */}
-            <div className="mt-5">
-              <h2 className="text-1xl text-center font-semibold text-black mt-5">
-                THAY ĐỔI MẬT KHẨU <br />
-                (CHANGE YOUR PASSWORD)
-              </h2>
-            </div>
-            <div className="grid gap-4">
-              <input
-                type="text"
-                className="border p-2 rounded w-full"
-                placeholder="ID"
-              />
-              <input
-                type="password"
-                className="border p-2 rounded w-full"
-                placeholder="MẬT KHẨU CŨ (OLD PASSWORD)"
-              />
-              <input
-                type="password"
-                className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-                placeholder="MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt) (NEW PASSWORD include UPPERCASE, lowercase letters, numbers, and special characters)"
-              />
-              <input
-                type="password"
-                className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-                placeholder="NHẬP LẠI MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt) (REPEAT NEW PASSWORD include UPPERCASE, lowercase letters, numbers, and special characters)"
-              />
-            </div>
-          </div>
-          <div className="text-center mt-4">
-            <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-              XÁC NHẬN <br />
-              (ACCEPT)
-            </button>
           </div>
         </div>
       </div>

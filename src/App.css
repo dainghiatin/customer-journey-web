@@ -119,26 +119,26 @@
 /* GRID COL 4 */
 
 .grid-col-4 {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
+    display: flex;
+    /* grid-template-columns: repeat(2, auto); */
     /* grid-template-rows: repeat(10, auto); */
     /* max-height: 214px; */
-    width: 25%;
+    width: 39%;
     /* max-width: 400px; */
 }
 @media screen and (max-width: 768px) {
     .grid-col-4 {
         display: none;
     }
-    
 }
+
 .grid-col-4 div {
     border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: baseline;
     justify-content: center;
-    padding: 4PX;
+    /* padding: 4PX; */
 }
 
 .grid-col-4 div > p {
