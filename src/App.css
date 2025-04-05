@@ -9,7 +9,7 @@
     margin: 0;
     justify-items: stretch;  /* Ensures grid items stretch horizontally */
     align-items: stretch;  
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 @media screen and (max-width: 768px) {
     .grid-container {
@@ -48,6 +48,9 @@
     max-width: 100%;
     /* width: 180px; */
     /* width: 60%; */
+    /* aspect-ratio:/3; */
+    /* aspect-ratio: 3/1; */
+    /* border: 1px solid black; */
     flex:1;
     height: 100%;
     display: flex;

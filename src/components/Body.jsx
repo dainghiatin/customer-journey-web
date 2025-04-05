@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 function HeroHeader() {
     return (
         <div style={{ position: "relative", marginBottom: "5vw" }}>
             <div className="hero-title" style={{ marginTop: "0px",fontWeight:"bold"  }}>
                 <h3 style={{ color: "black", fontSize: '3vw', }}>CÔNG BẰNG LỚN - UY TÍN LỚN</h3>
-                <h4 className='lowercase' style={{ color: "black", fontSize: '2.6vw' }}><em>(GREAT FAIRNESS - GREAT REPUTATION)</em></h4>
+                <h4 className='' style={{ color: "black", fontSize: '2.6vw' }}><em>(Great fairness - Great reputation)</em></h4>
             </div>
             <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight:"bold" }}>
                 <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: SÀN THƯƠNG MẠI ĐIỆN TỬ QUỐC GIA</h3>
-                <h4 className='lowercase' style={{ color: "black", fontSize: '2.6vw' }}><em>(TARGET: NATIONAL V-COMERCIAL)</em></h4>
+                <h4 className='' style={{ color: "black", fontSize: '2.6vw' }}><em>(Target: national <em className='text-red-500'>V</em>-commercial)</em></h4>
             </div>
             <aside className="main-aside-2" >
                 <div className="main-aside-2-1" style={{ width: '19vw' , position: "absolute", top: '3vw', right: '1vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
@@ -19,20 +19,20 @@ function HeroHeader() {
                 </div>
                 <div className="main-aside-2-1"  style={{width: '19vw', position: "absolute", top: '3vw', left: '1vw',  textAlign: "center"  }}>
                     <div style={{ fontSize: "clamp(5px, 1vw, 20px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
-                        <p><strong>ĐĂNG BÀI MỚI</strong></p><p className='lowercase'><em>(NEW POST)</em></p>
+                        <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>
                     </div>
                 </div>
                 <div className="main-aside-2-2"  style={{ width: '19vw', position: "absolute", bottom: '-2vw', left: '1vw' }}>
                     <div style={{ color: "black", textAlign: "center", fontSize: "clamp(5px, 1vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
                         <p><strong>CÔNG VIỆC TỰ DO</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
-                        <p className='lowercase' style={{ fontStyle: "italic", fontWeight: "normal" }}>(FREELANCER)</p>
+                        <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>(Freelancer)</p>
                     </div>
                 </div>
                 <div className="main-aside-2-2" style={{ width: '19vw', position: "absolute", bottom: "-2vw", right: '1vw' }}>
                     <div style={{ color: "black", fontSize: "clamp(5px, 1vw, 20px)", textAlign: "center",height:"clamp(20px,4vw, 60px)" }}>
                         <p className="whitespace-nowrap text-ellipsis max-w-ful"><strong>GIAO DỊCH THANH TOÁN</strong></p>
-                        <p className='lowercase'><em>(PAYMENT TRANSACTION)</em></p>
+                        <p className=''><em>(Payment transaction)</em></p>
                     </div>
                 </div>
             </aside>
@@ -237,23 +237,51 @@ function ActionSection() {
 const DropdownAuth = () => {
     const [isShow, setIsShow] = useState(false);
     const navigate = useNavigate();
-
+    const [user, setUser] = useState(null);
+    // const [password, setPassword] = useState(null);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('authToken'); 
+        if (storedUser) {
+            setUser(storedUser); 
+        }
+    }
+    , []);
     return (
         <div style={{ position: 'relative', display: "flex", flexDirection: "column", width: 'fit-content' }}>
-            <button
+            
+            {!user ? <button
                 onClick={() => { navigate('login') }}
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw"  }}
             >
                 ĐĂNG NHẬP
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div>
-            </button>
+            </button>:
             <button
+                onClick={() => { navigate('login') }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" ,justifyContent:"center", alignItems:"center", display:"flex"}}
+            >
+                {/* Avartar */}
+                {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
+                <img src="https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain" alt="Avatar" style={{ borderRadius: '50%', height:"3vw", aspectRatio:1 , }} />
+            </button>}
+            {!user ? <button
                 onClick={() => { navigate('register') }}
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}
             >
                 ĐĂNG KÝ
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(REGISTER)</div>
-            </button>
+            </button>:<button
+                onClick={() => {
+                    localStorage.removeItem('authToken'); // Xóa token khỏi localStorage
+                    setUser(null); // Đặt lại trạng thái người dùng
+
+                 }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}
+            >
+                THOÁT
+                <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGOUT)</div>
+            </button>}
+
         </div>
     );
 };

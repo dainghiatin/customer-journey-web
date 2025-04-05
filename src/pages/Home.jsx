@@ -110,14 +110,14 @@ function HomePage() {
                             <strong>QR</strong>
                         </p>
                     </div>
-                    <div style={{ width: "100%", height: "10%" }}>
+                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
                         {/* <p><strong>MÁY TÍNH</strong></p><p><em>(COMPUTER)</em></p> */}
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-computer"></i>
-                    </div>
-                    <div style={{ width: "100%", height: "10%" }}>
+                    </button>
+                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
                         {/* <p><strong>DIỆN THOẠI</strong></p><p><em>(PHONE)</em></p> */}
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-mobile-screen-button"></i>
-                    </div>
+                    </button>
                     <div style={{ width: "100%", height: "10%", display: "flex", flexDirection: 'column' }}>
                         {/* <div style={{ height:"100%",  aspectRatio: "1/1" }}> */}
                         {/* <Fragment> */}
@@ -149,10 +149,10 @@ function HomePage() {
                             </select>
                         </div>
                     </div>
-                    <div style={{ width: "100%", height: "10%" }}>
+                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
                         {/* <p><strong>THÔNG BÁO</strong></p><p><em>(NOTE)</em></p> */}
                         <i style={{ fontSize:"clamp(10px, 1vw, 20px)" }} class="fa-solid fa-bell"></i>
-                    </div>
+                    </button>
                 </div>
 
                 <div className="grid-col-2" style={{ height: "100%" }}>
