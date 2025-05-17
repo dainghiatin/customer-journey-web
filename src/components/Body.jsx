@@ -1,40 +1,40 @@
 import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function HeroHeader() {
     return (
         <div style={{ position: "relative", marginBottom: "5vw" }}>
             <div className="hero-title" style={{ marginTop: "0px",fontWeight:"bold"  }}>
                 <h3 style={{ color: "black", fontSize: '3vw', }}>CÔNG BẰNG LỚN - UY TÍN LỚN</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2.6vw' }}><em>(Great fairness - Great reputation)</em></h4>
+                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Great fairness - Great reputation)</em></h4>
             </div>
             <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight:"bold" }}>
-                <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: SÀN THƯƠNG MẠI ĐIỆN TỬ QUỐC GIA</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2.6vw' }}><em>(Target: national <em className='text-red-500'>V</em>-commercial)</em></h4>
+                <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA</h3>
+                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Target: national <em className='text-red-500'>V</em>-commercial)</em></h4>
             </div>
             <aside className="main-aside-2" >
-                <div className="main-aside-2-1" style={{ width: '19vw' , position: "absolute", top: '3vw', right: '1vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
+                <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
                     <div style={{ color: "black", textAlign: "center",height: "clamp(20px,4vw, 60px)" }}>
                         <p><strong>Ai LIVE</strong></p>
                     </div>
                 </div>
-                <div className="main-aside-2-1"  style={{width: '19vw', position: "absolute", top: '3vw', left: '1vw',  textAlign: "center"  }}>
-                    <div style={{ fontSize: "clamp(5px, 1vw, 20px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
+                <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]"  style={{ position: "absolute", top: '3.5vw',  textAlign: "center"  }}>
+                    <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
                         <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>
                     </div>
                 </div>
-                <div className="main-aside-2-2"  style={{ width: '19vw', position: "absolute", bottom: '-2vw', left: '1vw' }}>
-                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(5px, 1vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
+                <div className="main-aside-2-2 w-[18vw] left-[18vw] sm:w-[12vw] sm:left-[24vw]"  style={{position: "absolute", bottom: '-2vw'}}>
+                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(6px, 1vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
                         <p><strong>CÔNG VIỆC TỰ DO</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>(Freelancer)</p>
                     </div>
                 </div>
-                <div className="main-aside-2-2" style={{ width: '19vw', position: "absolute", bottom: "-2vw", right: '1vw' }}>
-                    <div style={{ color: "black", fontSize: "clamp(5px, 1vw, 20px)", textAlign: "center",height:"clamp(20px,4vw, 60px)" }}>
-                        <p className="whitespace-nowrap text-ellipsis max-w-ful"><strong>GIAO DỊCH THANH TOÁN</strong></p>
+                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[18vw] right-[18vw] sm:w-[12vw] sm:right-[24vw]" style={{ position: "absolute", bottom: "-2vw"}}>
+                    <div style={{ color: "black", fontSize: "clamp(5px, 1vw, 15px)", textAlign: "center",height:"clamp(20px,4vw, 60px)", display:"flex", flexDirection:"column", justifyContent:"center" }}>
+                        <p className=""><strong>GIAO DỊCH THANH TOÁN</strong></p>
                         <p className=''><em>(Payment transaction)</em></p>
                     </div>
-                </div>
+                </Link>
             </aside>
         </div>
     )
@@ -262,7 +262,7 @@ const DropdownAuth = () => {
             >
                 {/* Avartar */}
                 {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
-                <img src="https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain" alt="Avatar" style={{ borderRadius: '50%', height:"3vw", aspectRatio:1 , }} />
+                <img src="https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain" alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
             </button>}
             {!user ? <button
                 onClick={() => { navigate('register') }}

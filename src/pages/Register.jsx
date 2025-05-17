@@ -3,6 +3,31 @@ import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const generateRandomPassword = (length = 8) => {
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+  const allChars = upper + lower + numbers + symbols;
+
+  let password = "";
+  password += upper[Math.floor(Math.random() * upper.length)];
+  password += numbers[Math.floor(Math.random() * numbers.length)];
+  password += symbols[Math.floor(Math.random() * symbols.length)];
+
+  for (let i = 3; i < length; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  // Shuffle để tránh predictable vị trí
+  return password
+    .split("")
+    .sort(() => 0.5 - Math.random())
+    .join("");
+};
+
+
 export default function RegisterPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const navigate = useNavigate();
@@ -19,8 +44,6 @@ export default function RegisterPage() {
     address_no: "",
     address_on_map: "",
   });
-  const [listBanks, setListBanks] = useState([]);
-
   const [error, setError] = useState("");
 
   const handleChangeColor = (e) => {
@@ -32,19 +55,6 @@ export default function RegisterPage() {
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
-  useEffect(() => {
-    const fetchBanks = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.vietqr.io/v2/banks"
-        );
-        setListBanks(response.data.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách ngân hàng:", error);
-      }
-    };
-    fetchBanks();
-  },[])
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,12 +68,30 @@ export default function RegisterPage() {
       setError("Vui lòng điền đầy đủ thông tin cần thiết.");
       return;
     }
-
+    // Sinh mật khẩu ngẫu nhiên
+    const randomPassword = generateRandomPassword();
     try {
-      console.log(formData);
+      const payload = {
+        ...formData,
+        password: randomPassword,
+      };
+      const payload_test = {
+        "username":"", 
+        "email":"", 
+        "password":"T,<3N.H]", 
+        "cccd":"1234567890010", 
+        "reference_id":"", 
+        "full_name":"Admin 2", 
+        "mobile_number":"", 
+        "bank_number":"", 
+        "bank_name":"VietinBank", 
+        "address_no":"address_no_1", 
+        "address_on_map":"" 
+    }
+      console.log("ne: ", payload_test);
       const response = await axios.post(
         "http://localhost:1337/api/auth/register",
-        formData,
+        payload,
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -71,7 +99,7 @@ export default function RegisterPage() {
 
       console.log("Đăng ký thành công:", response.data);
       alert("Đăng ký thành công!");
-      navigate("/login"); // Chuyển hướng sau khi đăng ký thành công
+      navigate("/change-password"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
       setError("Đăng ký thất bại. Vui lòng thử lại.");
@@ -82,71 +110,83 @@ export default function RegisterPage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-center relative">
-          {/* Input Color nằm bên trái */}
-          <input
-            type="color"
-            value={color}
-            onChange={handleChangeColor}
-            className="absolute left-0 my-2"
-          />
           {/* Tiêu đề ở giữa */}
-          <div className="text-center w-full">
-            <h1 className="text-3xl font-bold text-black">1 - ĐĂNG KÝ</h1>
-            <h2 className="text-2xl text-black">
-              <span className="text-xs text-gray-600">(REGISTER)</span>
+          <div className="text-center w-full relative">
+            <h1 className="text-3xl font-bold text-black relative inline-block">
+              <span className="relative">
+                1{/* input màu ngay dưới số 1 */}
+                <input
+                  type="color"
+                  value={color}
+                  onChange={handleChangeColor}
+                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                />
+              </span>
+              &nbsp;- ĐĂNG KÝ
+            </h1>
+
+            {/* Register bên dưới */}
+            <h2 className="text-2xl text-black mt-2">
+              <i>(Register)</i>
             </h2>
           </div>
         </div>
         <div className="mt-6">
           <div className="space-y-4 mt-4">
             {error && <p className="text-red-500">{error}</p>}
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 1. CCCD/ MST NGƯỜI GIỚI THIỆU: <br />
                 <span className="text-xs text-gray-600">
                   (Introducing from ID)
                 </span>
-              </label>
+              </label> */}
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="Nhập"
+                placeholder="CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)"
               />
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 2. HỢP ĐỒNG: <br />
                 <span className="text-xs text-gray-600">(The Contract)</span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <button className="border-1 text-black px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                  Ấn xem file
+                  Ấn xem file hợp đồng (The Contract)
                 </button>
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 3. KÝ HỢP ĐỒNG: <br />
                 <span className="text-xs text-gray-600">(Sign contract)</span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
-                <input type="checkbox" className="w-5 h-5" />
+                <input
+                  type="checkbox"
+                  className="w-10 h-10 border mr-3 border-radius-10"
+                />
+                XÁC NHẬN KÝ HỢP ĐỒNG VÀ GỬI MẪU CHỮ KÝ <br /> (Confirm sign
+                contract and upload your signature)
+                <input type="file" className="w-100 h-10 border ml-4" />
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 4. HỌ TÊN / TÊN DOANH NGHIỆP: <br />
                 <span className="text-xs text-gray-600">(Full name)</span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập"
+                  placeholder="HỌ TÊN / TÊN DOANH NGHIỆP (Full name)"
                   name="full_name"
                   value={formData.full_name}
                   onChange={handleInputChange}
@@ -154,16 +194,16 @@ export default function RegisterPage() {
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 5. CCCD/MST: <br />
                 <span className="text-xs text-gray-600">(ID)</span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập"
+                  placeholder="CCCD/MST (ID)"
                   name="cccd"
                   value={formData.cccd}
                   onChange={handleInputChange}
@@ -171,7 +211,7 @@ export default function RegisterPage() {
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-            {/* <div className="grid grid-cols-2 items-center gap-4">
+            {/* <div className="grid grid-cols-1 items-center gap-4">
               <label className="text-left">
                 6. SỐ ĐIỆN THOẠI: <br />
                 <span className="text-xs text-gray-600">(Phone number)</span>
@@ -184,25 +224,25 @@ export default function RegisterPage() {
                 />
               </div>
             </div> */}
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 6. SỐ TÀI KHOẢN: <br />
                 <span className="text-xs text-gray-600">(Account number)</span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập"
-                /><span className="text-red-500 ml-2">*</span>
+                  placeholder="SỐ TÀI KHOẢN (Account number)"
+                />
+                <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 7. NGÂN HÀNG: <br />
                 <span className="text-xs text-gray-600">(With bank)</span>
-              </label>
-
+              </label> */}
               <div className="relative w-full flex items-center">
                 <select
                   className="border p-2 rounded w-full"
@@ -210,15 +250,8 @@ export default function RegisterPage() {
                   value={formData.bank_name}
                   onChange={handleInputChange}
                 >
-                  <option value="">Chọn ngân hàng</option>
-                  {listBanks.map((bank) => (
-                    <option key={bank.id} value={bank.shortName}>
-                      {bank.name}
-                    </option>
-                  ))}
-                  {/* <option value="Techcombank">
-                    Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)
-                  {/* <option value="GPBank">
+                  <option value="">Chọn ngân hàng (With bank)</option>
+                  <option value="GPBank">
                     Ngân hàng TNHH MTV Dầu khí toàn cầu (GPBank)
                   </option>
                   <option value="Agribank">
@@ -236,25 +269,25 @@ export default function RegisterPage() {
                   </option>
                   <option value="Vietcombank">
                     Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)
-                  </option> */}
+                  </option>
                 </select>
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 8. ĐỊA CHỈ NHẬN HÀNG: <br />
                 <span className="text-xs text-gray-600">
                   (Receive goods's address)
                 </span>
-              </label>
+              </label> */}
               <div className="flex w-full">
                 <div className="relative w-full flex items-center">
                   <input
                     type="text"
-                    className="border p-2 rounded w-1/2"
-                    placeholder="SỐ NHÀ (Number) *"
+                    className="border p-2 rounded flex-1"
+                    placeholder="ĐỊA CHỈ NHẬN HÀNG - SỐ NHÀ (Number) * (Receive goods's address)"
                     name="address_no"
                     value={formData.address_no}
                     onChange={handleInputChange}
@@ -269,40 +302,40 @@ export default function RegisterPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 9. KÝ TỰ KHÔI PHỤC MẬT KHẨU <br />
                 <span className="text-xs text-gray-600">
                   (Password recovery character)
                 </span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập"
-                // name="bank_number"
-                // value={formData.bank_number}
-                // onChange={handleInputChange}
+                  placeholder="KÝ TỰ KHÔI PHỤC MẬT KHẨU (Password recovery character)"
+                  // name="bank_number"
+                  // value={formData.bank_number}
+                  // onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left">
+            <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
                 10. NHẬP LẠI KÝ TỰ KHÔI PHỤC MẬT KHẨU <br />
                 <span className="text-xs text-gray-600">
                   (Repeat password recovery character)
                 </span>
-              </label>
+              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="Nhập"
-                // name="bank_number"
-                // value={formData.bank_number}
-                // onChange={handleInputChange}
+                  placeholder="NHẬP LẠI KÝ TỰ KHÔI PHỤC MẬT KHẨU (Repeat password recovery character)"
+                  // name="bank_number"
+                  // value={formData.bank_number}
+                  // onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
@@ -357,48 +390,6 @@ export default function RegisterPage() {
             >
               ĐĂNG KÝ <br />
               <span className="text-xs text-gray-600">(REGISTER)</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-6">
-          {/* <h2 className="text-2xl text-center font-semibold text-black">
-            1.2: VUI LÒNG KIỂM TRA ZALO, WHATSAPP, SMS CỦA BẠN VÀ ĐỔI MẬT KHẨU
-            ĐỂ ĐĂNG NHẬP
-          </h2> */}
-          <h4 className="text-1xl text-center font-semibold text-black mt-5">
-            THAY ĐỔI MẬT KHẨU <br />
-            <span className="text-xs text-gray-600">
-              (CHANGE YOUR PASSWORD)
-            </span>
-          </h4>
-          <div className="grid gap-4 mt-5">
-            <input
-              type="text"
-              className="border p-2 rounded w-full"
-              placeholder="CCCD / MST (ID)"
-            />
-            <input
-              type="password"
-              className="border p-2 rounded w-full"
-              placeholder="MẬT KHẨU CŨ (Old password)"
-            />
-            <input
-              type="password"
-              className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-              placeholder="MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt)(New password inlclude UPPERCASE, lowercase letters, numbers, and special characters)"
-            />
-            <input
-              type="password"
-              className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-              placeholder="NHẬP LẠI MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt)(Repeat new password  inlclude UPPERCASE, lowercase letters, numbers, and special characters)"
-            />
-          </div>
-
-          <div className="text-center mt-4">
-            <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-              XÁC NHẬN <br />
-              <span className="text-xs text-gray-600">(ACCEPT)</span>
             </button>
           </div>
         </div>

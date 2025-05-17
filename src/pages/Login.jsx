@@ -22,17 +22,25 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:1337/api/auth/login", {
-        cccd,
-        password,
-      }, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await axios.post(
+        "http://localhost:1337/api/auth/login",
+        {
+          cccd,
+          password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (response.status === 200) {
         localStorage.setItem("authToken", response.data.token);
         alert("Đăng nhập thành công!");
         navigate("/"); // Chuyển hướng về trang chủ
+      } else {
+        alert(
+          "THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI (YOUR INFORMATION INPUTED IS NOT CORRECT, PLEASE TRY AGAIN)"
+        );
       }
     } catch (error) {
       setErrorMessage("Thông tin đăng nhập không chính xác!");
@@ -43,24 +51,37 @@ export default function LoginPage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-center relative">
-          {/* Input Color nằm bên trái */}
-          <input
-            type="color"
-            value={color}
-            onChange={handleChangeColor}
-            className="absolute left-0 my-2"
-          />
           {/* Tiêu đề ở giữa */}
-          <div className="text-center w-full">
-            <h1 className="text-3xl font-bold text-black">2 - ĐĂNG NHẬP</h1>
-            <h2 className="text-2xl text-black">
-              <i>(LOGIN)</i>
+          <div className="text-center mb-4 relative">
+            <h1 className="text-3xl font-bold text-black relative inline-block">
+              <span className="relative">
+                2{/* input màu ngay dưới số 2 */}
+                <input
+                  type="color"
+                  value={color}
+                  onChange={handleChangeColor}
+                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                />
+              </span>
+              &nbsp;- ĐĂNG NHẬP
+            </h1>
+
+            {/* LOGIN bên dưới */}
+            <h2 className="text-2xl text-black mt-2">
+              <i>(Login)</i>
             </h2>
           </div>
         </div>
 
         {/* LOGIN */}
         <div className="mt-6">
+          {/* MÃ QR Row */}
+          <div className="grid grid-cols-8">
+            <div className="col-span-7"></div>
+            <div className="col-span-1 p-2 font-bold text-sm border text-center rounded-sm">
+              QR
+            </div>
+          </div>
           <div className="space-y-4 mt-4">
             <div className="grid grid-cols-1 items-center gap-4">
               <input
@@ -76,7 +97,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="MẬT KHẨU (PASSWORD)"
+                placeholder="MẬT KHẨU (Password)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -86,52 +107,53 @@ export default function LoginPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="NHẬP MÃ CAPCHA (INPUT CAPCHA CODE)"
+                  placeholder="NHẬP MÃ CAPCHA (Input CAPCHA code)"
                 />
-                <img src="https://www.tnc.com.vn/uploads/File/Image/c1_2.jpg" className="w-60" alt="" />
+                <img
+                  src="https://www.tnc.com.vn/uploads/File/Image/c1_2.jpg"
+                  className="w-60"
+                  alt=""
+                />
               </div>
             </div>
-            {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
+
             <div className="grid grid-cols-2 items-center gap-4">
               <div className="flex gap-4 w-full">
-                <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1" onClick={handleLogin}>
+                <button
+                  className="border-2 border-black text-black font-bold px-6 py-4 rounded hover:bg-gray-200 flex-1"
+                  onClick={handleLogin}
+                >
                   ĐĂNG NHẬP <br />
-                  <span className="text-xs text-gray-600">(LOG IN)</span>
+                  <span className="text-xs text-gray-600">(Log in)</span>
                 </button>
               </div>
               <div className="flex gap-4 w-full">
-                <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                  QUÊN MẬT KHẨU <br />
-                  <span className="text-xs text-gray-600">(FORGOT PASSWORD)</span>
-                </button>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 items-center gap-4">
-              <label className="text-left"></label>
-              <div className="flex gap-4 w-full">
-                <div className="flex-1">
+                <div className="flex-[2]">
                   <input
                     type="text"
-                    className="border p-2 rounded w-full"
-                    placeholder="SĐT (PHONE)"
+                    className="border px-3 py-3 rounded w-full text-sm h-[64px]"
+                    placeholder="NHẬP KÝ TỰ KHÔI PHỤC MẬT KHẨU"
                   />
+                  <p className="text-xs text-gray-500 italic mt-1">
+                    (input password recovery character to unlock endsub)
+                  </p>
                 </div>
-                <div className="flex-1">
-                  <div className="grid grid-cols-1 items-center gap-4">
-                    <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                      GỬI
-                    </button>
-                  </div>
+                <div className="flex-[1]">
+                  <button className="border-2 border-black text-black font-bold px-4 py-2 rounded hover:bg-gray-200 w-full text-sm h-[64px]">
+                    XÁC NHẬN <br />
+                    (Verify)
+                  </button>
                 </div>
               </div>
             </div>
-            <h2 className="text-xl text-center text-black">
-              THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI <br />
-              <span className="text-xs text-gray-600">
-                (YOUR INFORMATION INPUTED IS NOT CORRECT, PLEASE TRY AGAIN)
-              </span>
-            </h2>
-
+            {errorMessage && (
+              <h2 className="text-xl text-center text-red-500">
+                THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI <br />
+                <span className="text-xs text-red-500">
+                  (Your information inputed is not correct, please try again)
+                </span>
+              </h2>
+            )}
           </div>
         </div>
       </div>

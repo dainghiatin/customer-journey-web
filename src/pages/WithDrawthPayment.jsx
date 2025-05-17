@@ -16,15 +16,25 @@ const WithDrawthPaymentPage = () => {
   return (
     <div className="shadow-lg rounded max-w-2xl mx-auto p-4">
       {/* Tiêu đề */}
-      <h2 className="text-lg font-bold text-center">
-        <input
-          type="color"
-          value={color} // Gán màu đã chọn
-          onChange={handleChangeColor} // Cập nhật khi chọn màu mới
-        />
-        9 - GIAO DỊCH THANH TOÁN
-        <div className="text-sm italic">(PAYMENT TRANSECTION)</div>
-      </h2>
+      <div className="text-center border-blue-800 py-2 relative">
+        <h1 className="text-3xl font-bold inline-block relative">
+          <span className="relative inline-block">
+            9.2
+            {/* input màu nằm dưới số 9.2 */}
+            <input
+              type="color"
+              value={color}
+              onChange={handleChangeColor}
+              className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+            />
+          </span>
+          &nbsp;- GIAO DỊCH THANH TOÁN (RÚT RA)
+        </h1>
+
+        <h2 className="text-2xl text-black mt-2">
+          <i>(Withdrawth Payment)</i>
+        </h2>
+      </div>
 
       {/* Mã QR */}
       <div className=" p-2 mt-2 flex items-center">
@@ -40,21 +50,23 @@ const WithDrawthPaymentPage = () => {
         <div className="grid grid-cols-2 p-2 text-red-500 ">
           <span className="font-bold">
             SỐ TIỀN CẦN RÚT:
-            <div className="text-xs italic">(AMOUNT)</div>
+            <div className="text-xs italic">(Amount)</div>
           </span>
-          <span className="text-center">(nhập)</span>
+          <span className="text-center">
+            <input type="number" className="border" placeholder=" (nhập)" />
+          </span>
         </div>
       </div>
 
       {/* Chấp nhận */}
       <div className="border border-black p-3 mt-2 text-center font-bold rounded text-red-500 ">
         CHẤP NHẬN
-        <div className="text-xs italic">(ACCEPT)</div>
+        <div className="text-xs italic">(Accept)</div>
       </div>
       {/* Tải biên lai */}
       <div className="border border-black p-3 mt-2 text-center font-bold rounded text-red-500 ">
         XEM BIÊN LAI
-        <div className="text-xs italic">(REVIEW BANK TRANSFER BILL)</div>
+        <div className="text-xs italic">(Review bank transfer bill)</div>
       </div>
     </div>
   );

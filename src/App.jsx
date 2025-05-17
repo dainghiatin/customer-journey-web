@@ -7,6 +7,12 @@ import LoginPage from './pages/Login.jsx'
 import PaymentPage from './pages/Payment.jsx'
 import AdditionalPaymentPage from './pages/AdditionalPayment.jsx'
 import WithDrawthPaymentPage from './pages/WithDrawthPayment.jsx'
+import ChangePasswordPage from './pages/ChangePasswordPage.jsx'
+import NewPostPage from './pages/NewPostPage.jsx'
+import NewGoodPostPage from './pages/NewGoodPostPage.jsx'
+import ListOfGoodsPage from './pages/ListOfGoodsPage.jsx'
+import NewFreelancerPostPage from './pages/NewFreelancerPostPage.jsx'
+import FreelancerPage from './pages/FreelancerPage.jsx'
 
 
 function App() {
@@ -19,6 +25,12 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/additional-payment" element={<AdditionalPaymentPage />} />
         <Route path="/with-drawth-payment" element={<WithDrawthPaymentPage />} />
+        <Route path="/change-password" element={<ChangePasswordPage />} />
+        <Route path="/new-post" element={<NewPostPage />} />
+        <Route path="/new-good-post" element={<NewGoodPostPage />} />
+        <Route path="/list-of-goods" element={<ListOfGoodsPage />} />
+        <Route path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
+        <Route path="/freelancer" element={<FreelancerPage />} />
       </Routes>
     </>
   )
