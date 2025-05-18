@@ -1,7 +1,10 @@
+
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/authService";
+import { loginAction } from '../context/action/authActions';
 
 export default function LoginPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
@@ -9,6 +12,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -22,19 +28,13 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:1337/api/auth/login",
-        {
-          cccd,
-          password,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await login(cccd, password);
 
       if (response.status === 200) {
         localStorage.setItem("authToken", response.data.token);
+        dispatch(loginAction(response.data?.user))
+        console.log(auth);
+        
         alert("Đăng nhập thành công!");
         navigate("/"); // Chuyển hướng về trang chủ
       } else {

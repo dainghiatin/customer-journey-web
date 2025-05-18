@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { getFavoriteWallets, getWalletFromToken } from "../services/walletService";
+import { data } from "react-router-dom";
 
 const PaymentPage = () => {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [expanded, setExpanded] = useState(false);
+
+  const [wallet, setWallet] = useState({
+    total: 0,
+    account_of_goods: 0,
+    account_of_freelancer: 0,
+    account_of_ailive: 0,
+    pending_amount: 0
+  })
+
+  const [favorites, setFavorites] = useState([
+    {
+      id: 0,
+      cccd: "(danh bạ)"
+    }
+  ])
+
+  const [favoriteWalletSelected, setFavoriteWalletSelected] = useState(favorites[0])
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -13,6 +32,24 @@ const PaymentPage = () => {
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
+
+  useEffect(()=>{
+    const token = localStorage.getItem("authToken");
+    getWalletFromToken(token).then((res)=>{
+      setWallet(res.data)
+    }).catch((err)=>{
+      console.log(err);
+    })
+    getFavoriteWallets(token).then((res)=>{
+      setFavorites([...favorites, ...res.data?.wallets])
+      console.log(res.data?.wallets);
+      
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+  },[])
+
   return (
     <div className="flex justify-center py-8 px-4">
       <div className="w-full max-w-4xl shadow-lg rounded">
@@ -51,7 +88,7 @@ const PaymentPage = () => {
               Ví <br /> <i>Wallet</i>
             </div>
             <div className="col-span-1 row-span-4 border p-2 flex flex-col items-center justify-center">
-              (lệnh)
+              {wallet?.total}
             </div>
             <div className="col-span-1 row-span-4 border p-2 flex flex-col items-center justify-center">
               VNĐ
@@ -78,7 +115,18 @@ const PaymentPage = () => {
             </div>
             <div className="col-span-2 grid grid-cols-3 border">
               <div className="border p-2">(nhập ID)</div>
-              <div className="border p-2">(danh bạ)</div>
+              {/* <div className="border p-2">(danh bạ)</div> */}
+              <select className="border p-2" 
+              value={favoriteWalletSelected.id}
+              defaultValue={0}
+              onChange={(e)=>setFavoriteWalletSelected(e.target.value)}
+              >
+                {favorites?.map((wallet) => (
+                    <option key={wallet.id} value={wallet.id}>
+                        {wallet.cccd}
+                    </option>
+                ))}
+                </select>
               <div className="border p-2">(quét QR)</div>
             </div>
 

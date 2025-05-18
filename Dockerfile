@@ -1,0 +1,29 @@
+# Use an official Node image as a base
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy rest of the app
+COPY . .
+
+# Define build-time variable (must start with VITE_ for Vite)
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+# Build the Vite app
+RUN npm run build
+
+# Use nginx or other server to serve
+FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
+
+# Expose port
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,5 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'; 
+import { getMetric } from '../services/metricService';
+
+import { logoutAction } from '../context/action/authActions';
 function HeroHeader() {
     return (
         <div style={{ position: "relative", marginBottom: "5vw" }}>
@@ -238,6 +242,10 @@ const DropdownAuth = () => {
     const [isShow, setIsShow] = useState(false);
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+
+    const DEFAULT_AVT = 'https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain';
     // const [password, setPassword] = useState(null);
     useEffect(() => {
         const storedUser = localStorage.getItem('authToken'); 
@@ -246,6 +254,7 @@ const DropdownAuth = () => {
         }
     }
     , []);
+
     return (
         <div style={{ position: 'relative', display: "flex", flexDirection: "column", width: 'fit-content' }}>
             
@@ -262,7 +271,7 @@ const DropdownAuth = () => {
             >
                 {/* Avartar */}
                 {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
-                <img src="https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain" alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
+                <img src={auth.user?.avt?.url || DEFAULT_AVT}  alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
             </button>}
             {!user ? <button
                 onClick={() => { navigate('register') }}
@@ -274,7 +283,7 @@ const DropdownAuth = () => {
                 onClick={() => {
                     localStorage.removeItem('authToken'); // Xóa token khỏi localStorage
                     setUser(null); // Đặt lại trạng thái người dùng
-
+                    dispatch(logoutAction());
                  }}
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}
             >
@@ -286,7 +295,7 @@ const DropdownAuth = () => {
     );
 };
 
-function Body() {
+const Body = () =>{
     return (
         <>
             <main className="main-grid-container" style={{marginBottom:50}}>
@@ -320,7 +329,7 @@ function Body() {
                             <p className='text-sm'><em>(TOTAL LISTED ASSETS VALUE)</em></p>
                         </div>
                         <div  >
-                            <p >123456789</p><p><strong>(LỆNH)</strong></p>
+                            <p >123456789</p><p><strong>(asdasdasda)</strong></p>
                         </div>
                     </div>
                     <div className="main-section-info-1">
