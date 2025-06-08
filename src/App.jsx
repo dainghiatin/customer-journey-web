@@ -11,7 +11,6 @@ import ChangePasswordPage from './pages/ChangePasswordPage.jsx'
 import NewPostPage from './pages/NewPostPage.jsx'
 import NewGoodPostPage from './pages/NewGoodPostPage.jsx'
 import ListOfGoodsPage from './pages/ListOfGoodsPage.jsx'
-import NewFreelancerPostPage from './pages/NewFreelancerPostPage.jsx'
 import FreelancerPage from './pages/FreelancerPage.jsx'
 import DetailOfGoodsPage from './pages/DetailOfGoodsPage.jsx'
 
@@ -30,7 +29,6 @@ function App() {
         <Route path="/new-post" element={<NewPostPage />} />
         <Route path="/new-good-post" element={<NewGoodPostPage />} />
         <Route path="/list-of-goods" element={<ListOfGoodsPage />} />
-        <Route path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
         <Route path="/freelancer" element={<FreelancerPage />} />
         <Route path="/detail-of-goods" element={<DetailOfGoodsPage />} />
       </Routes>

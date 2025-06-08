@@ -5,12 +5,44 @@ import { hsvaToHex } from '@uiw/color-convert';
 import { useState, Fragment, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  HeroHeader, Body, ActionSection, SearchSection,DropdownAuth } from "../components/Body";
+import { getMetric } from "../services/metricService";
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
 
 
 const DataTable = () => {
+
+    const [metric, setMetric] = useState(
+        {
+            listedValue: "0",
+            transactions: "0",
+            accesses: "0",
+            successfully: "0",
+            amount: "0",
+            duration: "0",
+            latestBank: "0",
+            deposited: "0",
+            videoViews: "0",
+            withdrawn: "0",
+            members: 0,
+            remaining: "0",
+            online: 1,
+        }
+    );
+
+    useEffect(() => {
+        getMetric()
+            .then((response) => {
+                setMetric(response.data?.data);
+                console.log(response.data?.data);
+                
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, []);
+
     return (
       <div className="overflow-x-auto h-full w-full">
         <table className="border border-black text-sm text-left h-full w-full">
@@ -22,30 +54,30 @@ const DataTable = () => {
                 <br />
                 <span className="italic lowercase font-normal">(LISTED VALUE)</span>
               </td>
-              <td className="p-2 border border-black">123456789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.listedValue}</strong></td>
               <td className="p-2 border border-black font-bold">LƯỢT GIAO DỊCH:<br /><span className="italic lowercase font-normal">(TRANSACTIONS)</span></td>
-              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><strong>{metric.transactions}</strong></td>
               <td className="p-2 border border-black font-bold">LƯỢT TRUY CẬP:<br /><span className="italic lowercase font-normal">(ACCESSES)</span></td>
-              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.accesses}</strong></td>
             </tr>
             
             {/* Row 2 */}
             <tr className="border border-black">
               <td className="p-2 border border-black font-bold">THÀNH CÔNG:<br /><span className="italic lowercase font-normal">(SUCCESSFULLY)</span></td>
-              <td className="p-2 border border-black">23456789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.successfully}</strong></td>
               <td className="p-2 border border-black font-bold">SỐ TIỀN:<br /><span className="italic lowercase font-normal">(AMOUNT)</span></td>
-              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><strong>{metric.amount}</strong></td>
               <td className="p-2 border border-black font-bold">THỜI LƯỢNG:<br /><span className="italic lowercase font-normal">(DURATION)</span></td>
-              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.duration}</strong></td>
             </tr>
             
             {/* Row 3 - Single Row */}
             <tr className="border border-black">
               <td className="p-2 border border-black font-bold text-center" colSpan={2}>NGÂN HÀNG CẬP NHẬT<br /><span className="italic lowercase font-normal">(ẩn - hiện)</span></td>
               <td className="p-2 border border-black font-bold">ĐÃ GỬI:<br /><span className="italic lowercase font-normal">(DEPOSITED)</span></td>
-              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><strong>{metric.deposited}</strong></td>
               <td className="p-2 border border-black font-bold">LƯỢT XEM VIDEO:<br /><span className="italic lowercase font-normal">(VIDEO VIEWS)</span></td>
-              <td className="p-2 border border-black">12345678<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.videoViews}</strong></td>
             </tr>
             
             {/* Row 4 */}
@@ -53,9 +85,9 @@ const DataTable = () => {
               <td className="p-2 border border-black font-bold">CÓ KỲ HẠN</td>
               <td className="p-2 border border-black">CẬP NHẬT</td>
               <td className="p-2 border border-black font-bold">ĐÃ RÚT:<br /><span className="italic lowercase font-normal">(WITHDRAWED)</span></td>
-              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><strong>{metric.withdrawn}</strong></td>
               <td className="p-2 border border-black font-bold">THÀNH VIÊN:<br /><span className="italic lowercase font-normal">(MEMBERS)</span></td>
-              <td className="p-2 border border-black">56789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.members}</strong></td>
             </tr>
             
             {/* Row 5 */}
@@ -63,9 +95,9 @@ const DataTable = () => {
               <td className="p-2 border border-black font-bold">KHÔNG KỲ HẠN</td>
               <td className="p-2 border border-black">CẬP NHẬT</td>
               <td className="p-2 border border-black font-bold">CÒN LẠI:<br /><span className="italic lowercase font-normal">(REMAINING)</span></td>
-              <td className="p-2 border border-black"><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><strong>{metric.remaining}</strong></td>
               <td className="p-2 border border-black font-bold">TRUY CẬP:<br /><span className="italic lowercase font-normal">(ONLINE)</span></td>
-              <td className="p-2 border border-black">56789<br /><strong>(LỆNH)</strong></td>
+              <td className="p-2 border border-black"><br /><strong>{metric.online}</strong></td>
             </tr>
           </tbody>
         </table>
