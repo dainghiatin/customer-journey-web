@@ -13,6 +13,7 @@ import NewGoodPostPage from './pages/NewGoodPostPage.jsx'
 import ListOfGoodsPage from './pages/ListOfGoodsPage.jsx'
 import NewFreelancerPostPage from './pages/NewFreelancerPostPage.jsx'
 import FreelancerPage from './pages/FreelancerPage.jsx'
+import DetailOfGoodsPage from './pages/DetailOfGoodsPage.jsx'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/list-of-goods" element={<ListOfGoodsPage />} />
         <Route path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
         <Route path="/freelancer" element={<FreelancerPage />} />
+        <Route path="/detail-of-goods" element={<DetailOfGoodsPage />} />
       </Routes>
     </>
   )

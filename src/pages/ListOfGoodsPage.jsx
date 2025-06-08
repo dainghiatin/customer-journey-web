@@ -167,7 +167,11 @@ export default function ListOfGoodsPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
               {/* Generate 12 sample items */}
               {Array(12).fill().map((_, index) => (
-                <div key={index} className="border border-gray-300 p-2 flex flex-col relative overflow-hidden">
+                <div 
+                  key={index} 
+                  className="border border-gray-300 p-2 flex flex-col relative overflow-hidden cursor-pointer hover:bg-gray-100 transition-colors"
+                  onClick={() => navigate('/detail-of-goods')}
+                >
                   {/* Background watermark image */}
                   <div className="absolute inset-0 opacity-15 z-0">
                     <img 

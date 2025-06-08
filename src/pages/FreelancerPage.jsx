@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FreelancerActuallyComponent from "../components/FreelancerActuallyComponent";
+import FreelancerOnlineComponent from "../components/FreelancerOnlineComponent";
 
 export default function FreelancerPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
+  const [activeTab, setActiveTab] = useState("actual"); // "actual" or "online"
   const navigate = useNavigate();
 
   const handleChangeColor = (e) => {
@@ -80,17 +83,30 @@ export default function FreelancerPage() {
 
             {/* Row 3: THỰC TẾ / TRỰC TUYẾN */}
             <div className="grid grid-cols-2 mt-4">
-              <div className="p-3 border border-gray-300 text-center font-bold">
+              <div 
+                className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
+                onClick={() => setActiveTab("actual")}
+              >
                 THỰC TẾ
                 <div className="text-sm text-gray-500"><i>(Actual)</i></div>
               </div>
-              <div className="p-3 border border-gray-300 text-center font-bold">
+              <div 
+                className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
+                onClick={() => setActiveTab("online")}
+              >
                 TRỰC TUYẾN
                 <div className="text-sm text-gray-500"><i>(Online)</i></div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Render the appropriate component based on the active tab */}
+        {activeTab === "actual" ? (
+          <FreelancerActuallyComponent />
+        ) : (
+          <FreelancerOnlineComponent />
+        )}
       </div>
     </div>
   );

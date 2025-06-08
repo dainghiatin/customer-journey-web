@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NewPostPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
@@ -50,16 +50,16 @@ export default function NewPostPage() {
         <div className="mt-6">
           <div className="grid grid-cols-3 gap-4 border border-gray-300">
             {/* Column 1 */}
-            <div className="border-r border-gray-400 p-4 text-center">
+            <Link to={'../new-good-post'} className="border-r border-gray-400 p-4 text-center">
               <h3 className="font-bold text-lg">HÀNG HÓA</h3>
               <p className="text-sm italic">(Goods)</p>
-            </div>
+            </Link>
 
             {/* Column 2 */}
-            <div className="border-r border-gray-400 p-4 text-center">
+            <Link to={'../new-freelancer-post'} className="border-r border-gray-400 p-4 text-center">
               <h3 className="font-bold text-lg">CÔNG VIỆC TỰ DO</h3>
               <p className="text-sm italic">(Freelancer)</p>
-            </div>
+            </Link>
 
             {/* Column 3 */}
             <div className="p-4 text-center">

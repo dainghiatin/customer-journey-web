@@ -9,7 +9,7 @@ function HeroHeader() {
             </div>
             <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight:"bold" }}>
                 <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Target: national <em className='text-red-500'>V</em>-commercial)</em></h4>
+                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Target: E-commercial of each nation)</em></h4>
             </div>
             <aside className="main-aside-2" >
                 <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
@@ -17,18 +17,18 @@ function HeroHeader() {
                         <p><strong>Ai LIVE</strong></p>
                     </div>
                 </div>
-                <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]"  style={{ position: "absolute", top: '3.5vw',  textAlign: "center"  }}>
+                <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]"  style={{ position: "absolute", top: '3.5vw',  textAlign: "center"  }}>
                     <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
                         <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>
                     </div>
-                </div>
-                <div className="main-aside-2-2 w-[18vw] left-[18vw] sm:w-[12vw] sm:left-[24vw]"  style={{position: "absolute", bottom: '-2vw'}}>
+                </Link>
+                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[18vw] left-[18vw] sm:w-[12vw] sm:left-[24vw]"  style={{position: "absolute", bottom: '-2vw'}}>
                     <div style={{ color: "black", textAlign: "center", fontSize: "clamp(6px, 1vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
                         <p><strong>CÔNG VIỆC TỰ DO</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>(Freelancer)</p>
                     </div>
-                </div>
+                </Link>
                 <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[18vw] right-[18vw] sm:w-[12vw] sm:right-[24vw]" style={{ position: "absolute", bottom: "-2vw"}}>
                     <div style={{ color: "black", fontSize: "clamp(5px, 1vw, 15px)", textAlign: "center",height:"clamp(20px,4vw, 60px)", display:"flex", flexDirection:"column", justifyContent:"center" }}>
                         <p className=""><strong>GIAO DỊCH THANH TOÁN</strong></p>
