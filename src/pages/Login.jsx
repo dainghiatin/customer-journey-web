@@ -132,10 +132,10 @@ export default function LoginPage() {
                   <input
                     type="text"
                     className="border px-3 py-3 rounded w-full text-sm h-[64px]"
-                    placeholder="NHẬP KÝ TỰ KHÔI PHỤC MẬT KHẨU"
+                    placeholder="NHẬP KÝ TỰ KHÔI PHỤC TAI KHOẢN"
                   />
                   <p className="text-xs text-gray-500 italic mt-1">
-                    (input password recovery character to unlock endsub)
+                    (input account recovery character to unlock)
                   </p>
                 </div>
                 <div className="flex-[1]">

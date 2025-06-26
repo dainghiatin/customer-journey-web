@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getCountries } from "../services/countries";
+import Select from "react-select";
 
 const generateRandomPassword = (length = 8) => {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -31,6 +33,7 @@ const generateRandomPassword = (length = 8) => {
 export default function RegisterPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const navigate = useNavigate();
+  const [countries, setCountries] = useState([]);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -45,7 +48,7 @@ export default function RegisterPage() {
     address_on_map: "",
   });
   const [error, setError] = useState("");
-
+  const [page, setPage] = useState(1);
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
     setColor(newColor);
@@ -54,6 +57,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
+    fetchCountries();
   }, [color]);
 
   const handleInputChange = (e) => {
@@ -106,6 +110,22 @@ export default function RegisterPage() {
     }
   };
 
+  const fetchCountries = async () => {
+    try {
+      const rs = await getCountries()
+
+      setCountries(
+        rs.map((country) => ({
+          value: country.vi,
+          label: country.vi,
+        }))
+      );
+
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách quốc gia:", error);
+    }
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
@@ -131,57 +151,47 @@ export default function RegisterPage() {
             </h2>
           </div>
         </div>
-        <div className="mt-6">
+        {page === 1 && ( <div className="mt-6">
+          <div className="space-y-4 mt-4"> 
+             <div className="grid grid-cols-1 items-center gap-4">
+                <div className="relative w-full flex items-center">
+                  <Select
+                    options={countries} // mảng bạn đã set bằng setCountries
+                    onChange={(option) => console.log(option.value)}
+                    placeholder="Quốc gia (Nation)"
+                    className="w-full"
+                  />
+                  <span className="text-red-500 ml-2"></span>
+                  <span className="text-red-500 ml-2"></span>
+                </div>
+              </div> 
+             {/* <span className="text-red-500 ml-2">*</span> */}
+          </div>
           <div className="space-y-4 mt-4">
             {error && <p className="text-red-500">{error}</p>}
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                1. CCCD/ MST NGƯỜI GIỚI THIỆU: <br />
-                <span className="text-xs text-gray-600">
-                  (Introducing from ID)
-                </span>
-              </label> */}
-              <input
-                type="text"
-                className="border p-2 rounded w-full"
-                placeholder="CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)"
-              />
+                <div className="relative w-full flex items-center">
+                  <input
+                    type="text"
+                    className="border p-2 rounded w-full"
+                    placeholder="CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)"
+                  />
+                  <span className="text-red-500 ml-2"></span>
+                  <span className="text-red-500 ml-2"> </span>
+                </div>
             </div>
 
+
+
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                2. HỢP ĐỒNG: <br />
-                <span className="text-xs text-gray-600">(The Contract)</span>
-              </label> */}
               <div className="relative w-full flex items-center">
-                <button className="border-1 text-black px-6 py-2 rounded hover:bg-gray-200 flex-1">
-                  Ấn xem file hợp đồng (The Contract)
-                </button>
+                <input type="file" 
+                className="w-full h-10 border" />
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                3. KÝ HỢP ĐỒNG: <br />
-                <span className="text-xs text-gray-600">(Sign contract)</span>
-              </label> */}
-              <div className="relative w-full flex items-center">
-                <input
-                  type="checkbox"
-                  className="w-10 h-10 border mr-3 border-radius-10"
-                />
-                XÁC NHẬN KÝ HỢP ĐỒNG VÀ GỬI MẪU CHỮ KÝ <br /> (Confirm sign
-                contract and upload your signature)
-                <input type="file" className="w-100 h-10 border ml-4" />
-                <span className="text-red-500 ml-2">*</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                4. HỌ TÊN / TÊN DOANH NGHIỆP: <br />
-                <span className="text-xs text-gray-600">(Full name)</span>
-              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
@@ -194,6 +204,7 @@ export default function RegisterPage() {
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
+
             <div className="grid grid-cols-1 items-center gap-4">
               {/* <label className="text-left">
                 5. CCCD/MST: <br />
@@ -206,6 +217,24 @@ export default function RegisterPage() {
                   placeholder="CCCD/MST (ID)"
                   name="cccd"
                   value={formData.cccd}
+                  onChange={handleInputChange}
+                />
+                <span className="text-red-500 ml-2">*</span>
+              </div>
+            </div>
+
+                        <div className="grid grid-cols-1 items-center gap-4">
+              {/* <label className="text-left">
+                4. HỌ TÊN / TÊN DOANH NGHIỆP: <br />
+                <span className="text-xs text-gray-600">(Full name)</span>
+              </label> */}
+              <div className="relative w-full flex items-center">
+                <input
+                  type="text"
+                  className="border p-2 rounded w-full"
+                  placeholder="Địa chỉ trên CCCD/ MST (Address on ID)"
+                  name="address_on_cccd"
+                  value={formData.address_on_cccd}
                   onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
@@ -313,7 +342,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="KÝ TỰ KHÔI PHỤC MẬT KHẨU (Password recovery character)"
+                  placeholder="KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery characte)"
                   // name="bank_number"
                   // value={formData.bank_number}
                   // onChange={handleInputChange}
@@ -332,7 +361,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="NHẬP LẠI KÝ TỰ KHÔI PHỤC MẬT KHẨU (Repeat password recovery character)"
+                  placeholder="NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)"
                   // name="bank_number"
                   // value={formData.bank_number}
                   // onChange={handleInputChange}
@@ -340,19 +369,40 @@ export default function RegisterPage() {
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
+            
+          </div>
+          <div className="text-center mt-4">
+            <button
+              className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
+              onClick={()=>setPage(2)}
+            >
+              Tiếp Theo <br />
+              <span className="text-xs text-gray-600">(Next)</span>
+            </button>
+          </div>
+        </div>)}
+        {page === 2 && (
+          <div className="mt-6">
+           
+            <button
+              className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center"
+            >
+              KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ
+              <br />
+              (Check the Contract)
+              <br />
+              (Ấn xem file)
+            </button>
+
             <div className="flex items-start gap-2">
               <div className="flex flex-col items-center">
                 <input type="checkbox" className="w-5 h-5" />
                 <span className="text-red-500 text-lg">*</span>
               </div>
               <div className="text-left">
-                Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng
-                cũng như tuân thủ mọi điều khoản và điều kiện do website - app
-                yêu cầu bao gồm các nội dung sau: <br />
+                Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng cũng như tuân thủ mọi điều khoản và điều kiện do website - app yêu cầu bao gồm thêm các nội dung sau: <br />
                 <span className="text-xs text-gray-600">
-                  (I confirm that I have read, understood and agreed to sign the
-                  contract and comply with all terms and conditions required by
-                  the website - app including the following contents)
+                  (I confirm that I have read, understood and agreed to sign the contract and comply with all terms and conditions required by the website - app including more contents that:)
                 </span>{" "}
                 <br />
                 <b>1. Tự động đăng xuất sau 168 h đăng nhập.</b> <br />
@@ -378,22 +428,19 @@ export default function RegisterPage() {
                   (Login incorrectly 05 times in a row will lock the account)
                 </span>
                 <br />
-                5…..
+               <b>5.Tự động xóa bài sau 365 ngày được đăng.</b>
+                <br />
+                <span className="text-xs text-gray-600">
+                  (Automatically delete after 365 days posted)
+                </span>
+                <br />
               </div>
             </div>
             <p></p>
           </div>
-          <div className="text-center mt-4">
-            <button
-              className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
-              onClick={handleRegister}
-            >
-              ĐĂNG KÝ <br />
-              <span className="text-xs text-gray-600">(REGISTER)</span>
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
+
 }

@@ -73,19 +73,19 @@ export default function ChangePasswordPage() {
           <div className="text-center w-full relative">
             <h1 className="text-3xl font-bold text-black inline-block relative">
               <span className="relative inline-block">
-                1{/* input màu nằm dưới số 1 */}
+               {/* input màu nằm dưới số 1 */}
                 <input
                   type="color"
                   value={color}
                   onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                  className="absolute left-[-50px] transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- ĐĂNG KÝ
+               ĐỔI MẬT KHẨU
             </h1>
 
             <h2 className="text-2xl text-black mt-2">
-              <i>(Register)</i>
+              <i>(Change your password)</i>
             </h2>
           </div>
         </div>
@@ -114,16 +114,26 @@ export default function ChangePasswordPage() {
               className="border p-2 rounded w-full"
               placeholder="MẬT KHẨU CŨ (Old password)"
             />
+   
+          <input
+            type="password"
+            className="border p-2 rounded w-full text-sm min-h-[50px]"
+            placeholder="MẬT KHẨU MỚI"
+          />
+          <label className="text-xs text-gray-500">
+            (chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt)<br />
+            (min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character)
+          </label>
+
             <input
               type="password"
               className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-              placeholder="MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt)(New password inlclude UPPERCASE, lowercase letters, numbers, and special characters)"
+              placeholder="NHẬP LẠI MẬT KHẨU MỚI"
             />
-            <input
-              type="password"
-              className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-              placeholder="NHẬP LẠI MẬT KHẨU MỚI (chứa IN HOA, chữ thường, số, và ký tự đặc biệt)(Repeat new password  inlclude UPPERCASE, lowercase letters, numbers, and special characters)"
-            />
+            <label className="text-xs text-gray-500">
+              (chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt)<br />
+              (min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character)
+            </label>
           </div>
 
           <div className="text-center mt-4">

@@ -13,8 +13,9 @@ import NewGoodPostPage from './pages/NewGoodPostPage.jsx'
 import ListOfGoodsPage from './pages/ListOfGoodsPage.jsx'
 import FreelancerPage from './pages/FreelancerPage.jsx'
 import DetailOfGoodsPage from './pages/DetailOfGoodsPage.jsx'
-
-
+import NewFreelancerPostPage from './pages/NewFreelancerPostPage.jsx'
+import AiLivePage from './pages/AiLivePage.jsx'
+import NewAiLivePostPage from './pages/NewAiLivePostPage.jsx'
 function App() {
   return (
     <>
@@ -26,11 +27,17 @@ function App() {
         <Route path="/additional-payment" element={<AdditionalPaymentPage />} />
         <Route path="/with-drawth-payment" element={<WithDrawthPaymentPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
+
+        
         <Route path="/new-post" element={<NewPostPage />} />
         <Route path="/new-good-post" element={<NewGoodPostPage />} />
         <Route path="/list-of-goods" element={<ListOfGoodsPage />} />
         <Route path="/freelancer" element={<FreelancerPage />} />
+        <Route path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
         <Route path="/detail-of-goods" element={<DetailOfGoodsPage />} />
+
+        <Route path="/ai-live" element={<AiLivePage />} />
+        <Route path="/new-ai-live-post" element={<NewAiLivePostPage />} />
       </Routes>
     </>
   )

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
 
 import { logoutAction } from '../context/action/authActions';
+
+import Select from 'react-select';
+import { getCountries, getCountryByCode } from '../services/countries';
 function HeroHeader() {
     return (
         <div style={{ position: "relative", marginBottom: "5vw" }}>
@@ -13,7 +16,11 @@ function HeroHeader() {
             </div>
             <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight:"bold" }}>
                 <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Target: E-commercial of each nation)</em></h4>
+                <h4 className='' style={{ color: "black", fontSize: '2vw' }}>
+                    <em>
+                        (Target: <span style={{ color: 'red' }}>N</span>ational <span style={{ color: 'red' }}>V</span>-Commercial)
+                    </em>
+                </h4>
             </div>
             <aside className="main-aside-2" >
                 <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
@@ -119,13 +126,52 @@ const regions = [
     { vi: "TÂY NGUYÊN", en: "HIGHLANDS", num: "VII" },
     { vi: "NƯỚC KHÁC", en: "OTHER COUNTRIES", num: "VIII" },
 ];
-const CategorySelect = ({ title, items }) => {
+
+// const SelectNation = ({ title, items }) => {
+//     const options = [
+//         { value: 'vietnam', label: 'Vietnam' },
+//         { value: 'usa', label: 'USA' },
+//         { value: 'japan', label: 'Japan' }
+//     ];
+//     const handleChange = (selectedOption) => {
+//         console.log('Selected:', selectedOption);
+//     };
+//     useEffect(() => {
+
+//     }, []);
+//     return (
+//         <div style={{ width: "50%", position: "relative" }}>
+//             <Select options={options} onChange={handleChange} />
+//         </div>
+//     )
+// }
+
+const CategorySelect = ({ title, items, setNation, Nation }) => {
+    const [itemList, setItemList] = useState(items);
     const [selected, setSelected] = useState(items[0]?.vi || "");
     const [selected_en, setSelectedEN] = useState(items[0]?.en || "");
     const [open, setOpen] = useState(false);
 
+    const fetchCountries = async () => {
+        const response = await getCountries();
+        setItemList(response);
+    }
+    const fetchProvices = async () => {
+        const response = await getCountryByCode(Nation);
+        setItemList(response);
+    }
+
+    useEffect(() => {
+        if (title == "Nation") {
+            fetchCountries()
+        }
+        if (title == "Province") {
+            fetchProvices()
+        }
+    }, [title, Nation]);
+
     return (
-        <div style={{ width: "50%", position: "relative" }}>
+        <div style={{ width: "80%", position: "relative" }}>
             {/* Ô chọn (giống <select>) */}
             <div 
                 onClick={() => setOpen(!open)} 
@@ -154,10 +200,11 @@ const CategorySelect = ({ title, items }) => {
                 <ul 
                     style={{
                         position: "absolute", width: 340, border: "2px solid black",
-                        background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000
+                        background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000,
+                        maxHeight:"300px", overflowY:"auto",
                     }}
                 >
-                    {items.map((item, index) => (
+                    {itemList.map((item, index) => (
                         <li 
                             key={index} 
                             style={{
@@ -166,7 +213,11 @@ const CategorySelect = ({ title, items }) => {
                                 display: "flex", justifyContent: "center",
                                 flexDirection: "column", textAlign: "center"
                             }}
-                            onClick={() => { setSelected(item.vi); setOpen(false); setSelectedEN(item.en) }}
+                            onClick={() => { setSelected(item.vi); setOpen(false); setSelectedEN(item.en)
+                                if (title === "Nation") {
+                                    setNation(item.en);
+                                }
+                             }}
                         >
                             <span className="font-bold">{item.vi}</span> 
                             <b className='lowercase'>({item.en})</b>
@@ -179,6 +230,7 @@ const CategorySelect = ({ title, items }) => {
 };
 
 function ActionSection() {
+    const [Nation, setNation] = useState("Vietnam");
     return (
         <section className="action-section" style={{}}>
             <div className="action-section-1" style={{ gap: 10 }}>
@@ -227,11 +279,12 @@ function ActionSection() {
 
             </div>
 
-            <div className="action-section-2" style={{ gap: 10 }}>
-                <CategorySelect title="DANH MỤC" items={categories} />
-                <CategorySelect title="Subcategories" items={subCategories} />
-                <CategorySelect title="Conditions" items={conditions} />
-                <CategorySelect title="Regions" items={regions} />
+            <div className="action-section-2" style={{ gap: 4 }}>
+                <CategorySelect title="DANH MỤC" items={categories} setNation={setNation} Nation={Nation} />
+                <CategorySelect title="Subcategories" items={subCategories} setNation={setNation} Nation={Nation} />
+                <CategorySelect title="Conditions" items={conditions} setNation={setNation} Nation={Nation} />
+                <CategorySelect title="Nation" items={regions} setNation={setNation} Nation={Nation} />
+                <CategorySelect title="Province" items={regions} setNation={setNation} Nation={Nation} />
             </div>
 
         </section>
@@ -265,14 +318,20 @@ const DropdownAuth = () => {
                 ĐĂNG NHẬP
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div>
             </button>:
-            <button
-                onClick={() => { navigate('login') }}
+            <div
+                
+                className='flex flex-col items-center justify-center'
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" ,justifyContent:"center", alignItems:"center", display:"flex"}}
             >
                 {/* Avartar */}
                 {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
-                <img src={auth.user?.avt?.url || DEFAULT_AVT}  alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
-            </button>}
+                <button onClick={() => { navigate('login') }}>
+                    <img src={auth.user?.avt?.url || DEFAULT_AVT}  alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
+                </button>
+                 <button>
+                    <i className="fa-solid fa-keyboard text-3xl"></i>
+                </button>
+            </div>}
             {!user ? <button
                 onClick={() => { navigate('register') }}
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}

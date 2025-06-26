@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdditionalPaymentPage = () => {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [expanded, setExpanded] = useState(false);
-
+  const navigate = useNavigate();
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
     setColor(newColor);
@@ -14,8 +15,12 @@ const AdditionalPaymentPage = () => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
   return (
-    <div className="shadow-lg rounded max-w-2xl mx-auto p-4">
+    <div className="shadow-lg rounded max-w-2xl mx-auto p-4   ">
       {/* Tiêu đề */}
+      <div className="relative justify-between flex">
+        <button onClick={()=>{navigate("../")}}  className=" p-2 border">Home</button>
+        <button className=" right-0 p-2 border" >3-BĐK</button>
+      </div>
       <div className="text-center border-blue-800 py-2 relative">
         <h1 className="text-3xl font-bold inline-block relative">
           <span className="relative inline-block">
@@ -38,7 +43,7 @@ const AdditionalPaymentPage = () => {
 
       {/* Mã QR */}
       <div className=" p-2 mt-2 flex items-center">
-        <span className="ml-2 font-bold">MÃ QR:</span>
+        <span className="ml-2 font-bold">QR</span>
       </div>
 
       {/* Bảng thông tin */}

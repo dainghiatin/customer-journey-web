@@ -4,7 +4,33 @@ import "../styles/Login.css";
 
 export default function DetailOfGoodsPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [selectedCondition, setSelectedCondition] = useState("");
   const navigate = useNavigate();
+
+  const categories = {
+    sale: { vi: "HÀNG BÁN", en: "Sale" },
+    buy: { vi: "CẦN MUA", en: "Buy" },
+    rent: { vi: "HÀNG THUÊ", en: "Rent" },
+    forRent: { vi: "CHO THUÊ", en: "For rent" },
+    service: { vi: "DỊCH VỤ", en: "Service" }
+  };
+
+  const subcategories = {
+    goods: { vi: "HÀNG HÓA", en: "Goods" },
+    land: { vi: "BẤT ĐỘNG SẢN", en: "Land/house" },
+    vehicle: { vi: "PHƯƠNG TIỆN", en: "Vehicle" },
+    manpower: { vi: "NHÂN LỰC", en: "Manpower" },
+    importExport: { vi: "XUẤT - NHẬP KHẨU", en: "Import - Export" }
+  };
+
+  const conditions = {
+    scrap: { vi: "PHẾ LIỆU", en: "Scrap" },
+    new: { vi: "MỚI", en: "New" },
+    old: { vi: "CŨ", en: "Old" },
+    unused: { vi: "CHƯA SỬ DỤNG", en: "Unused" }
+  };
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -39,53 +65,63 @@ export default function DetailOfGoodsPage() {
         </div>
 
         {/* Category Selection Table */}
-        {/* Category Selection Row (with <select> dropdowns) */}
-<div className="grid grid-cols-4 border border-gray-300">
-  <div className="border-r border-gray-300 p-2 text-center">
-    <label className="block font-semibold mb-1">Loại giao dịch</label>
-    <select className="w-full border border-gray-300 rounded p-1">
-      <option value="sale">HÀNG BÁN (Sale)</option>
-      <option value="buy">CẦN MUA (Buy)</option>
-      <option value="rent">HÀNG THUÊ (Rent)</option>
-      <option value="for_rent">CHO THUÊ (For rent)</option>
-      <option value="service">DỊCH VỤ (Service)</option>
-    </select>
-  </div>
-  <div className="border-r border-gray-300 p-2 text-center">
-    <label className="block font-semibold mb-1">Danh mục chính</label>
-    <select className="w-full border border-gray-300 rounded p-1">
-      <option value="goods">HÀNG HÓA (Goods)</option>
-      <option value="land">BẤT ĐỘNG SẢN (Land, house)</option>
-      <option value="vehicle">PHƯƠNG TIỆN (Vehicle)</option>
-      <option value="manpower">NHÂN LỰC (Manpower)</option>
-      <option value="import_export">XUẤT - NHẬP KHẨU (Import - Export)</option>
-    </select>
-  </div>
-  <div className="border-r border-gray-300 p-2 text-center">
-    <label className="block font-semibold mb-1">Tình trạng</label>
-    <select className="w-full border border-gray-300 rounded p-1">
-      <option value="scrap">PHỤ LIỆU (Scrap)</option>
-      <option value="new">MỚI (New)</option>
-      <option value="old">CŨ (Old)</option>
-      <option value="unused">CHƯA SỬ DỤNG (Unused)</option>
-    </select>
-  </div>
-  <div className="p-2 text-center">
-    <label className="block font-semibold mb-1">Vị trí</label>
-    <select className="w-full border border-gray-300 rounded p-1 mb-1">
-      <option value="all">TẤT CẢ (All)</option>
-    </select>
-    <select className="w-full border border-gray-300 rounded p-1 mb-1">
-      <option value="">Chọn tỉnh (Select province)</option>
-      {/* Bạn có thể thêm các tỉnh cụ thể ở đây */}
-    </select>
-    <select className="w-full border border-gray-300 rounded p-1">
-      <option value="">Chọn nước (Select country)</option>
-      {/* Bạn có thể thêm các nước cụ thể ở đây */}
-    </select>
-  </div>
-</div>
-
+        <div className="w-full border border-gray-300 mt-4">
+          <table className="w-full border-collapse">
+            <tbody>
+              <tr>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                  <select 
+                    className="w-full p-2 border border-gray-300 rounded"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                  >
+                    <option value="">Chọn loại</option>
+                    {Object.entries(categories).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {value.vi} ({value.en})
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                  <select 
+                    className="w-full p-2 border border-gray-300 rounded"
+                    value={selectedSubcategory}
+                    onChange={(e) => setSelectedSubcategory(e.target.value)}
+                  >
+                    <option value="">Chọn loại</option>
+                    {Object.entries(subcategories).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {value.vi} ({value.en})
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                  <select 
+                    className="w-full p-2 border border-gray-300 rounded"
+                    value={selectedCondition}
+                    onChange={(e) => setSelectedCondition(e.target.value)}
+                  >
+                    <option value="">Chọn loại</option>
+                    {Object.entries(conditions).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {value.vi} ({value.en})
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="border border-gray-300 p-2 text-center font-bold w-2/5">
+                  <select className="w-full p-2 border border-gray-300 rounded">
+                    <option value="">TẤT CẢ (All)</option>
+                    <option value="">Chọn tỉnh (Select province)</option>
+                    <option value="">Chọn nước (Select country)</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         {/* ID Section */}
         <div className="w-full border border-gray-300 mt-4">

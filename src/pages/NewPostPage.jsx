@@ -63,7 +63,7 @@ export default function NewPostPage() {
 
             {/* Column 3 */}
             <div className="p-4 text-center">
-              <h3 className="font-bold text-lg">AI LIVE</h3>
+              <h3 className="font-bold text-lg">Ai LIVE</h3>
             </div>
           </div>
         </div>
