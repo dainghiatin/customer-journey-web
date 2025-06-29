@@ -18,16 +18,16 @@ function HeroHeader() {
                 <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA</h3>
                 <h4 className='' style={{ color: "black", fontSize: '2vw' }}>
                     <em>
-                        (Target: <span style={{ color: 'red' }}>N</span>ational <span style={{ color: 'red' }}>V</span>-Commercial)
+                        (Target: <span style={{ color: 'black' }}>N</span>ational <span style={{ color: 'red' }}>V</span>-Commercial)
                     </em>
                 </h4>
             </div>
             <aside className="main-aside-2" >
-                <div className="main-aside-2-1 w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
+                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
                     <div style={{ color: "black", textAlign: "center",height: "clamp(20px,4vw, 60px)" }}>
                         <p><strong>Ai LIVE</strong></p>
                     </div>
-                </div>
+                </Link>
                 <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]"  style={{ position: "absolute", top: '3.5vw',  textAlign: "center"  }}>
                     <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
                         <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>

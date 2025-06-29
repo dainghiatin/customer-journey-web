@@ -117,17 +117,17 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-4">
+            <div className="grid grid-cols-1 items-center gap-4">
               <div className="flex gap-4 w-full">
                 <button
-                  className="border-2 border-black text-black font-bold px-6 py-4 rounded hover:bg-gray-200 flex-1"
+                  className="border-2 w-[50%] border-black text-black font-bold px-6 py-4 rounded hover:bg-gray-200 flex-1"
                   onClick={handleLogin}
                 >
                   ĐĂNG NHẬP <br />
                   <span className="text-xs text-gray-600">(Log in)</span>
                 </button>
               </div>
-              <div className="flex gap-4 w-full">
+              {/* <div className="flex gap-4 w-full">
                 <div className="flex-[2]">
                   <input
                     type="text"
@@ -144,7 +144,7 @@ export default function LoginPage() {
                     (Verify)
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
             {errorMessage && (
               <h2 className="text-xl text-center text-red-500">

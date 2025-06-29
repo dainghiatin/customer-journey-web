@@ -17,12 +17,12 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span>
+              {/* TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span> */}
             </div>
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="Nhập tên công việc"
+              placeholder="TÊN CÔNG VIỆC (Name of JOB)"
             />
           </div>
         </div>
@@ -35,12 +35,12 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span>
+              {/* ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span> */}
             </div>
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="Nhập ước lượng"
+              placeholder=" ƯỚC LƯỢNG (Estimate)"
             />
           </div>
         </div>
@@ -52,12 +52,12 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              YÊU CẦU NHÂN LỰC <span className="italic font-normal text-sm">(Manpower equipment)</span>
+              {/* YÊU CẦU NHÂN LỰC <span className="italic font-normal text-sm">(Manpower equipment)</span> */}
             </div>
             <textarea
               className="w-full mt-2 p-2 border border-gray-300 rounded"
               rows="3"
-              placeholder="Nhập yêu cầu nhân lực"
+              placeholder="YÊU CẦU NHÂN LỰC (Manpower equipment)"
             ></textarea>
           </div>
         </div>

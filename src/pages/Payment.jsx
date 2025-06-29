@@ -36,7 +36,19 @@ const GoodsPaymentPage = () => {
           </select>
         </div>
       </div>
-
+      <div className="grid grid-cols-10 border-blue-800">
+        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+          ĐANG NHẬN CỌC:
+          <div className="text-xs italic">(Accepting deposit)</div>
+        </div>
+        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+          (tiền)
+        </div>
+        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+          VNĐ
+        </div>
+        <div className="col-span-5"></div>
+      </div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
           ID HÀNG HÓA:

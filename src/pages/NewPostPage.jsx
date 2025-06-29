@@ -23,9 +23,13 @@ export default function NewPostPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-        <div className="flex items-center justify-center relative">
+        <div className="flex items-center justify-between relative">
           {/* Tiêu đề ở giữa */}
+          <button onClick={()=>{navigate('/')}} className="text-black hover:text-red-800 relative">
+            HOME
+          </button>
           <div className="text-center mb-4 relative">
+
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
                 4{/* input màu ngay dưới số 2 */}
@@ -44,6 +48,9 @@ export default function NewPostPage() {
               <i>(New post)</i>
             </h2>
           </div>
+           <button className="text-black hover:text-red-800">
+            - BĐK
+          </button>
         </div>
 
         {/* Three columns layout */}
@@ -62,9 +69,9 @@ export default function NewPostPage() {
             </Link>
 
             {/* Column 3 */}
-            <div className="p-4 text-center">
+            <Link to={'../new-ai-live-post'} className="p-4 text-center">
               <h3 className="font-bold text-lg">Ai LIVE</h3>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

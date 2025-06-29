@@ -161,8 +161,8 @@ export default function RegisterPage() {
                     placeholder="Quốc gia (Nation)"
                     className="w-full"
                   />
-                  <span className="text-red-500 ml-2"></span>
-                  <span className="text-red-500 ml-2"></span>
+                  <span className="text-red-500 ml-2">*</span>
+                  {/* <span className="text-red-500 ml-2"></span> */}
                 </div>
               </div> 
              {/* <span className="text-red-500 ml-2">*</span> */}
@@ -185,8 +185,15 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-1 items-center gap-4">
               <div className="relative w-full flex items-center">
-                <input type="file" 
-                className="w-full h-10 border" />
+                <label
+                  htmlFor="signature-upload"
+                  className="w-full h-12 text-black border flex flex-col items-center justify-center cursor-pointer rounded"
+                >
+                  <span className="font-semibold">TẢI CHỮ KÝ</span>
+                  <span className="text-sm">(Upload your signature)</span>
+                  <input id="signature-upload" type="file" className="hidden" />
+                  
+                </label>
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
@@ -436,7 +443,15 @@ export default function RegisterPage() {
                 <br />
               </div>
             </div>
-            <p></p>
+                      <div className="text-center mt-4">
+            <button
+              className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
+              onClick={()=>setPage(2)}
+            >
+              Đăng ký <br />
+              <span className="text-xs text-gray-600">(Register)</span>
+            </button>
+          </div>
           </div>
         )}
       </div>

@@ -31,8 +31,8 @@ export default function NewAiLivePostPage() {
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between relative mb-4">
-          <button className="text-red-600 hover:text-red-800 relative">
-            <HomeIcon size={28} />
+          <button onClick={()=>{navigate('/')}} className="text-black hover:text-red-800 relative">
+            HOME
           </button>
           <div className="text-center relative">
             <h1 className="text-3xl font-bold text-black relative inline-block">
@@ -49,8 +49,8 @@ export default function NewAiLivePostPage() {
             </h1>
             <h2 className="text-xl italic text-gray-600">(New post)</h2>
           </div>
-          <button className="text-red-600 hover:text-red-800">
-            <SettingsIcon size={28} />
+          <button className="text-black hover:text-red-800">
+            - BĐK
           </button>
         </div>
 

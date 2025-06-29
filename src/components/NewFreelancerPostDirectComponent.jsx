@@ -17,12 +17,12 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span>
+              {/* TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span> */}
             </div>
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="Nhập tên công việc"
+              placeholder="TÊN CÔNG VIỆC (Name of JOB)"
             />
           </div>
         </div>
@@ -35,12 +35,12 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span>
+              {/* ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span> */}
             </div>
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="Nhập ước lượng"
+              placeholder="ƯỚC LƯỢNG (Estimate)"
             />
           </div>
         </div>
@@ -52,12 +52,12 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN <span className="italic font-normal text-sm">(Manpower, equipment requirement)</span>
+              {/* YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN <span className="italic font-normal text-sm">(Manpower, equipment requirement)</span> */}
             </div>
             <textarea
               className="w-full mt-2 p-2 border border-gray-300 rounded"
               rows="3"
-              placeholder="Nhập yêu cầu nhân lực, phương tiện"
+              placeholder="YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)"
             ></textarea>
           </div>
         </div>
@@ -97,22 +97,22 @@ const NewFreelancerPostDirectComponent = () => {
           <div className="col-span-11 p-2 space-y-4">
             <div>
               <div className="font-bold">
-                ĐỊA ĐIỂM NHẬN VIỆC <span className="italic font-normal text-sm">(Start location)</span>
+                {/* ĐỊA ĐIỂM NHẬN VIỆC <span className="italic font-normal text-sm">(Start location)</span> */}
               </div>
               <input
                 type="text"
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder="Nhập địa điểm nhận việc"
+                placeholder="ĐỊA ĐIỂM NHẬN VIỆC (Start location)"
               />
             </div>
             <div>
               <div className="font-bold">
-                ĐỊA ĐIỂM HOÀN THÀNH <span className="italic font-normal text-sm">(Finish location)</span>
+                {/* ĐỊA ĐIỂM HOÀN THÀNH <span className="italic font-normal text-sm">(Finish location)</span> */}
               </div>
               <input
                 type="text"
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder="Nhập địa điểm hoàn thành"
+                placeholder="ĐỊA ĐIỂM HOÀN THÀNH (Finish location)"
               />
             </div>
           </div>
