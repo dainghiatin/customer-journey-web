@@ -198,19 +198,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-4">
-              <div className="relative w-full flex items-center">
-                <input
-                  type="text"
-                  className="border p-2 rounded w-full"
-                  placeholder="HỌ TÊN / TÊN DOANH NGHIỆP (Full name)"
-                  name="full_name"
-                  value={formData.full_name}
-                  onChange={handleInputChange}
-                />
-                <span className="text-red-500 ml-2">*</span>
-              </div>
-            </div>
 
             <div className="grid grid-cols-1 items-center gap-4">
               {/* <label className="text-left">
@@ -229,42 +216,7 @@ export default function RegisterPage() {
                 <span className="text-red-500 ml-2">*</span>
               </div>
             </div>
-
-                        <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                4. HỌ TÊN / TÊN DOANH NGHIỆP: <br />
-                <span className="text-xs text-gray-600">(Full name)</span>
-              </label> */}
-              <div className="relative w-full flex items-center">
-                <input
-                  type="text"
-                  className="border p-2 rounded w-full"
-                  placeholder="Địa chỉ trên CCCD/ MST (Address on ID)"
-                  name="address_on_cccd"
-                  value={formData.address_on_cccd}
-                  onChange={handleInputChange}
-                />
-                <span className="text-red-500 ml-2">*</span>
-              </div>
-            </div>
-            {/* <div className="grid grid-cols-1 items-center gap-4">
-              <label className="text-left">
-                6. SỐ ĐIỆN THOẠI: <br />
-                <span className="text-xs text-gray-600">(Phone number)</span>
-              </label>
-              <div className="flex gap-4 w-full">
-                <input
-                  type="text"
-                  className="border p-2 rounded w-full"
-                  placeholder="Nhập"
-                />
-              </div>
-            </div> */}
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                6. SỐ TÀI KHOẢN: <br />
-                <span className="text-xs text-gray-600">(Account number)</span>
-              </label> */}
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
@@ -275,10 +227,6 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                7. NGÂN HÀNG: <br />
-                <span className="text-xs text-gray-600">(With bank)</span>
-              </label> */}
               <div className="relative w-full flex items-center">
                 <select
                   className="border p-2 rounded w-full"
@@ -312,12 +260,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                8. ĐỊA CHỈ NHẬN HÀNG: <br />
-                <span className="text-xs text-gray-600">
-                  (Receive goods's address)
-                </span>
-              </label> */}
+
               <div className="flex w-full">
                 <div className="relative w-full flex items-center">
                   <input
@@ -339,12 +282,7 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                9. KÝ TỰ KHÔI PHỤC MẬT KHẨU <br />
-                <span className="text-xs text-gray-600">
-                  (Password recovery character)
-                </span>
-              </label> */}
+
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
@@ -358,12 +296,7 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                10. NHẬP LẠI KÝ TỰ KHÔI PHỤC MẬT KHẨU <br />
-                <span className="text-xs text-gray-600">
-                  (Repeat password recovery character)
-                </span>
-              </label> */}
+
               <div className="relative w-full flex items-center">
                 <input
                   type="text"

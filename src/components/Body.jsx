@@ -33,15 +33,15 @@ function HeroHeader() {
                         <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>
                     </div>
                 </Link>
-                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[18vw] left-[18vw] sm:w-[12vw] sm:left-[24vw]"  style={{position: "absolute", bottom: '-2vw'}}>
-                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(6px, 1vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
+                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[16vw] sm:w-[14vw] sm:left-[22vw]"  style={{position: "absolute", bottom: '-2vw'}}>
+                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
                         <p><strong>CÔNG VIỆC TỰ DO</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>(Freelancer)</p>
                     </div>
                 </Link>
-                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[18vw] right-[18vw] sm:w-[12vw] sm:right-[24vw]" style={{ position: "absolute", bottom: "-2vw"}}>
-                    <div style={{ color: "black", fontSize: "clamp(5px, 1vw, 15px)", textAlign: "center",height:"clamp(20px,4vw, 60px)", display:"flex", flexDirection:"column", justifyContent:"center" }}>
+                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[16vw] sm:w-[14vw] sm:right-[22vw]" style={{ position: "absolute", bottom: "-2vw"}}>
+                    <div style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center",height:"clamp(20px,4vw, 60px)", display:"flex", flexDirection:"column", justifyContent:"center" }}>
                         <p className=""><strong>GIAO DỊCH THANH TOÁN</strong></p>
                         <p className=''><em>(Payment transaction)</em></p>
                     </div>

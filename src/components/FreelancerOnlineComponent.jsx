@@ -4,10 +4,10 @@ export default function FreelancerOnlineComponent() {
   return (
     <div className="mt-4 border-2 border-blue-100 p-4">
       {/* Blue indicator bar at the top */}
-      <div className="bg-blue-500 text-white py-2 px-4 text-center mb-4">
+      {/* <div className="bg-blue-500 text-white py-2 px-4 text-center mb-4">
         <span className="font-bold">TRỰC TUYẾN</span>
         <span className="italic ml-2">(Online)</span>
-      </div>
+      </div> */}
       
       {/* Search input at the top */}
       <div className="mb-4">

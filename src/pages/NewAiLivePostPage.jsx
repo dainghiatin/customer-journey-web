@@ -13,6 +13,7 @@ export default function NewAiLivePostPage() {
   const [videoName, setVideoName] = useState("");
   const [movieName, setMovieName] = useState("");
   const [liveName, setLiveName] = useState("");
+  const [activeTab, setActiveTab] = useState("video"); // Thêm state tab
 
   const navigate = useNavigate();
 
@@ -31,8 +32,8 @@ export default function NewAiLivePostPage() {
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between relative mb-4">
-          <button onClick={()=>{navigate('/')}} className="text-black hover:text-red-800 relative">
-            HOME
+          <button className="text-red-600 hover:text-red-800 relative">
+            <HomeIcon size={28} />
           </button>
           <div className="text-center relative">
             <h1 className="text-3xl font-bold text-black relative inline-block">
@@ -49,8 +50,8 @@ export default function NewAiLivePostPage() {
             </h1>
             <h2 className="text-xl italic text-gray-600">(New post)</h2>
           </div>
-          <button className="text-black hover:text-red-800">
-            - BĐK
+          <button className="text-red-600 hover:text-red-800">
+            <SettingsIcon size={28} />
           </button>
         </div>
 
@@ -69,346 +70,320 @@ export default function NewAiLivePostPage() {
 
         {/* Categories: VIDEO - PHIM - TRỰC TIẾP */}
         <div className="grid grid-cols-3 text-center text-white mt-4">
-          <div className="bg-blue-800 p-3 font-bold">VIDEO</div>
-          <div className="bg-cyan-500 p-3 font-bold">PHIM<br /><span className="italic text-sm">(Movies)</span></div>
-          <div className="bg-green-600 p-3 font-bold">TRỰC TIẾP<br /><span className="italic text-sm">(Live)</span></div>
+          <div
+            className={`p-3 font-bold cursor-pointer ${activeTab === "video" ? "bg-blue-800" : "bg-blue-400"}`}
+            onClick={() => setActiveTab("video")}
+          >
+            VIDEO
+          </div>
+          <div
+            className={`p-3 font-bold cursor-pointer ${activeTab === "movie" ? "bg-cyan-500" : "bg-cyan-300"}`}
+            onClick={() => setActiveTab("movie")}
+          >
+            PHIM<br /><span className="italic text-sm">(Movies)</span>
+          </div>
+          <div
+            className={`p-3 font-bold cursor-pointer ${activeTab === "live" ? "bg-green-600" : "bg-green-400"}`}
+            onClick={() => setActiveTab("live")}
+          >
+            TRỰC TIẾP<br /><span className="italic text-sm">(Live)</span>
+          </div>
         </div>
 
         {/* Input Zones */}
-        <div className="grid grid-cols-3 text-black text-sm mt-1">
-          {/* VIDEO COLUMN */}
-          <div className="bg-blue-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-              * TẢI VIDEO LÊN
-              <span className="block text-blue-600 italic">(Upload video file)</span>
-            </label>
-            <input type="file" onChange={(e) => setVideoFile(e.target.files[0])} />
-            <label className="block mt-4 text-black font-semibold">
-                * TÊN VIDEO
-                <span className="block text-gray-600 italic">(Video's name)</span>
-            </label>
-            <input
-              type="text"
-              value={videoName}
-              onChange={(e) => setVideoName(e.target.value)}
-              className="w-full border rounded px-2 py-1 mt-1"
-              placeholder="Tên video"
-            />
-          </div>
-
-          {/* MOVIE COLUMN */}
-          <div className="bg-cyan-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-              * TẢI PHIM LÊN
-              <span className="block text-blue-600 italic">(Upload movies file)</span>
-            </label>
-            <input type="file" onChange={(e) => setMovieFile(e.target.files[0])} />
-            <label className="block mt-4 text-black font-semibold">
-                * TÊN PHIM
-                <span className="block text-gray-600 italic">(Movie's name)</span>
-            </label>
-            <input
-              type="text"
-              value={movieName}
-              onChange={(e) => setMovieName(e.target.value)}
-              className="w-full border rounded px-2 py-1 mt-1"
-              placeholder="Tên phim"
-            />
-          </div>
-
-          {/* LIVE COLUMN */}
-          <div className="bg-green-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-              * THỜI GIAN DỰ KIẾN PHÁT SÓNG
-              <span className="block text-orange-600 italic">(Expected airing time)</span>
-            </label>
-            <select
-              value={liveTime}
-              onChange={(e) => setLiveTime(e.target.value)}
-              className="w-full border rounded px-2 py-1"
-            >
-              <option value="">Chọn thời gian</option>
-              <option value="today-8am">Hôm nay - 08:00</option>
-              <option value="today-8pm">Hôm nay - 20:00</option>
-              <option value="tomorrow-8am">Ngày mai - 08:00</option>
-              <option value="custom">Tùy chọn...</option>
-            </select>
-            <label className="block mt-4 text-black font-semibold">
-                * TÊN TRỰC TIẾP
-                <span className="block text-gray-600 italic">(Live's name)</span>
-            </label>
-            <input
-              type="text"
-              value={liveName}
-              onChange={(e) => setLiveName(e.target.value)}
-              className="w-full border rounded px-2 py-1 mt-1"
-              placeholder="Tên buổi live"
-            />
-          </div>
-        </div>
-        {/* Dòng: Khu vực lưu trữ + Tên thư mục */}
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO COLUMN */}
-        <div className="bg-blue-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-            * KHU VỰC LƯU TRỮ
-            <span className="block text-gray-600 italic">(Save location)</span>
-            </label>
-            <select className="w-full border rounded px-2 py-1">
-            <option>-- Chọn --</option>
-            <option>THIẾU NHI (Children)</option>
-            <option>LƯU NIỆM (Memory)</option>
-            <option>KINH NGHIỆM SỐNG (Life experience)</option>
-            <option>KINH TẾ & XÃ HỘI (Economy & Society)</option>
-            <option>THỂ THAO (Sport)</option>
-            <option>GIẢI TRÍ (Entertainment)</option>
-            <option>SÁNG TẠO (Creative)</option>
-            <option>CHIẾN DỊCH & SỰ KIỆN (Campaigns & Events)</option>
-            <option>Ý TƯỞNG KHỞI NGHIỆP (Startup ideas)</option>
-            </select>
-        </div>
-
-        {/* MOVIE COLUMN */}
-        <div className="bg-cyan-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-            * TÊN THƯ MỤC
-            <span className="block text-gray-600 italic">(File name)</span>
-            </label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Tên thư mục" />
-        </div>
-
-        {/* LIVE COLUMN */}
-        <div className="bg-green-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-            * TÊN THƯ MỤC
-            <span className="block text-gray-600 italic">(File name)</span>
-            </label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Tên thư mục" />
-        </div>
-        </div>
-        {/* Dòng cuối cùng */}
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO COLUMN */}
-        <div className="bg-blue-100 p-4">
-            <label className="block font-semibold mb-2">
-            CHO PHÉP QUẢNG CÁO TRÊN VIDEO NÀY
-            <span className="block text-gray-600 italic">(Allow advertising on this video)</span>
-            </label>
-            <input type="checkbox" className="mr-2" /> Cho phép
-        </div>
-
-        {/* MOVIE COLUMN */}
-        <div className="bg-cyan-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-            * GIẤY PHÉP CHỦ SỞ HỮU SẢN PHẨM, BẢN QUYỀN, QUYỀN PHÁT SÓNG
-            <span className="block text-gray-600 italic">(Product ownership, copyright, broadcast rights)</span>
-            </label>
-            <input type="file" />
-        </div>
-
-        {/* LIVE COLUMN */}
-        <div className="bg-green-100 p-4">
-            <label className="block font-semibold mb-2">
-            GIẤY PHÉP CHỦ SỞ HỮU SẢN PHẨM, BẢN QUYỀN, QUYỀN PHÁT SÓNG
-            <span className="block text-gray-600 italic">(Product ownership, copyright, broadcast rights)</span>
-            </label>
-            <input type="file" />
-        </div>
-        </div>
-        {/* DÒNG 1: GIÁ & % NHẬN VỀ */}
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO */}
-        <div className="bg-blue-100 p-4">
-            <label className="block font-semibold mb-2">
-            HIỆN QUẢNG CÁO
-            <span className="block italic text-gray-600">(Show ad)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            CHÈN QUẢNG CÁO
-            <span className="block italic text-gray-600">(Insert ad)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
-        </div>
-
-        {/* PHIM */}
-        <div className="bg-cyan-100 p-4">
-            <label className="block text-red-600 font-semibold mb-2">
-            * GIÁ XEM
-            <span className="block italic text-gray-600">(Watch price)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="Nhập giá xem" />
-
-            <label className="block text-red-600 font-semibold mt-4 mb-2">
-            % CHỦ PHIM NHẬN VỀ
-            <span className="block italic text-gray-600">(% Movies owner receive)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="%" />
-        </div>
-
-        {/* LIVE */}
-        <div className="bg-green-100 p-4">
-            <label className="block font-semibold mb-2">
-            GIÁ XEM
-            <span className="block italic text-gray-600">(Watch price)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            GIÁ NHẮN TIN
-            <span className="block italic text-gray-600">(Message price)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            % CHỦ LIVE NHẬN VỀ
-            <span className="block italic text-gray-600">(% Live owner receive)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="%" />
-        </div>
-        </div>
-
-        {/* DÒNG 2: THỜI GIAN & ĐƠN GIÁ */}
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO */}
-        <div className="bg-blue-100 p-4">
-            <label className="block font-semibold mb-2">
-            BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ…
-            <span className="block italic text-gray-600">(Start from seconds)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            BẮT ĐẦU QUẢNG CÁO TỪ LƯỢT XEM THỨ…
-            <span className="block italic text-gray-600">(Start from views)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-        </div>
-
-        {/* PHIM */}
-        <div className="bg-cyan-100 p-4">
-            <label className="block font-semibold mb-2">
-            NẠP TIỀN
-            <span className="block italic text-gray-600">(Deposit)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            ĐƠN GIÁ (VNĐ / GIÂY / LƯỢT)
-            <span className="block italic text-gray-600">(Unit price)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-        </div>
-
-        {/* LIVE */}
-        <div className="bg-green-100 p-4">
-            <label className="block font-semibold mb-2">
-            NẠP TIỀN
-            <span className="block italic text-gray-600">(Deposit)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block font-semibold mt-4 mb-2">
-            VNĐ
-            <span className="block italic text-gray-600">(Theo địa phương)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-        </div>
-        </div>
-
-        {/* DÒNG 3: QUẢNG CÁO TRANG CHỦ & FILE */}
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO */}
-        <div className="bg-blue-100 p-4">
-            <label className="block font-semibold mb-2">
-            tick
-            </label>
-            <input type="checkbox" className="mr-2" />
-            <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
-            <br />
-            <span className="italic text-gray-600">(Confirm copyright)</span>
-        </div>
-
-        {/* PHIM */}
-        <div className="bg-cyan-100 p-4">
-            <label className="block font-semibold mb-2">
-            QUẢNG CÁO TRÊN TRANG CHỦ
-            <span className="block italic text-gray-600">(Mainpage)</span>
-            </label>
-            <input type="text" className="w-full border px-2 py-1" />
-
-            <label className="block mt-4 font-semibold">
-            NỘI DUNG QUẢNG CÁO
-            <span className="block italic text-gray-600">(Ad content)</span>
-            </label>
-            <input type="file" />
-        </div>
-
-        {/* LIVE */}
-        <div className="bg-green-100 p-4">
-            <label className="block font-semibold mb-2">
-            ĐƠN GIÁ
-            <span className="block italic text-gray-600">(Unit price)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-
-            <label className="block mt-4 font-semibold">
-            NỘI DUNG QUẢNG CÁO
-            <span className="block italic text-gray-600">(Ad content)</span>
-            </label>
-            <input type="file" />
-        </div>
-        </div>
-        <div className="grid grid-cols-3 text-black text-sm">
-        {/* VIDEO - cột trống */}
-        <div className="bg-blue-100 p-4"></div>
-
-        {/* PHIM - cột trống */}
-        <div className="bg-cyan-100 p-4"></div>
-
-        {/* LIVE - chứa nội dung */}
-        <div className="bg-green-100 p-4 space-y-4">
-            <label className="flex items-center gap-2">
-            <input type="checkbox" />
-            <span className="font-semibold">CHO PHÉP QUẢNG CÁO TRÊN LIVE NÀY</span>
-            <span className="italic text-gray-600">(Allow advertising on this Live)</span>
-            </label>
-
-            <div>
-            <label className="font-semibold block">
+        {activeTab === "video" && (
+          <div className="text-black text-sm mt-1">
+            {/* VIDEO COLUMN */}
+            <div className="bg-blue-100 p-4">
+              <label className="block text-red-600 font-semibold mb-2">
+                * TẢI VIDEO LÊN
+                <span className="block text-blue-600 italic">(Upload video file)</span>
+              </label>
+              <input type="file" onChange={(e) => setVideoFile(e.target.files[0])} />
+              <label className="block mt-4 text-black font-semibold">
+                  * TÊN VIDEO
+                  <span className="block text-gray-600 italic">(Video's name)</span>
+              </label>
+              <input
+                type="text"
+                value={videoName}
+                onChange={(e) => setVideoName(e.target.value)}
+                className="w-full border rounded px-2 py-1 mt-1"
+                placeholder="Tên video"
+              />
+            </div>
+            <div className="bg-blue-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                * KHU VỰC LƯU TRỮ
+                <span className="block text-gray-600 italic">(Save location)</span>
+                </label>
+                <select className="w-full border rounded px-2 py-1">
+                <option>-- Chọn --</option>
+                <option>THIẾU NHI (Children)</option>
+                <option>LƯU NIỆM (Memory)</option>
+                <option>KINH NGHIỆM SỐNG (Life experience)</option>
+                <option>KINH TẾ & XÃ HỘI (Economy & Society)</option>
+                <option>THỂ THAO (Sport)</option>
+                <option>GIẢI TRÍ (Entertainment)</option>
+                <option>SÁNG TẠO (Creative)</option>
+                <option>CHIẾN DỊCH & SỰ KIỆN (Campaigns & Events)</option>
+                <option>Ý TƯỞNG KHỞI NGHIỆP (Startup ideas)</option>
+                </select>
+            </div>
+            <div className="bg-blue-100 p-4">
+                <label className="block font-semibold mb-2">
+                CHO PHÉP QUẢNG CÁO TRÊN VIDEO NÀY
+                <span className="block text-gray-600 italic">(Allow advertising on this video)</span>
+                </label>
+                <input type="checkbox" className="mr-2" /> Cho phép
+            </div>
+            <div className="bg-blue-100 p-4">
+                <label className="block font-semibold mb-2">
                 HIỆN QUẢNG CÁO
                 <span className="block italic text-gray-600">(Show ad)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / GIÂY (S)" />
-            </div>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
 
-            <div>
-            <label className="font-semibold block">
+                <label className="block font-semibold mt-4 mb-2">
+                CHÈN QUẢNG CÁO
+                <span className="block italic text-gray-600">(Insert ad)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
+            </div>
+            <div className="bg-blue-100 p-4">
+                <label className="block font-semibold mb-2">
                 BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ…
-                <span className="block italic text-gray-600">(Start advertising from seconds…)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
-            </div>
+                <span className="block italic text-gray-600">(Start from seconds)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
 
-            <div>
-            <label className="font-semibold block">
+                <label className="block font-semibold mt-4 mb-2">
                 BẮT ĐẦU QUẢNG CÁO TỪ LƯỢT XEM THỨ…
-                <span className="block italic text-gray-600">(Start advertising from views…)</span>
-            </label>
-            <input type="number" className="w-full border px-2 py-1" />
+                <span className="block italic text-gray-600">(Start from views)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
             </div>
+            <div className="bg-blue-100 p-4">
+                <label className="block font-semibold mb-2">
+                tick
+                </label>
+                <input type="checkbox" className="mr-2" />
+                <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
+                <br />
+                <span className="italic text-gray-600">(Confirm copyright)</span>
+            </div>
+            <div className="bg-blue-100 p-4"></div>
+          </div>
+        )}
+        {activeTab === "movie" && (
+          <div className="text-black text-sm mt-1">
+            {/* MOVIE COLUMN */}
+            <div className="bg-cyan-100 p-4">
+              <label className="block text-red-600 font-semibold mb-2">
+                * TẢI PHIM LÊN
+                <span className="block text-blue-600 italic">(Upload movies file)</span>
+              </label>
+              <input type="file" onChange={(e) => setMovieFile(e.target.files[0])} />
+              <label className="block mt-4 text-black font-semibold">
+                  * TÊN PHIM
+                  <span className="block text-gray-600 italic">(Movie's name)</span>
+              </label>
+              <input
+                type="text"
+                value={movieName}
+                onChange={(e) => setMovieName(e.target.value)}
+                className="w-full border rounded px-2 py-1 mt-1"
+                placeholder="Tên phim"
+              />
+            </div>
+            <div className="bg-cyan-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                * TÊN THƯ MỤC
+                <span className="block text-gray-600 italic">(File name)</span>
+                </label>
+                <input type="text" className="w-full border rounded px-2 py-1" placeholder="Tên thư mục" />
+            </div>
+            <div className="bg-cyan-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                * GIẤY PHÉP CHỦ SỞ HỮU SẢN PHẨM, BẢN QUYỀN, QUYỀN PHÁT SÓNG
+                <span className="block text-gray-600 italic">(Product ownership, copyright, broadcast rights)</span>
+                </label>
+                <input type="file" />
+            </div>
+            <div className="bg-cyan-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                * GIÁ XEM
+                <span className="block italic text-gray-600">(Watch price)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="Nhập giá xem" />
 
-            <div>
-            <label className="text-red-600 font-semibold block">
-                * tick
-            </label>
-            <span className="italic text-gray-600">
-                (Confirm copyright, do not Live anything Prohibited by law)
-            </span>
+                <label className="block text-red-600 font-semibold mt-4 mb-2">
+                % CHỦ PHIM NHẬN VỀ
+                <span className="block italic text-gray-600">(% Movies owner receive)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="%" />
             </div>
-        </div>
-        </div>
+            <div className="bg-cyan-100 p-4">
+                <label className="block font-semibold mb-2">
+                NẠP TIỀN
+                <span className="block italic text-gray-600">(Deposit)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+
+                <label className="block font-semibold mt-4 mb-2">
+                ĐƠN GIÁ (VNĐ / GIÂY / LƯỢT)
+                <span className="block italic text-gray-600">(Unit price)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+            </div>
+            <div className="bg-cyan-100 p-4">
+                <label className="block font-semibold mb-2">
+                QUẢNG CÁO TRÊN TRANG CHỦ
+                <span className="block italic text-gray-600">(Mainpage)</span>
+                </label>
+                <input type="text" className="w-full border px-2 py-1" />
+
+                <label className="block mt-4 font-semibold">
+                NỘI DUNG QUẢNG CÁO
+                <span className="block italic text-gray-600">(Ad content)</span>
+                </label>
+                <input type="file" />
+            </div>
+            <div className="bg-cyan-100 p-4"></div>
+          </div>
+        )}
+        {activeTab === "live" && (
+          <div className="text-black text-sm mt-1">
+            {/* LIVE COLUMN */}
+            <div className="bg-green-100 p-4">
+              <label className="block text-red-600 font-semibold mb-2">
+                * THỜI GIAN DỰ KIẾN PHÁT SÓNG
+                <span className="block text-orange-600 italic">(Expected airing time)</span>
+              </label>
+              <select
+                value={liveTime}
+                onChange={(e) => setLiveTime(e.target.value)}
+                className="w-full border rounded px-2 py-1"
+              >
+                <option value="">Chọn thời gian</option>
+                <option value="today-8am">Hôm nay - 08:00</option>
+                <option value="today-8pm">Hôm nay - 20:00</option>
+                <option value="tomorrow-8am">Ngày mai - 08:00</option>
+                <option value="custom">Tùy chọn...</option>
+              </select>
+              <label className="block mt-4 text-black font-semibold">
+                  * TÊN TRỰC TIẾP
+                  <span className="block text-gray-600 italic">(Live's name)</span>
+              </label>
+              <input
+                type="text"
+                value={liveName}
+                onChange={(e) => setLiveName(e.target.value)}
+                className="w-full border rounded px-2 py-1 mt-1"
+                placeholder="Tên buổi live"
+              />
+            </div>
+            <div className="bg-green-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                * TÊN THƯ MỤC
+                <span className="block text-gray-600 italic">(File name)</span>
+                </label>
+                <input type="text" className="w-full border rounded px-2 py-1" placeholder="Tên thư mục" />
+            </div>
+            <div className="bg-green-100 p-4">
+                <label className="block font-semibold mb-2">
+                GIẤY PHÉP CHỦ SỞ HỮU SẢN PHẨM, BẢN QUYỀN, QUYỀN PHÁT SÓNG
+                <span className="block text-gray-600 italic">(Product ownership, copyright, broadcast rights)</span>
+                </label>
+                <input type="file" />
+            </div>
+            <div className="bg-green-100 p-4">
+                <label className="block font-semibold mb-2">
+                GIÁ XEM
+                <span className="block italic text-gray-600">(Watch price)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+
+                <label className="block font-semibold mt-4 mb-2">
+                GIÁ NHẮN TIN
+                <span className="block italic text-gray-600">(Message price)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+
+                <label className="block font-semibold mt-4 mb-2">
+                % CHỦ LIVE NHẬN VỀ
+                <span className="block italic text-gray-600">(% Live owner receive)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="%" />
+            </div>
+            <div className="bg-green-100 p-4">
+                <label className="block font-semibold mb-2">
+                NẠP TIỀN
+                <span className="block italic text-gray-600">(Deposit)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+
+                <label className="block font-semibold mt-4 mb-2">
+                VNĐ
+                <span className="block italic text-gray-600">(Theo địa phương)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+            </div>
+            <div className="bg-green-100 p-4">
+                <label className="block font-semibold mb-2">
+                ĐƠN GIÁ
+                <span className="block italic text-gray-600">(Unit price)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+
+                <label className="block mt-4 font-semibold">
+                NỘI DUNG QUẢNG CÁO
+                <span className="block italic text-gray-600">(Ad content)</span>
+                </label>
+                <input type="file" />
+            </div>
+            <div className="bg-green-100 p-4 space-y-4">
+                <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="font-semibold">CHO PHÉP QUẢNG CÁO TRÊN LIVE NÀY</span>
+                <span className="italic text-gray-600">(Allow advertising on this Live)</span>
+                </label>
+
+                <div>
+                <label className="font-semibold block">
+                    HIỆN QUẢNG CÁO
+                    <span className="block italic text-gray-600">(Show ad)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / GIÂY (S)" />
+                </div>
+
+                <div>
+                <label className="font-semibold block">
+                    BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ…
+                    <span className="block italic text-gray-600">(Start advertising from seconds…)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+                </div>
+
+                <div>
+                <label className="font-semibold block">
+                    BẮT ĐẦU QUẢNG CÁO TỪ LƯỢT XEM THỨ…
+                    <span className="block italic text-gray-600">(Start advertising from views…)</span>
+                </label>
+                <input type="number" className="w-full border px-2 py-1" />
+                </div>
+
+                <div>
+                <label className="text-red-600 font-semibold block">
+                    * tick
+                </label>
+                <span className="italic text-gray-600">
+                    (Confirm copyright, do not Live anything Prohibited by law)
+                </span>
+                </div>
+            </div>
+          </div>
+        )}
         {/* DÒNG CAM KẾT CUỐI CÙNG */}
         <div className="border border-black p-4 mt-6 bg-white">
         <label className="flex items-center gap-2 mb-2">

@@ -4,10 +4,10 @@ export default function FreelancerActuallyComponent() {
   return (
     <div className="mt-4 border-2 border-orange-100 p-4">
       {/* Orange indicator bar at the top */}
-      <div className="bg-orange-500 text-white py-2 px-4 text-center mb-4">
+      {/* <div className="bg-orange-500 text-white py-2 px-4 text-center mb-4">
         <span className="font-bold">THỰC TẾ</span>
         <span className="italic ml-2">(Actual)</span>
-      </div>
+      </div> */}
       
       {/* Search input at the top */}
       <div className="mb-4">

@@ -6,6 +6,9 @@ import {
 } from "lucide-react";
 import "../styles/Login.css";
 import AiLiveLiveStreamComponent from "../components/AiLiveLiveStreamComponent";
+import AiLiveVideoComponent from "../components/AiLiveVideoComponent";
+import AiLiveMovieComponent from "../components/AiLiveMovieComponent";
+import AiLiveLiveComponent from "../components/AiLiveLiveComponent";
 
 
 export default function AiLivePage() {
@@ -88,19 +91,17 @@ export default function AiLivePage() {
         {/* 6 Buttons */}
         <div className="grid grid-cols-3 gap-4 mt-6">
           {[
-            { label: "LIVESTREAM", sub: "(Goods)" },
-            { label: "VIDEO", sub: "" },
-            { label: "PHIM", sub: "(MOVIES)" },
-            { label: "TRỰC TIẾP", sub: "(Live)" },
-            { label: "CÔNG CỤ", sub: "(Equipment)" },
-            { label: "TRÒ CHƠI", sub: "(Game)" },
+            { label: "LIVESTREAM", sub: "(Goods)", value: "LIVESTREAM" },
+            { label: "VIDEO", sub: "", value: "VIDEO" },
+            { label: "PHIM", sub: "(MOVIES)", value: "MOVIE" },
+            { label: "TRỰC TIẾP", sub: "(Live)", value: "LIVE" },
+            { label: "CÔNG CỤ", sub: "(Equipment)", value: "EQUIPMENT" },
+            { label: "TRÒ CHƠI", sub: "(Game)", value: "GAME" },
           ].map((item, idx) => (
             <button
               key={idx}
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg text-center shadow-md transition-all"
-              onClick={() => {
-                if (item.label === "LIVESTREAM") setSelectedComponent("LIVESTREAM");
-              }}
+              onClick={() => {setSelectedComponent(item.value);}}
             >
               {item.label}
               <br />
@@ -111,6 +112,15 @@ export default function AiLivePage() {
         {/* Hiển thị component tùy theo lựa chọn */}
         {selectedComponent === "LIVESTREAM" && (
         <AiLiveLiveStreamComponent />
+        )}
+        {selectedComponent === "VIDEO" && (
+        <AiLiveVideoComponent />
+        )}
+        {selectedComponent === "MOVIE" && (
+        <AiLiveMovieComponent />
+        )}
+        {selectedComponent === "LIVE" && (
+        <AiLiveLiveComponent />
         )}
       </div>
     </div>

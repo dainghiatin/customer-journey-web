@@ -25,8 +25,10 @@ export default function NewFreelancerPostPage() {
 
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
               <div className="relative justify-between flex">
-        <button onClick={()=>{navigate("../")}}  className=" p-2 border">Home</button>
-        <button className=" right-0 p-2 border" >3-BĐK</button>
+        <button onClick={()=>{navigate("../")}}  className="p-2">
+          <i class="fa-solid fa-house"></i>
+        </button>
+        <button className=" right-0 p-2" ><i class="fa-solid fa-solar-panel"></i></button>
       </div>
         <div className="flex items-center justify-center relative">
           {/* Tiêu đề ở giữa */}
