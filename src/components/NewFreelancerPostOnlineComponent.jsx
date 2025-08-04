@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { createFreelancer } from "../services/freelancerService";
 
 const NewFreelancerPostOnlineComponent = () => {
+
+  const [freelancerData, setFreelancerData] = useState({
+      name: "Rajiv Patel",
+      estimate: "Estimated completion in 5 days",
+      requirement: "IT network setup and security consultation for small office",
+      startDate: "2025-08-10T09:00:00.000Z",
+      endDate: "2025-08-14T17:00:00.000Z",
+      startLocation: "Chicago",
+      endLocation: "On-site",
+      price: 3000.00,
+      deposit: 700.00,
+      serviceFee: 300.00,
+      type: "online"
+    });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createFreelancer("token", freelancerData);
+      console.log("Freelancer created successfully:", response.data);
+      // Handle success, e.g., redirect to a success page
+    } catch (error) {
+      console.error("Error creating freelancer:", error.message);
+      // Handle error, e.g., display an error message to the user
+    }
+  };
   return (
     <div className="mt-6 border-2 border-blue-100 p-4">
       <div className="space-y-4">
@@ -163,10 +190,10 @@ const NewFreelancerPostOnlineComponent = () => {
 
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
-          <div className="border border-black px-16 py-2 text-center cursor-pointer hover:bg-gray-100">
+          <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center cursor-pointer hover:bg-gray-100">
             <div className="font-bold">ĐĂNG BÀI</div>
             <div className="italic text-sm">(POST)</div>
-          </div>
+          </button>
         </div>
       </div>
     </div>

@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { createFreelancer } from "../services/freelancerService";
 
 const NewFreelancerPostDirectComponent = () => {
+
+  const [freelancerData, setFreelancerData] = useState({
+        name: "John Doe",
+        estimate: "Estimated completion in 2 weeks",
+        requirement: "Need expertise in React and Node.js",
+        startDate: "2023-12-01T09:00:00.000Z",
+        endDate: "2023-12-15T18:00:00.000Z",
+        startLocation: "New York",
+        endLocation: "Remote",
+        price: 2500.00,
+        deposit: 500.00,
+        serviceFee: 250.00,
+        type: "offline" 
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createFreelancer("token", freelancerData);
+      console.log("Freelancer created successfully:", response.data);
+      // Handle success, e.g., redirect to a success page
+    } catch (error) {
+      console.error("Error creating freelancer:", error.message);
+      // Handle error, e.g., display an error message to the user
+    }
+  };
+
+
   return (
     <div className="mt-6 border-2 border-orange-100 p-4">
       <div className="space-y-4">
@@ -192,10 +221,10 @@ const NewFreelancerPostDirectComponent = () => {
 
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
-          <div className="border border-black px-16 py-2 text-center">
+          <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center">
             <div className="font-bold">ĐĂNG BÀI</div>
             <div className="italic text-sm">(POST)</div>
-          </div>
+          </button>
         </div>
       </div>
     </div>

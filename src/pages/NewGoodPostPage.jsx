@@ -6,6 +6,7 @@ import {
   Home as HomeIcon,
   Settings as SettingsIcon,
 } from "lucide-react";
+import { createProduct } from "../services/productService";
 
 export default function NewGoodPostPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
@@ -19,34 +20,45 @@ export default function NewGoodPostPage() {
     model: "",
     size: "",
     color: "",
-    price: "",
-    askingPrice: "",
+    price: 0,
+    askingPrice: 0,
     displayPrice: true,
     hidePrice: false,
     location: "",
     address: "",
     description: "",
-    estimatedValue: "",
-    unit: "",
-    autoAcceptPrice: "",
+    estimatedValue: 0,
+    image: "https://example.com/image.jpg",
+    qualityFiles: ["https://example.com/doc1.pdf", "https://example.com/doc2.pdf"],
+    deliveryDate: "2023-12-31",
     depositRequirement: "",
-    deliveryDay: "",
-    deliveryLocation: "",
-    contractDuration: "",
-    contractPeriod: "",
-    personInCharge: "",
-    phoneNumber: "",
-    email: "",
-    fee: "",
-    livestreamFee: "",
-    advertisingAmount: "",
-    onMainPage: "",
-    onVideo: "",
-    successFee: "",
-    totalFee: "",
-    ownershipConfirm: false,
-    advertisingRegister: false
+    autoAcceptPrice: 0,
+    unit: "per",
+    marketPrice: 0,
+    lowestUnitAskingPrice: 0,
+    highestUnitAskingPrice: 0,
+    deliveryDays: 0,
+    endPostTime: "2023-12-31",
+    lowestAmount: 0,
+    highestAmount: 0,
+    lowestAutoAcceptPrice: 0,
+    highestAutoAcceptPrice: 0,
+    contractDuration: "2023-12-31",
+    personInCharge: "taltal",
+    phoneNumber: "1234567890",
+    email: "taltal@example.com",
+    confirmOwnership: false,
+    eventFeePercentage: 0,
+    livestreamFee: 0,
+    advertisingAmount: 0,
+    showOnMainPage: 0,
+    showOnVideo: 0,
+    advertisingUrl: "https://example.com/advertising",
+    registerForAdvertising: false,
+    successFee: 0,
+    totalFees: 0
   });
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -70,8 +82,39 @@ export default function NewGoodPostPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formattedData = {
+      ...goodsInfo,
+      // Convert string values to numbers where needed, default to 0 instead of null
+      price: goodsInfo.price ? parseFloat(goodsInfo.price) : 0,
+      askingPrice: goodsInfo.askingPrice ? parseFloat(goodsInfo.askingPrice) : 0,
+      estimatedValue: goodsInfo.estimatedValue ? parseFloat(goodsInfo.estimatedValue) : 0,
+      autoAcceptPrice: goodsInfo.autoAcceptPrice ? parseFloat(goodsInfo.autoAcceptPrice) : 0,
+      marketPrice: goodsInfo.marketPrice ? parseFloat(goodsInfo.marketPrice) : 0,
+      lowestUnitAskingPrice: goodsInfo.lowestUnitAskingPrice ? parseFloat(goodsInfo.lowestUnitAskingPrice) : 0,
+      highestUnitAskingPrice: goodsInfo.highestUnitAskingPrice ? parseFloat(goodsInfo.highestUnitAskingPrice) : 0,
+      deliveryDays: goodsInfo.deliveryDays ? parseInt(goodsInfo.deliveryDays) : 0,
+      lowestAmount: goodsInfo.lowestAmount ? parseInt(goodsInfo.lowestAmount) : 0,
+      highestAmount: goodsInfo.highestAmount ? parseInt(goodsInfo.highestAmount) : 0,
+      lowestAutoAcceptPrice: goodsInfo.lowestAutoAcceptPrice ? parseFloat(goodsInfo.lowestAutoAcceptPrice) : 0,
+      highestAutoAcceptPrice: goodsInfo.highestAutoAcceptPrice ? parseFloat(goodsInfo.highestAutoAcceptPrice) : 0,
+      contractDuration: goodsInfo.contractDuration ? parseInt(goodsInfo.contractDuration) : 0,
+      eventFeePercentage: goodsInfo.eventFeePercentage ? parseFloat(goodsInfo.eventFeePercentage) : 0,
+      livestreamFee: goodsInfo.livestreamFee ? parseFloat(goodsInfo.livestreamFee) : 0,
+      advertisingAmount: goodsInfo.advertisingAmount ? parseFloat(goodsInfo.advertisingAmount) : 0,
+      successFee: goodsInfo.successFee ? parseFloat(goodsInfo.successFee) : 0,
+      totalFees: goodsInfo.totalFees ? parseFloat(goodsInfo.totalFees) : 0,
+      image: "https://example.com/image.jpg",
+      qualityFiles: ["https://example.com/doc1.pdf", "https://example.com/doc2.pdf"],
+      advertisingUrl: "https://example.com/advertising",
+    };
     // Handle form submission logic here
-    console.log("Form submitted:", goodsInfo);
+    createProduct("token", formattedData).then((res)=>{
+      console.log(res.data);
+      alert("Create success "+goodsInfo.name);
+    }).catch((e)=>{
+      console.log(e);
+    })
   };
 
   return (

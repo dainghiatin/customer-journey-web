@@ -15,6 +15,92 @@ export default function NewAiLivePostPage() {
   const [liveName, setLiveName] = useState("");
   const [activeTab, setActiveTab] = useState("video"); // Thêm state tab
 
+
+  const [videoData, setVideoData] = useState({
+      name: "Product Intro",
+      savelocation: "/videos/product-intro.mp4",
+      allowAdvertising: true,
+      showAd: 15,
+      insertAd: 45,
+      startFromTime: 5,
+      startFromView: 250,
+      source: "https://www.youtube.com/watch?v=1234567890", // Will be a file url
+      confirmCopyright: true
+    });
+
+
+const [movieData, setMovieData] = useState({
+  name: '',
+  filename: '',
+  watchPrice: 0,
+  ownerPercentage: 0,
+  deposit: 0,
+  unitPrice: 0,
+  adOnMainPageFee: 0,
+  source: 'https://example.com/live/launch',
+  rightsDocument: ["https://example.com/live/launch"],
+  adContent: 'https://example.com/live/launch'
+});
+
+const [liveData, setLiveData] = useState({
+  name: "Live Tech Talk: Future of AI",
+  expectedAiringTime: "2025-08-10T20:00:00.000Z",
+  filename: "ai_tech_talk_2025.mp4",
+  watchPrice: 14.99,
+  messagePrice: 2.50,
+  ownerPercentage: 80,
+  deposit: 300.00,
+  priceBaseLocal: 12.00,
+  unitPrice: 15.00,
+  allowAdvertising: true,
+  showAd: 20.00,
+  startAdvertisingFromSeconds: 60,
+  startAdvertisingFromViews: 500,
+  rightsDocument: ["https://example.com/live/launch", "https://example.com/live/launch"], // media IDs returned from /upload
+  adContent: ["https://example.com/live/launch", "https://example.com/live/launch"]        // media IDs returned from /upload
+});
+
+
+const handleSubmitMovie = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await createMovie("token", movieData);
+    console.log("Movie uploaded successfully:", response.data);
+    // Handle success (e.g., redirect to movie list page)
+  } catch (error) {
+    console.error("Error uploading movie:", error.message);
+    // Handle error (e.g., show error message to user)
+  }
+};
+
+  const handleVideoChange = (e) => {
+    setVideoFile(e.target.files[0]);
+  }; 
+
+  const handleSubmitVideo = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createVideo("token", videoData);
+      console.log("Video uploaded successfully:", response.data);
+      // Handle success (e.g., redirect to video list page)
+    } catch (error) {
+      console.error("Error uploading video:", error.message);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+
+  const handleSubmitLive = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createLive("token", liveData);
+      console.log("Live uploaded successfully:", response.data);
+      // Handle success (e.g., redirect to live list page)
+    } catch (error) {
+      console.error("Error uploading live:", error.message);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
