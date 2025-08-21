@@ -32,6 +32,8 @@ function App() {
         <Route path="/new-post" element={<NewPostPage />} />
         <Route path="/new-good-post" element={<NewGoodPostPage />} />
         <Route path="/list-of-goods" element={<ListOfGoodsPage />} />
+        <Route path="/list-of-goods/:id" element={<DetailOfGoodsPage />} />
+
         <Route path="/freelancer" element={<FreelancerPage />} />
         <Route path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
         <Route path="/detail-of-goods" element={<DetailOfGoodsPage />} />

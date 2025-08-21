@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
 
 
-const getWalletFromToken = async (authToken) => {
+const getWalletFromToken = async (authToken=localStorage.getItem("authToken")) => {
   try {
     const response = await axios.get(`${API_URL}/wallets/my-wallet`, {
       headers: {

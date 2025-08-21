@@ -1,13 +1,88 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { useParams } from "react-router-dom";
+import { getProductById, updateProductPriceInfo } from "../services/productService";
+
 
 export default function DetailOfGoodsPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [priceData, setPriceData] = useState({
+    setPrice: null,
+    depositRequirement: null,
+  });
+
+
+  const handlePriceUpdate = async () => {
+    const authToken = await localStorage.getItem("authToken");
+    try {
+      await updateProductPriceInfo(product.id, authToken, priceData);
+      alert("Price updated successfully");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
   const navigate = useNavigate();
+  const { id } = useParams(); // Get the ID from the URL parameter
+  const [product, setProduct] = useState({
+    id: 1,
+  documentId: "w940wbgafccoucy16evy21v4",
+  name: "Oil",
+  model: "M",
+  size: "120 KG",
+  color: "red",
+  price: 100000,
+  askingPrice: null,
+  displayPrice: true,
+  hidePrice: false,
+  location: "HCM",
+  address: null,
+  description: null,
+  estimatedValue: null,
+  deliveryDate: null,
+  depositRequirement: null,
+  autoAcceptPrice: null,
+  unit: null,
+  marketPrice: null,
+  lowUnitPrice: null,
+  lowestUnitAskingPrice: null,
+  highestUnitAskingPrice: null,
+  deliveryDays: null,
+  endPostTime: null,
+  lowestAmount: null,
+  highestAmount: null,
+  lowestAutoAcceptPrice: null,
+  highestAutoAcceptPrice: null,
+  contractDuration: null,
+  personInCharge: null,
+  phoneNumber: null,
+  email: null,
+  confirmOwnership: true,
+  eventFeePercentage: null,
+  livestreamFee: null,
+  advertisingAmount: null,
+  showOnMainPage: 0,
+  showOnVideo: 0,
+  advertisingUrl: null,
+  registerForAdvertising: false,
+  successFee: null,
+  totalFees: null,
+  createdAt: "2025-08-10T07:55:48.149Z",
+  updatedAt: "2025-08-10T07:55:48.149Z",
+  publishedAt: "2025-08-10T07:55:48.127Z",
+  listingType: null,
+  categoryType: null,
+  conditionType: null,
+  nation: null,
+  province: null
+  });
 
   const categories = {
     sale: { vi: "HÀNG BÁN", en: "Sale" },
@@ -42,6 +117,26 @@ export default function DetailOfGoodsPage() {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
 
+  useEffect(() => {
+    // Fetch product details using the ID
+    fetchProductDetails();
+
+  }, [id]);
+
+const fetchProductDetails = async () => {
+      try {
+        const response = await getProductById(id);
+        setProduct(response.data.data);
+        console.log(response.data.data);
+        setSelectedCategory(response.data.data.listingType);
+        setSelectedSubcategory(response.data.data.categoryType);
+        setSelectedCondition(response.data.data.conditionType);
+        setSelectedCountry(response.data.data.nation);
+        setSelectedProvince(response.data.data.province);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
   return (
     <div className="min-h-screen w-full">
       <div className="bg-transparent p-4 w-full">
@@ -135,8 +230,7 @@ export default function DetailOfGoodsPage() {
                   className="border border-gray-300 p-2 text-center"
                   colSpan="4"
                 >
-                  B/M/T/CT/DV-HH/BĐS/PT/NL/XNK-PL/M/C/CSD-NĂM ĐĂNG BÀI-STT{" "}
-                  <span className="text-sm italic">(lệnh)</span>
+                  {product.custom_id}
                 </td>
               </tr>
             </tbody>
@@ -153,35 +247,36 @@ export default function DetailOfGoodsPage() {
                   <br />
                   <span className="text-sm italic">(#)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.id}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   TÊN HÀNG HÓA
                   <br />
                   <span className="text-sm italic">(Name of goods)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.name}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   MÃ SỐ
                   <br />
                   <span className="text-sm italic">(Model)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.model}</span>
+
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   KÍCH THƯỚC
                   <br />
                   <span className="text-sm italic">(Size)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.size}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   MÀU SẮC
                   <br />
                   <span className="text-sm italic">(Color)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.color}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   HÌNH ẢNH
@@ -204,28 +299,31 @@ export default function DetailOfGoodsPage() {
                   <br />
                   <span className="text-sm italic">(Estimate)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.estimatedValue}</span>
+
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   ĐVT
                   <br />
                   <span className="text-sm italic">(Unit)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.unit}</span>
+
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   GIÁ THỊ TRƯỜNG
                   <br />
                   <span className="text-sm italic">(Market price)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.price}</span>
+
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   GIÁ MONG MUỐN
                   <br />
                   <span className="text-sm italic">(Asking price)</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.askingPrice}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   GIÁ ĐẶT
@@ -233,7 +331,9 @@ export default function DetailOfGoodsPage() {
                   <span className="text-sm italic">(Set price)</span>
                   <br />
                   <input
-                    type="text"
+                    type="number"
+                    value={priceData.setPrice ? priceData.setPrice : ""}
+                    onChange={(e) => setPriceData({ ...priceData, setPrice: e.target.value })}
                     className="w-full mt-1 p-1 text-center border border-gray-300 rounded"
                     placeholder="(nhập)"
                   />
@@ -244,9 +344,11 @@ export default function DetailOfGoodsPage() {
                   <span className="text-sm italic">(Deposit requirement)</span>
                   <br />
                   <input
-                    type="text"
+                    type="number"
                     className="w-full mt-1 p-1 text-center border border-gray-300 rounded"
                     placeholder="(nhập)"
+                    value={priceData.depositRequirement ? priceData.depositRequirement : ""}
+                    onChange={(e) => setPriceData({ ...priceData, depositRequirement: e.target.value })}
                   />
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
@@ -256,7 +358,8 @@ export default function DetailOfGoodsPage() {
                     (Date of delivery/End of accept)
                   </span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.deliveryDate}</span>
+
                 </td>
               </tr>
             </tbody>
@@ -277,7 +380,8 @@ export default function DetailOfGoodsPage() {
                   className="border border-gray-300 p-2 text-center"
                   colSpan="4"
                 >
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">{product.description}</span>
+
                 </td>
               </tr>
             </tbody>
@@ -295,7 +399,8 @@ export default function DetailOfGoodsPage() {
                   <span className="text-sm italic">(Goods address)</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
-                  (lệnh)
+                  {product.address}
+
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
                   ĐỊA ĐIỂM GIAO HÀNG:
@@ -303,7 +408,7 @@ export default function DetailOfGoodsPage() {
                   <span className="text-sm italic">(Location of handover)</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
-                (lệnh)
+                  {product.location}
                 </td>
               </tr>
             </tbody>
@@ -325,7 +430,8 @@ export default function DetailOfGoodsPage() {
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   <span>
-                    (lệnh) <br />
+                    {product.contractDuration} <br />
+
                     MỘT
                     <br />
                     (One)
@@ -357,11 +463,19 @@ export default function DetailOfGoodsPage() {
                   <span className="text-sm italic">(End time)</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
-                (lệnh) 
+                  {product.endPostTime ? new Date(product.endPostTime).toLocaleDateString('vi-VN', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                  }) : ''}
                   <span className="text-sm italic">(ngày, tháng, năm)</span>
                 </td>
-                <td className="border border-gray-300 p-2 text-center w-1/6">
-                (lệnh) 
+               <td className="border border-gray-300 p-2 text-center w-1/6">
+                  {product.endPostTime ? new Date(product.endPostTime).toLocaleTimeString('vi-VN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                  }) : ''}
                   <span className="text-sm italic">(giờ, phút)</span>
                 </td>
               </tr>
@@ -383,6 +497,8 @@ export default function DetailOfGoodsPage() {
                   width="40%"
                 >
                   <button
+                    onClick={handlePriceUpdate}
+
                     className="px-6 py-2 border rounded hover:bg-green-600 font-bold w-full"
                   >
                     CHẤP NHẬN

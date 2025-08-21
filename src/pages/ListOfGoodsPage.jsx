@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { filterProducts } from "../services/productService";
+
 
 export default function ListOfGoodsPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
@@ -11,7 +13,34 @@ export default function ListOfGoodsPage() {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
+
+  
+// Filter state
+  const [filters, setFilters] = useState({
+    listingType: '',
+    categoryType: '',
+    conditionType: '',
+    nation: '',
+    province: '',
+    name: ''
+  });
+  const [products, setProducts] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setFilters({
+      listingType: selectedCategory ? categories[selectedCategory].en.toLowerCase() : '',
+      categoryType: selectedSubcategory ? subcategories[selectedSubcategory].en.toLowerCase() : '',
+      conditionType: selectedCondition ? conditions[selectedCondition].en.toLowerCase() : '',
+      nation: selectedCountry,
+      province: selectedProvince,
+      name: searchTerm
+    });
+  }, [selectedCategory, selectedSubcategory, selectedCondition, selectedCountry, selectedProvince, searchTerm]);
+  
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
     setColor(newColor);
@@ -19,8 +48,33 @@ export default function ListOfGoodsPage() {
   };
 
   useEffect(() => {
+    fetchProducts();
+  }, [filters]);
+
+  useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
+
+  const fetchProducts = async () => {
+      try {
+        //setLoading(true);
+        const response = await filterProducts(filters, currentPage, 25, null, true);
+        setProducts(response.data.data || []);
+        setTotalPages(response.data.meta.pagination.pageCount);
+        setCurrentPage(response.data.meta.pagination.page);
+
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        //setLoading(false);
+      }
+    };
+
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
 
   // Categories data
   const categories = {
@@ -138,6 +192,8 @@ export default function ListOfGoodsPage() {
                 type="text" 
                 placeholder="Gõ vào để tìm kiếm..." 
                 className="flex-1 p-2 rounded"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
@@ -149,24 +205,24 @@ export default function ListOfGoodsPage() {
             {/* Sample listings */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
               {/* Generate 12 sample items */}
-              {Array(12).fill().map((_, index) => (
+              {products.map((_, index) => (
                 <div 
                   key={index} 
                   className="border border-gray-300 p-2 flex flex-col relative overflow-hidden cursor-pointer hover:bg-gray-100 transition-colors"
-                  onClick={() => navigate('/detail-of-goods')}
+                  onClick={() => navigate(`/list-of-goods/${_.documentId}`)}
                 >
                   {/* Background watermark image */}
                   <div className="absolute inset-0 opacity-15 z-0">
                     <img 
-                      src="https://img.lovepik.com/png/20231125/delivery-box-3d-illustration-icon-arrows-search_698016_wh860.png" 
+                      src={_.image ? _.image : 'https://img.lovepik.com/png/20231125/delivery-box-3d-illustration-icon-arrows-search_698016_wh860.png'}
                       alt="Watermark" 
                       className="w-full h-full object-cover"
                     />
                   </div>               
                   {/* Product details - with z-index to appear above the watermark */}
-                  <div className="text-center font-medium relative z-10">Tên hàng hóa</div>
-                  <div className="text-center text-sm relative z-10">Tổng giá mong muốn</div>
-                  <div className="text-center text-sm text-gray-600 relative z-10">Địa chỉ hàng hóa</div>
+                  <div className="text-center font-medium relative z-10">{_.name}</div>
+                  <div className="text-center text-sm relative z-10">{_.price}</div>
+                  <div className="text-center text-sm text-gray-600 relative z-10">{_.address}</div>
                 </div>
               ))}
             </div>
@@ -174,11 +230,17 @@ export default function ListOfGoodsPage() {
             {/* Pagination */}
             <div className="flex justify-center mt-6">
               <div className="flex space-x-2">
-                <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">1</button>
-                <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">2</button>
-                <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">3</button>
-                <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">...</button>
-                <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">10</button>
+                  {[...Array(totalPages)].map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentPage(index + 1)}
+                      className={`px-3 py-1 border border-gray-300 rounded hover:bg-gray-100 ${
+                        currentPage === index + 1 ? 'bg-gray-200' : ''
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
               </div>
             </div>
           </div>

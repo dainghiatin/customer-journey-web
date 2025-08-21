@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { handleAcceptFreelancer } from "../services/freelancerService";
 
-export default function FreelancerOnlineComponent() {
+
+
+export default function FreelancerOnlineComponent({freelancers}) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredFreelancers, setFilteredFreelancers] = useState(freelancers);
+
+  useEffect(() => {
+    const filtered = freelancers.filter(freelancer => 
+      freelancer.type === 'offline' &&
+      freelancer.id.toString().includes(searchTerm) || 
+      freelancer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredFreelancers(filtered);
+  }, [searchTerm, freelancers]);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <div className="mt-4 border-2 border-blue-100 p-4">
       {/* Blue indicator bar at the top */}
@@ -65,72 +84,49 @@ export default function FreelancerOnlineComponent() {
           </thead>
           <tbody>
             {/* Table rows remain unchanged */}
-            <tr>
-              <td className="border border-gray-300 p-2 text-center">1</td>
+            {
+              filteredFreelancers.map((freelancer, index) => (
+                <tr key={freelancer.id}>
+
+              <td className="border border-gray-300 p-2 text-center">{freelancer.id}</td>
               <td className="border border-gray-300 p-2 text-center">
-                Thiết kế website
+                {freelancer.name}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                5.000.000 VNĐ
+                {freelancer.estimate}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                1 lập trình viên, kinh nghiệm React
+                {freelancer.requirement}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                10:00 18/07/2023
+                {freelancer.startTime}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                15:00 25/07/2023
+                {freelancer.endTime}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                1.000.000 VNĐ
+                {freelancer.deposit}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                5.500.000 VNĐ
+                {freelancer.price}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                5.200.000 VNĐ
+                {freelancer.serviceFee}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                <button onClick={() => handleAcceptFreelancer(freelancer.documentId)} className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
                   CHẤP NHẬN
                   <div className="text-xs text-white"><i>(Accept)</i></div>
                 </button>
               </td>
             </tr>
-            <tr>
-              <td className="border border-gray-300 p-2 text-center">2</td>
-              <td className="border border-gray-300 p-2 text-center">
-                Dịch tài liệu Anh-Việt
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1.200.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1 biên dịch viên, chuyên ngành kỹ thuật
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                08:00 19/07/2023
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                17:00 22/07/2023
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                300.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1.500.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1.300.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
-                  CHẤP NHẬN
-                  <div className="text-xs text-white"><i>(Accept)</i></div>
-                </button>
-              </td>
-            </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>

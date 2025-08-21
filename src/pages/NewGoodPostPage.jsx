@@ -56,7 +56,12 @@ export default function NewGoodPostPage() {
     advertisingUrl: "https://example.com/advertising",
     registerForAdvertising: false,
     successFee: 0,
-    totalFees: 0
+    totalFees: 0,
+    listingType: "sell",
+    categoryType: "goods",
+    conditionType: "new",
+    nation: "",
+    province: ""
   });
 
   const [errorMessage, setErrorMessage] = useState("");

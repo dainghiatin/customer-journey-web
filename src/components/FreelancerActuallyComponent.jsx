@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { handleAcceptFreelancer } from "../services/freelancerService";
 
-export default function FreelancerActuallyComponent() {
+export default function FreelancerActuallyComponent({freelancers}) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredFreelancers, setFilteredFreelancers] = useState(freelancers);
+
+  useEffect(() => {
+    const filtered = freelancers.filter(freelancer => 
+      freelancer.type === 'offline' &&
+      freelancer.id.toString().includes(searchTerm) || 
+      freelancer.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredFreelancers(filtered);
+  }, [searchTerm, freelancers]);
+
   return (
     <div className="mt-4 border-2 border-orange-100 p-4">
       {/* Orange indicator bar at the top */}
@@ -72,84 +85,55 @@ export default function FreelancerActuallyComponent() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="border border-gray-300 p-2 text-center">1</td>
+            {filteredFreelancers.map((freelancer, index) => (
+              <tr key={freelancer.id}>
+
+              <td className="border border-gray-300 p-2 text-center">{freelancer.id}</td>
               <td className="border border-gray-300 p-2 text-center">
-                Vận chuyển hàng hóa
+                {freelancer.name}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                2.500.000 VNĐ
+                {freelancer.estimate}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                2 người, xe tải 1.5 tấn
+                {freelancer.requirement}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                08:00 15/07/2023
+                {freelancer.startDate}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                Quận 1, TP.HCM
+                {freelancer.startLocation}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                17:00 15/07/2023
+                {freelancer.endDate}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                Quận 7, TP.HCM
+                {freelancer.endLocation}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                500.000 VNĐ
+                {freelancer.deposit}
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                2.800.000 VNĐ
+                  {freelancer.price}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                2.600.000 VNĐ
+                {freelancer.serviceFee}
+
               </td>
               <td className="border border-gray-300 p-2 text-center">
-                <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                <button onClick={() => handleAcceptFreelancer(freelancer.documentId)} className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
                   CHẤP NHẬN
                   <div className="text-xs text-white"><i>(Accept)</i></div>
                 </button>
               </td>
             </tr>
-            <tr>
-              <td className="border border-gray-300 p-2 text-center">2</td>
-              <td className="border border-gray-300 p-2 text-center">
-                Lắp đặt thiết bị điện
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1.800.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                3 thợ điện, dụng cụ chuyên dụng
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                09:30 20/07/2023
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                Quận 2, TP.HCM
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                16:30 21/07/2023
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                Quận 2, TP.HCM
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                400.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                2.000.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                1.900.000 VNĐ
-              </td>
-              <td className="border border-gray-300 p-2 text-center">
-                <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
-                  CHẤP NHẬN
-                  <div className="text-xs text-white"><i>(Accept)</i></div>
-                </button>
-              </td>
-            </tr>
+            ))}
           </tbody>
         </table>
       </div>
