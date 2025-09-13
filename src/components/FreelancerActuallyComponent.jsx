@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { handleAcceptFreelancer } from "../services/freelancerService";
+import { useTranslation } from 'react-i18next';
 
 export default function FreelancerActuallyComponent({freelancers}) {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredFreelancers, setFilteredFreelancers] = useState(freelancers);
 
@@ -26,7 +28,7 @@ export default function FreelancerActuallyComponent({freelancers}) {
       <div className="mb-4">
         <input 
           type="text" 
-          placeholder="TÌM KIẾM (Search): ID công việc, tên công việc" 
+          placeholder={t('freelancer.searchPlaceholder', 'TÌM KIẾM (Search): ID công việc, tên công việc')} 
           className="w-full p-2 border rounded" 
         />
       </div>
@@ -35,20 +37,20 @@ export default function FreelancerActuallyComponent({freelancers}) {
         <table className="min-w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-300 p-2 text-center">STT</th>
+              <th className="border border-gray-300 p-2 text-center">{t('common.stt', 'STT')}</th>
               <th className="border border-gray-300 p-2 text-center">
-                TÊN CÔNG VIỆC
-                <div className="text-xs text-gray-500"><i>(Name of shift)</i></div>
+                {t('freelancer.jobName', 'TÊN CÔNG VIỆC')}
+                <div className="text-xs text-gray-500"><i>({t('freelancer.jobNameEn', 'Name of shift')})</i></div>
               </th>
               
               {/* Rest of the table headers remain unchanged */}
               <th className="border border-gray-300 p-2 text-center">
-                ƯỚC LƯỢNG
-                <div className="text-xs text-gray-500"><i>(Estimate)</i></div>
+                {t('freelancer.estimate', 'ƯỚC LƯỢNG')}
+                <div className="text-xs text-gray-500"><i>({t('freelancer.estimateEn', 'Estimate')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN
-                <div className="text-xs text-gray-500"><i>(Manpower, equipment requirements)</i></div>
+                {t('freelancer.requirements', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN')}
+                <div className="text-xs text-gray-500"><i>({t('freelancer.requirementsEn', 'Manpower, equipment requirements')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
                 THỜI GIAN NHẬN VIỆC

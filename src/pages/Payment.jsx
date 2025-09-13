@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { getFavoriteWallets, getWalletFromToken } from "../services/walletService";
 import { data, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const GoodsPaymentPage = () => {
+  const { t } = useTranslation();
   return (<>
     <div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          TÀI KHOẢN HÀNG HÓA
-          <div className="text-xs italic">(Goods account)</div>
+          {t('payment.goodsAccount', 'TÀI KHOẢN HÀNG HÓA')}
+          <div className="text-xs italic">({t('payment.goodsAccountEn', 'Goods account')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
+          ({t('payment.money', 'tiền')})
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           VNĐ
@@ -19,9 +21,9 @@ const GoodsPaymentPage = () => {
         <div className="col-span-1"></div>
         <div className="col-span-2">
           <button className="border-1 px-6 py-2 font-bold rounded text-sm">
-            CHUYỂN VỀ VÍ 
+            {t('payment.transferToWallet', 'CHUYỂN VỀ VÍ')} 
             <br />
-            (Transfer to wallet)
+            ({t('payment.transferToWalletEn', 'Transfer to wallet')})
           </button>
         </div>
       </div>
@@ -29,17 +31,17 @@ const GoodsPaymentPage = () => {
         <div className="col-span-4">
           <select name="" id="" className="border w-full">
             <option value="">
-              BÀI ĐĂNG <br/>
-              (POSTED)
+              {t('payment.posted', 'BÀI ĐĂNG')} <br/>
+              ({t('payment.postedEn', 'POSTED')})
             </option>
-            <option value="">BÀI THAM GIA (JOINED)</option>
+            <option value="">{t('payment.joined', 'BÀI THAM GIA')} ({t('payment.joinedEn', 'JOINED')})</option>
           </select>
         </div>
       </div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ĐANG NHẬN CỌC:
-          <div className="text-xs italic">(Accepting deposit)</div>
+          {t('payment.acceptingDeposit', 'ĐANG NHẬN CỌC')}:
+          <div className="text-xs italic">({t('payment.acceptingDepositEn', 'Accepting deposit')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (tiền)
@@ -51,13 +53,13 @@ const GoodsPaymentPage = () => {
       </div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ID HÀNG HÓA:
-          <div className="text-xs italic">(ID of goods)</div>
+          {t('payment.goodsId', 'ID HÀNG HÓA')}:
+          <div className="text-xs italic">({t('payment.goodsIdEn', 'ID of goods')})</div>
         </div>
 
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           <select name="" id="" className="border">
-            <option value="">(Chọn)</option>
+            <option value="">({t('payment.select', 'Chọn')})</option>
             <option value="">1</option>
             <option value="">2</option>
             <option value="">3</option>
@@ -70,12 +72,12 @@ const GoodsPaymentPage = () => {
       </div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          TRẠNG THÁI:
-          <div className="text-xs italic">(status)</div>
+          {t('payment.status', 'TRẠNG THÁI')}:
+          <div className="text-xs italic">({t('payment.statusEn', 'status')})</div>
         </div>
 
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
+          ({t('payment.command', 'lệnh')})
         </div>
        
         <div className="col-span-5"></div>
@@ -83,8 +85,8 @@ const GoodsPaymentPage = () => {
 
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          BAN ĐẦU:
-          <div className="text-xs italic">(Follow goods's ID)</div>
+          {t('payment.initial', 'BAN ĐẦU')}:
+          <div className="text-xs italic">({t('payment.initialEn', 'Follow goods\'s ID')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (tiền)
@@ -97,18 +99,18 @@ const GoodsPaymentPage = () => {
 
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          THỰC TẾ:
-          <div className="text-xs italic">(Actual)</div>
+          {t('payment.actual', 'THỰC TẾ')}:
+          <div className="text-xs italic">({t('payment.actualEn', 'Actual')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           <input
             type="text"
-            placeholder="(nhập số tiền)"
+            placeholder={t('payment.enterAmount', '(nhập số tiền)')}
             className="w-10 h-10"
           />
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (BBBG) (Handover)
+          ({t('payment.handover', 'BBBG')}) ({t('payment.handoverEn', 'Handover')})
         </div>
         <div className="col-span-5"></div>
       </div>
@@ -116,8 +118,8 @@ const GoodsPaymentPage = () => {
 
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ĐẶT CỌC:
-          <div className="text-xs italic">(Deposit)</div>
+          {t('payment.deposit', 'ĐẶT CỌC')}:
+          <div className="text-xs italic">({t('payment.depositEn', 'Deposit')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (lệnh)
@@ -130,8 +132,8 @@ const GoodsPaymentPage = () => {
 
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          SỐ TIỀN CÒN LẠI PHẢI TRẢ:
-          <div className="text-xs italic">(Amount remaining to be paid)</div>
+          {t('payment.remainingAmount', 'SỐ TIỀN CÒN LẠI PHẢI TRẢ')}:
+          <div className="text-xs italic">({t('payment.remainingAmountEn', 'Amount remaining to be paid')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (lệnh)
@@ -146,8 +148,8 @@ const GoodsPaymentPage = () => {
         <div className="col-span-1"></div>
         <div className="col-span-2 flex justify-end my-4">
           <button className="border-3 px-6 py-2 font-bold rounded">
-            XÁC NHẬN
-            <div className="text-xs italic">(Accept)</div>
+            {t('payment.confirm', 'XÁC NHẬN')}
+            <div className="text-xs italic">({t('payment.confirmEn', 'Accept')})</div>
           </button>
         </div>
       </div>
@@ -172,43 +174,43 @@ const GoodsPaymentPage = () => {
 
       <div className="grid gap-5 border-black-800 pr-2">
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-          GIAO HÀNG VÀ NHẬN THANH TOÁN
+          {t('payment.deliveryAndReceivePayment', 'GIAO HÀNG VÀ NHẬN THANH TOÁN')}
           <div className="text-xs italic">
-            (Delivery goods and receive payment)
+            ({t('payment.deliveryAndReceivePaymentEn', 'Delivery goods and receive payment')})
           </div>
         </div>
   
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-          NHẬN LẠI HÀNG VÀ BÙ 100% CỌC
+          {t('payment.takeBackGoodsLose100', 'NHẬN LẠI HÀNG VÀ BÙ 100% CỌC')}
           <div className="text-xs italic">
-            (Take back goods and lost 100% deposit)
+            ({t('payment.takeBackGoodsLose100En', 'Take back goods and lost 100% deposit')})
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC
+         {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
           <div className="text-xs italic">
-            (Return goods and take 50% deposite)
+            ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
           </div>
         </div>
       </div>
 
       <div className="grid gap-5 pl-2">
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-          NHẬN HÀNG VÀ THANH TOÁN
+          {t('payment.receiveGoodsAndPayment', 'NHẬN HÀNG VÀ THANH TOÁN')}
           <div className="text-xs italic">
-            (Receive goods and payment)
+            ({t('payment.receiveGoodsAndPaymentEn', 'Receive goods and payment')})
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC
+         {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
           <div className="text-xs italic">
-            (Return goods and take 50% deposite)
+            ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         TRẢ LẠI HÀNG VÀ ĐƯỢC 100% CỌC
+         {t('payment.returnGoodsGet100', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 100% CỌC')}
           <div className="text-xs italic">
-            (Return goods and take 100% deposite)
+            ({t('payment.returnGoodsGet100En', 'Return goods and take 100% deposite')})
           </div>
         </div>
       </div>
@@ -217,8 +219,8 @@ const GoodsPaymentPage = () => {
 
     <div className="grid grid-cols-8 border-t border-black-800">
       <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
-        LÝ DO:
-        <div className="text-xs italic">(Reason)</div>
+        {t('payment.reason', 'LÝ DO')}:
+        <div className="text-xs italic">({t('payment.reasonEn', 'Reason')})</div>
       </div>
       <div className="col-span-7">
         <input type="text" />
@@ -229,14 +231,15 @@ const GoodsPaymentPage = () => {
 }
 
 const FreelancerPaymentPage = () => {
+    const { t } = useTranslation();
     return (<>
 
 
     <div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          TÀI KHOẢN CÔNG VIỆC TỰ DO:
-          <div className="text-xs italic">(Goods account)</div>
+          {t('payment.freelancerAccount', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}:
+          <div className="text-xs italic">({t('payment.freelancerAccountEn', 'Freelancer account')})</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (tiền)
@@ -279,8 +282,8 @@ const FreelancerPaymentPage = () => {
       </div>
       <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ID CÔNG VIỆC:
-          <div className="text-xs italic">(ID of goods)</div>
+          {t('payment.jobId', 'ID CÔNG VIỆC')}:
+          <div className="text-xs italic">({t('payment.jobIdEn', 'Job ID')})</div>
         </div>
 
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
@@ -456,6 +459,7 @@ const FreelancerPaymentPage = () => {
 }
 
 const PaymentPage = () => {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate()
@@ -509,8 +513,8 @@ const PaymentPage = () => {
     <div className="flex justify-center py-8 px-4">
       <div className="w-full max-w-4xl shadow-lg rounded relative">
         {/* Header */}
-        <button onClick={()=>{navigate("../")}} className="absolute p-2 border z-10">Home</button>
-        <button className="absolute right-0 p-2 border" >3-BĐK</button>
+        <button onClick={()=>{navigate("../")}} className="absolute p-2 border z-10">{t('common.home', 'Home')}</button>
+        <button className="absolute right-0 p-2 border" >{t('payment.bdk', '3-BĐK')}</button>
         <div className="text-center border-blue-800 py-2 relative">
           <h1 className="text-3xl font-bold inline-block relative">
             <span className="relative inline-block">
@@ -522,11 +526,11 @@ const PaymentPage = () => {
                 className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
               />
             </span>
-            &nbsp;- GIAO DỊCH THANH TOÁN
+            &nbsp;- {t('payment.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}
           </h1>
 
           <h2 className="text-2xl text-black mt-2">
-            <i>(Payment Transaction)</i>
+            <i>({t('payment.paymentTransactionEn', 'Payment Transaction')})</i>
           </h2>
         </div>
 
@@ -534,11 +538,11 @@ const PaymentPage = () => {
         <div>
           {/* MÃ QR Row */}
           <div className="grid grid-cols-8">
-            <div className="col-span-4 p-2 font-bold text-sm">QR:</div>
+            <div className="col-span-4 p-2 font-bold text-sm">{t('payment.qr', 'QR')}:</div>
             <div className="col-span-4 p-2 font-bold text-sm text-end">
-              Quét QR
+              {t('payment.scanQr', 'Quét QR')}
               <br />
-              <i>(Scan QR)</i>
+              <i>({t('payment.scanQrEn', 'Scan QR')})</i>
             </div>
           </div>
 
@@ -547,7 +551,7 @@ const PaymentPage = () => {
           <div className="grid grid-cols-6 text-center text-sm">
             <div className="col-span-2 grid grid-cols-4 text-center text-sm" >
               <div className="col-span-1 row-span-4 border p-2 font-bold flex flex-col items-start justify-center text-center">
-                Ví <br /> <i>Wallet</i>
+                {t('payment.wallet', 'Ví')} <br /> <i>{t('payment.walletEn', 'Wallet')}</i>
               </div>
               <div className="col-span-2 row-span-4 border p-2 flex flex-col items-center justify-center">
                 {wallet?.total}

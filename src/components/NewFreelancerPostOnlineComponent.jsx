@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { createFreelancer } from "../services/freelancerService";
+import { useTranslation } from "react-i18next";
 
 const NewFreelancerPostOnlineComponent = () => {
+  const { t } = useTranslation();
 
   const [freelancerData, setFreelancerData] = useState({
       name: "Rajiv Patel",
@@ -19,8 +21,9 @@ const NewFreelancerPostOnlineComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("authToken");
     try {
-      const response = await createFreelancer("token", freelancerData);
+      const response = await createFreelancer(token, freelancerData);
       console.log("Freelancer created successfully:", response.data);
       // Handle success, e.g., redirect to a success page
     } catch (error) {
@@ -49,7 +52,7 @@ const NewFreelancerPostOnlineComponent = () => {
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="TÊN CÔNG VIỆC (Name of JOB)"
+              placeholder={t('newFreelancerOnline.jobNamePlaceholder', 'TÊN CÔNG VIỆC (Name of JOB)')}
             />
           </div>
         </div>
@@ -67,7 +70,7 @@ const NewFreelancerPostOnlineComponent = () => {
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder=" ƯỚC LƯỢNG (Estimate)"
+              placeholder={t('newFreelancerOnline.estimatePlaceholder', 'ƯỚC LƯỢNG (Estimate)')}
             />
           </div>
         </div>
@@ -84,7 +87,7 @@ const NewFreelancerPostOnlineComponent = () => {
             <textarea
               className="w-full mt-2 p-2 border border-gray-300 rounded"
               rows="3"
-              placeholder="YÊU CẦU NHÂN LỰC (Manpower equipment)"
+              placeholder={t('newFreelancerOnline.requirementsPlaceholder', 'YÊU CẦU NHÂN LỰC (Manpower equipment)')}
             ></textarea>
           </div>
         </div>
@@ -97,7 +100,7 @@ const NewFreelancerPostOnlineComponent = () => {
           <div className="col-span-11 p-2 space-y-4">
             <div>
               <div className="font-bold">
-                THỜI GIAN NHẬN VIỆC <span className="italic font-normal text-sm">(Start time)</span>
+                {t('newFreelancerOnline.startTime', 'THỜI GIAN NHẬN VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerOnline.startTimeEn', 'Start time')})</span>
               </div>
               <input
                 type="datetime-local"
@@ -106,7 +109,7 @@ const NewFreelancerPostOnlineComponent = () => {
             </div>
             <div>
               <div className="font-bold">
-                THỜI GIAN HOÀN THÀNH <span className="italic font-normal text-sm">(Finish time)</span>
+                {t('newFreelancerOnline.finishTime', 'THỜI GIAN HOÀN THÀNH')} <span className="italic font-normal text-sm">({t('newFreelancerOnline.finishTimeEn', 'Finish time')})</span>
               </div>
               <input
                 type="datetime-local"
@@ -123,14 +126,14 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              GIÁ <span className="italic font-normal text-sm">(Price)</span>
+              {t('newFreelancerOnline.price', 'GIÁ')} <span className="italic font-normal text-sm">({t('newFreelancerOnline.priceEn', 'Price')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập giá"
+              placeholder={t('newFreelancerOnline.pricePlaceholder', 'Nhập giá')}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -145,14 +148,14 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              ĐẶT CỌC 02 BÊN: <span className="italic font-normal text-sm">(Deposit)</span>
+              {t('newFreelancerOnline.deposit', 'ĐẶT CỌC 02 BÊN')}: <span className="italic font-normal text-sm">({t('newFreelancerOnline.depositEn', 'Deposit')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập số tiền đặt cọc"
+              placeholder={t('newFreelancerOnline.depositPlaceholder', 'Nhập số tiền đặt cọc')}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -167,14 +170,14 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              PHÍ TRẢ SẢN: <span className="italic font-normal text-sm">(Service fee)</span>
+              {t('newFreelancerOnline.serviceFee', 'PHÍ TRẢ SẢN')}: <span className="italic font-normal text-sm">({t('newFreelancerOnline.serviceFeeEn', 'Service fee')})</span>
             </div>
           </div>
           <div className="col-span-2 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập %"
+              placeholder={t('newFreelancerOnline.percentagePlaceholder', 'Nhập %')}
             />
           </div>
           <div className="col-span-2 border-r border-gray-300 p-2 flex items-center">
@@ -191,8 +194,8 @@ const NewFreelancerPostOnlineComponent = () => {
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
           <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center cursor-pointer hover:bg-gray-100">
-            <div className="font-bold">ĐĂNG BÀI</div>
-            <div className="italic text-sm">(POST)</div>
+            <div className="font-bold">{t('newFreelancerOnline.postButton', 'ĐĂNG BÀI')}</div>
+            <div className="italic text-sm">({t('newFreelancerOnline.postButtonEn', 'POST')})</div>
           </button>
         </div>
       </div>

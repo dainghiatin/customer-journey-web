@@ -1,20 +1,22 @@
 import React from "react";
 import { Eye, HandHeart, BookOpen, Share, Flag, Plus } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function AiLiveLiveStreamComponent() {
+  const { t } = useTranslation();
   return (
     <div className="p-6">
       {/* Dòng AVATAR */}
       <div className="grid grid-cols-2 border border-black">
-        <div className="border-r border-black p-4 font-bold">AVATAR</div>
+        <div className="border-r border-black p-4 font-bold">{t('aiLive.avatar', 'AVATAR')}</div>
         <div className="p-4 text-sm text-black space-y-2">
-          <div><span className="text-yellow-600">ấn = vào bảng thống kê</span></div>
+          <div><span className="text-yellow-600">{t('aiLive.clickStats', 'ấn = vào bảng thống kê')}</span></div>
           <ul className="list-disc ml-4 space-y-1">
             <li>
-              <strong>THƯ MỤC THEO DÕI:</strong> Có cập nhật và hiển thị số lượng người đang theo dõi mình lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người theo dõi mình trong thư mục này.
+              <strong>{t('aiLiveStream.followFolder', 'THƯ MỤC THEO DÕI')}:</strong> {t('aiLiveStream.followFolderDesc', 'Có cập nhật và hiển thị số lượng người đang theo dõi mình lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người theo dõi mình trong thư mục này.')}
             </li>
             <li>
-              <strong>THƯ MỤC XEM:</strong> Có cập nhật và hiển thị số người mình đang theo dõi lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người mình theo dõi trong thư mục này.
+              <strong>{t('aiLiveStream.viewFolder', 'THƯ MỤC XEM')}:</strong> {t('aiLiveStream.viewFolderDesc', 'Có cập nhật và hiển thị số người mình đang theo dõi lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người mình theo dõi trong thư mục này.')}
             </li>
             <li>
               Trên đầu các AVATAR này hiển thị số cập nhật bài đăng livestream mới của người này mà mình chưa xem. Ấn vào các AVATAR của họ để chỉ được xem các thư mục ID HÀNG HÓA chứa các video livestream của họ (không xem được thư mục ID của ai và ai đang theo dõi họ).
@@ -47,10 +49,10 @@ export default function AiLiveLiveStreamComponent() {
       {/* Phần tìm kiếm */}
       <div className="border-l border-r border-b border-black">
         <div className="p-2 text-sm flex items-center gap-2">
-          <span className="font-bold">TÌM KIẾM (Search):</span>
+          <span className="font-bold">{t('aiLive.search', 'TÌM KIẾM')} ({t('aiLive.searchEn', 'Search')}):</span>
           <input 
             type="text" 
-            placeholder="nhập ID HÀNG HÀNG - TÊN HÀNG HÓA"
+            placeholder={t('aiLiveStream.searchPlaceholder', 'nhập ID HÀNG HÀNG - TÊN HÀNG HÓA')}
             className="flex-1 border border-gray-300 px-2 py-1 rounded text-sm"
           />
         </div>
@@ -62,7 +64,7 @@ export default function AiLiveLiveStreamComponent() {
         <div className="border-r border-black">
           <div className="p-2 text-sm">
             <div className="mb-2">
-              <span className="font-bold">Danh sách tên các hàng hóa đang LIVESTREAM được sắp xếp theo thứ tự</span>
+              <span className="font-bold">{t('aiLive.productListDesc', 'Danh sách tên các hàng hóa đang LIVESTREAM được sắp xếp theo thứ tự')}</span>
               <div className="text-yellow-600 ml-4">1 - Nạp tiền quảng cáo lớn - 2 - Số lượng phí trả sau lời - 3 - Gần trị hàng hóa lời - 4 - Thứ tự bán hàng</div>
               <div className="text-yellow-600 ml-4">(5 - Số bài viết (6 - 6 - Người theo dõi lời )</div>
             </div>
@@ -71,26 +73,26 @@ export default function AiLiveLiveStreamComponent() {
           {/* 10 dòng hàng hóa */}
           {Array.from({ length: 10 }, (_, index) => (
             <div key={index} className="border-t border-gray-300 p-2 text-sm">
-              <div>- Tên hàng hóa đầu tiên</div>
-              <div className="ml-4">- ID hàng hóa</div>
-              <div className="ml-4">- hiển thị số người đang xem</div>
+              <div>- {t('aiLive.firstProduct', 'Tên hàng hóa đầu tiên')}</div>
+              <div className="ml-4">- {t('aiLive.productId', 'ID hàng hóa')}</div>
+              <div className="ml-4">- {t('aiLive.viewerCount', 'hiển thị số người đang xem')}</div>
             </div>
           ))}
 
           {/* Phân trang */}
           <div className="border-t border-gray-300 p-2 text-center">
-            <span className="text-sm">Trang / Page: 2, 3, 4, 5, 6 ...</span>
+            <span className="text-sm">{t('aiLive.page', 'Trang')} / {t('aiLive.pageEn', 'Page')}: 2, 3, 4, 5, 6 ...</span>
           </div>
         </div>
 
         {/* Cột phải - VIDEO LIVESTREAM */}
         <div className="p-4 h-screen flex flex-col">
-          <div className="text-center font-bold mb-4">VIDEO LIVESTREAM</div>
+          <div className="text-center font-bold mb-4">{t('aiLiveStream.videoLivestream', 'VIDEO LIVESTREAM')}</div>
           
           <div className="border border-black p-4 flex-1 flex flex-col">
             <div className="mb-4">
               <div className="text-sm mb-2">
-                <span className="font-bold">Hình nền:</span> ID hàng hóa - Tên hàng hóa (đầu tiên)
+                <span className="font-bold">{t('aiLiveStream.background', 'Hình nền')}:</span> {t('aiLiveStream.backgroundDesc', 'ID hàng hóa - Tên hàng hóa (đầu tiên)')}
               </div>
               <div className="text-sm flex items-center justify-end">
                 <Eye size={16} />
@@ -122,11 +124,11 @@ export default function AiLiveLiveStreamComponent() {
               <div className="text-sm flex items-center justify-end mb-2">
                 <Flag size={16} />
               </div>
-              <div className="text-sm ml-4">- Vi phạm pháp luật</div>
+              <div className="text-sm ml-4">- {t('aiLive.lawViolation', 'Vi phạm pháp luật')}</div>
             </div>
 
             <div className="text-sm mb-4">
-              <div className="font-bold">HÀNG HÓA</div>
+              <div className="font-bold">{t('aiLive.products', 'HÀNG HÓA')}</div>
             </div>
 
             {/* Các nút video - flex-1 để chiếm hết không gian còn lại */}

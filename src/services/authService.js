@@ -27,4 +27,43 @@ const getMe = async (token) => {
     return response;
 }
 
-export { login, getMe };
+/**
+ * Change user password
+ * @param {string} cccd - User's CCCD number
+ * @param {string} currentPassword - User's current password
+ * @param {string} newPassword - User's new password
+ * @param {string} confirmPassword - Confirmation of new password
+ * @returns {Promise<Object>} - The response from the API
+ */
+const changePassword = async (cccd, newPassword, confirmPassword) => {
+    try {
+        const response = await axios.post(
+            `${API_URL}/auth/change-password`,
+            {
+                "cccd": cccd,
+                "new_password": newPassword,
+                "confirm_password": confirmPassword
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        return response;
+    } catch (error) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            throw new Error(error.response.data?.error?.message || "Password change failed");
+        } else if (error.request) {
+            // The request was made but no response was received
+            throw new Error("No response from server");
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            throw new Error("Error setting up password change request");
+        }
+    }
+};
+
+export { login, getMe, changePassword };

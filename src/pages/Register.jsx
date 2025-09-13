@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCountries } from "../services/countries";
 import Select from "react-select";
+import { useDispatch, useSelector } from 'react-redux';
+import { changePasswordAction } from "../context/action/authActions";
+import { uploadImageToCloudinary } from "../services/cloudinary";
+import { useTranslation } from 'react-i18next';
+
 
 const generateRandomPassword = (length = 8) => {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -30,8 +35,14 @@ const generateRandomPassword = (length = 8) => {
 };
 
 
+
+
 export default function RegisterPage() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
+  const [signature, setSignature] = useState();
   const navigate = useNavigate();
   const [countries, setCountries] = useState([]);
   const [formData, setFormData] = useState({
@@ -46,7 +57,11 @@ export default function RegisterPage() {
     bank_name: "",
     address_no: "",
     address_on_map: "",
+    signature: ""
+
   });
+
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const handleChangeColor = (e) => {
@@ -65,36 +80,25 @@ export default function RegisterPage() {
   };
 
   const handleRegister = async () => {
-    const { username, cccd } = formData;
+    console.log("formData: ", formData);
+    console.log(signature);
 
-    // Kiểm tra các trường bắt buộc
-    if (!cccd) {
-      setError("Vui lòng điền đầy đủ thông tin cần thiết.");
-      return;
-    }
+    const uploadToCloudinaryResp = await uploadImageToCloudinary(signature);
+    console.log(uploadToCloudinaryResp);
+
+    const { username, cccd } = formData;
     // Sinh mật khẩu ngẫu nhiên
     const randomPassword = generateRandomPassword();
     try {
       const payload = {
         ...formData,
         password: randomPassword,
+        signature: uploadToCloudinaryResp,
+
       };
-      const payload_test = {
-        "username":"", 
-        "email":"", 
-        "password":"T,<3N.H]", 
-        "cccd":"1234567890010", 
-        "reference_id":"", 
-        "full_name":"Admin 2", 
-        "mobile_number":"", 
-        "bank_number":"", 
-        "bank_name":"VietinBank", 
-        "address_no":"address_no_1", 
-        "address_on_map":"" 
-    }
-      console.log("ne: ", payload_test);
+      console.log("ne: ", payload);
       const response = await axios.post(
-        "http://localhost:1337/api/auth/register",
+        `${API_URL}/auth/register`,
         payload,
         {
           headers: { "Content-Type": "application/json" },
@@ -102,11 +106,13 @@ export default function RegisterPage() {
       );
 
       console.log("Đăng ký thành công:", response.data);
-      alert("Đăng ký thành công!");
+      dispatch(changePasswordAction(response.data?.user));
+
+      alert(t('auth.registerSuccess', 'Đăng ký thành công!'));
       navigate("/change-password"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
-      setError("Đăng ký thất bại. Vui lòng thử lại.");
+      setError(t('auth.registerError', 'Đăng ký thất bại. Vui lòng thử lại.'));
     }
   };
 
@@ -142,12 +148,12 @@ export default function RegisterPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- ĐĂNG KÝ
+              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝ')}
             </h1>
 
             {/* Register bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>(Register)</i>
+              <i>({t('common.register', 'Register')})</i>
             </h2>
           </div>
         </div>
@@ -158,7 +164,7 @@ export default function RegisterPage() {
                   <Select
                     options={countries} // mảng bạn đã set bằng setCountries
                     onChange={(option) => console.log(option.value)}
-                    placeholder="Quốc gia (Nation)"
+                    placeholder={t('auth.countryPlaceholder', 'Quốc gia (Nation)')}
                     className="w-full"
                   />
                   <span className="text-red-500 ml-2">*</span>
@@ -174,7 +180,10 @@ export default function RegisterPage() {
                   <input
                     type="text"
                     className="border p-2 rounded w-full"
-                    placeholder="CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)"
+                    placeholder={t('auth.referrerIdPlaceholder', 'CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
+                    name="reference_id"
+                    value={formData.reference_id}
+                    onChange={handleInputChange}
                   />
                   <span className="text-red-500 ml-2"></span>
                   <span className="text-red-500 ml-2"> </span>
@@ -189,9 +198,12 @@ export default function RegisterPage() {
                   htmlFor="signature-upload"
                   className="w-full h-12 text-black border flex flex-col items-center justify-center cursor-pointer rounded"
                 >
-                  <span className="font-semibold">TẢI CHỮ KÝ</span>
-                  <span className="text-sm">(Upload your signature)</span>
-                  <input id="signature-upload" type="file" className="hidden" />
+                  <span className="font-semibold">{t('auth.uploadSignature', 'TẢI CHỮ KÝ')}</span>
+                  <span className="text-sm">({t('auth.uploadSignatureEn', 'Upload your signature')})</span>
+                  <input id="signature-upload" type="file" className="hidden"
+                   onChange={(e) => setSignature(e.target.files[0])} 
+                   />
+
                   
                 </label>
                 <span className="text-red-500 ml-2">*</span>
@@ -208,7 +220,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="CCCD/MST (ID)"
+                  placeholder={t('auth.idPlaceholder', 'CCCD/MST (ID)')}
                   name="cccd"
                   value={formData.cccd}
                   onChange={handleInputChange}
@@ -221,7 +233,10 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="SỐ TÀI KHOẢN (Account number)"
+                  placeholder={t('auth.accountNumberPlaceholder', 'SỐ TÀI KHOẢN (Account number)')}
+                    name="bank_number"
+                    value={formData.bank_number}
+                    onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
@@ -234,7 +249,7 @@ export default function RegisterPage() {
                   value={formData.bank_name}
                   onChange={handleInputChange}
                 >
-                  <option value="">Chọn ngân hàng (With bank)</option>
+                  <option value="">{t('auth.selectBankPlaceholder', 'Chọn ngân hàng (With bank)')}</option>
                   <option value="GPBank">
                     Ngân hàng TNHH MTV Dầu khí toàn cầu (GPBank)
                   </option>
@@ -266,7 +281,7 @@ export default function RegisterPage() {
                   <input
                     type="text"
                     className="border p-2 rounded flex-1"
-                    placeholder="ĐỊA CHỈ NHẬN HÀNG - SỐ NHÀ (Number) * (Receive goods's address)"
+                    placeholder={t('auth.addressPlaceholder', 'ĐỊA CHỈ NHẬN HÀNG - SỐ NHÀ (Number) * (Receive goods\'s address)')}
                     name="address_no"
                     value={formData.address_no}
                     onChange={handleInputChange}
@@ -275,8 +290,8 @@ export default function RegisterPage() {
                 </div>
                 <div className="text-center w-1/2">
                   <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200">
-                    GHIM VỊ TRÍ{" "}
-                    <span className="text-xs text-gray-600">(Map)</span>
+                    {t('auth.pinLocation', 'GHIM VỊ TRÍ')}{" "}
+                    <span className="text-xs text-gray-600">({t('common.map', 'Map')})</span>
                   </button>
                 </div>
               </div>
@@ -287,7 +302,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery characte)"
+                  placeholder={t('auth.recoveryCharacterPlaceholder', 'KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery character)')}
                   // name="bank_number"
                   // value={formData.bank_number}
                   // onChange={handleInputChange}
@@ -301,7 +316,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)"
+                  placeholder={t('auth.repeatRecoveryCharacterPlaceholder', 'NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)')}
                   // name="bank_number"
                   // value={formData.bank_number}
                   // onChange={handleInputChange}
@@ -316,8 +331,8 @@ export default function RegisterPage() {
               className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
               onClick={()=>setPage(2)}
             >
-              Tiếp Theo <br />
-              <span className="text-xs text-gray-600">(Next)</span>
+              {t('common.next', 'Tiếp Theo')} <br />
+              <span className="text-xs text-gray-600">({t('common.nextEn', 'Next')})</span>
             </button>
           </div>
         </div>)}
@@ -327,11 +342,11 @@ export default function RegisterPage() {
             <button
               className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center"
             >
-              KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ
+              {t('auth.checkContract', 'KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ')}
               <br />
-              (Check the Contract)
+              ({t('auth.checkContractEn', 'Check the Contract')})
               <br />
-              (Ấn xem file)
+              ({t('auth.clickToViewFile', 'Ấn xem file')})
             </button>
 
             <div className="flex items-start gap-2">
@@ -340,38 +355,38 @@ export default function RegisterPage() {
                 <span className="text-red-500 text-lg">*</span>
               </div>
               <div className="text-left">
-                Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng cũng như tuân thủ mọi điều khoản và điều kiện do website - app yêu cầu bao gồm thêm các nội dung sau: <br />
+                {t('auth.contractConfirmation', 'Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng cũng như tuân thủ mọi điều khoản và điều kiện do website - app yêu cầu bao gồm thêm các nội dung sau:')} <br />
                 <span className="text-xs text-gray-600">
-                  (I confirm that I have read, understood and agreed to sign the contract and comply with all terms and conditions required by the website - app including more contents that:)
+                  ({t('auth.contractConfirmationEn', 'I confirm that I have read, understood and agreed to sign the contract and comply with all terms and conditions required by the website - app including more contents that:')})
                 </span>{" "}
                 <br />
-                <b>1. Tự động đăng xuất sau 168 h đăng nhập.</b> <br />
+                <b>{t('auth.term1', '1. Tự động đăng xuất sau 168 h đăng nhập.')}</b> <br />
                 <span className="text-xs text-gray-600">
-                  (Automatically log out after 168 hours of login)
+                  ({t('auth.term1En', 'Automatically log out after 168 hours of login')})
                 </span>
                 <br />
-                <b>2. Tự động khóa tài khoản sau 365 h (giờ) đăng xuất.</b>
+                <b>{t('auth.term2', '2. Tự động khóa tài khoản sau 365 h (giờ) đăng xuất.')}</b>
                 <br />
                 <span className="text-xs text-gray-600">
-                  (Automatically lock account after 365 hours of logging out)
+                  ({t('auth.term2En', 'Automatically lock account after 365 hours of logging out')})
                 </span>
                 <br />
-                <b>3. Tự động xóa tài khoản sau 365 ngày bị khóa.</b>
+                <b>{t('auth.term3', '3. Tự động xóa tài khoản sau 365 ngày bị khóa.')}</b>
                 <br />
                 <span className="text-xs text-gray-600">
-                  (Automatically delete account after 365 days of being locked)
+                  ({t('auth.term3En', 'Automatically delete account after 365 days of being locked')})
                 </span>
                 <br />
-                <b>4. Đăng nhập sai liên tiếp 05 lần sẽ bị khóa tài khoản.</b>
+                <b>{t('auth.term4', '4. Đăng nhập sai liên tiếp 05 lần sẽ bị khóa tài khoản.')}</b>
                 <br />
                 <span className="text-xs text-gray-600">
-                  (Login incorrectly 05 times in a row will lock the account)
+                  ({t('auth.term4En', 'Login incorrectly 05 times in a row will lock the account')})
                 </span>
                 <br />
-               <b>5.Tự động xóa bài sau 365 ngày được đăng.</b>
+               <b>{t('auth.term5', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
                 <br />
                 <span className="text-xs text-gray-600">
-                  (Automatically delete after 365 days posted)
+                  ({t('auth.term5En', 'Automatically delete after 365 days posted')})
                 </span>
                 <br />
               </div>
@@ -379,10 +394,10 @@ export default function RegisterPage() {
                       <div className="text-center mt-4">
             <button
               className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
-              onClick={()=>setPage(2)}
+              onClick={()=>handleRegister()}
             >
-              Đăng ký <br />
-              <span className="text-xs text-gray-600">(Register)</span>
+              {t('auth.registerTitle', 'Đăng ký')} <br />
+              <span className="text-xs text-gray-600">({t('common.register', 'Register')})</span>
             </button>
           </div>
           </div>

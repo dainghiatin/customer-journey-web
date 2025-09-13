@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "../styles/Login.css";
 import { useParams } from "react-router-dom";
 import { getProductById, updateProductPriceInfo } from "../services/productService";
 
 
 export default function DetailOfGoodsPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
@@ -22,9 +24,9 @@ export default function DetailOfGoodsPage() {
     const authToken = await localStorage.getItem("authToken");
     try {
       await updateProductPriceInfo(product.id, authToken, priceData);
-      alert("Price updated successfully");
+      alert(t('goods.priceUpdatedSuccess', 'Price updated successfully'));
     } catch (error) {
-      alert(error.message);
+      alert(t('goods.priceUpdateError', 'Price update failed'));
     }
   };
 
@@ -152,10 +154,10 @@ const fetchProductDetails = async () => {
                 className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
               />
             </span>
-            &nbsp;- CHI TIẾT HÀNG HÓA
+            &nbsp;- {t('detailOfGoods.title', 'CHI TIẾT HÀNG HÓA')}
           </h1>
           <h2 className="text-2xl text-black mt-2">
-            <i>(Detail of goods)</i>
+            <i>({t('detailOfGoods.titleEn', 'Detail of goods')})</i>
           </h2>
         </div>
 
@@ -170,7 +172,7 @@ const fetchProductDetails = async () => {
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                   >
-                    <option value="">Chọn loại</option>
+                    <option value="">{t('detailOfGoods.selectType', 'Chọn loại')}</option>
                     {Object.entries(categories).map(([key, value]) => (
                       <option key={key} value={key}>
                         {value.vi} ({value.en})
@@ -208,9 +210,9 @@ const fetchProductDetails = async () => {
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold w-2/5">
                   <select className="w-full p-2 border border-gray-300 rounded">
-                    <option value="">TẤT CẢ (All)</option>
-                    <option value="">Chọn tỉnh (Select province)</option>
-                    <option value="">Chọn nước (Select country)</option>
+                    <option value="">{t('detailOfGoods.all', 'TẤT CẢ')} ({t('detailOfGoods.allEn', 'All')})</option>
+                    <option value="">{t('detailOfGoods.selectProvince', 'Chọn tỉnh')} ({t('detailOfGoods.selectProvinceEn', 'Select province')})</option>
+                    <option value="">{t('detailOfGoods.selectCountry', 'Chọn nước')} ({t('detailOfGoods.selectCountryEn', 'Select country')})</option>
                   </select>
                 </td>
               </tr>
@@ -243,119 +245,119 @@ const fetchProductDetails = async () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  SỐ THỨ TỰ
+                  {t('detailOfGoods.orderNumber', 'SỐ THỨ TỰ')}
                   <br />
                   <span className="text-sm italic">(#)</span>
                   <br />
                   <span className="text-sm italic">{product.id}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  TÊN HÀNG HÓA
+                  {t('detailOfGoods.goodsName', 'TÊN HÀNG HÓA')}
                   <br />
-                  <span className="text-sm italic">(Name of goods)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.goodsNameEn', 'Name of goods')})</span>
                   <br />
                   <span className="text-sm italic">{product.name}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  MÃ SỐ
+                  {t('detailOfGoods.model', 'MÃ SỐ')}
                   <br />
-                  <span className="text-sm italic">(Model)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.modelEn', 'Model')})</span>
                   <br />
                   <span className="text-sm italic">{product.model}</span>
 
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  KÍCH THƯỚC
+                  {t('detailOfGoods.size', 'KÍCH THƯỚC')}
                   <br />
-                  <span className="text-sm italic">(Size)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.sizeEn', 'Size')})</span>
                   <br />
                   <span className="text-sm italic">{product.size}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  MÀU SẮC
+                  {t('detailOfGoods.color', 'MÀU SẮC')}
                   <br />
-                  <span className="text-sm italic">(Color)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.colorEn', 'Color')})</span>
                   <br />
                   <span className="text-sm italic">{product.color}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  HÌNH ẢNH
+                  {t('detailOfGoods.image', 'HÌNH ẢNH')}
                   <br />
-                  <span className="text-sm italic">(Image)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.imageEn', 'Image')})</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.command', 'lệnh')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  CHẤT LƯỢNG <span className="text-red-500 font-bold">*</span>
+                  {t('detailOfGoods.quality', 'CHẤT LƯỢNG')} <span className="text-red-500 font-bold">*</span>
                   <br />
-                  <span className="text-sm italic">(Quality)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.qualityEn', 'Quality')})</span>
                   <br />
-                  <span className="text-sm italic">(lệnh)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.command', 'lệnh')})</span>
                 </td>
               </tr>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  ƯỚC LƯỢNG
+                  {t('detailOfGoods.estimate', 'ƯỚC LƯỢNG')}
                   <br />
-                  <span className="text-sm italic">(Estimate)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.estimateEn', 'Estimate')})</span>
                   <br />
                   <span className="text-sm italic">{product.estimatedValue}</span>
 
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  ĐVT
+                  {t('detailOfGoods.unit', 'ĐVT')}
                   <br />
-                  <span className="text-sm italic">(Unit)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.unitEn', 'Unit')})</span>
                   <br />
                   <span className="text-sm italic">{product.unit}</span>
 
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  GIÁ THỊ TRƯỜNG
+                  {t('detailOfGoods.marketPrice', 'GIÁ THỊ TRƯỜNG')}
                   <br />
-                  <span className="text-sm italic">(Market price)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.marketPriceEn', 'Market price')})</span>
                   <br />
                   <span className="text-sm italic">{product.price}</span>
 
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  GIÁ MONG MUỐN
+                  {t('detailOfGoods.askingPrice', 'GIÁ MONG MUỐN')}
                   <br />
-                  <span className="text-sm italic">(Asking price)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.askingPriceEn', 'Asking price')})</span>
                   <br />
                   <span className="text-sm italic">{product.askingPrice}</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  GIÁ ĐẶT
+                  {t('detailOfGoods.setPrice', 'GIÁ ĐẶT')}
                   <br />
-                  <span className="text-sm italic">(Set price)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.setPriceEn', 'Set price')})</span>
                   <br />
                   <input
                     type="number"
                     value={priceData.setPrice ? priceData.setPrice : ""}
                     onChange={(e) => setPriceData({ ...priceData, setPrice: e.target.value })}
                     className="w-full mt-1 p-1 text-center border border-gray-300 rounded"
-                    placeholder="(nhập)"
+                    placeholder={t('detailOfGoods.enter', '(nhập)')}
                   />
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  YÊU CẦU ĐẶT CỌC
+                  {t('detailOfGoods.depositRequirement', 'YÊU CẦU ĐẶT CỌC')}
                   <br />
-                  <span className="text-sm italic">(Deposit requirement)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.depositRequirementEn', 'Deposit requirement')})</span>
                   <br />
                   <input
                     type="number"
                     className="w-full mt-1 p-1 text-center border border-gray-300 rounded"
-                    placeholder="(nhập)"
+                    placeholder={t('detailOfGoods.enter', '(nhập)')}
                     value={priceData.depositRequirement ? priceData.depositRequirement : ""}
                     onChange={(e) => setPriceData({ ...priceData, depositRequirement: e.target.value })}
                   />
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold">
-                  NGÀY GIAO HÀNG/KẾT THÚC CHẤP NHẬN <span className="text-red-500 font-bold">*</span>
+                  {t('detailOfGoods.deliveryEndDate', 'NGÀY GIAO HÀNG/KẾT THÚC CHẤP NHẬN')} <span className="text-red-500 font-bold">*</span>
                   <br />
                   <span className="text-sm italic">
-                    (Date of delivery/End of accept)
+                    ({t('detailOfGoods.deliveryEndDateEn', 'Date of delivery/End of accept')})
                   </span>
                   <br />
                   <span className="text-sm italic">{product.deliveryDate}</span>
@@ -372,9 +374,9 @@ const fetchProductDetails = async () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  THÔNG TIN HÀNG HÓA
+                  {t('detailOfGoods.goodsInfo', 'THÔNG TIN HÀNG HÓA')}
                   <br />
-                  <span className="text-sm italic">(INFORMATION OF GOODS)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.goodsInfoEn', 'INFORMATION OF GOODS')})</span>
                 </td>
                 <td
                   className="border border-gray-300 p-2 text-center"
@@ -394,18 +396,18 @@ const fetchProductDetails = async () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  ĐỊA CHỈ HÀNG HÓA:
+                  {t('detailOfGoods.goodsAddress', 'ĐỊA CHỈ HÀNG HÓA')}:
                   <br />
-                  <span className="text-sm italic">(Goods address)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.goodsAddressEn', 'Goods address')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
                   {product.address}
 
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  ĐỊA ĐIỂM GIAO HÀNG:
+                  {t('detailOfGoods.handoverLocation', 'ĐỊA ĐIỂM GIAO HÀNG')}:
                   <br />
-                  <span className="text-sm italic">(Location of handover)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.handoverLocationEn', 'Location of handover')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
                   {product.location}
@@ -424,43 +426,43 @@ const fetchProductDetails = async () => {
                   className="border border-gray-300 p-2 text-center font-bold w-1/5"
                   rowSpan="2"
                 >
-                  THỜI LƯỢNG THỰC HIỆN:
+                  {t('detailOfGoods.contractDuration', 'THỜI LƯỢNG THỰC HIỆN')}:
                   <br />
-                  <span className="text-sm italic">(Contract duration)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.contractDurationEn', 'Contract duration')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   <span>
                     {product.contractDuration} <br />
 
-                    MỘT
+                    {t('detailOfGoods.one', 'MỘT')}
                     <br />
-                    (One)
+                    ({t('detailOfGoods.oneEn', 'One')})
                     <br />
-                    NHIỀU
+                    {t('detailOfGoods.many', 'NHIỀU')}
                     <br />
-                    (Many)
+                    ({t('detailOfGoods.manyEn', 'Many')})
                   </span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   <span>
-                    (lệnh)
+                    ({t('detailOfGoods.command', 'lệnh')})
                     <br />
-                    LẦN
+                    {t('detailOfGoods.time', 'LẦN')}
                     <br />
-                    (Time)
+                    ({t('detailOfGoods.timeEn', 'Time')})
                     <br />
-                    NĂM
+                    {t('detailOfGoods.year', 'NĂM')}
                     <br />
-                    (Year)
+                    ({t('detailOfGoods.yearEn', 'Year')})
                   </span>
                 </td>
                 <td
                   className="border border-gray-300 p-2 text-center font-bold w-1/5"
                   rowSpan="2"
                 >
-                  THỜI GIAN KẾT THÚC:
+                  {t('detailOfGoods.endTime', 'THỜI GIAN KẾT THÚC')}:
                   <br />
-                  <span className="text-sm italic">(End time)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.endTimeEn', 'End time')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleDateString('vi-VN', {
@@ -468,7 +470,7 @@ const fetchProductDetails = async () => {
                     month: '2-digit',
                     year: 'numeric'
                   }) : ''}
-                  <span className="text-sm italic">(ngày, tháng, năm)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.dayMonthYear', 'ngày, tháng, năm')})</span>
                 </td>
                <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleTimeString('vi-VN', {
@@ -476,7 +478,7 @@ const fetchProductDetails = async () => {
                     minute: '2-digit',
                     hour12: false
                   }) : ''}
-                  <span className="text-sm italic">(giờ, phút)</span>
+                  <span className="text-sm italic">({t('detailOfGoods.hourMinute', 'giờ, phút')})</span>
                 </td>
               </tr>
             </tbody>
@@ -501,9 +503,9 @@ const fetchProductDetails = async () => {
 
                     className="px-6 py-2 border rounded hover:bg-green-600 font-bold w-full"
                   >
-                    CHẤP NHẬN
+                    {t('detailOfGoods.accept', 'CHẤP NHẬN')}
                     <br />
-                    <span className="text-sm italic">(Accept)</span>
+                    <span className="text-sm italic">({t('detailOfGoods.acceptEn', 'Accept')})</span>
                   </button>
                 </td>
                 <td
@@ -521,7 +523,7 @@ const fetchProductDetails = async () => {
             onClick={() => navigate(-1)}
             className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            Quay lại
+            {t('common.goBack', 'Quay lại')}
           </button>
         </div>
       </div>

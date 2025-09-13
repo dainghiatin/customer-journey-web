@@ -7,9 +7,11 @@ import FreelancerActuallyComponent from "../components/FreelancerActuallyCompone
 import FreelancerOnlineComponent from "../components/FreelancerOnlineComponent";
 import {getWalletFromToken} from "../services/walletService";
 import { getFreelancerWithNullPic } from "../services/freelancerService";
+import { useTranslation } from 'react-i18next';
 
 
 export default function FreelancerPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [activeTab, setActiveTab] = useState("actual"); // "actual" or "online"
 
@@ -91,8 +93,8 @@ const [freelancersOffline, setFreelancersOffline] = useState([
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
             <div className="relative justify-between flex">
-        <button onClick={()=>{navigate("../")}}  className=" p-2 border">Home</button>
-        <button className=" right-0 p-2 border" >3-BĐK</button>
+        <button onClick={()=>{navigate("../")}}  className=" p-2 border">{t('common.home', 'Home')}</button>
+        <button className=" right-0 p-2 border" >3-{t('common.bdk', 'BĐK')}</button>
       </div>
         <div className="flex items-center justify-center relative">
           {/* Tiêu đề ở giữa */}
@@ -107,12 +109,12 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- CÔNG VIỆC TỰ DO
+              &nbsp;- {t('posts.freelancer', 'CÔNG VIỆC TỰ DO')}
             </h1>
 
             {/* New post bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>(Freelancer)</i>
+              <i>({t('posts.freelancerEn', 'Freelancer')})</i>
             </h2>
           </div>
         </div>
@@ -123,8 +125,8 @@ const [freelancersOffline, setFreelancersOffline] = useState([
             {/* Row 1: TÀI KHOẢN CÔNG VIỆC TỰ DO */}
             <div className="grid grid-cols-12 border-b border-gray-300">
               <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                TÀI KHOẢN CÔNG VIỆC TỰ DO
-                <div className="text-sm text-gray-500"><i>(Account of freelancer)</i></div>
+                {t('freelancer.accountOfFreelancer', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}
+                <div className="text-sm text-gray-500"><i>({t('freelancer.accountOfFreelancerEn', 'Account of freelancer')})</i></div>
               </div>
               <div className="col-span-2 p-3 border-r border-gray-300 text-center">
                 <input disabled type="text" value={wallet.account_of_freelancer} placeholder="(lệnh)" className="w-full p-1 border rounded" />
@@ -136,16 +138,16 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                 <input type="text" placeholder="(nhập)" className="w-full p-1 border rounded" />
               </div>
               <div className="col-span-2 p-3 text-center font-bold">
-                CHUYỂN VỀ VÍ
-                <div className="text-sm text-gray-500"><i>(Transfer to wallet)</i></div>
+                {t('freelancer.transferToWallet', 'CHUYỂN VỀ VÍ')}
+                <div className="text-sm text-gray-500"><i>({t('freelancer.transferToWalletEn', 'Transfer to wallet')})</i></div>
               </div>
             </div>
 
             {/* Row 2: ĐĂNG ĐẶT CỌC */}
             <div className="grid grid-cols-12 border-b border-gray-300">
               <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                ĐĂNG ĐẶT CỌC
-                <div className="text-sm text-gray-500"><i>(Depositing)</i></div>
+                {t('freelancer.depositing', 'ĐĂNG ĐẶT CỌC')}
+                <div className="text-sm text-gray-500"><i>({t('freelancer.depositingEn', 'Depositing')})</i></div>
               </div>
               <div className="col-span-2 p-3 border-r border-gray-300 text-center">
                 <input disabled value={wallet.pending_amount} type="text" placeholder="(lệnh)" className="w-full p-1 border rounded" />
@@ -161,15 +163,15 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                 className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
                 onClick={() => setActiveTab("actual")}
               >
-                THỰC TẾ
-                <div className="text-sm text-gray-500"><i>(Actual)</i></div>
+                {t('freelancer.actual', 'THỰC TẾ')}
+                <div className="text-sm text-gray-500"><i>({t('freelancer.actualEn', 'Actual')})</i></div>
               </div>
               <div 
                 className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
                 onClick={() => setActiveTab("online")}
               >
-                TRỰC TUYẾN
-                <div className="text-sm text-gray-500"><i>(Online)</i></div>
+                {t('freelancer.online', 'TRỰC TUYẾN')}
+                <div className="text-sm text-gray-500"><i>({t('freelancer.onlineEn', 'Online')})</i></div>
               </div>
             </div>
           </div>

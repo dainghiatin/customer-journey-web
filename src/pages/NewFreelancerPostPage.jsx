@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import NewFreelancerPostDirectComponent from "../components/NewFreelancerPostDir
 import NewFreelancerPostOnlineComponent from "../components/NewFreelancerPostOnlineComponent";
 
 export default function NewFreelancerPostPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [activeTab, setActiveTab] = useState("direct"); // "direct" or "online"
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ export default function NewFreelancerPostPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- ĐĂNG BÀI MỚI
+              &nbsp;- {t('posts.newPost', 'ĐĂNG BÀI MỚI')}
             </h1>
 
             {/* New post bên dưới */}

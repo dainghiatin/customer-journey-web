@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { handleAcceptFreelancer } from "../services/freelancerService";
+import { useTranslation } from "react-i18next";
 
 
 
 export default function FreelancerOnlineComponent({freelancers}) {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredFreelancers, setFilteredFreelancers] = useState(freelancers);
 
@@ -32,7 +34,7 @@ export default function FreelancerOnlineComponent({freelancers}) {
       <div className="mb-4">
         <input 
           type="text" 
-          placeholder="TÌM KIẾM (Search): ID công việc, tên công việc" 
+          placeholder={t('freelancerOnline.searchPlaceholder', 'TÌM KIẾM (Search): ID công việc, tên công việc')} 
           className="w-full p-2 border rounded" 
         />
       </div>
@@ -41,44 +43,44 @@ export default function FreelancerOnlineComponent({freelancers}) {
         <table className="min-w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-300 p-2 text-center">STT</th>
+              <th className="border border-gray-300 p-2 text-center">{t('freelancerOnline.stt', 'STT')}</th>
               <th className="border border-gray-300 p-2 text-center">
-                TÊN CÔNG VIỆC
-                <div className="text-xs text-gray-500"><i>(Name of shift)</i></div>
+                {t('freelancerOnline.jobName', 'TÊN CÔNG VIỆC')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.jobNameEn', 'Name of shift')})</i></div>
               </th>
               
               {/* Rest of the table headers remain unchanged */}
               <th className="border border-gray-300 p-2 text-center">
-                ƯỚC LƯỢNG
-                <div className="text-xs text-gray-500"><i>(Estimate)</i></div>
+                {t('freelancerOnline.estimate', 'ƯỚC LƯỢNG')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.estimateEn', 'Estimate')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN
-                <div className="text-xs text-gray-500"><i>(Manpower, equipment requirements)</i></div>
+                {t('freelancerOnline.requirements', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.requirementsEn', 'Manpower, equipment requirements')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                THỜI GIAN NHẬN VIỆC
-                <div className="text-xs text-gray-500"><i>(Start time)</i></div>
+                {t('freelancerOnline.startTime', 'THỜI GIAN NHẬN VIỆC')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.startTimeEn', 'Start time')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                THỜI GIAN HOÀN THÀNH
-                <div className="text-xs text-gray-500"><i>(Finish time)</i></div>
+                {t('freelancerOnline.finishTime', 'THỜI GIAN HOÀN THÀNH')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.finishTimeEn', 'Finish time')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                ĐẶT CỌC Ở BÊN
-                <div className="text-xs text-gray-500"><i>(Deposit)</i></div>
+                {t('freelancerOnline.deposit', 'ĐẶT CỌC Ở BÊN')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.depositEn', 'Deposit')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                GIÁ ĐƯA RA
-                <div className="text-xs text-gray-500"><i>(Asking price)</i></div>
+                {t('freelancerOnline.priceOffered', 'GIÁ ĐƯA RA')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.priceOfferedEn', 'Price offered')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                ĐẶT GIÁ
-                <div className="text-xs text-gray-500"><i>(Set price)</i></div>
+                {t('freelancerOnline.serviceFee', 'ĐẶT GIÁ')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.serviceFeeEn', 'Service fee')})</i></div>
               </th>
               <th className="border border-gray-300 p-2 text-center">
-                CHẤP NHẬN
-                <div className="text-xs text-gray-500"><i>(Accept)</i></div>
+                {t('freelancerOnline.accept', 'CHẤP NHẬN')}
+                <div className="text-xs text-gray-500"><i>({t('freelancerOnline.acceptEn', 'Accept')})</i></div>
               </th>
             </tr>
           </thead>
@@ -120,8 +122,8 @@ export default function FreelancerOnlineComponent({freelancers}) {
               </td>
               <td className="border border-gray-300 p-2 text-center">
                 <button onClick={() => handleAcceptFreelancer(freelancer.documentId)} className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
-                  CHẤP NHẬN
-                  <div className="text-xs text-white"><i>(Accept)</i></div>
+                  {t('freelancerOnline.acceptButton', 'CHẤP NHẬN')}
+                  <div className="text-xs text-white"><i>({t('freelancerOnline.acceptButtonEn', 'Accept')})</i></div>
                 </button>
               </td>
             </tr>

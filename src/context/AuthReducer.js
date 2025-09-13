@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from './action/authActions';
+import { LOGIN, LOGOUT, CHANGE_PASSWORD } from './action/authActions';
 
 const initialState = {
   user: null,
@@ -23,6 +23,14 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isAuthenticated: false,
         user: null,
+        error: null,
+      };
+    case CHANGE_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+        user: action.payload,
         error: null,
       };
     default:

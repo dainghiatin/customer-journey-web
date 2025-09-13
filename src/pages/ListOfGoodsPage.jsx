@@ -3,9 +3,11 @@ import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { filterProducts } from "../services/productService";
+import { useTranslation } from 'react-i18next';
 
 
 export default function ListOfGoodsPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
@@ -69,35 +71,47 @@ export default function ListOfGoodsPage() {
         //setLoading(false);
       }
     };
+  
+    
 
 
   useEffect(() => {
     fetchProducts();
+    const category = localStorage.getItem("category");
+    const subcategory = localStorage.getItem("subcategory");
+    const condition = localStorage.getItem("condition")
+    setSelectedCategory(category)
+    setSelectedSubcategory(subcategory)
+    setSelectedCondition(condition)
+    setSelectedProvince(localStorage.getItem("province")===undefined? null : localStorage.getItem("province"))
+    setSelectedCountry(localStorage.getItem("nation")===undefined? null : localStorage.getItem("nation"))
+
+
   }, []);
 
 
   // Categories data
   const categories = {
-    "HÀNG BÁN": { vi: "HÀNG BÁN", en: "Sale" },
-    "CẦN MUA": { vi: "CẦN MUA", en: "Buy" },
-    "HÀNG THUÊ": { vi: "HÀNG THUÊ", en: "Rent" },
-    "CHO THUÊ": { vi: "CHO THUÊ", en: "For rent" },
-    "DỊCH VỤ": { vi: "DỊCH VỤ", en: "Service" },
+    "SALE": { vi: "HÀNG BÁN", en: "Sale" },
+    "BUY": { vi: "CẦN MUA", en: "Buy" },
+    "RENT": { vi: "HÀNG THUÊ", en: "Rent" },
+    "FOR_RENT": { vi: "CHO THUÊ", en: "For rent" },
+    "SERVICE": { vi: "DỊCH VỤ", en: "Service" },
   };
 
   const subcategories = {
-    "HÀNG HÓA": { vi: "HÀNG HÓA", en: "Goods" },
-    "BẤT ĐỘNG SẢN": { vi: "BẤT ĐỘNG SẢN", en: "Land/house" },
-    "PHƯƠNG TIỆN": { vi: "PHƯƠNG TIỆN", en: "Vehicle" },
-    "NHÂN LỰC": { vi: "NHÂN LỰC", en: "Manpower" },
-    "XUẤT - NHẬP KHẨU": { vi: "XUẤT - NHẬP KHẨU", en: "Import - Export" },
+    "GOODS": { vi: "HÀNG HÓA", en: "Goods" },
+    "LANDHOUSE": { vi: "BẤT ĐỘNG SẢN", en: "Land/house" },
+    "VEHICLE": { vi: "PHƯƠNG TIỆN", en: "Vehicle" },
+    "Manpower": { vi: "NHÂN LỰC", en: "Manpower" },
+    "IMPORT_EXPORT": { vi: "XUẤT - NHẬP KHẨU", en: "Import - Export" },
   };
 
   const conditions = {
-    "PHẾ LIỆU": { vi: "PHẾ LIỆU", en: "Scrap" },
-    "MỚI": { vi: "MỚI", en: "New" },
-    "CŨ": { vi: "CŨ", en: "Old" },
-    "CHƯA SỬ DỤNG": { vi: "CHƯA SỬ DỤNG", en: "Unused" },
+    "SCRAP": { vi: "PHẾ LIỆU", en: "Scrap" },
+    "NEW": { vi: "MỚI", en: "New" },
+    "OLD": { vi: "CŨ", en: "Old" },
+    "UNUSED": { vi: "CHƯA SỬ DỤNG", en: "Unused" },
   };
 
   return (
@@ -115,10 +129,10 @@ export default function ListOfGoodsPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- DANH SÁCH HÀNG HÓA
+              &nbsp;- {t('goods.listOfGoods', 'DANH SÁCH HÀNG HÓA')}
             </h1>
             <h2 className="text-2xl text-black mt-2">
-              <i>(List of goods)</i>
+              <i>({t('goods.listOfGoodsEn', 'List of goods')})</i>
             </h2>
           </div>
         </div>
@@ -133,7 +147,7 @@ export default function ListOfGoodsPage() {
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
-                <option value="">Chọn loại</option>
+                <option value="">{t('goods.selectType', 'Chọn loại')}</option>
                 {Object.entries(categories).map(([key, value]) => (
                   <option key={key} value={key}>
                     {value.vi} ({value.en})
@@ -149,7 +163,7 @@ export default function ListOfGoodsPage() {
                 value={selectedSubcategory}
                 onChange={(e) => setSelectedSubcategory(e.target.value)}
               >
-                <option value="">Chọn danh mục con</option>
+                <option value="">{t('goods.selectSubcategory', 'Chọn danh mục con')}</option>
                 {Object.entries(subcategories).map(([key, value]) => (
                   <option key={key} value={key}>
                     {value.vi} ({value.en})
@@ -165,7 +179,7 @@ export default function ListOfGoodsPage() {
                 value={selectedCondition}
                 onChange={(e) => setSelectedCondition(e.target.value)}
               >
-                <option value="">Chọn điều kiện</option>
+                <option value="">{t('goods.selectCondition', 'Chọn điều kiện')}</option>
                 {Object.entries(conditions).map(([key, value]) => (
                   <option key={key} value={key}>
                     {value.vi} ({value.en})
@@ -177,9 +191,9 @@ export default function ListOfGoodsPage() {
             {/* Column 4 - All and Filters */}
             <div className="border-r-2 border-black p-2 flex items-center justify-center">
             <select className="w-full p-2 border border-gray-300 my-4">
-                    <option value="">TẤT CẢ (All)</option>
-                    <option value="">Chọn tỉnh (Select province)</option>
-                    <option value="">Chọn nước (Select country)</option>
+                    <option value="">{t('goods.all', 'TẤT CẢ')} ({t('goods.allEn', 'All')})</option>
+                    <option value="">{t('goods.selectProvince', 'Chọn tỉnh')} ({t('goods.selectProvinceEn', 'Select province')})</option>
+                    <option value="">{t('goods.selectCountry', 'Chọn nước')} ({t('goods.selectCountryEn', 'Select country')})</option>
                   </select>
             </div>
           </div>
@@ -187,10 +201,10 @@ export default function ListOfGoodsPage() {
           {/* Search section */}
           <div className="mt-2 p-2 border-2 border-black bg-yellow-200">
             <div className="flex items-center">
-              <div className="font-bold mr-4">1. TÌM KIẾM <i>(search)</i>:</div>
+              <div className="font-bold mr-4">1. {t('goods.search', 'TÌM KIẾM')} <i>({t('goods.searchEn', 'search')})</i>:</div>
               <input 
                 type="text" 
-                placeholder="Gõ vào để tìm kiếm..." 
+                placeholder={t('goods.searchPlaceholder', 'Gõ vào để tìm kiếm...')} 
                 className="flex-1 p-2 rounded"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -200,7 +214,7 @@ export default function ListOfGoodsPage() {
           
           {/* Listing section */}
           <div className="mt-2 p-2 border-2 border-black">
-            <div className="font-bold">2. DANH SÁCH CÁC GIAN HÀNG</div>
+            <div className="font-bold">2. {t('goods.listOfStores', 'DANH SÁCH CÁC GIAN HÀNG')}</div>
             
             {/* Sample listings */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">

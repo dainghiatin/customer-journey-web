@@ -4,9 +4,12 @@ import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
-import { loginAction } from '../context/action/authActions';
+import { loginAction, changePasswordAction } from '../context/action/authActions';
+import { useTranslation } from 'react-i18next';
+
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [cccd, setCccd] = useState("");
   const [password, setPassword] = useState("");
@@ -29,21 +32,27 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       const response = await login(cccd, password);
+      console.log(response);
 
-      if (response.status === 200) {
-        localStorage.setItem("authToken", response.data.token);
-        dispatch(loginAction(response.data?.user))
-        console.log(auth);
+      
+      if (response.status == 200) {
+        if (!response.data?.user?.confirmed) {
+           dispatch(changePasswordAction(response.data?.user))
+          navigate("/change-password");
+        }else{
+           localStorage.setItem("authToken", response.data.token);
+           dispatch(loginAction(response.data?.user))
+          console.log(auth);
         
-        alert("Đăng nhập thành công!");
-        navigate("/"); // Chuyển hướng về trang chủ
+          alert(t('auth.loginSuccess', 'Đăng nhập thành công!'));
+          navigate("/"); // Chuyển hướng về trang chủ
+        } 
+       
       } else {
-        alert(
-          "THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI (YOUR INFORMATION INPUTED IS NOT CORRECT, PLEASE TRY AGAIN)"
-        );
+        alert(t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI'));
       }
     } catch (error) {
-      setErrorMessage("Thông tin đăng nhập không chính xác!");
+      setErrorMessage(t('auth.invalidCredentials', 'Thông tin đăng nhập không chính xác!'));
     }
   };
 
@@ -63,12 +72,12 @@ export default function LoginPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- ĐĂNG NHẬP
+              &nbsp;- {t('auth.loginTitle', 'ĐĂNG NHẬP')}
             </h1>
 
             {/* LOGIN bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>(Login)</i>
+              <i>({t('common.login', 'Login')})</i>
             </h2>
           </div>
         </div>
@@ -87,7 +96,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="CCCD / MST (ID)"
+                placeholder={t('auth.idPlaceholder', 'CCCD / MST (ID)')}
                 value={cccd}
                 onChange={(e) => setCccd(e.target.value)}
               />
@@ -97,7 +106,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder="MẬT KHẨU (Password)"
+                placeholder={t('auth.password', 'MẬT KHẨU (Password)')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -107,7 +116,7 @@ export default function LoginPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder="NHẬP MÃ CAPCHA (Input CAPCHA code)"
+                  placeholder={t('auth.captchaPlaceholder', 'NHẬP MÃ CAPCHA (Input CAPCHA code)')}
                 />
                 <img
                   src="https://www.tnc.com.vn/uploads/File/Image/c1_2.jpg"
@@ -123,8 +132,8 @@ export default function LoginPage() {
                   className="border-2 w-[50%] border-black text-black font-bold px-6 py-4 rounded hover:bg-gray-200 flex-1"
                   onClick={handleLogin}
                 >
-                  ĐĂNG NHẬP <br />
-                  <span className="text-xs text-gray-600">(Log in)</span>
+                  {t('auth.loginTitle', 'ĐĂNG NHẬP')} <br />
+                  <span className="text-xs text-gray-600">({t('common.login', 'Log in')})</span>
                 </button>
               </div>
               {/* <div className="flex gap-4 w-full">
@@ -148,9 +157,9 @@ export default function LoginPage() {
             </div>
             {errorMessage && (
               <h2 className="text-xl text-center text-red-500">
-                THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI <br />
+                {t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI')} <br />
                 <span className="text-xs text-red-500">
-                  (Your information inputed is not correct, please try again)
+                  ({t('auth.loginErrorEn', 'Your information inputed is not correct, please try again')})
                 </span>
               </h2>
             )}

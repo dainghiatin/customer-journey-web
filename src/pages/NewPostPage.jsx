@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 export default function NewPostPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [cccd, setCccd] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,7 @@ export default function NewPostPage() {
         <div className="flex items-center justify-between relative">
           {/* Tiêu đề ở giữa */}
           <button onClick={()=>{navigate('/')}} className="text-black hover:text-red-800 relative">
-            HOME
+            {t('common.home', 'HOME')}
           </button>
           <div className="text-center mb-4 relative">
 
@@ -40,16 +42,16 @@ export default function NewPostPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- ĐĂNG BÀI MỚI
+              &nbsp;- {t('posts.newPost', 'ĐĂNG BÀI MỚI')}
             </h1>
 
             {/* LOGIN bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>(New post)</i>
+              <i>({t('posts.newPostEn', 'New post')})</i>
             </h2>
           </div>
            <button className="text-black hover:text-red-800">
-            - BĐK
+            - {t('common.bdk', 'BĐK')}
           </button>
         </div>
 
@@ -58,19 +60,19 @@ export default function NewPostPage() {
           <div className="grid grid-cols-3 gap-4 border border-gray-300">
             {/* Column 1 */}
             <Link to={'../new-good-post'} className="border-r border-gray-400 p-4 text-center">
-              <h3 className="font-bold text-lg">HÀNG HÓA</h3>
-              <p className="text-sm italic">(Goods)</p>
+              <h3 className="font-bold text-lg">{t('posts.goods', 'HÀNG HÓA')}</h3>
+              <p className="text-sm italic">({t('posts.goodsEn', 'Goods')})</p>
             </Link>
 
             {/* Column 2 */}
             <Link to={'../new-freelancer-post'} className="border-r border-gray-400 p-4 text-center">
-              <h3 className="font-bold text-lg">CÔNG VIỆC TỰ DO</h3>
-              <p className="text-sm italic">(Freelancer)</p>
+              <h3 className="font-bold text-lg">{t('posts.freelancer', 'CÔNG VIỆC TỰ DO')}</h3>
+              <p className="text-sm italic">({t('posts.freelancerEn', 'Freelancer')})</p>
             </Link>
 
             {/* Column 3 */}
             <Link to={'../new-ai-live-post'} className="p-4 text-center">
-              <h3 className="font-bold text-lg">Ai LIVE</h3>
+              <h3 className="font-bold text-lg">{t('posts.aiLive', 'Ai LIVE')}</h3>
             </Link>
           </div>
         </div>

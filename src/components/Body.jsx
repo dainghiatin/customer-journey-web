@@ -1,49 +1,52 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
 
 import { logoutAction } from '../context/action/authActions';
 
 import Select from 'react-select';
-import { getCountries, getCountryByCode } from '../services/countries';
+import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
+import { useTranslation } from 'react-i18next';
+
 function HeroHeader() {
+    const { t } = useTranslation();
     return (
         <div style={{ position: "relative", marginBottom: "5vw" }}>
-            <div className="hero-title" style={{ marginTop: "0px",fontWeight:"bold"  }}>
-                <h3 style={{ color: "black", fontSize: '3vw', }}>CÔNG BẰNG LỚN - UY TÍN LỚN</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>(Great fairness - Great reputation)</em></h4>
+            <div className="hero-title" style={{ marginTop: "0px", fontWeight: "bold" }}>
+                <h3 style={{ color: "black", fontSize: '3vw', }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
+                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
             </div>
-            <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight:"bold" }}>
-                <h3 style={{ color: "black", fontSize: '3vw',   }}>MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA</h3>
+            <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight: "bold" }}>
+                <h3 style={{ color: "black", fontSize: '3vw', }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                 <h4 className='' style={{ color: "black", fontSize: '2vw' }}>
                     <em>
-                        (Target: <span style={{ color: 'black' }}>N</span>ational <span style={{ color: 'red' }}>V</span>-Commercial)
+                        ({t('hero.subtitleEn', 'Target: National V-Commercial')})
                     </em>
                 </h4>
             </div>
             <aside className="main-aside-2" >
-                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
-                    <div style={{ color: "black", textAlign: "center",height: "clamp(20px,4vw, 60px)" }}>
+                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{ position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
+                    <div style={{ color: "black", textAlign: "center", height: "clamp(20px,4vw, 60px)" }}>
                         <p><strong>Ai LIVE</strong></p>
                     </div>
                 </Link>
-                <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]"  style={{ position: "absolute", top: '3.5vw',  textAlign: "center"  }}>
-                    <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black",height:"clamp(20px,4vw, 60px)" }}>
-                        <p><strong>ĐĂNG BÀI MỚI</strong></p><p className=''><em>(New Post)</em></p>
+                <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]" style={{ position: "absolute", top: '3.5vw', textAlign: "center" }}>
+                    <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black", height: "clamp(20px,4vw, 60px)" }}>
+                        <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p><p className=''><em>({t('navigation.newPostEn', 'New Post')})</em></p>
                     </div>
                 </Link>
-                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[16vw] sm:w-[14vw] sm:left-[22vw]"  style={{position: "absolute", bottom: '-2vw'}}>
-                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)",height:"clamp(20px,4vw, 60px)"}}>
-                        <p><strong>CÔNG VIỆC TỰ DO</strong></p>
+                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[16vw] sm:w-[14vw] sm:left-[22vw]" style={{ position: "absolute", bottom: '-2vw' }}>
+                    <div style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
+                        <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
-                        <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>(Freelancer)</p>
+                        <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>({t('navigation.freelancerEn', 'Freelancer')})</p>
                     </div>
                 </Link>
-                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[16vw] sm:w-[14vw] sm:right-[22vw]" style={{ position: "absolute", bottom: "-2vw"}}>
-                    <div style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center",height:"clamp(20px,4vw, 60px)", display:"flex", flexDirection:"column", justifyContent:"center" }}>
-                        <p className=""><strong>GIAO DỊCH THANH TOÁN</strong></p>
-                        <p className=''><em>(Payment transaction)</em></p>
+                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[16vw] sm:w-[14vw] sm:right-[22vw]" style={{ position: "absolute", bottom: "-2vw" }}>
+                    <div style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                        <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
+                        <p className=''><em>({t('navigation.paymentTransactionEn', 'Payment transaction')})</em></p>
                     </div>
                 </Link>
             </aside>
@@ -146,80 +149,100 @@ const regions = [
 //     )
 // }
 
-const CategorySelect = ({ title, items, setNation, Nation }) => {
-    const [itemList, setItemList] = useState(items);
-    const [selected, setSelected] = useState(items[0]?.vi || "");
-    const [selected_en, setSelectedEN] = useState(items[0]?.en || "");
+const CategorySelect = ({
+    title,
+    items,
+    onChange, // Generic onChange handler for any selection type
+    value, // Current selected value (optional)
+    fetchItems, // Optional function to fetch items dynamically
+    dependsOn // Optional dependency for fetching items
+}) => {
+    const [itemList, setItemList] = useState(items || []);
+    const [selected, setSelected] = useState(value?.vi || items?.[0]?.vi || "");
+    const [selected_en, setSelectedEN] = useState(value?.en || items?.[0]?.en || "");
     const [open, setOpen] = useState(false);
 
-    const fetchCountries = async () => {
-        const response = await getCountries();
-        setItemList(response);
-    }
-    const fetchProvices = async () => {
-        const response = await getCountryByCode(Nation);
-        setItemList(response);
-    }
-
+    // Fetch items if a fetch function is provided
     useEffect(() => {
-        if (title == "Nation") {
-            fetchCountries()
+        const loadItems = async () => {
+            if (fetchItems) {
+                try {
+                    const response = await fetchItems(dependsOn);
+                    if (response) {
+                        setItemList(response);
+                    }
+                } catch (error) {
+                    console.error(`Error fetching items for ${title}:`, error);
+                }
+            }
+        };
+
+        loadItems();
+    }, [title, fetchItems, dependsOn]);
+
+    // Update selected values when value prop changes
+    useEffect(() => {
+        if (value) {
+            setSelected(value.vi || "");
+            setSelectedEN(value.en || "");
         }
-        if (title == "Province") {
-            fetchProvices()
+    }, [value]);
+
+    const handleSelection = (item) => {
+        setSelected(item.vi);
+        setSelectedEN(item.en);
+        setOpen(false);
+
+        // Call the generic onChange handler with the selected item and title
+        if (onChange) {
+            onChange(title, item);
         }
-    }, [title, Nation]);
+    };
 
     return (
         <div style={{ width: "80%", position: "relative" }}>
-            {/* Ô chọn (giống <select>) */}
-            <div 
-                onClick={() => setOpen(!open)} 
+            {/* Selection box */}
+            <div
+                onClick={() => setOpen(!open)}
                 className='items-center'
                 style={{
                     width: 340, padding: "5px", border: "2px solid black",
-                    textAlign: "center", cursor: "pointer", 
+                    textAlign: "center", cursor: "pointer",
                     backgroundColor: "transparent",
-                    // gap: 4,
-                    
-                    display:"flex", justifyContent:"space-between",
+                    display: "flex", justifyContent: "space-between",
                     fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)"
                 }}
             >
                 <div className='flex grow items-center justify-center flex-col'>
                     <span>{selected} </span>
-                    <span className='lowercase' style={{fontWeight:'normal', fontStyle:"italic"}}>({selected_en})</span>
+                    <span className='lowercase' style={{ fontWeight: 'normal', fontStyle: "italic" }}>({selected_en})</span>
                 </div>
                 <span style={{ fontSize: "16px", fontWeight: "bold", marginLeft: "10px" }}>
                     {open ? "▲" : "▼"}
                 </span>
             </div>
 
-            {/* Dropdown danh sách */}
+            {/* Dropdown list */}
             {open && (
-                <ul 
+                <ul
                     style={{
                         position: "absolute", width: 340, border: "2px solid black",
                         background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000,
-                        maxHeight:"300px", overflowY:"auto",
+                        maxHeight: "300px", overflowY: "auto",
                     }}
                 >
                     {itemList.map((item, index) => (
-                        <li 
-                            key={index} 
+                        <li
+                            key={index}
                             style={{
                                 padding: "5px", cursor: "pointer",
                                 fontWeight: "bold", borderBottom: "1px solid gray",
                                 display: "flex", justifyContent: "center",
                                 flexDirection: "column", textAlign: "center"
                             }}
-                            onClick={() => { setSelected(item.vi); setOpen(false); setSelectedEN(item.en)
-                                if (title === "Nation") {
-                                    setNation(item.en);
-                                }
-                             }}
+                            onClick={() => handleSelection(item)}
                         >
-                            <span className="font-bold">{item.vi}</span> 
+                            <span className="font-bold">{item.vi}</span>
                             <b className='lowercase'>({item.en})</b>
                         </li>
                     ))}
@@ -230,48 +253,95 @@ const CategorySelect = ({ title, items, setNation, Nation }) => {
 };
 
 function ActionSection() {
-    const [Nation, setNation] = useState("Vietnam");
+    const [category, setCategory] = useState("");
+    const [subcategory, setSubcategory] = useState("");
+    const [condition, setCondition] = useState("");
+    const [nation, setNation] = useState({
+        vi: "Viet Nam",
+        en: "Vietnam"
+    });
+    const [province, setProvince] = useState({
+        vi: "An Giang",
+        en: "An Giang"
+
+    });
+    const [district, setDistrict] = useState("");
+
+    useEffect(() => {
+        localStorage.setItem("category", category?.en);
+        localStorage.setItem("subcategory", subcategory?.en);
+        localStorage.setItem("condition", condition?.en);
+        localStorage.setItem("nation", nation?.en);
+        localStorage.setItem("province", province?.en);
+        localStorage.setItem("district", district?.en);
+    }, [category, subcategory, condition, nation, province, district]);
+
+    const handleCategoryChange = (title, item) => {
+        switch (title) {
+            case "DANH MỤC":
+                setCategory(item);
+                break;
+            case "Subcategories":
+                setSubcategory(item);
+                break;
+            case "Conditions":
+                setCondition(item);
+                break;
+            case "Nation":
+                setNation(item);
+                break;
+            case "Province":
+                setProvince(item);
+                break;
+            case "District":
+                setDistrict(item);
+                break;
+            default:
+                break;
+        }
+    };
+
     return (
         <section className="action-section" style={{}}>
             <div className="action-section-1" style={{ gap: 10 }}>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%',  }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%', }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '25%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
             </div>
-            <div className="action-section-1-mobile" style={{ justifyContent: "space-between"}}>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '49%' }}>
+            <div className="action-section-1-mobile" style={{ justifyContent: "space-between" }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '49%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
                 </div>
-                <div style={{ backgroundColor: "white", aspectRatio: 3/4, width: '49%' }}>
+                <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '49%' }}>
                     <h3>SỰ KIỆN</h3>
                     <h4><em>(EVENT)</em></h4>
                     {/* <h5><em>(slide cập nhật)</em></h5> */}
@@ -280,11 +350,48 @@ function ActionSection() {
             </div>
 
             <div className="action-section-2" style={{ gap: 4 }}>
-                <CategorySelect title="DANH MỤC" items={categories} setNation={setNation} Nation={Nation} />
-                <CategorySelect title="Subcategories" items={subCategories} setNation={setNation} Nation={Nation} />
-                <CategorySelect title="Conditions" items={conditions} setNation={setNation} Nation={Nation} />
-                <CategorySelect title="Nation" items={regions} setNation={setNation} Nation={Nation} />
-                <CategorySelect title="Province" items={regions} setNation={setNation} Nation={Nation} />
+                <CategorySelect
+                    title="DANH MỤC"
+                    items={categories}
+                    onChange={handleCategoryChange}
+                    value={category}
+                />
+                <CategorySelect
+                    title="Subcategories"
+                    items={subCategories}
+                    onChange={handleCategoryChange}
+                    value={subcategory}
+                />
+                <CategorySelect
+                    title="Conditions"
+                    items={conditions}
+                    onChange={handleCategoryChange}
+                    value={condition}
+                />
+                <CategorySelect
+                    title="Nation"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={nation}
+                    fetchItems={getCountries}
+                />
+                <CategorySelect
+                    title="Province"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={province}
+                    fetchItems={getCountryByCode}
+                    dependsOn={nation?.en}
+                />
+                {/* <CategorySelect
+                    title="District"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={district}
+                    fetchItems={getDistrictByCode}
+                    dependsOn={province?.en}
+                /> */}
+
             </div>
 
         </section>
@@ -301,50 +408,50 @@ const DropdownAuth = () => {
     const DEFAULT_AVT = 'https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain';
     // const [password, setPassword] = useState(null);
     useEffect(() => {
-        const storedUser = localStorage.getItem('authToken'); 
+        const storedUser = localStorage.getItem('authToken');
         if (storedUser) {
-            setUser(storedUser); 
+            setUser(storedUser);
         }
     }
-    , []);
+        , []);
 
     return (
         <div style={{ position: 'relative', display: "flex", flexDirection: "column", width: 'fit-content' }}>
-            
+
             {!user ? <button
                 onClick={() => { navigate('login') }}
-                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw"  }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw" }}
             >
                 ĐĂNG NHẬP
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div>
-            </button>:
-            <div
-                
-                className='flex flex-col items-center justify-center'
-                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" ,justifyContent:"center", alignItems:"center", display:"flex"}}
-            >
-                {/* Avartar */}
-                {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
-                <button onClick={() => { navigate('login') }}>
-                    <img src={auth.user?.avt?.url || DEFAULT_AVT}  alt="Avatar" style={{ borderRadius: '50%', height:"clamp(20px, 3vw, 50px)", aspectRatio:1 , }} />
-                </button>
-                 <button>
-                    <i className="fa-solid fa-keyboard text-3xl"></i>
-                </button>
-            </div>}
+            </button> :
+                <div
+
+                    className='flex flex-col items-center justify-center'
+                    style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw", justifyContent: "center", alignItems: "center", display: "flex" }}
+                >
+                    {/* Avartar */}
+                    {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
+                    <button onClick={() => { navigate('login') }}>
+                        <img src={auth.user?.avt?.url || DEFAULT_AVT} alt="Avatar" style={{ borderRadius: '50%', height: "clamp(20px, 3vw, 50px)", aspectRatio: 1, }} />
+                    </button>
+                    <button>
+                        <i className="fa-solid fa-keyboard text-3xl"></i>
+                    </button>
+                </div>}
             {!user ? <button
                 onClick={() => { navigate('register') }}
-                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw" }}
             >
                 ĐĂNG KÝ
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(REGISTER)</div>
-            </button>:<button
+            </button> : <button
                 onClick={() => {
                     localStorage.removeItem('authToken'); // Xóa token khỏi localStorage
                     setUser(null); // Đặt lại trạng thái người dùng
                     dispatch(logoutAction());
-                 }}
-                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding:"1vw" }}
+                }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw" }}
             >
                 THOÁT
                 <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGOUT)</div>
@@ -354,10 +461,10 @@ const DropdownAuth = () => {
     );
 };
 
-const Body = () =>{
+const Body = () => {
     return (
         <>
-            <main className="main-grid-container" style={{marginBottom:50}}>
+            <main className="main-grid-container" style={{ marginBottom: 50 }}>
                 {/* <aside className="main-aside-1"> */}
                 {/* <div>
                         <div>
@@ -378,9 +485,9 @@ const Body = () =>{
                 {/* </aside> */}
 
                 <section className="main-section-2"
-                    // style={{
-                    //     maxWidth: 800
-                    // }}
+                // style={{
+                //     maxWidth: 800
+                // }}
                 >
                     <div className="main-section-info-1" >
                         <div style={{ width: "100%" }}>
@@ -401,26 +508,26 @@ const Body = () =>{
                         </div>
                     </div>
                     <div className="main-section-info-1">
-                        <div style={{width: "100%",padding: "14px"}}>
-                            <p style={{textAlign:"center"}}><strong>NGÂN HÀNG TỰ ĐỘNG CẬP NHẬT SỐ DƯ</strong></p>
+                        <div style={{ width: "100%", padding: "14px" }}>
+                            <p style={{ textAlign: "center" }}><strong>NGÂN HÀNG TỰ ĐỘNG CẬP NHẬT SỐ DƯ</strong></p>
                         </div>
-                    </div>   
-                    <div className="main-section-info-1">
-                        <div style={{minWidth:"30%"}}>
-                            <p style={{textAlign:"center"}}><strong>GỬI CÓ KỲ HẠN</strong></p>
-                        </div>
-                        <div>
-                            <p style={{textAlign:"center"}}><strong>(HIỆN SỐ, FILE NGÂN HÀNG CẬP NHẬT, HOẶC SÀN TRA CỨU GỬI LÊN)</strong></p>
-                        </div> 
                     </div>
                     <div className="main-section-info-1">
-                        <div style={{minWidth:"30%"}}>
-                            <p style={{textAlign:"center"}}><strong>GỬI KHÔNG KỲ HẠN</strong></p>
+                        <div style={{ minWidth: "30%" }}>
+                            <p style={{ textAlign: "center" }}><strong>GỬI CÓ KỲ HẠN</strong></p>
+                        </div>
+                        <div>
+                            <p style={{ textAlign: "center" }}><strong>(HIỆN SỐ, FILE NGÂN HÀNG CẬP NHẬT, HOẶC SÀN TRA CỨU GỬI LÊN)</strong></p>
+                        </div>
+                    </div>
+                    <div className="main-section-info-1">
+                        <div style={{ minWidth: "30%" }}>
+                            <p style={{ textAlign: "center" }}><strong>GỬI KHÔNG KỲ HẠN</strong></p>
                         </div>
                         <div >
-                            <p style={{textAlign:"center"}}><strong>(HIỆN SỐ, FILE NGÂN HÀNG CẬP NHẬT, HOẶC SÀN TRA CỨU GỬI LÊN)</strong></p> 
-                        </div> 
-                    </div> 
+                            <p style={{ textAlign: "center" }}><strong>(HIỆN SỐ, FILE NGÂN HÀNG CẬP NHẬT, HOẶC SÀN TRA CỨU GỬI LÊN)</strong></p>
+                        </div>
+                    </div>
                 </section>
                 {/* <section className="main-section-2"
                     style={{ maxWidth: 400 }}>
@@ -466,7 +573,7 @@ const Body = () =>{
                     </div>
                 </section> */}
                 <section className="main-section-2"
-                    // style={{ maxWidth: 800 }}
+                // style={{ maxWidth: 800 }}
                 >
                     <div className="main-section-info-2" style={{ height: "32%" }} >
                         <div style={{ width: "70%" }}>
@@ -560,7 +667,7 @@ const Body = () =>{
                 </section> */}
 
             </main>
-            
+
         </>
     )
 }
@@ -569,7 +676,11 @@ function SearchSection() {
     return (
         <section className="search-section">
             <div className="search-title">
-                <h3><strong>TÌM KIẾM</strong></h3><h4 className='lowercase'><em>(SEARCH)</em></h4>
+                <button onClick={() => {
+                    window.location.href = "/list-of-goods";
+                }}>
+                    <h3><strong>TÌM KIẾM</strong></h3><h4 className='lowercase'><em>(SEARCH)</em></h4>
+                </button>
             </div>
             {/* <div>
                 <p>SAP XEP BO CUC CHO PHU HOP VOI MAN HINH HIEN THI MAY TINH + DIEN THOI</p>
@@ -578,4 +689,4 @@ function SearchSection() {
     )
 }
 
-export { HeroHeader, Body, ActionSection, SearchSection , DropdownAuth}
+export { HeroHeader, Body, ActionSection, SearchSection, DropdownAuth }

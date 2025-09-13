@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import {
 import { createProduct } from "../services/productService";
 
 export default function NewGoodPostPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [selectedType, setSelectedType] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");

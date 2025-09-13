@@ -19,6 +19,7 @@ export const getCountries = async () => {
 }
 
 
+
 export const getCountryByCode = async (name) => {
   try {
     const myHeaders = new Headers();
@@ -43,6 +44,34 @@ export const getCountryByCode = async (name) => {
     return provices;
   } catch (error) {
     console.error("Error fetching country by code:", error);
+    return [];
+  }
+};
+
+export const getDistrictByCode = async (province) => {
+  try {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({ state: province });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    const response = await fetch("https://countriesnow.space/api/v0.1/countries/state/cities", requestOptions);
+    const result = await response.json();
+
+    const districts = result.data.map(district => ({
+      vi: district,
+      en: district,
+    }));
+    return districts;
+  } catch (error) {
+    console.error("Error fetching districts by province code:", error);
     return [];
   }
 };

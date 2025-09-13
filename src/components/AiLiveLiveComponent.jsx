@@ -8,31 +8,27 @@ import {
   Plus,
   CircleX,
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function AiLiveLiveComponent() {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="p-6">
       {/* Dòng AVATAR */}
       <div className="grid grid-cols-2 border border-black">
-        <div className="border-r border-black p-4 font-bold">AVATAR</div>
+        <div className="border-r border-black p-4 font-bold">{t('aiLive.avatar', 'AVATAR')}</div>
         <div className="p-4 text-sm text-black space-y-2">
           <div>
-            <span className="text-yellow-600">ấn = vào bảng thống kê</span>
+            <span className="text-yellow-600">{t('aiLive.clickStats', 'ấn = vào bảng thống kê')}</span>
           </div>
           <ul className="list-disc ml-4 space-y-1">
             <li>
-              <strong>THƯ MỤC AI THEO DÕI:</strong> Có cập nhật và hiển thị số
-              lượng người đang theo dõi mình lên trên thư mục. Ấn vào thư mục để
-              hiển thị AVATAR người theo dõi mình trong thư mục này.
+              <strong>{t('aiLive.whoFollowsMe', 'THƯ MỤC AI THEO DÕI')}:</strong> {t('aiLive.whoFollowsMeDesc', 'Có cập nhật và hiển thị số lượng người đang theo dõi mình lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người theo dõi mình trong thư mục này.')}
             </li>
             <li>
-              <strong>THƯ MỤC THEO DÕI AI:</strong> Có cập nhật và hiển thị số
-              lượng người mình đang theo dõi lên trên thư mục. Ấn vào thư mục để
-              hiển thị AVATAR người mình theo dõi trong thư mục này. Các AVATAR
-              XANH thể hiện người này đang LIVE. Ấn vào các AVATAR của họ đến
-              đến buôi LIVE của họ.
+              <strong>{t('aiLive.whoIFollow', 'THƯ MỤC THEO DÕI AI')}:</strong> {t('aiLive.whoIFollowDesc', 'Có cập nhật và hiển thị số lượng người mình đang theo dõi lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người mình theo dõi trong thư mục này. Các AVATAR XANH thể hiện người này đang LIVE. Ấn vào các AVATAR của họ đến đến buôi LIVE của họ.')}
             </li>
             <li>
               Trên mỗi AVATAR của người mình đang theo dõi có nút XÓA (gạch
@@ -65,10 +61,10 @@ export default function AiLiveLiveComponent() {
       {/* Phần tìm kiếm */}
       <div className="border-l border-r border-b border-black">
         <div className="p-2 text-sm flex items-center gap-2">
-          <span className="font-bold">TÌM KIẾM (Search):</span>
+          <span className="font-bold">{t('aiLive.search', 'TÌM KIẾM')} ({t('aiLive.searchEn', 'Search')}):</span>
           <input
             type="text"
-            placeholder="nhập TÊN THƯ MỤC PHIM"
+            placeholder={t('aiLive.searchPlaceholder', 'nhập TÊN THƯ MỤC PHIM')}
             className="flex-1 border border-gray-300 px-2 py-1 rounded text-sm"
           />
         </div>
@@ -81,8 +77,7 @@ export default function AiLiveLiveComponent() {
           <div className="p-2 text-sm">
             <div className="mb-2">
               <span className="font-bold">
-                Danh sách tên các hàng hóa đang LIVESTREAM được sắp xếp theo thứ
-                tự
+                {t('aiLive.productListDesc', 'Danh sách tên các hàng hóa đang LIVESTREAM được sắp xếp theo thứ tự')}
               </span>
               <div className="text-yellow-600 ml-4">
                 1 - Nạp tiền quảng cáo lớn - 2 - Số lượng phí trả sau lời - 3 -
@@ -97,26 +92,26 @@ export default function AiLiveLiveComponent() {
           {/* 10 dòng hàng hóa */}
           {Array.from({ length: 10 }, (_, index) => (
             <div key={index} className="border-t border-gray-300 p-2 text-sm">
-              <div>- Tên hàng hóa đầu tiên</div>
-              <div className="ml-4">- ID hàng hóa</div>
-              <div className="ml-4">- hiển thị số người đang xem</div>
+              <div>- {t('aiLive.firstProduct', 'Tên hàng hóa đầu tiên')}</div>
+              <div className="ml-4">- {t('aiLive.productId', 'ID hàng hóa')}</div>
+              <div className="ml-4">- {t('aiLive.viewerCount', 'hiển thị số người đang xem')}</div>
             </div>
           ))}
 
           {/* Phân trang */}
           <div className="border-t border-gray-300 p-2 text-center">
-            <span className="text-sm">Trang / Page: 2, 3, 4, 5, 6 ...</span>
+            <span className="text-sm">{t('aiLive.page', 'Trang')} / {t('aiLive.pageEn', 'Page')}: 2, 3, 4, 5, 6 ...</span>
           </div>
         </div>
 
         {/* Cột phải - VIDEO LIVESTREAM */}
         <div className="p-4 h-screen flex flex-col">
-          <div className="text-center font-bold mb-4">LIVE</div>
+          <div className="text-center font-bold mb-4">{t('aiLive.live', 'LIVE')}</div>
 
           <div className="border border-black p-4 flex-1 flex flex-col">
             <div className="mb-4">
               <div className="text-sm mb-2 text-center">
-                <span className="font-bold">AVATAR:</span> Tên LIVE
+                <span className="font-bold">{t('aiLive.avatar', 'AVATAR')}:</span> {t('aiLive.liveName', 'Tên LIVE')}
               </div>
               <div className="text-sm flex items-center justify-end">
                 <Eye size={16} />
@@ -142,20 +137,20 @@ export default function AiLiveLiveComponent() {
               <div className="text-sm flex items-center justify-end mb-2">
                 <Flag size={16} />
               </div>
-              <div className="text-sm ml-4">- Vi phạm pháp luật</div>
-              <div className="text-sm ml-4">- Thông tin liên lạc</div>
-              <div className="text-sm ml-4">- Quảng cáo</div>
+              <div className="text-sm ml-4">- {t('aiLive.lawViolation', 'Vi phạm pháp luật')}</div>
+              <div className="text-sm ml-4">- {t('aiLive.contactInfo', 'Thông tin liên lạc')}</div>
+              <div className="text-sm ml-4">- {t('aiLive.advertisement', 'Quảng cáo')}</div>
             </div>
 
             <div className="text-sm mb-4">
-              <div className="font-bold">HÀNG HÓA</div>
+              <div className="font-bold">{t('aiLive.products', 'HÀNG HÓA')}</div>
             </div>
             <div className="text-sm mb-4">
               <button
                 onClick={() => setShowModal(true)}
                 className="font-bold text-left text-blue-700 hover:underline"
               >
-                TẮT QUẢNG CÁO <CircleX />
+                {t('aiLive.turnOffAds', 'TẮT QUẢNG CÁO')} <CircleX />
               </button>
             </div>
           </div>
@@ -166,34 +161,34 @@ export default function AiLiveLiveComponent() {
           <div className="bg-white w-[500px] border border-black p-4 rounded shadow-lg">
             <div className="grid grid-cols-3 text-xs text-center border border-black">
               <div className="bg-sky-500 text-white p-2 border-r border-black row-span-2">
-                KHÔNG XEM
+                {t('aiLive.noAds', 'KHÔNG XEM')}
                 <br />
-                QUẢNG CÁO
+                {t('aiLive.advertisement', 'QUẢNG CÁO')}
                 <br />
                 <div className="text-[10px]">
-                  (Advertising do not allow display)
+                  ({t('aiLive.noAdsEn', 'Advertising do not allow display')})
                 </div>
               </div>
               <div className="bg-sky-300 text-black p-2 border-b border-black flex flex-col items-center">
                 <label className="text-xs font-semibold">
-                  NẠP TIỀN
+                  {t('aiLive.deposit', 'NẠP TIỀN')}
                   <br />
-                  <span className="text-[10px]">(Deposit)</span>
+                  <span className="text-[10px]">({t('aiLive.depositEn', 'Deposit')})</span>
                 </label>
                 <input
                   type="number"
-                  placeholder="Nhập số tiền"
+                  placeholder={t('aiLive.enterAmount', 'Nhập số tiền')}
                   className="mt-1 w-24 text-center text-xs border border-black rounded px-1 py-0.5"
                 />
               </div>
 
               <div className="bg-sky-300 text-black p-2">
-                ĐƠN GIÁ
+                {t('aiLive.unitPrice', 'ĐƠN GIÁ')}
                 <br />
                 <div className="text-[10px]">
-                  (Unit price)
+                  ({t('aiLive.unitPriceEn', 'Unit price')})
                   <br />
-                  (VNĐ / GIÂY ($))
+                  ({t('aiLive.priceUnit', 'VNĐ / GIÂY ($)')})
                 </div>
               </div>
             </div>
@@ -201,27 +196,27 @@ export default function AiLiveLiveComponent() {
             <div className="grid grid-cols-3 text-xs text-center border border-black border-t-0">
               <div className="col-span-3 flex">
                 <button className="flex-1 border bg-gray-200 p-2 text-sm font-bold hover:bg-blue-100 cursor-pointer">
-                  GỬI
+                  {t('aiLive.send', 'GỬI')}
                   <br />
-                  (Send)
+                  ({t('aiLive.sendEn', 'Send')})
                 </button>
               </div>
               <div className="border border-black p-2 text-sm">
-                NHẬN MÃ
+                {t('aiLive.receiveCode', 'NHẬN MÃ')}
                 <br />
-                (Code)
+                ({t('aiLive.code', 'Code')})
               </div>
               <div className="border border-black p-2 text-sm">
                 <input
                   type="text"
-                  placeholder="NHẬP MÃ (Input code)"
+                  placeholder={t('aiLive.inputCode', 'NHẬP MÃ (Input code)')}
                   className="mt-1 w-24 text-center text-xs border border-black rounded px-1 py-0.5"
                 />
               </div>
               <div className="border border-black bg-gray-200 p-2 text-sm hover:bg-blue-100 cursor-pointer">
-                XÁC NHẬN
+                {t('aiLive.confirm', 'XÁC NHẬN')}
                 <br />
-                (Confirm)
+                ({t('aiLive.confirmEn', 'Confirm')})
               </div>
             </div>
 
@@ -230,7 +225,7 @@ export default function AiLiveLiveComponent() {
                 className="text-red-500 underline text-sm"
                 onClick={() => setShowModal(false)}
               >
-                Đóng
+{t('common.close', 'Đóng')}
               </button>
             </div>
           </div>

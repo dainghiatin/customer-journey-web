@@ -6,12 +6,14 @@ import { useState, Fragment, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  HeroHeader, Body, ActionSection, SearchSection,DropdownAuth } from "../components/Body";
 import { getMetric } from "../services/metricService";
+import { useTranslation } from 'react-i18next';
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
 
 
 const DataTable = () => {
+    const { t } = useTranslation();
 
     const [metric, setMetric] = useState(
         {
@@ -50,53 +52,53 @@ const DataTable = () => {
             {/* Row 1 */}
             <tr className="border border-black">
               <td className="p-2 border border-black font-bold">
-                <span>GIÁ TRỊ LÊN SÀN:</span>
+                <span>{t('metrics.listedValue', 'GIÁ TRỊ LÊN SÀN:')}:</span>
                 <br />
-                <span className="italic lowercase font-normal">(LISTED VALUE)</span>
+                <span className="italic lowercase font-normal">({t('metrics.listedValueEn', 'LISTED VALUE')})</span>
               </td>
               <td className="p-2 border border-black"><br /><strong>{metric.listedValue}</strong></td>
-              <td className="p-2 border border-black font-bold">LƯỢT GIAO DỊCH:<br /><span className="italic lowercase font-normal">(TRANSACTIONS)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.transactions', 'LƯỢT GIAO DỊCH')}:<br /><span className="italic lowercase font-normal">({t('metrics.transactionsEn', 'TRANSACTIONS')})</span></td>
               <td className="p-2 border border-black"><strong>{metric.transactions}</strong></td>
-              <td className="p-2 border border-black font-bold">LƯỢT TRUY CẬP:<br /><span className="italic lowercase font-normal">(ACCESSES)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.accesses', 'LƯỢT TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.accessesEn', 'ACCESSES')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.accesses}</strong></td>
             </tr>
             
             {/* Row 2 */}
             <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">THÀNH CÔNG:<br /><span className="italic lowercase font-normal">(SUCCESSFULLY)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.successfully', 'THÀNH CÔNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.successfullyEn', 'SUCCESSFULLY')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.successfully}</strong></td>
-              <td className="p-2 border border-black font-bold">SỐ TIỀN:<br /><span className="italic lowercase font-normal">(AMOUNT)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.amount', 'SỐ TIỀN')}:<br /><span className="italic lowercase font-normal">({t('metrics.amountEn', 'AMOUNT')})</span></td>
               <td className="p-2 border border-black"><strong>{metric.amount}</strong></td>
-              <td className="p-2 border border-black font-bold">THỜI LƯỢNG:<br /><span className="italic lowercase font-normal">(DURATION)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.duration', 'THỜI LƯỢNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.durationEn', 'DURATION')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.duration}</strong></td>
             </tr>
             
             {/* Row 3 - Single Row */}
             <tr className="border border-black">
-              <td className="p-2 border border-black font-bold text-center" colSpan={2}>NGÂN HÀNG CẬP NHẬT<br /><span className="italic lowercase font-normal">(ẩn - hiện)</span></td>
-              <td className="p-2 border border-black font-bold">ĐÃ GỬI:<br /><span className="italic lowercase font-normal">(DEPOSITED)</span></td>
+              <td className="p-2 border border-black font-bold text-center" colSpan={2}>{t('metrics.bankUpdate', 'NGÂN HÀNG CẬP NHẬT')}<br /><span className="italic lowercase font-normal">({t('metrics.bankUpdateEn', 'ẩn - hiện')})</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.deposited', 'ĐÃ GỬI')}:<br /><span className="italic lowercase font-normal">({t('metrics.depositedEn', 'DEPOSITED')})</span></td>
               <td className="p-2 border border-black"><strong>{metric.deposited}</strong></td>
-              <td className="p-2 border border-black font-bold">LƯỢT XEM VIDEO:<br /><span className="italic lowercase font-normal">(VIDEO VIEWS)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.videoViews', 'LƯỢT XEM VIDEO')}:<br /><span className="italic lowercase font-normal">({t('metrics.videoViewsEn', 'VIDEO VIEWS')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.videoViews}</strong></td>
             </tr>
             
             {/* Row 4 */}
             <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">CÓ KỲ HẠN</td>
-              <td className="p-2 border border-black">CẬP NHẬT</td>
-              <td className="p-2 border border-black font-bold">ĐÃ RÚT:<br /><span className="italic lowercase font-normal">(WITHDRAWED)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.withTerm', 'CÓ KỲ HẠN')}</td>
+              <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
+              <td className="p-2 border border-black font-bold">{t('metrics.withdrawn', 'ĐÃ RÚT')}:<br /><span className="italic lowercase font-normal">({t('metrics.withdrawnEn', 'WITHDRAWED')})</span></td>
               <td className="p-2 border border-black"><strong>{metric.withdrawn}</strong></td>
-              <td className="p-2 border border-black font-bold">THÀNH VIÊN:<br /><span className="italic lowercase font-normal">(MEMBERS)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.members', 'THÀNH VIÊN')}:<br /><span className="italic lowercase font-normal">({t('metrics.membersEn', 'MEMBERS')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.members}</strong></td>
             </tr>
             
             {/* Row 5 */}
             <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">KHÔNG KỲ HẠN</td>
-              <td className="p-2 border border-black">CẬP NHẬT</td>
-              <td className="p-2 border border-black font-bold">CÒN LẠI:<br /><span className="italic lowercase font-normal">(REMAINING)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.withoutTerm', 'KHÔNG KỲ HẠN')}</td>
+              <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
+              <td className="p-2 border border-black font-bold">{t('metrics.remaining', 'CÒN LẠI')}:<br /><span className="italic lowercase font-normal">({t('metrics.remainingEn', 'REMAINING')})</span></td>
               <td className="p-2 border border-black"><strong>{metric.remaining}</strong></td>
-              <td className="p-2 border border-black font-bold">TRUY CẬP:<br /><span className="italic lowercase font-normal">(ONLINE)</span></td>
+              <td className="p-2 border border-black font-bold">{t('metrics.online', 'TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.onlineEn', 'ONLINE')})</span></td>
               <td className="p-2 border border-black"><br /><strong>{metric.online}</strong></td>
             </tr>
           </tbody>
@@ -105,8 +107,9 @@ const DataTable = () => {
     );
   };
 function HomePage() {
+    const { t, i18n } = useTranslation();
     // const [color, setColor] = useState("#aabbcc");
-    const [selectedLang, setSelectedLang] = useState("vi");
+    const [selectedLang, setSelectedLang] = useState(i18n.language || "vi");
     const [hsva, setHsva] = useState({ h: 214, s: 43, v: 90, a: 1 });
     const [color, setColor] = useState("#1242ae");
     useEffect(() => {
@@ -170,7 +173,10 @@ function HomePage() {
                     <div style={{ border: 0, width: "100%", paddingRight: 10 }}>
                             <select
                                 value={selectedLang}
-                                onChange={(e) => setSelectedLang(e.target.value)}
+                                onChange={(e) => {
+                                    setSelectedLang(e.target.value);
+                                    i18n.changeLanguage(e.target.value);
+                                }}
                                 style={{ width: "100%", padding: "5px", backgroundColor: color, border: 0, textAlign: 'center', fontSize: "clamp(10px, 1vw, 20px)" }}
                             >
                                 {colors.map((color) => (
@@ -208,11 +214,11 @@ function HomePage() {
             <ActionSection />
             <SearchSection />
             <footer className="footer">
-                <h3><strong>QUẢNG CÁO</strong></h3>
+                <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
                 {/* <p><em>(ADVERTISING)</em></p> */}
             </footer>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50 }}>
-                <p>CẬP NHẬT DS NHẬN THƯỞNG, KL HÀNG HÓA …. </p>
+                <p>{t('common.updateNotice', 'CẬP NHẬT DS NHẬN THƯỞNG, KL HÀNG HÓA ….')} </p>
             </div>
         </>
     );

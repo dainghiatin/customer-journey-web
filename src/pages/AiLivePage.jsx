@@ -9,9 +9,11 @@ import AiLiveLiveStreamComponent from "../components/AiLiveLiveStreamComponent";
 import AiLiveVideoComponent from "../components/AiLiveVideoComponent";
 import AiLiveMovieComponent from "../components/AiLiveMovieComponent";
 import AiLiveLiveComponent from "../components/AiLiveLiveComponent";
+import { useTranslation } from 'react-i18next';
 
 
 export default function AiLivePage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor") || "#ffffff");
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -59,15 +61,15 @@ export default function AiLivePage() {
         <div className="mt-6">
         <div className="grid grid-cols-5 border border-black text-center text-black">
           <div className="p-2 font-semibold border-r">
-            TÀI KHOẢN Ai LIVE
+            {t('aiLive.accountOfAiLive', 'TÀI KHOẢN Ai LIVE')}
             <br />
-            <i>(Account of Ai LIVE)</i>
+            <i>({t('aiLive.accountOfAiLiveEn', 'Account of Ai LIVE')})</i>
           </div>
           <div className="p-2 font-semibold border-r">(lệnh)</div>
           <div className="p-2 font-semibold border-r text-yellow-600">
             VNĐ
             <br />
-            <span className="text-xs">(thay đổi bằng tiền bản địa sau đăng nhập)</span>
+            <span className="text-xs">({t('aiLive.currencyNote', 'thay đổi bằng tiền bản địa sau đăng nhập')})</span>
           </div>
           <div className="p-2 border-r">
             <input
@@ -75,13 +77,13 @@ export default function AiLivePage() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               className="w-full text-center border border-gray-400 rounded px-2 py-1"
-              placeholder="Nhập số"
+              placeholder={t('aiLive.enterNumber', 'Nhập số')}
             />
           </div>
           <div className="p-2 font-semibold">
-            CHUYỂN VỀ VÍ
+            {t('aiLive.transferToWallet', 'CHUYỂN VỀ VÍ')}
             <br />
-            <i>(Transfer to wallet)</i>
+            <i>({t('aiLive.transferToWalletEn', 'Transfer to wallet')})</i>
           </div>
         </div>
         </div>
@@ -91,12 +93,12 @@ export default function AiLivePage() {
         {/* 6 Buttons */}
         <div className="grid grid-cols-3 gap-4 mt-6">
           {[
-            { label: "LIVESTREAM", sub: "(Goods)", value: "LIVESTREAM" },
-            { label: "VIDEO", sub: "", value: "VIDEO" },
-            { label: "PHIM", sub: "(MOVIES)", value: "MOVIE" },
-            { label: "TRỰC TIẾP", sub: "(Live)", value: "LIVE" },
-            { label: "CÔNG CỤ", sub: "(Equipment)", value: "EQUIPMENT" },
-            { label: "TRÒ CHƠI", sub: "(Game)", value: "GAME" },
+            { label: t('aiLive.livestream', 'LIVESTREAM'), sub: t('aiLive.livestreamSub', '(Goods)'), value: "LIVESTREAM" },
+            { label: t('aiLive.video', 'VIDEO'), sub: "", value: "VIDEO" },
+            { label: t('aiLive.movie', 'PHIM'), sub: t('aiLive.movieSub', '(MOVIES)'), value: "MOVIE" },
+            { label: t('aiLive.live', 'TRỰC TIẾP'), sub: t('aiLive.liveSub', '(Live)'), value: "LIVE" },
+            { label: t('aiLive.equipment', 'CÔNG CỤ'), sub: t('aiLive.equipmentSub', '(Equipment)'), value: "EQUIPMENT" },
+            { label: t('aiLive.game', 'TRÒ CHƠI'), sub: t('aiLive.gameSub', '(Game)'), value: "GAME" },
           ].map((item, idx) => (
             <button
               key={idx}

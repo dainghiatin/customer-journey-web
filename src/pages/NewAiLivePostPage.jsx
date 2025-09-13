@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { createMovie } from "../services/movieService";
 import { createLive } from "../services/liveService";
 import { createVideo } from "../services/videoService";
@@ -9,6 +10,7 @@ import {
 } from "lucide-react";
 
 export default function NewAiLivePostPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor") || "#ffffff");
   const [videoFile, setVideoFile] = useState(null);
   const [movieFile, setMovieFile] = useState(null);

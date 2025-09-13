@@ -2,22 +2,32 @@ import React, { useState, useEffect } from "react";
 import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { changePasswordAction } from "../context/action/authActions";
+import { changePassword } from "../services/authService";
+import { useTranslation } from 'react-i18next';
+
 
 export default function ChangePasswordPage() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
+    username: user?.username,
+    email: user?.email,
     password: "123456",
-    cccd: "",
-    reference_id: "",
-    full_name: "",
-    mobile_number: "",
-    bank_number: "",
-    bank_name: "",
-    address_no: "",
-    address_on_map: "",
+    newPassword: "",
+    confirmPassword: "",
+    cccd: user?.cccd,
+    reference_id: user?.reference_id,
+    full_name: user?.full_name,
+    mobile_number: user?.mobile_number,
+    bank_number: user?.bank_number,
+    bank_name: user?.bank_name,
+    address_no: user?.address_no,
+    address_on_map: user?.address_on_map,
   });
   const [error, setError] = useState("");
 
@@ -40,26 +50,21 @@ export default function ChangePasswordPage() {
 
     // Kiểm tra các trường bắt buộc
     if (!cccd) {
-      setError("Vui lòng điền đầy đủ thông tin cần thiết.");
+      setError(t('auth.fillRequiredFields', 'Vui lòng điền đầy đủ thông tin cần thiết.'));
       return;
     }
 
     try {
       console.log(formData);
-      // const response = await axios.post(
-      //   "http://localhost:1337/api/auth/register",
-      //   formData,
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
+      const response = await changePassword(formData.cccd, formData.newPassword, formData.confirmPassword)
+      console.log(response.data);
+      
 
-      // console.log("Đăng ký thành công:", response.data);
-      alert("Đổi mật khẩu thành công!");
-      // navigate("/login"); // Chuyển hướng sau khi đăng ký thành công
+      alert(t('auth.changePasswordSuccess', 'Đổi mật khẩu thành công!'));
+      navigate("/login"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
-      setError("Đăng ký thất bại. Vui lòng thử lại.");
+      setError(t('auth.changePasswordError', 'Đổi mật khẩu thất bại. Vui lòng thử lại.'));
     }
   };
 
@@ -81,11 +86,11 @@ export default function ChangePasswordPage() {
                   className="absolute left-[-50px] transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-               ĐỔI MẬT KHẨU
+               {t('auth.changePasswordTitle', 'ĐỔI MẬT KHẨU')}
             </h1>
 
             <h2 className="text-2xl text-black mt-2">
-              <i>(Change your password)</i>
+              <i>({t('auth.changePasswordTitleEn', 'Change your password')})</i>
             </h2>
           </div>
         </div>
@@ -101,45 +106,67 @@ export default function ChangePasswordPage() {
               (CHANGE YOUR PASSWORD)
             </span>
           </h4> */}
-          <span className="text-xl font-bold text-black">Đổi mật khẩu </span>
-          <span>(Change password)</span>
+          <span className="text-xl font-bold text-black">{t('auth.changePasswordTitle', 'Đổi mật khẩu')} </span>
+          <span>({t('auth.changePasswordTitleEn', 'Change password')})</span>
           <div className="grid gap-4 mt-5">
             <input
               type="text"
               className="border p-2 rounded w-full"
-              placeholder="CCCD / MST (ID)"
+              placeholder={t('auth.idPlaceholder', 'CCCD / MST (ID)')}
+              name="cccd"
+              value={formData.cccd}
+              onChange={handleInputChange}
+
             />
             <input
               type="password"
               className="border p-2 rounded w-full"
-              placeholder="MẬT KHẨU CŨ (Old password)"
+              placeholder={t('auth.oldPasswordPlaceholder', 'MẬT KHẨU CŨ (Old password)')}
+              value={formData.password}
+              disabled
             />
    
           <input
             type="password"
             className="border p-2 rounded w-full text-sm min-h-[50px]"
-            placeholder="MẬT KHẨU MỚI"
+            placeholder={t('auth.newPasswordPlaceholder', 'MẬT KHẨU MỚI')}
+            name="newPassword"
+            value={formData.newPassword}
+            onChange={handleInputChange}
+            required
+            minLength={6}
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+            title={t('auth.passwordRequirement', 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt')}
           />
           <label className="text-xs text-gray-500">
-            (chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt)<br />
-            (min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character)
+            ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
+            ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
           </label>
 
             <input
               type="password"
               className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
-              placeholder="NHẬP LẠI MẬT KHẨU MỚI"
+              placeholder={t('auth.confirmPasswordPlaceholder', 'NHẬP LẠI MẬT KHẨU MỚI')}
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              required
+              minLength={6}
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+              title={t('auth.passwordRequirement', 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt')}
             />
             <label className="text-xs text-gray-500">
-              (chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt)<br />
-              (min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character)
+              ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
+              ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
             </label>
           </div>
 
           <div className="text-center mt-4">
-            <button className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
-              XÁC NHẬN <br />
-              <span className="text-xs text-gray-600">(Accept)</span>
+            <button
+             onClick={()=>handleRegister()}
+             className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
+              {t('common.confirm', 'XÁC NHẬN')} <br />
+              <span className="text-xs text-gray-600">({t('common.accept', 'Accept')})</span>
             </button>
           </div>
         </div>

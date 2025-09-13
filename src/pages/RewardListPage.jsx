@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Home as HomeIcon,
   Settings as SettingsIcon,
@@ -8,6 +9,7 @@ import "../styles/Login.css";
 
 
 export default function RewardListPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor") || "#ffffff");
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export default function RewardListPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>{" "}
-              - DANH SÁCH NHẬN THƯỞNG
+              - {t('rewardList.title', 'DANH SÁCH NHẬN THƯỞNG')}
             </h1>
           </div>
           <button className="text-red-600 hover:text-red-800">
@@ -54,44 +56,44 @@ export default function RewardListPage() {
             <table className="w-full table-fixed border border-black text-xs text-center">
             <thead>
                 <tr>
-                <th className="border border-black w-10">STT</th>
-                <th className="border border-black w-24">HÌNH NỀN<br />(Avatar)</th>
-                <th className="border border-black w-40 text-red-600">NGƯỜI GIỚI THIỆU<br />
+                <th className="border border-black w-10">{t('rewardList.stt', 'STT')}</th>
+                <th className="border border-black w-24">{t('rewardList.avatar', 'HÌNH NỀN')}<br />({t('rewardList.avatarEn', 'Avatar')})</th>
+                <th className="border border-black w-40 text-red-600">{t('rewardList.referrer', 'NGƯỜI GIỚI THIỆU')}<br />
                     <span className="text-[10px] text-black font-normal">
-                    * 7% app thu được từ quá trình mua bán tại hệ thống do bạn giới thiệu sẽ hiện trong NGƯỜI GIỚI THIỆU của họ (APP CHỦ TẤT CẢ CÁC LOẠI)
+                    {t('rewardList.referrerNote', '* 7% app thu được từ quá trình mua bán tại hệ thống do bạn giới thiệu sẽ hiện trong NGƯỜI GIỚI THIỆU của họ (APP CHỦ TẤT CẢ CÁC LOẠI)')}
                     </span>
                 </th>
-                <th className="border border-black w-40 text-red-600">CHIA SẺ<br />
+                <th className="border border-black w-40 text-red-600">{t('rewardList.sharing', 'CHIA SẺ')}<br />
                     <span className="text-[10px] text-black font-normal">
-                    * 14% app thu được qua phần mua bán tại các hàng hoá chia sẻ sẽ hiện trong (APP CHỦ TẤT CẢ CÁC LOẠI THUÊ)
+                    {t('rewardList.sharingNote', '* 14% app thu được qua phần mua bán tại các hàng hoá chia sẻ sẽ hiện trong (APP CHỦ TẤT CẢ CÁC LOẠI THUÊ)')}
                     </span>
                 </th>
-                <th className="border border-black w-40 text-red-600">BÁO CÁO VI PHẠM NHẸ<br />
+                <th className="border border-black w-40 text-red-600">{t('rewardList.minorViolation', 'BÁO CÁO VI PHẠM NHẸ')}<br />
                     <span className="text-[10px] text-black font-normal">
-                    + 500.000 VNĐ (hoặc quy đổi tương đương % đồng tiền video sau sai phạm) nếu báo đúng
+                    {t('rewardList.minorViolationNote', '+ 500.000 VNĐ (hoặc quy đổi tương đương % đồng tiền video sau sai phạm) nếu báo đúng')}
                     </span>
                 </th>
-                <th className="border border-black w-40 text-red-600">BÁO CÁO VI PHẠM NẶNG<br />
+                <th className="border border-black w-40 text-red-600">{t('rewardList.majorViolation', 'BÁO CÁO VI PHẠM NẶNG')}<br />
                     <span className="text-[10px] text-black font-normal">
-                    - 1.000.000 VNĐ (hoặc quy đổi tương đương % đồng tiền video số tài khoản đó sai) KHOÁ TẠM THỜI TÀI KHOẢN Ai LIVE ĐỂ XÁC MINH
+                    {t('rewardList.majorViolationNote', '- 1.000.000 VNĐ (hoặc quy đổi tương đương % đồng tiền video số tài khoản đó sai) KHOÁ TẠM THỜI TÀI KHOẢN Ai LIVE ĐỂ XÁC MINH')}
                     </span>
                 </th>
-                <th className="border border-black w-32">TƯƠNG TÁC<br />
-                    <span className="text-[10px]">Cài đặt thủ công cho các mức thời gian gọi truy cập app</span>
+                <th className="border border-black w-32">{t('rewardList.interaction', 'TƯƠNG TÁC')}<br />
+                    <span className="text-[10px]">{t('rewardList.interactionNote', 'Cài đặt thủ công cho các mức thời gian gọi truy cập app')}</span>
                 </th>
-                <th className="border border-black w-24">NGÀY THÀNH LẬP<br />
-                    <span className="text-[10px]">Cài đặt thủ công</span>
+                <th className="border border-black w-24">{t('rewardList.foundingDay', 'NGÀY THÀNH LẬP')}<br />
+                    <span className="text-[10px]">{t('rewardList.manualSetting', 'Cài đặt thủ công')}</span>
                 </th>
-                <th className="border border-black w-20">CUỐI NĂM<br />
-                    <span className="text-[10px]">Cài đặt thủ công</span>
+                <th className="border border-black w-20">{t('rewardList.endOfYear', 'CUỐI NĂM')}<br />
+                    <span className="text-[10px]">{t('rewardList.manualSetting', 'Cài đặt thủ công')}</span>
                 </th>
-                <th className="border border-black w-20">ĐẦU NĂM<br />
-                    <span className="text-[10px]">Cài đặt thủ công</span>
+                <th className="border border-black w-20">{t('rewardList.beginningOfYear', 'ĐẦU NĂM')}<br />
+                    <span className="text-[10px]">{t('rewardList.manualSetting', 'Cài đặt thủ công')}</span>
                 </th>
-                <th className="border border-black w-20">ĐỘT XUẤT<br />
-                    <span className="text-[10px]">Cài đặt thủ công</span>
+                <th className="border border-black w-20">{t('rewardList.sudden', 'ĐỘT XUẤT')}<br />
+                    <span className="text-[10px]">{t('rewardList.manualSetting', 'Cài đặt thủ công')}</span>
                 </th>
-                <th className="border border-black w-10">Tổng</th>
+                <th className="border border-black w-10">{t('rewardList.total', 'Tổng')}</th>
                 </tr>
             </thead>
             <tbody>

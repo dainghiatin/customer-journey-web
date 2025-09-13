@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { createFreelancer } from "../services/freelancerService";
+import { useTranslation } from "react-i18next";
 
 const NewFreelancerPostDirectComponent = () => {
+  const { t } = useTranslation();
 
   const [freelancerData, setFreelancerData] = useState({
         name: "John Doe",
@@ -18,9 +20,10 @@ const NewFreelancerPostDirectComponent = () => {
   });
 
   const handleSubmit = async (e) => {
+    const token = localStorage.getItem("authToken");
     e.preventDefault();
     try {
-      const response = await createFreelancer("token", freelancerData);
+      const response = await createFreelancer(token, freelancerData);
       console.log("Freelancer created successfully:", response.data);
       // Handle success, e.g., redirect to a success page
     } catch (error) {
@@ -51,7 +54,7 @@ const NewFreelancerPostDirectComponent = () => {
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="TÊN CÔNG VIỆC (Name of JOB)"
+              placeholder={t('newFreelancerDirect.jobNamePlaceholder', 'TÊN CÔNG VIỆC (Name of JOB)')}
             />
           </div>
         </div>
@@ -69,7 +72,7 @@ const NewFreelancerPostDirectComponent = () => {
             <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder="ƯỚC LƯỢNG (Estimate)"
+              placeholder={t('newFreelancerDirect.estimatePlaceholder', 'ƯỚC LƯỢNG (Estimate)')}
             />
           </div>
         </div>
@@ -86,7 +89,7 @@ const NewFreelancerPostDirectComponent = () => {
             <textarea
               className="w-full mt-2 p-2 border border-gray-300 rounded"
               rows="3"
-              placeholder="YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)"
+              placeholder={t('newFreelancerDirect.requirementsPlaceholder', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)')}
             ></textarea>
           </div>
         </div>
@@ -99,7 +102,7 @@ const NewFreelancerPostDirectComponent = () => {
           <div className="col-span-11 p-2 space-y-4">
             <div>
               <div className="font-bold">
-                THỜI GIAN NHẬN VIỆC <span className="italic font-normal text-sm">(Start time)</span>
+                {t('newFreelancerDirect.startTime', 'THỜI GIAN NHẬN VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.startTimeEn', 'Start time')})</span>
               </div>
               <input
                 type="datetime-local"
@@ -108,7 +111,7 @@ const NewFreelancerPostDirectComponent = () => {
             </div>
             <div>
               <div className="font-bold">
-                THỜI GIAN HOÀN THÀNH <span className="italic font-normal text-sm">(Finish time)</span>
+                {t('newFreelancerDirect.finishTime', 'THỜI GIAN HOÀN THÀNH')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.finishTimeEn', 'Finish time')})</span>
               </div>
               <input
                 type="datetime-local"
@@ -131,7 +134,7 @@ const NewFreelancerPostDirectComponent = () => {
               <input
                 type="text"
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder="ĐỊA ĐIỂM NHẬN VIỆC (Start location)"
+                placeholder={t('newFreelancerDirect.startLocationPlaceholder', 'ĐỊA ĐIỂM NHẬN VIỆC (Start location)')}
               />
             </div>
             <div>
@@ -141,7 +144,7 @@ const NewFreelancerPostDirectComponent = () => {
               <input
                 type="text"
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder="ĐỊA ĐIỂM HOÀN THÀNH (Finish location)"
+                placeholder={t('newFreelancerDirect.finishLocationPlaceholder', 'ĐỊA ĐIỂM HOÀN THÀNH (Finish location)')}
               />
             </div>
           </div>
@@ -154,14 +157,14 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              GIÁ <span className="italic font-normal text-sm">(Price)</span>
+              {t('newFreelancerDirect.price', 'GIÁ')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.priceEn', 'Price')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập giá"
+              placeholder={t('newFreelancerDirect.pricePlaceholder', 'Nhập giá')}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -176,14 +179,14 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              ĐẶT CỌC 02 BÊN: <span className="italic font-normal text-sm">(Deposit)</span>
+              {t('newFreelancerDirect.deposit', 'ĐẶT CỌC 02 BÊN')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.depositEn', 'Deposit')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập số tiền đặt cọc"
+              placeholder={t('newFreelancerDirect.depositPlaceholder', 'Nhập số tiền đặt cọc')}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -198,14 +201,14 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              PHÍ TRẢ SẢN: <span className="italic font-normal text-sm">(Service fee)</span>
+              {t('newFreelancerDirect.serviceFee', 'PHÍ TRẢ SẢN')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.serviceFeeEn', 'Service fee')})</span>
             </div>
           </div>
           <div className="col-span-2 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Nhập %"
+              placeholder={t('newFreelancerDirect.percentagePlaceholder', 'Nhập %')}
             />
           </div>
           <div className="col-span-2 border-r border-gray-300 p-2 flex items-center">
@@ -222,8 +225,8 @@ const NewFreelancerPostDirectComponent = () => {
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
           <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center">
-            <div className="font-bold">ĐĂNG BÀI</div>
-            <div className="italic text-sm">(POST)</div>
+            <div className="font-bold">{t('newFreelancerDirect.postButton', 'ĐĂNG BÀI')}</div>
+            <div className="italic text-sm">({t('newFreelancerDirect.postButtonEn', 'POST')})</div>
           </button>
         </div>
       </div>

@@ -5,9 +5,11 @@ import {
   Settings as SettingsIcon,
 } from "lucide-react";
 import "../styles/Login.css";
+import { useTranslation } from 'react-i18next';
 
 
 export default function RewardCategoryPage() {
+  const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor") || "#ffffff");
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export default function RewardCategoryPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>{" "}
-              - DANH MỤC PHẦN THƯỞNG
+              - {t('rewardCategory.title', 'DANH MỤC PHẦN THƯỞNG')}
             </h1>
           </div>
           <button className="text-red-600 hover:text-red-800">
@@ -56,85 +58,85 @@ export default function RewardCategoryPage() {
                     <thead>
                     <tr className="bg-white border-b border-black">
                         <th colSpan={6} className="text-xl font-bold py-3 border-b border-black">
-                        DANH MỤC PHẦN THƯỞNG
+                        {t('rewardCategory.title', 'DANH MỤC PHẦN THƯỞNG')}
                         </th>
                     </tr>
                     <tr className="bg-gray-100 border-b border-black">
-                        <th className="border border-black px-2 py-1">Stt</th>
-                        <th className="border border-black px-2 py-1">Nội dung</th>
+                        <th className="border border-black px-2 py-1">{t('rewardCategory.stt', 'Stt')}</th>
+                        <th className="border border-black px-2 py-1">{t('rewardCategory.content', 'Nội dung')}</th>
                         <th className="border border-black px-2 py-1">
-                        Ước lượng tỉ lệ trả thưởng trên <br /> tổng lợi nhuận sau thuế của sàn
+                        {t('rewardCategory.estimatedRate', 'Ước lượng tỉ lệ trả thưởng trên')} <br /> {t('rewardCategory.totalProfit', 'tổng lợi nhuận sau thuế của sàn')}
                         </th>
-                        <th className="border border-black px-2 py-1">Thời gian chốt thưởng</th>
-                        <th className="border border-black px-2 py-1">Thời gian trả thưởng</th>
-                        <th className="border border-black px-2 py-1">Đối tượng nhận thưởng</th>
+                        <th className="border border-black px-2 py-1">{t('rewardCategory.rewardDeadline', 'Thời gian chốt thưởng')}</th>
+                        <th className="border border-black px-2 py-1">{t('rewardCategory.payoutTime', 'Thời gian trả thưởng')}</th>
+                        <th className="border border-black px-2 py-1">{t('rewardCategory.rewardTarget', 'Đối tượng nhận thưởng')}</th>
                     </tr>
                     </thead>
                     <tbody>
                     {[
                         {
                         stt: 1,
-                        title: "NGƯỜI GIỚI THIỆU",
+                        title: t('rewardCategory.referrer', 'NGƯỜI GIỚI THIỆU'),
                         rate: "10%",
-                        deadline: "Cuối tháng",
-                        payout: "Ngày 05 hàng tháng",
-                        target: "Tất cả",
+                        deadline: t('rewardCategory.endOfMonth', 'Cuối tháng'),
+                        payout: t('rewardCategory.fifthOfMonth', 'Ngày 05 hàng tháng'),
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 2,
-                        title: "CHIA SẺ",
+                        title: t('rewardCategory.sharing', 'CHIA SẺ'),
                         rate: "20%",
-                        deadline: "Hoàn thành công việc",
-                        payout: "Ngày 05 hàng tháng",
-                        target: "Tất cả",
+                        deadline: t('rewardCategory.jobCompleted', 'Hoàn thành công việc'),
+                        payout: t('rewardCategory.fifthOfMonth', 'Ngày 05 hàng tháng'),
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 3,
-                        title: "QUẢNG CÁO",
+                        title: t('rewardCategory.advertising', 'QUẢNG CÁO'),
                         rate: "30%",
-                        deadline: "Cuối tháng",
-                        payout: "Ngày 05 hàng tháng",
-                        target: "Tất cả",
+                        deadline: t('rewardCategory.endOfMonth', 'Cuối tháng'),
+                        payout: t('rewardCategory.fifthOfMonth', 'Ngày 05 hàng tháng'),
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 4,
-                        title: "BÁO CÁO VI PHẠM",
+                        title: t('rewardCategory.violationReport', 'BÁO CÁO VI PHẠM'),
                         rate: "40%",
-                        deadline: "Người vi phạm nộp phạt",
-                        payout: "Ngày 05 hàng tháng",
-                        target: "Tất cả",
+                        deadline: t('rewardCategory.violatorPays', 'Người vi phạm nộp phạt'),
+                        payout: t('rewardCategory.fifthOfMonth', 'Ngày 05 hàng tháng'),
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 5,
-                        title: "NGÀY THÀNH LẬP",
+                        title: t('rewardCategory.foundingDay', 'NGÀY THÀNH LẬP'),
                         rate: "10%",
                         deadline: "15/06",
                         payout: "02/07",
-                        target: "Tất cả",
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 6,
-                        title: "CUỐI NĂM",
+                        title: t('rewardCategory.endOfYear', 'CUỐI NĂM'),
                         rate: "10%",
                         deadline: "31/12",
                         payout: "30/01",
-                        target: "Tất cả",
+                        target: t('rewardCategory.all', 'Tất cả'),
                         },
                         {
                         stt: 7,
-                        title: "ĐẦU NĂM",
-                        rate: "Đếm chính xác số lượng tờ tiền VNĐ mệnh giá cao nhất",
-                        deadline: "Mùng 10 tháng Riêng",
-                        payout: "Cùng ngày",
-                        target: "Nhân viên công ty",
+                        title: t('rewardCategory.beginningOfYear', 'ĐẦU NĂM'),
+                        rate: t('rewardCategory.countVndNotes', 'Đếm chính xác số lượng tờ tiền VNĐ mệnh giá cao nhất'),
+                        deadline: t('rewardCategory.tenthOfSpecialMonth', 'Mùng 10 tháng Riêng'),
+                        payout: t('rewardCategory.sameDay', 'Cùng ngày'),
+                        target: t('rewardCategory.companyEmployees', 'Nhân viên công ty'),
                         },
                         {
                         stt: 8,
-                        title: "ĐỘT XUẤT",
+                        title: t('rewardCategory.sudden', 'ĐỘT XUẤT'),
                         rate: "50%",
-                        deadline: "Nhận thanh toán",
-                        payout: "Cùng ngày",
-                        target: "Nhân viên công ty",
+                        deadline: t('rewardCategory.receivePayment', 'Nhận thanh toán'),
+                        payout: t('rewardCategory.sameDay', 'Cùng ngày'),
+                        target: t('rewardCategory.companyEmployees', 'Nhân viên công ty'),
                         },
                     ].map((row, i) => (
                         <tr key={i} className="border-b border-black">
