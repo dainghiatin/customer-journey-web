@@ -12,6 +12,7 @@ import {
 export default function NewAiLivePostPage() {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor") || "#ffffff");
+  const [user, setUser] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [movieFile, setMovieFile] = useState(null);
   const [liveTime, setLiveTime] = useState("");
@@ -110,6 +111,8 @@ const handleSubmitMovie = async (e) => {
 
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
+    const token = localStorage.getItem("authToken");
+    setUser(token);
   }, [color]);
 
   const handleColorChange = (e) => {
@@ -123,10 +126,15 @@ const handleSubmitMovie = async (e) => {
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between relative mb-4">
-          <button className="text-red-600 hover:text-red-800 relative">
-            <HomeIcon size={28} />
-          </button>
-          <div className="text-center relative">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate('/')}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
+          <div className="text-center relative flex-1">
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
                 4
@@ -141,9 +149,14 @@ const handleSubmitMovie = async (e) => {
             </h1>
             <h2 className="text-xl italic text-gray-600">(New post)</h2>
           </div>
-          <button className="text-red-600 hover:text-red-800">
-            <SettingsIcon size={28} />
-          </button>
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         {/* Tabs */}

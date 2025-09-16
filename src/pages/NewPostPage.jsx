@@ -3,6 +3,10 @@ import "../styles/Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import {
+  Home as HomeIcon,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
@@ -11,6 +15,7 @@ export default function NewPostPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -20,17 +25,22 @@ export default function NewPostPage() {
 
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
+    const token = localStorage.getItem("authToken");
+    setUser(token);
   }, [color]);
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-between relative">
+          {user && (<button 
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+          </button>)}
           {/* Tiêu đề ở giữa */}
-          <button onClick={()=>{navigate('/')}} className="text-black hover:text-red-800 relative">
-            {t('common.home', 'HOME')}
-          </button>
-          <div className="text-center mb-4 relative">
+          <div className="text-center mb-4 relative flex-1">
 
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
@@ -50,9 +60,12 @@ export default function NewPostPage() {
               <i>({t('posts.newPostEn', 'New post')})</i>
             </h2>
           </div>
-           <button className="text-black hover:text-red-800">
-            - {t('common.bdk', 'BĐK')}
-          </button>
+          {user && (<button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+          </button>)}
         </div>
 
         {/* Three columns layout */}

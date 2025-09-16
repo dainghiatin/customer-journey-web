@@ -8,12 +8,17 @@ import FreelancerOnlineComponent from "../components/FreelancerOnlineComponent";
 import {getWalletFromToken} from "../services/walletService";
 import { getFreelancerWithNullPic } from "../services/freelancerService";
 import { useTranslation } from 'react-i18next';
+import {
+  Home as HomeIcon,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 
 export default function FreelancerPage() {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [activeTab, setActiveTab] = useState("actual"); // "actual" or "online"
+  const [user, setUser] = useState(null);
 
   
 const [freelancersOffline, setFreelancersOffline] = useState([
@@ -74,6 +79,8 @@ const [freelancersOffline, setFreelancersOffline] = useState([
 
   useEffect(async () => {
     try {
+        const token = localStorage.getItem("authToken");
+        setUser(token);
         const response = await getWalletFromToken();
         setWallet(response.data);
         console.log(response.data);
@@ -92,16 +99,21 @@ const [freelancersOffline, setFreelancersOffline] = useState([
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-            <div className="relative justify-between flex">
-        <button onClick={()=>{navigate("../")}}  className=" p-2 border">{t('common.home', 'Home')}</button>
-        <button className=" right-0 p-2 border" >3-{t('common.bdk', 'BĐK')}</button>
-      </div>
-        <div className="flex items-center justify-center relative">
-          {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative">
+        {/* Header with Navigation */}
+        <div className="flex items-center justify-between relative mb-6">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
+          
+          <div className="flex-1 text-center">
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
-                7{/* input màu ngay dưới số 2 */}
+                7
                 <input
                   type="color"
                   value={color}
@@ -111,12 +123,19 @@ const [freelancersOffline, setFreelancersOffline] = useState([
               </span>
               &nbsp;- {t('posts.freelancer', 'CÔNG VIỆC TỰ DO')}
             </h1>
-
-            {/* New post bên dưới */}
             <h2 className="text-2xl text-black mt-2">
               <i>({t('posts.freelancerEn', 'Freelancer')})</i>
             </h2>
           </div>
+          
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         {/* Table layout */}

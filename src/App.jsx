@@ -16,6 +16,7 @@ import DetailOfGoodsPage from './pages/DetailOfGoodsPage.jsx'
 import NewFreelancerPostPage from './pages/NewFreelancerPostPage.jsx'
 import AiLivePage from './pages/AiLivePage.jsx'
 import NewAiLivePostPage from './pages/NewAiLivePostPage.jsx'
+import AdminControlPage from './pages/AdminControlPage.jsx'
 function App() {
   return (
     <>
@@ -40,6 +41,7 @@ function App() {
 
         <Route path="/ai-live" element={<AiLivePage />} />
         <Route path="/new-ai-live-post" element={<NewAiLivePostPage />} />
+        <Route path="/admin-control" element={<AdminControlPage />} />
       </Routes>
     </>
   )

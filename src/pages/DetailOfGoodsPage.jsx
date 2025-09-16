@@ -4,11 +4,18 @@ import { useTranslation } from "react-i18next";
 import "../styles/Login.css";
 import { useParams } from "react-router-dom";
 import { getProductById, updateProductPriceInfo } from "../services/productService";
+import {
+  Home as HomeIcon,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 
 export default function DetailOfGoodsPage() {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
@@ -117,6 +124,8 @@ export default function DetailOfGoodsPage() {
 
   useEffect(() => {
     document.getElementById("root").style.backgroundColor = color;
+    const token = localStorage.getItem("authToken");
+    setUser(token);
   }, [color]);
 
   useEffect(() => {
@@ -142,23 +151,43 @@ const fetchProductDetails = async () => {
   return (
     <div className="min-h-screen w-full">
       <div className="bg-transparent p-4 w-full">
-        {/* Header */}
-        <div className="text-center mb-4 relative">
-          <h1 className="text-3xl font-bold text-black relative inline-block">
-            <span className="relative">
-              6
-              <input
-                type="color"
-                value={color}
-                onChange={handleChangeColor}
-                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-              />
-            </span>
-            &nbsp;- {t('detailOfGoods.title', 'CHI TIẾT HÀNG HÓA')}
-          </h1>
-          <h2 className="text-2xl text-black mt-2">
-            <i>({t('detailOfGoods.titleEn', 'Detail of goods')})</i>
-          </h2>
+        {/* Header with Navigation */}
+        <div className="flex items-center justify-between relative mb-6">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
+          
+          <div className="flex-1 text-center">
+            <h1 className="text-3xl font-bold text-black relative inline-block">
+              <span className="relative">
+                6
+                <input
+                  type="color"
+                  value={color}
+                  onChange={handleChangeColor}
+                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                />
+              </span>
+              &nbsp;- {t('detailOfGoods.title', 'CHI TIẾT HÀNG HÓA')}
+            </h1>
+            <h2 className="text-2xl text-black mt-2">
+              <i>({t('detailOfGoods.titleEn', 'Detail of goods')})</i>
+            </h2>
+          </div>
+          
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         {/* Category Selection Table */}

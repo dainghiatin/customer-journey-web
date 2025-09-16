@@ -5,9 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NewFreelancerPostDirectComponent from "../components/NewFreelancerPostDirectComponent";
 import NewFreelancerPostOnlineComponent from "../components/NewFreelancerPostOnlineComponent";
+import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
 
 export default function NewFreelancerPostPage() {
   const { t } = useTranslation();
+  const [user, setUser] = useState(localStorage.getItem("authToken"));
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [activeTab, setActiveTab] = useState("direct"); // "direct" or "online"
   const navigate = useNavigate();
@@ -26,18 +28,20 @@ export default function NewFreelancerPostPage() {
     <div className="flex justify-center items-center min-h-screen">
 
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-              <div className="relative justify-between flex">
-        <button onClick={()=>{navigate("../")}}  className="p-2">
-          <i class="fa-solid fa-house"></i>
-        </button>
-        <button className=" right-0 p-2" ><i class="fa-solid fa-solar-panel"></i></button>
-      </div>
-        <div className="flex items-center justify-center relative">
+        <div className="flex items-center justify-between relative">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
           {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative">
+          <div className="text-center mb-4 relative flex-1">
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
-                4{/* input màu ngay dưới số 2 */}
+                4{/* input màu ngay dưới số 4 */}
                 <input
                   type="color"
                   value={color}
@@ -45,14 +49,20 @@ export default function NewFreelancerPostPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('posts.newPost', 'ĐĂNG BÀI MỚI')}
+              &nbsp;- {t('freelancer.newPost', 'ĐĂNG BÀI CÔNG VIỆC TỰ DO')}
             </h1>
-
-            {/* New post bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>(New post)</i>
+              <i>({t('freelancer.newPostEn', 'New Freelancer Post')})</i>
             </h2>
           </div>
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         {/* Table layout matching the image */}
