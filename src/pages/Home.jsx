@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  HeroHeader, Body, ActionSection, SearchSection,DropdownAuth } from "../components/Body";
 import { getMetric } from "../services/metricService";
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import GlobalInfoComponent from '../components/GlobalInfoComponent';
+import CountrySpecificComponent from '../components/CountrySpecificComponent';
+import CompanyInfoTable from '../components/CompanyInfoTable';
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
@@ -108,10 +112,21 @@ const DataTable = () => {
   };
 function HomePage() {
     const { t, i18n } = useTranslation();
+    const { user, isAuthenticated } = useSelector(state => state.auth);
     // const [color, setColor] = useState("#aabbcc");
     const [selectedLang, setSelectedLang] = useState(i18n.language || "vi");
     const [hsva, setHsva] = useState({ h: 214, s: 43, v: 90, a: 1 });
     const [color, setColor] = useState("#1242ae");
+    
+    // Check if user is logged in via token as well
+    const [authToken, setAuthToken] = useState(null);
+    
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+        setAuthToken(token);
+    }, []);
+    
+    const isUserLoggedIn = isAuthenticated || authToken;
     useEffect(() => {
         const savedColor = localStorage.getItem("selectedColor");
         if (savedColor) {
@@ -195,24 +210,27 @@ function HomePage() {
 
                 <div className="grid-col-2" style={{ height: "100%" }}>
                     <div style={{ width: "100%", height: `clamp(180px, 30vw, 300px)`, border: '1px solid' }}>
-                        {/* <img
-                            src={Banner}
-                            alt="placeholder"
-                            style={{ width: "100%", height: "%", objectFit: "cover",visibility: "hidden" }}
-                        /> */}
-                        {/* <div style={{height: "100%", aspectRatio:748/307}}></div> */}
-
+                        {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
+                        {isUserLoggedIn ? (
+                            <CountrySpecificComponent userCountry={selectedLang} />
+                        ) : (
+                            <GlobalInfoComponent />
+                        )}
                     </div>
                 </div>
-                <div className="grid-col-4" style={{}}>
-                    <DataTable></DataTable>
+                <div className="grid-col-2" style={{}}>
+                    {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
+                    {isUserLoggedIn ? (
+                        <CompanyInfoTable userCountry={selectedLang} />
+                    ) : (
+                        <DataTable />
+                    )}
                 </div>
             </header>
             {/* <Body /> */}
             <DropdownAuth />
             <HeroHeader />
             <ActionSection />
-            <SearchSection />
             <footer className="footer">
                 <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
                 {/* <p><em>(ADVERTISING)</em></p> */}

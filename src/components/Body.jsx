@@ -306,6 +306,52 @@ function ActionSection() {
 
     return (
         <section className="action-section" style={{}}>
+            <div className="action-section-2" style={{ gap: 4 }}>
+                <CategorySelect
+                    title="DANH MỤC"
+                    items={categories}
+                    onChange={handleCategoryChange}
+                    value={category}
+                />
+                <CategorySelect
+                    title="Subcategories"
+                    items={subCategories}
+                    onChange={handleCategoryChange}
+                    value={subcategory}
+                />
+                <CategorySelect
+                    title="Conditions"
+                    items={conditions}
+                    onChange={handleCategoryChange}
+                    value={condition}
+                />
+                <CategorySelect
+                    title="Nation"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={nation}
+                    fetchItems={getCountries}
+                />
+                <CategorySelect
+                    title="Province"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={province}
+                    fetchItems={getCountryByCode}
+                    dependsOn={nation?.en}
+                />
+                {/* <CategorySelect
+                    title="District"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={district}
+                    fetchItems={getDistrictByCode}
+                    dependsOn={province?.en}
+                /> */}
+
+            </div>
+            
+            <SearchSection />
             <div className="action-section-1" style={{ gap: 10 }}>
                 <div style={{ backgroundColor: "white", aspectRatio: 3 / 4, width: '25%', }}>
                     <h3>SỰ KIỆN</h3>
@@ -352,50 +398,6 @@ function ActionSection() {
 
             </div>
 
-            <div className="action-section-2" style={{ gap: 4 }}>
-                <CategorySelect
-                    title="DANH MỤC"
-                    items={categories}
-                    onChange={handleCategoryChange}
-                    value={category}
-                />
-                <CategorySelect
-                    title="Subcategories"
-                    items={subCategories}
-                    onChange={handleCategoryChange}
-                    value={subcategory}
-                />
-                <CategorySelect
-                    title="Conditions"
-                    items={conditions}
-                    onChange={handleCategoryChange}
-                    value={condition}
-                />
-                <CategorySelect
-                    title="Nation"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={nation}
-                    fetchItems={getCountries}
-                />
-                <CategorySelect
-                    title="Province"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={province}
-                    fetchItems={getCountryByCode}
-                    dependsOn={nation?.en}
-                />
-                {/* <CategorySelect
-                    title="District"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={district}
-                    fetchItems={getDistrictByCode}
-                    dependsOn={province?.en}
-                /> */}
-
-            </div>
 
         </section>
     )
