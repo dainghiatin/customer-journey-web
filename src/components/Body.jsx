@@ -8,6 +8,9 @@ import { logoutAction } from '../context/action/authActions';
 import Select from 'react-select';
 import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
 import { useTranslation } from 'react-i18next';
+import {
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 function HeroHeader() {
     const { t } = useTranslation();
@@ -435,9 +438,18 @@ const DropdownAuth = () => {
                     <button onClick={() => { navigate('login') }}>
                         <img src={auth.user?.avt?.url || DEFAULT_AVT} alt="Avatar" style={{ borderRadius: '50%', height: "clamp(20px, 3vw, 50px)", aspectRatio: 1, }} />
                     </button>
-                    <button>
-                        <i className="fa-solid fa-keyboard text-3xl"></i>
-                    </button>
+                    <div className="flex items-center gap-2">
+                        {/* Admin Control Button */}
+                        {/* <button>
+                            <i className="fa-solid fa-keyboard text-3xl"></i>
+                        </button> */}
+                        <button 
+                            className="text-red-600 hover:text-red-800"
+                            onClick={() => navigate("/admin-control")}
+                        >
+                            <SettingsIcon size={24} />
+                        </button>
+                    </div>
                 </div>}
             {!user ? <button
                 onClick={() => { navigate('register') }}

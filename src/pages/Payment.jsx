@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { getFavoriteWallets, getWalletFromToken } from "../services/walletService";
 import { data, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import {
+  Home as HomeIcon,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 const GoodsPaymentPage = () => {
   const { t } = useTranslation();
@@ -464,6 +468,7 @@ const PaymentPage = () => {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate()
   const [Page, setPage] = useState(null);
+  const [user, setUser] = useState(null);
 
   const [wallet, setWallet] = useState({
     total: 0,
@@ -494,6 +499,7 @@ const PaymentPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
+    setUser(token);
     getWalletFromToken(token).then((res) => {
       setWallet(res.data)
     }).catch((err) => {
@@ -512,26 +518,43 @@ const PaymentPage = () => {
   return (
     <div className="flex justify-center py-8 px-4">
       <div className="w-full max-w-4xl shadow-lg rounded relative">
-        {/* Header */}
-        <button onClick={()=>{navigate("../")}} className="absolute p-2 border z-10">{t('common.home', 'Home')}</button>
-        <button className="absolute right-0 p-2 border" >{t('payment.bdk', '3-BĐK')}</button>
-        <div className="text-center border-blue-800 py-2 relative">
-          <h1 className="text-3xl font-bold inline-block relative">
-            <span className="relative inline-block">
-              9{/* input màu nằm dưới số 9 */}
-              <input
-                type="color"
-                value={color}
-                onChange={handleChangeColor}
-                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-              />
-            </span>
-            &nbsp;- {t('payment.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}
-          </h1>
-
-          <h2 className="text-2xl text-black mt-2">
-            <i>({t('payment.paymentTransactionEn', 'Payment Transaction')})</i>
-          </h2>
+        {/* Header with Navigation */}
+        <div className="flex items-center justify-between relative mb-6">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
+          
+          <div className="flex-1 text-center">
+            <h1 className="text-3xl font-bold inline-block relative">
+              <span className="relative inline-block">
+                9
+                <input
+                  type="color"
+                  value={color}
+                  onChange={handleChangeColor}
+                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                />
+              </span>
+              &nbsp;- {t('payment.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}
+            </h1>
+            <h2 className="text-2xl text-black mt-2">
+              <i>({t('payment.paymentTransactionEn', 'Payment Transaction')})</i>
+            </h2>
+          </div>
+          
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         {/* Main Content */}

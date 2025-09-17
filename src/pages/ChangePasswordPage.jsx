@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePasswordAction } from "../context/action/authActions";
 import { changePassword } from "../services/authService";
 import { useTranslation } from 'react-i18next';
+import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
 
 
 export default function ChangePasswordPage() {
@@ -71,28 +72,41 @@ export default function ChangePasswordPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-        <div className="flex items-center justify-center relative">
-          {/* Input Color nằm bên trái */}
-
+        <div className="flex items-center justify-between relative">
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          )}
           {/* Tiêu đề ở giữa */}
-          <div className="text-center w-full relative">
-            <h1 className="text-3xl font-bold text-black inline-block relative">
-              <span className="relative inline-block">
-               {/* input màu nằm dưới số 1 */}
+          <div className="text-center mb-4 relative flex-1">
+            <h1 className="text-3xl font-bold text-black relative inline-block">
+              <span className="relative">
+                4{/* input màu ngay dưới số 4 */}
                 <input
                   type="color"
                   value={color}
                   onChange={handleChangeColor}
-                  className="absolute left-[-50px] transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-               {t('auth.changePasswordTitle', 'ĐỔI MẬT KHẨU')}
+              &nbsp;- {t('changePassword.title', 'ĐỔI MẬT KHẨU')}
             </h1>
-
             <h2 className="text-2xl text-black mt-2">
-              <i>({t('auth.changePasswordTitleEn', 'Change your password')})</i>
+              <i>({t('changePassword.titleEn', 'Change Password')})</i>
             </h2>
           </div>
+          {user && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <SettingsIcon size={28} />
+            </button>
+          )}
         </div>
 
         <div className="mt-6">

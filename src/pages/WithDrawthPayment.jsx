@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
 
 const WithDrawthPaymentPage = () => {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
+  const [user, setUser] = useState(localStorage.getItem("authToken"));
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate()
   
@@ -18,30 +20,42 @@ const WithDrawthPaymentPage = () => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
   return (
-    <div className="shadow-lg rounded max-w-2xl mx-auto p-4">
-      {/* Tiêu đề */}
-      <div className="text-center border-blue-800 py-2 relative">
-              <div className="relative justify-between flex">
-        <button onClick={()=>{navigate("../")}} className=" p-2 border">{t('common.home', 'Home')}</button>
-        <button className=" right-0 p-2 border" >3-{t('common.bdk', 'BĐK')}</button>
-      </div>
-        <h1 className="text-3xl font-bold inline-block relative">
-          <span className="relative inline-block">
-            9.2
-            {/* input màu nằm dưới số 9.2 */}
-            <input
-              type="color"
-              value={color}
-              onChange={handleChangeColor}
-              className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-            />
-          </span>
-          &nbsp;- {t('withdrawPayment.title', 'GIAO DỊCH THANH TOÁN (RÚT RA)')}
-        </h1>
-
-        <h2 className="text-2xl text-black mt-2">
-          <i>({t('withdrawPayment.titleEn', 'Withdrawth Payment')})</i>
-        </h2>
+    <div className="shadow-lg rounded max-w-2xl mx-auto p-4   ">
+      <div className="flex items-center justify-between relative">
+        {user && (
+          <button 
+            className="text-red-600 hover:text-red-800 relative"
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon size={28} />
+          </button>
+        )}
+        {/* Tiêu đề ở giữa */}
+        <div className="text-center border-blue-800 py-2 relative flex-1">
+          <h1 className="text-3xl font-bold inline-block relative">
+            <span className="relative inline-block">
+              4
+              <input
+                type="color"
+                value={color}
+                onChange={handleChangeColor}
+                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
+              />
+            </span>
+            &nbsp;- {t('payment.withdraw', 'RÚT TIỀN')}
+          </h1>
+          <h2 className="text-2xl text-black mt-2">
+            <i>({t('payment.withdrawEn', 'Withdraw Payment')})</i>
+          </h2>
+        </div>
+        {user && (
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/admin-control")}
+          >
+            <SettingsIcon size={28} />
+          </button>
+        )}
       </div>
 
       {/* Mã QR */}
