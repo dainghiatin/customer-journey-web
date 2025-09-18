@@ -19,6 +19,8 @@ export default function FreelancerPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [activeTab, setActiveTab] = useState("actual"); // "actual" or "online"
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   
 const [freelancersOffline, setFreelancersOffline] = useState([
@@ -77,22 +79,67 @@ const [freelancersOffline, setFreelancersOffline] = useState([
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
 
-  useEffect(async () => {
-    try {
+  useEffect(() => {
+    let isMounted = true; // Flag to track if component is still mounted
+    
+    const fetchData = async () => {
+      try {
+        if (isMounted) {
+          setLoading(true);
+          setError(null);
+        }
+        
         const token = localStorage.getItem("authToken");
-        setUser(token);
-        const response = await getWalletFromToken();
-        setWallet(response.data);
-        console.log(response.data);
+        if (isMounted) {
+          setUser(token);
+        }
+        
+        // Only try to fetch wallet if token exists
+        if (token) {
+          try {
+            const response = await getWalletFromToken();
+            if (isMounted) {
+              setWallet(response.data);
+              console.log(response.data);
+            }
+          } catch (walletError) {
+            if (isMounted) {
+              console.warn("Wallet fetch failed, using default values:", walletError.message);
+              // Keep default wallet values on wallet error
+            }
+          }
+        }
+        
         const freelancersOffline = await getFreelancerWithNullPic(1, 10, 'offline');
-        setFreelancersOffline(freelancersOffline.data.data);
-        console.log(freelancersOffline.data.data);
+        if (isMounted) {
+          setFreelancersOffline(freelancersOffline.data.data);
+          console.log(freelancersOffline.data.data);
+        }
+        
         const freelancersOnline = await getFreelancerWithNullPic(1, 10, 'online');
-        setFreelancersOnline(freelancersOnline.data.data);
-        console.log(freelancersOnline.data.data);
+        if (isMounted) {
+          setFreelancersOnline(freelancersOnline.data.data);
+          console.log(freelancersOnline.data.data);
+        }
       } catch (error) {
-        console.error("Error fetching wallet:", error);
+        if (isMounted) {
+          console.error("Error fetching data:", error);
+          setError(error.message);
+          // Keep default values to prevent white screen
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
+    };
+
+    fetchData();
+    
+    // Cleanup function
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
 
@@ -138,69 +185,90 @@ const [freelancersOffline, setFreelancersOffline] = useState([
           )}
         </div>
 
-        {/* Table layout */}
-        <div className="mt-6">
-          <div className="border border-gray-300 rounded-md overflow-hidden">
-            {/* Row 1: TÀI KHOẢN CÔNG VIỆC TỰ DO */}
-            <div className="grid grid-cols-12 border-b border-gray-300">
-              <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                {t('freelancer.accountOfFreelancer', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}
-                <div className="text-sm text-gray-500"><i>({t('freelancer.accountOfFreelancerEn', 'Account of freelancer')})</i></div>
-              </div>
-              <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                <input disabled type="text" value={wallet.account_of_freelancer} placeholder="(lệnh)" className="w-full p-1 border rounded" />
+        {/* Loading state */}
+        {loading && (
+          <div className="text-center py-8">
+            <div className="text-lg text-gray-600">Đang tải...</div>
+          </div>
+        )}
 
-
-              </div>
-              <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
-              <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                <input type="text" placeholder="(nhập)" className="w-full p-1 border rounded" />
-              </div>
-              <div className="col-span-2 p-3 text-center font-bold">
-                {t('freelancer.transferToWallet', 'CHUYỂN VỀ VÍ')}
-                <div className="text-sm text-gray-500"><i>({t('freelancer.transferToWalletEn', 'Transfer to wallet')})</i></div>
-              </div>
-            </div>
-
-            {/* Row 2: ĐĂNG ĐẶT CỌC */}
-            <div className="grid grid-cols-12 border-b border-gray-300">
-              <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                {t('freelancer.depositing', 'ĐĂNG ĐẶT CỌC')}
-                <div className="text-sm text-gray-500"><i>({t('freelancer.depositingEn', 'Depositing')})</i></div>
-              </div>
-              <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                <input disabled value={wallet.pending_amount} type="text" placeholder="(lệnh)" className="w-full p-1 border rounded" />
-
-              </div>
-              <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
-              <div className="col-span-4"></div>
-            </div>
-
-            {/* Row 3: THỰC TẾ / TRỰC TUYẾN */}
-            <div className="grid grid-cols-2 mt-4">
-              <div 
-                className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
-                onClick={() => setActiveTab("actual")}
-              >
-                {t('freelancer.actual', 'THỰC TẾ')}
-                <div className="text-sm text-gray-500"><i>({t('freelancer.actualEn', 'Actual')})</i></div>
-              </div>
-              <div 
-                className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
-                onClick={() => setActiveTab("online")}
-              >
-                {t('freelancer.online', 'TRỰC TUYẾN')}
-                <div className="text-sm text-gray-500"><i>({t('freelancer.onlineEn', 'Online')})</i></div>
-              </div>
+        {/* Error state */}
+        {error && !loading && (
+          <div className="text-center py-4 mb-4">
+            <div className="text-red-600 bg-red-100 p-3 rounded">
+              Có lỗi xảy ra: {error}. Đang hiển thị dữ liệu mặc định.
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Render the appropriate component based on the active tab */}
-        {activeTab === "actual" ? (
-          <FreelancerActuallyComponent freelancers={freelancersOffline} />
-        ) : (
-          <FreelancerOnlineComponent freelancers={freelancersOnline} />
+        {/* Main content - always render to prevent white screen */}
+        {!loading && (
+          <>
+            {/* Table layout */}
+            <div className="mt-6">
+              <div className="border border-gray-300 rounded-md overflow-hidden">
+                {/* Row 1: TÀI KHOẢN CÔNG VIỆC TỰ DO */}
+                <div className="grid grid-cols-12 border-b border-gray-300">
+                  <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
+                    {t('freelancer.accountOfFreelancer', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}
+                    <div className="text-sm text-gray-500"><i>({t('freelancer.accountOfFreelancerEn', 'Account of freelancer')})</i></div>
+                  </div>
+                  <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                    <input disabled type="text" value={wallet.account_of_freelancer} placeholder="(lệnh)" className="w-full p-1 border rounded" />
+
+
+                  </div>
+                  <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
+                  <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                    <input type="text" placeholder="(nhập)" className="w-full p-1 border rounded" />
+                  </div>
+                  <div className="col-span-2 p-3 text-center font-bold">
+                    {t('freelancer.transferToWallet', 'CHUYỂN VỀ VÍ')}
+                    <div className="text-sm text-gray-500"><i>({t('freelancer.transferToWalletEn', 'Transfer to wallet')})</i></div>
+                  </div>
+                </div>
+
+                {/* Row 2: ĐĂNG ĐẶT CỌC */}
+                <div className="grid grid-cols-12 border-b border-gray-300">
+                  <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
+                    {t('freelancer.depositing', 'ĐĂNG ĐẶT CỌC')}
+                    <div className="text-sm text-gray-500"><i>({t('freelancer.depositingEn', 'Depositing')})</i></div>
+                  </div>
+                  <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                    <input disabled value={wallet.pending_amount} type="text" placeholder="(lệnh)" className="w-full p-1 border rounded" />
+
+                  </div>
+                  <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
+                  <div className="col-span-4"></div>
+                </div>
+
+                {/* Row 3: THỰC TẾ / TRỰC TUYẾN */}
+                <div className="grid grid-cols-2 mt-4">
+                  <div 
+                    className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
+                    onClick={() => setActiveTab("actual")}
+                  >
+                    {t('freelancer.actual', 'THỰC TẾ')}
+                    <div className="text-sm text-gray-500"><i>({t('freelancer.actualEn', 'Actual')})</i></div>
+                  </div>
+                  <div 
+                    className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
+                    onClick={() => setActiveTab("online")}
+                  >
+                    {t('freelancer.online', 'TRỰC TUYẾN')}
+                    <div className="text-sm text-gray-500"><i>({t('freelancer.onlineEn', 'Online')})</i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Render the appropriate component based on the active tab */}
+            {activeTab === "actual" ? (
+              <FreelancerActuallyComponent freelancers={freelancersOffline} />
+            ) : (
+              <FreelancerOnlineComponent freelancers={freelancersOnline} />
+            )}
+          </>
         )}
       </div>
     </div>
