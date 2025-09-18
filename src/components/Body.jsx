@@ -462,6 +462,7 @@ const DropdownAuth = () => {
             </button> : <button
                 onClick={() => {
                     localStorage.removeItem('authToken'); // Xóa token khỏi localStorage
+                    localStorage.removeItem('user'); // Xóa user data khỏi localStorage
                     setUser(null); // Đặt lại trạng thái người dùng
                     dispatch(logoutAction());
                 }}

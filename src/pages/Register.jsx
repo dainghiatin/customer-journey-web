@@ -7,6 +7,7 @@ import Select from "react-select";
 import { useDispatch, useSelector } from 'react-redux';
 import { changePasswordAction } from "../context/action/authActions";
 import { uploadImageToCloudinary } from "../services/cloudinary";
+import { downloadContract } from "../services/contractService";
 import { useTranslation } from 'react-i18next';
 
 
@@ -49,7 +50,7 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "123456",
-    cccd: "",
+    id: "",
     reference_id: "",
     full_name: "",
     mobile_number: "",
@@ -79,17 +80,38 @@ export default function RegisterPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleContractDownload = async () => {
+    try {
+      const response = await downloadContract();
+      
+      // Create blob URL and trigger download
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'hop-dong.docx'; // Contract file name
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Lỗi khi tải hợp đồng:", error);
+      alert(t('auth.contractDownloadError', 'Không thể tải file hợp đồng. Vui lòng thử lại.'));
+    }
+  };
+
   const handleRegister = async () => {
     console.log("formData: ", formData);
     console.log(signature);
 
-    const uploadToCloudinaryResp = await uploadImageToCloudinary(signature);
-    console.log(uploadToCloudinaryResp);
-
-    const { username, cccd } = formData;
-    // Sinh mật khẩu ngẫu nhiên
-    const randomPassword = generateRandomPassword();
     try {
+      const uploadToCloudinaryResp = await uploadImageToCloudinary(signature);
+      console.log(uploadToCloudinaryResp);
+
+      const { username, cccd } = formData;
+      // Sinh mật khẩu ngẫu nhiên
+      const randomPassword = generateRandomPassword();
+      formData.cccd = formData.id;
       const payload = {
         ...formData,
         password: randomPassword,
@@ -112,7 +134,11 @@ export default function RegisterPage() {
       navigate("/change-password"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
-      setError(t('auth.registerError', 'Đăng ký thất bại. Vui lòng thử lại.'));
+      const errorMessage = error.response?.data?.error?.message || 
+                          error.response?.data?.message || 
+                          t('auth.registerError', 'Đăng ký thất bại. Vui lòng thử lại.');
+      setError(errorMessage);
+      alert(errorMessage); // Display error to user
     }
   };
 
@@ -148,7 +174,7 @@ export default function RegisterPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝ')}
+              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝY')}
             </h1>
 
             {/* Register bên dưới */}
@@ -192,7 +218,7 @@ export default function RegisterPage() {
 
 
 
-            <div className="grid grid-cols-1 items-center gap-4">
+            {/* <div className="grid grid-cols-1 items-center gap-4">
               <div className="relative w-full flex items-center">
                 <label
                   htmlFor="signature-upload"
@@ -208,7 +234,7 @@ export default function RegisterPage() {
                 </label>
                 <span className="text-red-500 ml-2">*</span>
               </div>
-            </div>
+            </div> */}
 
 
             <div className="grid grid-cols-1 items-center gap-4">
@@ -221,8 +247,8 @@ export default function RegisterPage() {
                   type="text"
                   className="border p-2 rounded w-full"
                   placeholder={t('auth.idPlaceholder', 'CCCD/MST (ID)')}
-                  name="cccd"
-                  value={formData.cccd}
+                  name="id"
+                  value={formData.id}
                   onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
@@ -341,6 +367,7 @@ export default function RegisterPage() {
            
             <button
               className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center"
+              onClick={handleContractDownload}
             >
               {t('auth.checkContract', 'KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ')}
               <br />
@@ -348,6 +375,29 @@ export default function RegisterPage() {
               <br />
               ({t('auth.clickToViewFile', 'Ấn xem file')})
             </button>
+
+            {/* New signature upload button */}
+            <div className="grid grid-cols-1 items-center gap-4 mb-4">
+              <div className="relative w-full flex items-center">
+                <label
+                  htmlFor="contract-signature-upload"
+                  className="w-full h-12 text-black border flex flex-col items-center justify-center cursor-pointer rounded hover:bg-gray-100"
+                >
+                  <span className="font-semibold">{t('auth.uploadContractSignature', 'TẢI LÊN CHỮ KÝ HỢP ĐỒNG')}</span>
+                  <span className="text-sm">({t('auth.uploadContractSignatureEn', 'Upload your contract signature')})</span>
+                  <input 
+                    id="contract-signature-upload" 
+                    type="file" 
+                    className="hidden"
+                    accept="image/*"
+                    onChange={(e) => {
+                      console.log("upload signature")
+                      setSignature(e.target.files[0])} }
+                  />
+                </label>
+                <span className="text-red-500 ml-2">*</span>
+              </div>
+            </div>
 
             <div className="flex items-start gap-2">
               <div className="flex flex-col items-center">

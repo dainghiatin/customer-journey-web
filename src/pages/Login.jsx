@@ -41,6 +41,8 @@ export default function LoginPage() {
           navigate("/change-password");
         }else{
            localStorage.setItem("authToken", response.data.token);
+           // Store complete user data in localStorage for easy access
+           localStorage.setItem("user", JSON.stringify(response.data.user));
            dispatch(loginAction(response.data?.user))
           console.log(auth);
         
