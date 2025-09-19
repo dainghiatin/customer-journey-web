@@ -24,20 +24,17 @@ const AdditionalPaymentPage = () => {
   return (
     <div className="shadow-lg rounded max-w-2xl mx-auto p-4   ">
       <div className="flex items-center justify-between relative">
-        {user && (
-          <button 
-            className="text-red-600 hover:text-red-800 relative"
-            onClick={() => navigate("/")}
-          >
-            <HomeIcon size={28} />
-          </button>
-        )}
+        <button 
+          className="text-red-600 hover:text-red-800 relative"
+          onClick={() => navigate("/")}
+        >
+          <HomeIcon size={28} />
+        </button>
         {/* Tiêu đề ở giữa */}
-        <div className="text-center border-blue-800 py-2 relative flex-1">
-          <h1 className="text-3xl font-bold inline-block relative">
-            <span className="relative inline-block">
-              9.1
-              {/* input màu nằm dưới số 9.1 */}
+        <div className="text-center mb-4 relative flex-1">
+          <h1 className="text-3xl font-bold text-black relative inline-block">
+            <span className="relative">
+              9.1{/* input màu ngay dưới số 9.1 */}
               <input
                 type="color"
                 value={color}
@@ -47,19 +44,16 @@ const AdditionalPaymentPage = () => {
             </span>
             &nbsp;- {t('additionalPayment.title', 'GIAO DỊCH THANH TOÁN (GỬI THÊM)')}
           </h1>
-
           <h2 className="text-2xl text-black mt-2">
             <i>({t('additionalPayment.titleEn', 'Additional Payment')})</i>
           </h2>
         </div>
-        {user && (
-          <button 
-            className="text-red-600 hover:text-red-800"
-            onClick={() => navigate("/admin-control")}
-          >
-            <SettingsIcon size={28} />
-          </button>
-        )}
+        <button 
+          className="text-red-600 hover:text-red-800"
+          onClick={() => navigate("/admin-control")}
+        >
+          <SettingsIcon size={28} />
+        </button>
       </div>
 
       {/* Mã QR */}

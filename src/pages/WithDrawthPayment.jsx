@@ -22,14 +22,12 @@ const WithDrawthPaymentPage = () => {
   return (
     <div className="shadow-lg rounded max-w-2xl mx-auto p-4   ">
       <div className="flex items-center justify-between relative">
-        {user && (
-          <button 
-            className="text-red-600 hover:text-red-800 relative"
-            onClick={() => navigate("/")}
-          >
-            <HomeIcon size={28} />
-          </button>
-        )}
+        <button 
+          className="text-red-600 hover:text-red-800 relative"
+          onClick={() => navigate("/")}
+        >
+          <HomeIcon size={28} />
+        </button>
         {/* Tiêu đề ở giữa */}
         <div className="text-center border-blue-800 py-2 relative flex-1">
           <h1 className="text-3xl font-bold inline-block relative">
@@ -48,15 +46,13 @@ const WithDrawthPaymentPage = () => {
             <i>({t('payment.withdrawEn', 'Withdraw Payment')})</i>
           </h2>
         </div>
-        {user && (
-          <button 
-            className="text-red-600 hover:text-red-800"
-            onClick={() => navigate("/admin-control")}
-          >
-            <SettingsIcon size={28} />
-          </button>
-        )}
-      </div>
+        <button 
+          className="text-red-600 hover:text-red-800"
+          onClick={() => navigate("/admin-control")}
+        >
+          <SettingsIcon size={28} />
+        </button>
+        </div>
 
       {/* Mã QR */}
       {/* <div className=" p-2 mt-2 flex items-center">

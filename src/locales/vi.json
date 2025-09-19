@@ -620,5 +620,19 @@
     "percentagePlaceholder": "Nhập %",
     "postButton": "ĐĂNG BÀI",
     "postButtonEn": "POST"
+  },
+  "adminControl": {
+    "title": "BẢNG ĐIỀU KHIỂN",
+    "titleEn": "Admin Control",
+    "welcomeTitle": "Chào mừng đến với Bảng Điều Khiển",
+    "welcomeMessage": "Trang này đang được phát triển. Các tính năng quản trị sẽ được thêm vào sớm.",
+    "userManagement": "Quản lý người dùng",
+    "systemSettings": "Cài đặt hệ thống",
+    "analytics": "Phân tích",
+    "comingSoon": "Sắp ra mắt"
+  },
+  "admin": {
+    "title": "ĐIỀU KHIỂN",
+    "titleEn": "Admin Control"
   }
 }

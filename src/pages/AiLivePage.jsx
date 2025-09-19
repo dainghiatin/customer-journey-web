@@ -38,14 +38,12 @@ export default function AiLivePage() {
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-5xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between relative mb-6">
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800 relative"
-              onClick={() => navigate("/")}
-            >
-              <HomeIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800 relative"
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon size={28} />
+          </button>
           <div className="text-center mb-4 relative flex-1">
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
@@ -60,14 +58,12 @@ export default function AiLivePage() {
               - Ai LIVE
             </h1>
           </div>
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              onClick={() => navigate("/admin-control")}
-            >
-              <SettingsIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/admin-control")}
+          >
+            <SettingsIcon size={28} />
+          </button>
         </div>
 
         {/* Grid Content */}

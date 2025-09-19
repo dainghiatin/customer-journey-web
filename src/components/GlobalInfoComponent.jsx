@@ -13,7 +13,7 @@ const GlobalInfoComponent = () => {
           <img
             src={planetImage}
             alt="Global Planet"
-            className="max-w-[300px] max-h-[300px] object-contain mx-auto"
+            className="max-w-[200px] max-h-[200px] object-contain mx-auto"
           />
         </div>
       </div>

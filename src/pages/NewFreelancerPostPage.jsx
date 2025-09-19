@@ -29,14 +29,12 @@ export default function NewFreelancerPostPage() {
 
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-between relative">
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800 relative"
-              onClick={() => navigate("/")}
-            >
-              <HomeIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800 relative"
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon size={28} />
+          </button>
           {/* Tiêu đề ở giữa */}
           <div className="text-center mb-4 relative flex-1">
             <h1 className="text-3xl font-bold text-black relative inline-block">
@@ -55,14 +53,12 @@ export default function NewFreelancerPostPage() {
               <i>({t('freelancer.newPostEn', 'New Freelancer Post')})</i>
             </h2>
           </div>
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              onClick={() => navigate("/admin-control")}
-            >
-              <SettingsIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/admin-control")}
+          >
+            <SettingsIcon size={28} />
+          </button>
         </div>
 
         {/* Table layout matching the image */}

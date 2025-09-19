@@ -12,41 +12,48 @@ import {
   Settings as SettingsIcon,
 } from "lucide-react";
 
-function HeroHeader() {
+function HeroHeader({ isCompact = false }) {
     const { t } = useTranslation();
+    
+    // Adjust font sizes based on compact mode
+    const titleFontSize = isCompact ? '2vw' : '3vw';
+    const subtitleFontSize = isCompact ? '1.5vw' : '2vw';
+    const marginBottom = isCompact ? '2vw' : '5vw';
+    const marginTop = isCompact ? '1vw' : '3vw';
+    
     return (
-        <div style={{ position: "relative", marginBottom: "5vw" }}>
+        <div style={{ position: "relative", marginBottom: marginBottom }}>
             <div className="hero-title" style={{ marginTop: "0px", fontWeight: "bold" }}>
-                <h3 style={{ color: "black", fontSize: '3vw', }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2vw' }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
+                <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
             </div>
-            <div className="hero-subtitle" style={{ border: 0, marginTop: '3vw', alignSelf: "center", fontWeight: "bold" }}>
-                <h3 style={{ color: "black", fontSize: '3vw', }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
-                <h4 className='' style={{ color: "black", fontSize: '2vw' }}>
+            <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold" }}>
+                <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
+                <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
                     <em>
                         ({t('hero.subtitleEn', 'Target: National V-Commercial')})
                     </em>
                 </h4>
             </div>
             <aside className="main-aside-2" >
-                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[10vw] sm:right-[15vw]" style={{ position: "absolute", top: '3.5vw', fontSize: "clamp(12px, 2vw, 40px)" }}>
-                    <div style={{ color: "black", textAlign: "center", height: "clamp(20px,4vw, 60px)" }}>
+                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ position: "absolute", top: '3.5vw', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
+                    <div style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
                         <p><strong>Ai LIVE</strong></p>
                     </div>
                 </Link>
-                <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[10vw] sm:left-[15vw]" style={{ position: "absolute", top: '3.5vw', textAlign: "center" }}>
-                    <div style={{ fontSize: "clamp(6px, 1.25vw, 25px)", color: "black", height: "clamp(20px,4vw, 60px)" }}>
+                <Link to={'new-post'} className="border-1 main-aside-2-1 w-[18vw] sm:w-[12vw] left-[1vw] sm:left-[2vw]" style={{ position: "absolute", top: '3.5vw', textAlign: "center" }}>
+                    <div style={{ fontSize: "clamp(5px, 1vw, 20px)", color: "black", height: "clamp(18px,3vw, 45px)" }}>
                         <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p><p className=''><em>({t('navigation.newPostEn', 'New Post')})</em></p>
                     </div>
                 </Link>
-                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[16vw] sm:w-[14vw] sm:left-[22vw]" style={{ position: "absolute", bottom: '-2vw' }}>
+                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[1vw] sm:w-[14vw] sm:left-[2vw]" style={{ position: "absolute", bottom: '-2vw' }}>
                     <div style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
                         <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         <p className='' style={{ fontStyle: "italic", fontWeight: "normal" }}>({t('navigation.freelancerEn', 'Freelancer')})</p>
                     </div>
                 </Link>
-                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[16vw] sm:w-[14vw] sm:right-[22vw]" style={{ position: "absolute", bottom: "-2vw" }}>
+                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[1vw] sm:w-[14vw] sm:right-[2vw]" style={{ position: "absolute", bottom: "-2vw" }}>
                     <div style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                         <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
                         <p className=''><em>({t('navigation.paymentTransactionEn', 'Payment transaction')})</em></p>
@@ -306,7 +313,7 @@ function ActionSection() {
 
     return (
         <section className="action-section" style={{}}>
-            <div className="action-section-2" style={{ gap: 4 }}>
+            <div className="action-section-2" style={{ gap: 4, marginTop: -240, marginLeft: 100 }}>
                 <CategorySelect
                     title="DANH MỤC"
                     items={categories}
