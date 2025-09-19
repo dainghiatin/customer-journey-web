@@ -313,7 +313,7 @@ function ActionSection() {
 
     return (
         <section className="action-section" style={{}}>
-            <div className="action-section-2" style={{ gap: 4, marginTop: -240, marginLeft: 100 }}>
+            <div className="action-section-2" style={{ gap: 4 }}>
                 <CategorySelect
                     title="DANH MỤC"
                     items={categories}
