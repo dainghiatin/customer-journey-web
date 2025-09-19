@@ -130,16 +130,15 @@ export default function NewGoodPostPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
-        <div className="flex items-center justify-between relative mb-4">
-          {user && (
-            <button 
-              onClick={() => navigate('/')} 
-              className="text-red-600 hover:text-red-800 relative"
-            >
-              <HomeIcon size={28} />
-            </button>
-          )}
-          <div className="text-center relative flex-1">
+        <div className="flex items-center justify-between relative">
+          <button 
+            className="text-red-600 hover:text-red-800 relative"
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon size={28} />
+          </button>
+          {/* Tiêu đề ở giữa */}
+          <div className="text-center mb-4 relative flex-1">
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
                 4
@@ -154,14 +153,12 @@ export default function NewGoodPostPage() {
             </h1>
             <h2 className="text-xl italic text-gray-600">(New post)</h2>
           </div>
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              onClick={() => navigate("/admin-control")}
-            >
-              <SettingsIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/admin-control")}
+          >
+            <SettingsIcon size={28} />
+          </button>
         </div>
 
         {/* Main Form */}

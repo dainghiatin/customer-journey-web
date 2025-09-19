@@ -520,14 +520,12 @@ const PaymentPage = () => {
       <div className="w-full max-w-4xl shadow-lg rounded relative">
         {/* Header with Navigation */}
         <div className="flex items-center justify-between relative mb-6">
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              onClick={() => navigate("/")}
-            >
-              <HomeIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon size={28} />
+          </button>
           
           <div className="flex-1 text-center">
             <h1 className="text-3xl font-bold inline-block relative">
@@ -547,14 +545,12 @@ const PaymentPage = () => {
             </h2>
           </div>
           
-          {user && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              onClick={() => navigate("/admin-control")}
-            >
-              <SettingsIcon size={28} />
-            </button>
-          )}
+          <button 
+            className="text-red-600 hover:text-red-800"
+            onClick={() => navigate("/admin-control")}
+          >
+            <SettingsIcon size={28} />
+          </button>
         </div>
 
         {/* Main Content */}

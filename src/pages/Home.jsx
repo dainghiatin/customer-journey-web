@@ -208,7 +208,7 @@ function HomePage() {
                     </button>
                 </div>
 
-                <div className="grid-col-2" style={{ height: "100%" }}>
+                <div className="grid-col-3" style={{ height: "100%" }}>
                     <div style={{ width: "100%", height: `clamp(180px, 30vw, 300px)`, border: '1px solid' }}>
                         {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
                         {isUserLoggedIn ? (
@@ -218,7 +218,7 @@ function HomePage() {
                         )}
                     </div>
                 </div>
-                <div className="grid-col-2" style={{}}>
+                <div className="grid-col-2" style={{ height: `clamp(180px, 30vw, 300px)`, border: '1px solid' }}>
                     {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
@@ -226,10 +226,19 @@ function HomePage() {
                         <DataTable />
                     )}
                 </div>
+                
+                {/* HeroHeader as fourth column when logged in */}
+                {isUserLoggedIn && (
+                    <div className="grid-col-4" style={{}}>
+                        <HeroHeader isCompact={true} />
+                    </div>
+                )}
             </header>
             {/* <Body /> */}
             <DropdownAuth />
-            <HeroHeader />
+            
+            {/* HeroHeader outside grid when not logged in */}
+            {!isUserLoggedIn && <HeroHeader isCompact={false} />}
             <ActionSection />
             <footer className="footer">
                 <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
