@@ -179,7 +179,6 @@
     
 }
 .action-section-1-mobile > div {
-    border: 1px solid black;
     padding: 12px;
     /* width: 100%; */
     display:flex;
@@ -188,7 +187,6 @@
     justify-content: center;
 }
 .action-section-1 > div {
-     border: 1px solid black;
      padding: 12px;
      /* width: 100%; */
      display: flex;
