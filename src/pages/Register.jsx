@@ -58,9 +58,13 @@ export default function RegisterPage() {
     bank_name: "",
     address_no: "",
     address_on_map: "",
-    signature: ""
-
+    signature: "",
+    recovery_character: "",
+    repeat_recovery_character: ""
   });
+
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
   const [error, setError] = useState("");
@@ -77,7 +81,79 @@ export default function RegisterPage() {
   }, [color]);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Clear validation errors when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors({ ...validationErrors, [name]: "" });
+    }
+    
+    // Validate recovery character matching
+    if (name === "repeat_recovery_character" || name === "recovery_character") {
+      const recoveryChar = name === "recovery_character" ? value : formData.recovery_character;
+      const repeatRecoveryChar = name === "repeat_recovery_character" ? value : formData.repeat_recovery_character;
+      
+      if (repeatRecoveryChar && recoveryChar !== repeatRecoveryChar) {
+        setValidationErrors(prev => ({
+          ...prev,
+          repeat_recovery_character: t('auth.recoveryCharacterMismatch', 'Ký tự khôi phục không khớp')
+        }));
+      } else if (repeatRecoveryChar && recoveryChar === repeatRecoveryChar) {
+        setValidationErrors(prev => ({
+          ...prev,
+          repeat_recovery_character: ""
+        }));
+      }
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    
+    // Check if bank is selected
+    if (!formData.bank_name) {
+      errors.bank_name = t('auth.bankRequired', 'Vui lòng chọn ngân hàng');
+    }
+    
+    // Check if recovery characters match
+    if (formData.recovery_character && formData.repeat_recovery_character && 
+        formData.recovery_character !== formData.repeat_recovery_character) {
+      errors.repeat_recovery_character = t('auth.recoveryCharacterMismatch', 'Ký tự khôi phục không khớp');
+    }
+    
+    // Check required fields
+    if (!formData.recovery_character) {
+      errors.recovery_character = t('auth.recoveryCharacterRequired', 'Ký tự khôi phục là bắt buộc');
+    }
+    
+    if (!formData.repeat_recovery_character) {
+      errors.repeat_recovery_character = t('auth.repeatRecoveryCharacterRequired', 'Vui lòng nhập lại ký tự khôi phục');
+    }
+    
+    if (!selectedCountry) {
+      errors.country = t('auth.countryRequired', 'Vui lòng chọn quốc gia');
+    }
+    
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Separate function to check form validity without triggering state updates
+  const isFormValid = () => {
+    // Check if bank is selected
+    if (!formData.bank_name) return false;
+    
+    // Check if recovery characters match
+    if (formData.recovery_character && formData.repeat_recovery_character && 
+        formData.recovery_character !== formData.repeat_recovery_character) return false;
+    
+    // Check required fields
+    if (!formData.recovery_character) return false;
+    if (!formData.repeat_recovery_character) return false;
+    if (!selectedCountry) return false;
+    
+    return true;
   };
 
   const handleContractDownload = async () => {
@@ -189,13 +265,21 @@ export default function RegisterPage() {
                 <div className="relative w-full flex items-center">
                   <Select
                     options={countries} // mảng bạn đã set bằng setCountries
-                    onChange={(option) => console.log(option.value)}
+                    onChange={(option) => {
+                      setSelectedCountry(option);
+                      if (validationErrors.country) {
+                        setValidationErrors({ ...validationErrors, country: "" });
+                      }
+                    }}
+                    value={selectedCountry}
                     placeholder={t('auth.countryPlaceholder', 'Quốc gia (Nation)')}
                     className="w-full"
                   />
                   <span className="text-red-500 ml-2">*</span>
-                  {/* <span className="text-red-500 ml-2"></span> */}
                 </div>
+                {validationErrors.country && (
+                  <p className="text-red-500 text-sm mt-1">{validationErrors.country}</p>
+                )}
               </div> 
              {/* <span className="text-red-500 ml-2">*</span> */}
           </div>
@@ -298,6 +382,9 @@ export default function RegisterPage() {
                 </select>
                 <span className="text-red-500 ml-2">*</span>
               </div>
+              {validationErrors.bank_name && (
+                <p className="text-red-500 text-sm mt-1">{validationErrors.bank_name}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 items-center gap-4">
@@ -323,39 +410,52 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 items-center gap-4">
-
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
                   placeholder={t('auth.recoveryCharacterPlaceholder', 'KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery character)')}
-                  // name="bank_number"
-                  // value={formData.bank_number}
-                  // onChange={handleInputChange}
+                  name="recovery_character"
+                  value={formData.recovery_character}
+                  onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
+              {validationErrors.recovery_character && (
+                <p className="text-red-500 text-sm mt-1">{validationErrors.recovery_character}</p>
+              )}
             </div>
             <div className="grid grid-cols-1 items-center gap-4">
-
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
                   placeholder={t('auth.repeatRecoveryCharacterPlaceholder', 'NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)')}
-                  // name="bank_number"
-                  // value={formData.bank_number}
-                  // onChange={handleInputChange}
+                  name="repeat_recovery_character"
+                  value={formData.repeat_recovery_character}
+                  onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
+              {validationErrors.repeat_recovery_character && (
+                <p className="text-red-500 text-sm mt-1">{validationErrors.repeat_recovery_character}</p>
+              )}
             </div>
             
           </div>
           <div className="text-center mt-4">
             <button
-              className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
-              onClick={()=>setPage(2)}
+              className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${
+                isFormValid() 
+                  ? 'text-black hover:bg-gray-200' 
+                  : 'text-gray-400 bg-gray-100 cursor-not-allowed'
+              }`}
+              onClick={() => {
+                if (validateForm()) {
+                  setPage(2);
+                }
+              }}
+              disabled={!isFormValid()}
             >
               {t('common.next', 'Tiếp Theo')} <br />
               <span className="text-xs text-gray-600">({t('common.nextEn', 'Next')})</span>
