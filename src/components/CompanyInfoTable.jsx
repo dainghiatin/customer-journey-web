@@ -99,64 +99,98 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
   }
 
   return (
-    <div className="w-full h-full p-4">
+    <div className="w-full h-full p-1 sm:p-2 md:p-4">
       <div className="w-full h-full flex flex-col">
         {/* Company Name Header */}
-        <div className="text-center mb-4">
-          <h2 className="font-bold text-lg">{currentData.companyName}</h2>
-          <p className="text-sm italic">({currentData.companyNameEn})</p>
+        <div className="text-center mb-1 sm:mb-2 md:mb-4">
+          <h2 className="font-bold text-xs sm:text-sm md:text-lg break-words leading-tight">
+            {currentData.companyName}
+          </h2>
+          <p className="text-xs sm:text-sm italic break-words leading-tight">
+            ({currentData.companyNameEn})
+          </p>
         </div>
         
         {/* Main Table */}
-        <div className="flex-1">
-          <div className="border-2 border-black h-full">
-            <table className="w-full h-full text-xs">
-              <tbody>
-                {/* Row 1: MST and SỐ GPHĐ */}
-                <tr className="border-b border-black h-1/4">
-                  <td className="p-2 border-r border-black font-bold bg-gray-100 w-1/4">
-                    {currentLang === 'vi' ? 'MST:' : 'TAX ID:'}
-                  </td>
-                  <td className="p-2 border-r border-black w-1/4">{currentData.mst}</td>
-                  <td className="p-2 border-r border-black font-bold bg-gray-100 w-1/4">
-                    {currentLang === 'vi' ? 'SỐ GPHĐ:' : 'LICENSE NO:'}
-                  </td>
-                  <td className="p-2 w-1/4">{currentData.soGphd}</td>
-                </tr>
-                
-                {/* Row 2: STK and Ngân hàng */}
-                <tr className="border-b border-black h-1/4">
-                  <td className="p-2 border-r border-black font-bold bg-gray-100">
-                    {currentLang === 'vi' ? 'STK:' : 'ACCOUNT:'}
-                  </td>
-                  <td className="p-2 border-r border-black">{currentData.stk}</td>
-                  <td className="p-2 border-r border-black font-bold bg-gray-100">
-                    {currentLang === 'vi' ? 'Ngân hàng:' : 'Bank:'}
-                  </td>
-                  <td className="p-2">{currentData.nganHang}</td>
-                </tr>
-                
-                {/* Row 3: ĐẠI DIỆN and CHỨC DANH */}
-                <tr className="border-b border-black h-1/4">
-                  <td className="p-2 border-r border-black font-bold bg-gray-100">
-                    {currentLang === 'vi' ? 'ĐẠI DIỆN:' : 'REPRESENTATIVE:'}
-                  </td>
-                  <td className="p-2 border-r border-black">{currentData.daiDien}</td>
-                  <td className="p-2 border-r border-black font-bold bg-gray-100">
-                    {currentLang === 'vi' ? 'CHỨC DANH:' : 'POSITION:'}
-                  </td>
-                  <td className="p-2">{currentData.chucDanh}</td>
-                </tr>
-                
-                {/* Row 4: ĐỊA CHỈ (full width) */}
-                <tr className="h-1/4">
-                  <td className="p-2 border-r border-black font-bold bg-gray-100">
-                    {currentLang === 'vi' ? 'ĐỊA CHỈ:' : 'ADDRESS:'}
-                  </td>
-                  <td className="p-2" colSpan="3">{currentData.diaChi}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="flex-1 overflow-auto">
+          <div className="border-2 border-black h-full min-h-0">
+            <div className="overflow-auto h-full">
+              <table className="w-full min-w-full table-fixed company-info-table">
+                <tbody className="text-xs">
+                  {/* Row 1: MST and SỐ GPHĐ */}
+                  <tr className="border-b border-black">
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'MST:' : 'TAX ID:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black w-1/4 sm:w-3/10 text-xs break-all data-cell">
+                      <div className="break-all leading-tight">{currentData.mst}</div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'SỐ GPHĐ:' : 'LICENSE NO:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 w-1/4 sm:w-3/10 text-xs break-all data-cell">
+                      <div className="break-all leading-tight">{currentData.soGphd}</div>
+                    </td>
+                  </tr>
+                  
+                  {/* Row 2: STK and Ngân hàng */}
+                  <tr className="border-b border-black">
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'STK:' : 'ACCOUNT:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black text-xs break-all data-cell">
+                      <div className="break-all leading-tight">{currentData.stk}</div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'Ngân hàng:' : 'Bank:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 text-xs break-words data-cell">
+                      <div className="break-words leading-tight">{currentData.nganHang}</div>
+                    </td>
+                  </tr>
+                  
+                  {/* Row 3: ĐẠI DIỆN and CHỨC DANH */}
+                  <tr className="border-b border-black">
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'ĐẠI DIỆN:' : 'REPRESENTATIVE:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black text-xs break-words data-cell">
+                      <div className="break-words leading-tight">{currentData.daiDien}</div>
+                    </td>
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'CHỨC DANH:' : 'POSITION:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 text-xs break-words data-cell">
+                      <div className="break-words leading-tight">{currentData.chucDanh}</div>
+                    </td>
+                  </tr>
+                  
+                  {/* Row 4: ĐỊA CHỈ (full width) */}
+                  <tr>
+                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words align-top label-cell">
+                      <div className="break-words leading-tight">
+                        {currentLang === 'vi' ? 'ĐỊA CHỈ:' : 'ADDRESS:'}
+                      </div>
+                    </td>
+                    <td className="p-1 sm:p-2 text-xs break-words align-top data-cell" colSpan="3">
+                      <div className="break-words leading-tight">{currentData.diaChi}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

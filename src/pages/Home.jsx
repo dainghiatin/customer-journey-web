@@ -4,13 +4,15 @@ import Wheel from '@uiw/react-color-wheel';
 import { hsvaToHex } from '@uiw/color-convert';
 import { useState, Fragment, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  HeroHeader, Body, ActionSection, SearchSection,DropdownAuth } from "../components/Body";
+import {  HeroHeader, Body, SearchSection,DropdownAuth } from "../components/Body";
 import { getMetric } from "../services/metricService";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import GlobalInfoComponent from '../components/GlobalInfoComponent';
 import CountrySpecificComponent from '../components/CountrySpecificComponent';
 import CompanyInfoTable from '../components/CompanyInfoTable';
+import EventFilterComponent from "../components/EventFilterComponent";
+import EventComponent from "../components/EventComponent";
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
@@ -204,12 +206,12 @@ function HomePage() {
                     </div>
                     <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
                         {/* <p><strong>THÔNG BÁO</strong></p><p><em>(NOTE)</em></p> */}
-                        <i style={{ fontSize:"clamp(10px, 1vw, 20px)" }} class="fa-solid fa-bell"></i>
+                        <i style={{ fontSize:"clamp(10px, 1vw, 20px)" }} className="fa-solid fa-bell"></i>
                     </button>
                 </div>
 
                 <div className="grid-col-3" style={{ height: "100%" }}>
-                    <div style={{ width: "100%", height: `clamp(180px, 30vw, 300px)`, border: '1px solid' }}>
+                    <div style={{ width: "100%", height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                         {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
                         {isUserLoggedIn ? (
                             <CountrySpecificComponent userCountry={selectedLang} />
@@ -218,7 +220,7 @@ function HomePage() {
                         )}
                     </div>
                 </div>
-                <div className="grid-col-2" style={{ height: `clamp(180px, 30vw, 300px)`, border: '1px solid' }}>
+                <div className="grid-col-2" style={{ height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                     {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
@@ -239,7 +241,8 @@ function HomePage() {
             
             {/* HeroHeader outside grid when not logged in */}
             {!isUserLoggedIn && <HeroHeader isCompact={false} />}
-            <ActionSection />
+            <EventFilterComponent />
+            <EventComponent />
             <footer className="footer">
                 <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
                 {/* <p><em>(ADVERTISING)</em></p> */}
