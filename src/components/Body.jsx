@@ -131,6 +131,7 @@ const DropdownAuth = () => {
                     localStorage.removeItem('user'); // Xóa user data khỏi localStorage
                     setUser(null); // Đặt lại trạng thái người dùng
                     dispatch(logoutAction());
+                    window.location.reload();
                 }}
                 style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw" }}
             >

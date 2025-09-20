@@ -31,6 +31,30 @@ export default function ChangePasswordPage() {
     address_on_map: user?.address_on_map,
   });
   const [error, setError] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState({
+    hasUppercase: false,
+    hasLowercase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+    isValid: false
+  });
+
+  // Hàm kiểm tra yêu cầu mật khẩu
+  const validatePassword = (password) => {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[@$!%*?&]/.test(password);
+    const isValid = hasUppercase && hasLowercase && hasNumber && hasSpecialChar && password.length >= 6;
+
+    return {
+      hasUppercase,
+      hasLowercase,
+      hasNumber,
+      hasSpecialChar,
+      isValid
+    };
+  };
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -43,15 +67,34 @@ export default function ChangePasswordPage() {
   }, [color]);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Kiểm tra validation cho mật khẩu mới
+    if (name === 'newPassword') {
+      const validation = validatePassword(value);
+      setPasswordValidation(validation);
+    }
   };
 
   const handleRegister = async () => {
-    const { username, cccd } = formData;
+    const { username, cccd, newPassword, confirmPassword } = formData;
 
     // Kiểm tra các trường bắt buộc
     if (!cccd) {
       setError(t('auth.fillRequiredFields', 'Vui lòng điền đầy đủ thông tin cần thiết.'));
+      return;
+    }
+
+    // Kiểm tra mật khẩu mới có đáp ứng yêu cầu không
+    if (!passwordValidation.isValid) {
+      setError(t('auth.passwordValidation.invalidPassword', 'Mật khẩu mới phải chứa ít nhất 1 chữ in hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt (@$!%*?&)'));
+      return;
+    }
+
+    // Kiểm tra mật khẩu xác nhận
+    if (newPassword !== confirmPassword) {
+      setError(t('auth.passwordValidation.confirmPasswordMismatch', 'Mật khẩu xác nhận không khớp'));
       return;
     }
 
@@ -138,16 +181,43 @@ export default function ChangePasswordPage() {
    
           <input
             type="password"
-            className="border p-2 rounded w-full text-sm min-h-[50px]"
+            className={`border p-2 rounded w-full text-sm min-h-[50px] ${
+              formData.newPassword && !passwordValidation.isValid ? 'border-red-500' : 
+              formData.newPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
+            }`}
             placeholder={t('auth.newPasswordPlaceholder', 'MẬT KHẨU MỚI')}
             name="newPassword"
             value={formData.newPassword}
             onChange={handleInputChange}
             required
-            minLength={6}
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
-            title={t('auth.passwordRequirement', 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt')}
           />
+          
+          {/* Hiển thị yêu cầu mật khẩu với trạng thái */}
+           {formData.newPassword && (
+             <div className="text-xs space-y-1">
+               <div className={`flex items-center ${passwordValidation.hasUppercase ? 'text-green-600' : 'text-red-600'}`}>
+                 <span className="mr-2">{passwordValidation.hasUppercase ? '✓' : '✗'}</span>
+                 {t('auth.passwordValidation.hasUppercase', 'Ít nhất 1 chữ in hoa (A-Z)')}
+               </div>
+               <div className={`flex items-center ${passwordValidation.hasLowercase ? 'text-green-600' : 'text-red-600'}`}>
+                 <span className="mr-2">{passwordValidation.hasLowercase ? '✓' : '✗'}</span>
+                 {t('auth.passwordValidation.hasLowercase', 'Ít nhất 1 chữ thường (a-z)')}
+               </div>
+               <div className={`flex items-center ${passwordValidation.hasNumber ? 'text-green-600' : 'text-red-600'}`}>
+                 <span className="mr-2">{passwordValidation.hasNumber ? '✓' : '✗'}</span>
+                 {t('auth.passwordValidation.hasNumber', 'Ít nhất 1 số (0-9)')}
+               </div>
+               <div className={`flex items-center ${passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-red-600'}`}>
+                 <span className="mr-2">{passwordValidation.hasSpecialChar ? '✓' : '✗'}</span>
+                 {t('auth.passwordValidation.hasSpecialChar', 'Ít nhất 1 ký tự đặc biệt (@$!%*?&)')}
+               </div>
+               <div className={`flex items-center ${formData.newPassword.length >= 6 ? 'text-green-600' : 'text-red-600'}`}>
+                 <span className="mr-2">{formData.newPassword.length >= 6 ? '✓' : '✗'}</span>
+                 {t('auth.passwordValidation.minLength', 'Ít nhất 6 ký tự')}
+               </div>
+             </div>
+           )}
+
           <label className="text-xs text-gray-500">
             ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
             ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
@@ -155,26 +225,52 @@ export default function ChangePasswordPage() {
 
             <input
               type="password"
-              className="border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px]"
+              className={`border p-2 rounded w-full text-sm placeholder:text-xs min-h-[50px] ${
+                formData.confirmPassword && formData.newPassword !== formData.confirmPassword ? 'border-red-500' : 
+                formData.confirmPassword && formData.newPassword === formData.confirmPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
+              }`}
               placeholder={t('auth.confirmPasswordPlaceholder', 'NHẬP LẠI MẬT KHẨU MỚI')}
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
               required
-              minLength={6}
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
-              title={t('auth.passwordRequirement', 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt')}
             />
+            
+            {/* Hiển thị trạng thái xác nhận mật khẩu */}
+             {formData.confirmPassword && (
+               <div className={`text-xs ${
+                 formData.newPassword === formData.confirmPassword ? 'text-green-600' : 'text-red-600'
+               }`}>
+                 <span className="mr-2">{formData.newPassword === formData.confirmPassword ? '✓' : '✗'}</span>
+                 {formData.newPassword === formData.confirmPassword 
+                   ? t('auth.passwordValidation.passwordMatch', 'Mật khẩu khớp') 
+                   : t('auth.passwordValidation.passwordMismatch', 'Mật khẩu không khớp')
+                 }
+               </div>
+             )}
+
             <label className="text-xs text-gray-500">
               ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
               ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
             </label>
+
+            {/* Hiển thị lỗi nếu có */}
+            {error && (
+              <div className="text-red-600 text-sm text-center bg-red-50 p-2 rounded">
+                {error}
+              </div>
+            )}
           </div>
 
           <div className="text-center mt-4">
             <button
              onClick={()=>handleRegister()}
-             className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1">
+             disabled={!passwordValidation.isValid || formData.newPassword !== formData.confirmPassword}
+             className={`border-2 border-black text-black font-bold px-6 py-2 rounded flex-1 ${
+               !passwordValidation.isValid || formData.newPassword !== formData.confirmPassword 
+                 ? 'opacity-50 cursor-not-allowed bg-gray-100' 
+                 : 'hover:bg-gray-200'
+             }`}>
               {t('common.confirm', 'XÁC NHẬN')} <br />
               <span className="text-xs text-gray-600">({t('common.accept', 'Accept')})</span>
             </button>
