@@ -82,7 +82,14 @@ export default function RegisterPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    
+    // For bank_number field, only allow numeric characters
+    if (name === "bank_number") {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      setFormData({ ...formData, [name]: numericValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
     
     // Clear validation errors when user starts typing
     if (validationErrors[name]) {
@@ -290,7 +297,7 @@ export default function RegisterPage() {
                   <input
                     type="text"
                     className="border p-2 rounded w-full"
-                    placeholder={t('auth.referrerIdPlaceholder', 'CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
+                    placeholder={t('auth.referrerIdPlaceholder', 'CCCD / MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
                     name="reference_id"
                     value={formData.reference_id}
                     onChange={handleInputChange}
