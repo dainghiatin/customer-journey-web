@@ -265,13 +265,10 @@ export default function RegisterPage() {
         "Lỗi xác thực tài khoản ngân hàng:",
         err?.response?.data || err?.message
       );
-      const errorMessage =
-        err?.response?.data?.error?.message ||
-        err?.response?.data?.message ||
-        t(
-          "auth.bankVerifyFailed",
-          "Không thể xác minh tài khoản ngân hàng. Vui lòng kiểm tra lại thông tin và thử lại."
-        );
+      const errorMessage = t(
+        "auth.bankVerifyFailed",
+        "VUI LÒNG NHẬP ĐÚNG CÁC THÔNG TIN ĐĂNG KÝ TÀI KHOẢN (Please enter the correct account registration information)"
+      );
       setError(errorMessage);
       alert(errorMessage);
     } finally {
