@@ -166,7 +166,7 @@ const CategorySelect = ({
                 onClick={() => setOpen(!open)}
                 className='items-center'
                 style={{
-                    width: 340, padding: "5px", border: "2px solid black",
+                    width: "clamp(6rem, 21vw, 20rem)", padding: "5px", border: "2px solid black",
                     textAlign: "center", cursor: "pointer",
                     backgroundColor: "transparent",
                     display: "flex", justifyContent: "space-between",
@@ -186,7 +186,7 @@ const CategorySelect = ({
             {open && (
                 <ul
                     style={{
-                        position: "absolute", width: 340, border: "2px solid black",
+                        position: "absolute", width: "clamp(6rem, 21vw, 20rem)", border: "2px solid black",
                         background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000,
                         maxHeight: "300px", overflowY: "auto",
                     }}
@@ -260,41 +260,56 @@ function EventFilterComponent(){
         }
     };
     return (
-        <section className="action-section" style={{}}>
-            <div className="action-section-2" style={{ gap: 4 }}>
-                <CategorySelect
-                    title="DANH MỤC"
-                    items={categories}
-                    onChange={handleCategoryChange}
-                    value={category}
-                />
-                <CategorySelect
-                    title="Subcategories"
-                    items={subCategories}
-                    onChange={handleCategoryChange}
-                    value={subcategory}
-                />
-                <CategorySelect
-                    title="Conditions"
-                    items={conditions}
-                    onChange={handleCategoryChange}
-                    value={condition}
-                />
-                <CategorySelect
-                    title="Nation"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={nation}
-                    fetchItems={getCountries}
-                />
-                <CategorySelect
-                    title="Province"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={province}
-                    fetchItems={getCountryByCode}
-                    dependsOn={nation?.en}
-                />
+        <section className="action-section filter-section" style={{}}>
+            <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'flex-end', 
+                gap: 4, 
+                marginBottom: 20,
+                marginRight: 20
+            }}>
+                {/* First row: 4 buttons aligned to the right */}
+                <div className="filter-buttons-row">
+                    <CategorySelect
+                        title="DANH MỤC"
+                        items={categories}
+                        onChange={handleCategoryChange}
+                        value={category}
+                    />
+                    <CategorySelect
+                        title="Subcategories"
+                        items={subCategories}
+                        onChange={handleCategoryChange}
+                        value={subcategory}
+                    />
+                    <CategorySelect
+                        title="Conditions"
+                        items={conditions}
+                        onChange={handleCategoryChange}
+                        value={condition}
+                    />
+                    <CategorySelect
+                        title="Nation"
+                        items={[]}
+                        onChange={handleCategoryChange}
+                        value={nation}
+                        fetchItems={getCountries}
+                    />
+                </div>
+                
+                {/* Second row: Province button aligned to the right */}
+                <div className="filter-buttons-row">
+                    <CategorySelect
+                        title="Province"
+                        items={[]}
+                        onChange={handleCategoryChange}
+                        value={province}
+                        fetchItems={getCountryByCode}
+                        dependsOn={nation?.en}
+                    />
+                </div>
+                
                 {/* <CategorySelect
                     title="District"
                     items={[]}
