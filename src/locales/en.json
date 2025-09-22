@@ -140,7 +140,7 @@
     "referrerIdPlaceholder": "REFERRER CCCD/MST (Introducing from ID)",
     "uploadSignature": "UPLOAD SIGNATURE",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "ACCOUNT NUMBER",
+    "accountNumberPlaceholder": "MEMBER ID - ACCOUNT NUMBER",
     "selectBankPlaceholder": "Select Bank (With bank)"
   },
   "navigation": {
@@ -244,7 +244,7 @@
      "referrerIdPlaceholder": "INTRODUCING FROM ID (Introducing from ID)",
      "uploadSignature": "UPLOAD SIGNATURE",
      "uploadSignatureEn": "Upload your signature",
-     "accountNumberPlaceholder": "ACCOUNT NUMBER (Account number)",
+     "accountNumberPlaceholder": "MEMBER ID - ACCOUNT NUMBER (Account number)",
      "selectBankPlaceholder": "Select bank (With bank)",
      "addressPlaceholder": "RECEIVE GOODS'S ADDRESS - NUMBER (Number) * (Receive goods's address)",
      "pinLocation": "PIN LOCATION",

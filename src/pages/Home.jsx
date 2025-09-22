@@ -210,7 +210,7 @@ function HomePage() {
                     </button>
                 </div>
 
-                <div className="grid-col-3" style={{ height: "100%" }}>
+                <div className="!hidden md:!block grid-col-3" style={{ height: "100%" }}>
                     <div style={{ width: "100%", height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                         {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
                         {isUserLoggedIn ? (
@@ -220,7 +220,7 @@ function HomePage() {
                         )}
                     </div>
                 </div>
-                <div className="grid-col-2" style={{ height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
+                <div className="!hidden md:!block grid-col-2" style={{ height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                     {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
@@ -235,12 +235,21 @@ function HomePage() {
                         <HeroHeader isCompact={true} />
                     </div>
                 )}
+                
+                {/* Show HeroHeader in place of logo/table on mobile */}
+                <div className="md:hidden flex items-center justify-center flex-1 min-w-0" style={{ height: `clamp(120px, 25vw, 300px)` }}>
+                    <HeroHeader isCompact={false} />
+                </div>
             </header>
             {/* <Body /> */}
             <DropdownAuth />
             
             {/* HeroHeader outside grid when not logged in */}
-            {!isUserLoggedIn && <HeroHeader isCompact={false} />}
+            {!isUserLoggedIn && (
+                <div className="hidden md:block">
+                    <HeroHeader isCompact={false} />
+                </div>
+            )}
             <EventFilterComponent />
             <EventComponent />
             <footer className="footer">

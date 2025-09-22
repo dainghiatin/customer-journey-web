@@ -263,6 +263,21 @@
     text-align: center; /* Center text inside the section */
 }
 
+/* Filter buttons mobile responsive */
+.filter-buttons-row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+    .filter-buttons-row {
+        transform: scale(0.8);
+        transform-origin: right center;
+    }
+}
+
 .search-title {
     border: 2px solid black;
 }
@@ -319,4 +334,14 @@
 
 .footer > p em:last-child {
     /* color: red; */
+}
+@media screen and (max-width: 768px) {
+  .filter-section {
+    margin-top: -80px; /* giảm khoảng trống phía trên trên mobile */
+    gap: 12px; /* thu hẹp khoảng cách giữa filter và search */
+  }
+  .search-section {
+    padding: 10px; /* giảm padding để khối gọn hơn */
+    margin-top: 0px; /* không tạo thêm khoảng cách phía trên */
+  }
 }

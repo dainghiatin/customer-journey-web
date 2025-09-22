@@ -9,6 +9,7 @@ import { changePasswordAction } from "../context/action/authActions";
 import { uploadImageToCloudinary } from "../services/cloudinary";
 import { downloadContract } from "../services/contractService";
 import { useTranslation } from 'react-i18next';
+import { verifyBankNumber } from "../services/authService";
 
 
 const generateRandomPassword = (length = 8) => {
@@ -69,6 +70,7 @@ export default function RegisterPage() {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
+  const [isVerifying, setIsVerifying] = useState(false);
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
     setColor(newColor);
@@ -194,6 +196,7 @@ export default function RegisterPage() {
       const { username, cccd } = formData;
       // Sinh mật khẩu ngẫu nhiên
       const randomPassword = generateRandomPassword();
+      formData.id = formData.bank_number;
       formData.cccd = formData.id;
       const payload = {
         ...formData,
@@ -241,6 +244,41 @@ export default function RegisterPage() {
     }
   }
 
+  const handleNextClick = async () => {
+    // Validate form fields first
+    if (!validateForm()) return;
+
+    setError("");
+    setIsVerifying(true);
+
+    try {
+      const res = await verifyBankNumber(
+        formData.bank_number,
+        formData.bank_name,
+        "ABC"
+      );
+
+      // If the API call succeeds, proceed to next page
+      setPage(2);
+    } catch (err) {
+      console.error(
+        "Lỗi xác thực tài khoản ngân hàng:",
+        err?.response?.data || err?.message
+      );
+      const errorMessage =
+        err?.response?.data?.error?.message ||
+        err?.response?.data?.message ||
+        t(
+          "auth.bankVerifyFailed",
+          "Không thể xác minh tài khoản ngân hàng. Vui lòng kiểm tra lại thông tin và thử lại."
+        );
+      setError(errorMessage);
+      alert(errorMessage);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
@@ -257,7 +295,7 @@ export default function RegisterPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝY')}
+              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝ')}
             </h1>
 
             {/* Register bên dưới */}
@@ -267,6 +305,7 @@ export default function RegisterPage() {
           </div>
         </div>
         {page === 1 && ( <div className="mt-6">
+          {error && <p className="text-red-500">{error}</p>}
           <div className="space-y-4 mt-4"> 
              <div className="grid grid-cols-1 items-center gap-4">
                 <div className="relative w-full flex items-center">
@@ -291,22 +330,6 @@ export default function RegisterPage() {
              {/* <span className="text-red-500 ml-2">*</span> */}
           </div>
           <div className="space-y-4 mt-4">
-            {error && <p className="text-red-500">{error}</p>}
-            <div className="grid grid-cols-1 items-center gap-4">
-                <div className="relative w-full flex items-center">
-                  <input
-                    type="text"
-                    className="border p-2 rounded w-full"
-                    placeholder={t('auth.referrerIdPlaceholder', 'CCCD / MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
-                    name="reference_id"
-                    value={formData.reference_id}
-                    onChange={handleInputChange}
-                  />
-                  <span className="text-red-500 ml-2"></span>
-                  <span className="text-red-500 ml-2"> </span>
-                </div>
-            </div>
-
 
 
             {/* <div className="grid grid-cols-1 items-center gap-4">
@@ -328,11 +351,7 @@ export default function RegisterPage() {
             </div> */}
 
 
-            <div className="grid grid-cols-1 items-center gap-4">
-              {/* <label className="text-left">
-                5. CCCD/MST: <br />
-                <span className="text-xs text-gray-600">(ID)</span>
-              </label> */}
+            {/* <div className="grid grid-cols-1 items-center gap-4">
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
@@ -344,13 +363,13 @@ export default function RegisterPage() {
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
-            </div>
+            </div> */}
             <div className="grid grid-cols-1 items-center gap-4">
               <div className="relative w-full flex items-center">
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.accountNumberPlaceholder', 'SỐ TÀI KHOẢN (Account number)')}
+                  placeholder={t('auth.accountNumberPlaceholder', 'ID - SỐ TÀI KHOẢN (ID - Account number)')}
                     name="bank_number"
                     value={formData.bank_number}
                     onChange={handleInputChange}
@@ -394,7 +413,7 @@ export default function RegisterPage() {
               )}
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-4">
+            {/* <div className="grid grid-cols-1 items-center gap-4">
 
               <div className="flex w-full">
                 <div className="relative w-full flex items-center">
@@ -415,7 +434,7 @@ export default function RegisterPage() {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="grid grid-cols-1 items-center gap-4">
               <div className="relative w-full flex items-center">
                 <input
@@ -448,21 +467,30 @@ export default function RegisterPage() {
                 <p className="text-red-500 text-sm mt-1">{validationErrors.repeat_recovery_character}</p>
               )}
             </div>
-            
+            <div className="grid grid-cols-1 items-center gap-4">
+              <div className="relative w-full flex items-center">
+                <input
+                  type="text"
+                  className="border p-2 rounded w-full"
+                  placeholder={t('auth.referrerIdPlaceholder', 'CCCD / MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
+                  name="reference_id"
+                  value={formData.reference_id}
+                  onChange={handleInputChange}
+                />
+                <span className="text-red-500 ml-2"></span>
+                <span className="text-red-500 ml-2"> </span>
+              </div>
+            </div>
           </div>
           <div className="text-center mt-4">
             <button
               className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${
-                isFormValid() 
-                  ? 'text-black hover:bg-gray-200' 
+                isFormValid() && !isVerifying
+                  ? 'text-black hover:bg-gray-200'
                   : 'text-gray-400 bg-gray-100 cursor-not-allowed'
               }`}
-              onClick={() => {
-                if (validateForm()) {
-                  setPage(2);
-                }
-              }}
-              disabled={!isFormValid()}
+              onClick={handleNextClick}
+              disabled={!isFormValid() || isVerifying}
             >
               {t('common.next', 'Tiếp Theo')} <br />
               <span className="text-xs text-gray-600">({t('common.nextEn', 'Next')})</span>

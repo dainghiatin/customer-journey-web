@@ -66,4 +66,20 @@ const changePassword = async (cccd, newPassword, confirmPassword) => {
     }
 };
 
-export { login, getMe, changePassword };
+/**
+ * Verify bank account number with bank name and account name
+ * @param {string} bankNumber
+ * @param {string} bankName
+ * @param {string} accountName
+ * @returns {Promise<Object>} axios response
+ */
+const verifyBankNumber = async (bankNumber, bankName, accountName = "ABC") => {
+    const response = await axios.post(
+        `${API_URL}/auth/verify-bank-number`,
+        { bankNumber, bankName, accountName },
+        { headers: { 'Content-Type': 'application/json' } }
+    );
+    return response;
+};
+
+export { login, getMe, changePassword, verifyBankNumber };

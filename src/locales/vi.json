@@ -58,7 +58,7 @@
     "referrerIdPlaceholder": "CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)",
     "uploadSignature": "TẢI CHỮ KÝ",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "SỐ TÀI KHOẢN (Account number)",
+    "accountNumberPlaceholder": "ID THÀNH VIÊN - SỐ TÀI KHOẢN (ID - Account number)",
     "selectBankPlaceholder": "Chọn ngân hàng (With bank)"
   },
   "navigation": {
@@ -276,7 +276,7 @@
     "referrerIdPlaceholder": "CCCD/ MST NGƯỜI GIỚI THIỆU (Introducing from ID)",
     "uploadSignature": "TẢI CHỮ KÝ",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "SỐ TÀI KHOẢN (Account number)",
+    "accountNumberPlaceholder": "ID THÀNH VIÊN - SỐ TÀI KHOẢN (ID - Account number)",
     "selectBankPlaceholder": "Chọn ngân hàng (With bank)",
     "addressPlaceholder": "ĐỊA CHỈ NHẬN HÀNG - SỐ NHÀ (Number) * (Receive goods's address)",
     "pinLocation": "GHIM VỊ TRÍ",
