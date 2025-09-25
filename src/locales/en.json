@@ -24,6 +24,8 @@
     "accept": "Accept",
     "advertising": "ADVERTISING",
      "updateNotice": "UPDATE REWARD LIST, GOODS QUANTITY ….",
+    "companyName": "© DAI NGHIA TIN COMPANY LIMITED",
+    "taxCode": "Tax ID: 3702678200",
     "stt": "No.",
     "map": "Map",
     "home": "HOME",
@@ -141,7 +143,10 @@
     "uploadSignature": "UPLOAD SIGNATURE",
     "uploadSignatureEn": "Upload your signature",
     "accountNumberPlaceholder": "MEMBER ID - ACCOUNT NUMBER",
-    "selectBankPlaceholder": "Select Bank (With bank)"
+    "selectBankPlaceholder": "Select Bank (With bank)",
+    "qrTitle": "LOGIN QR CODE",
+    "qrError": "Could not get QR code, please try again",
+    "qrNoData": "No QR data"
   },
   "navigation": {
     "home": "Home",
