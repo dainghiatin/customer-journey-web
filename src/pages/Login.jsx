@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
 import { loginAction, changePasswordAction } from '../context/action/authActions';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import { generateQrSession } from "../services/authService";
 
 
 export default function LoginPage() {
@@ -14,6 +16,10 @@ export default function LoginPage() {
   const [cccd, setCccd] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [isQrLoading, setIsQrLoading] = useState(false);
+  const [qrError, setQrError] = useState("");
+  const [qrDataUrl, setQrDataUrl] = useState(null);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -58,6 +64,41 @@ export default function LoginPage() {
     }
   };
 
+  const handleOpenQrModal = async () => {
+    setIsQrModalOpen(true);
+    setIsQrLoading(true);
+    setQrError("");
+    setQrDataUrl(null);
+    try {
+      const deviceInfo = navigator.userAgent || 'Unknown Device';
+      let ipAddress = null;
+      try {
+        const ipRes = await axios.get('https://api.ipify.org?format=json');
+        ipAddress = ipRes.data?.ip || null;
+      } catch (e) {
+        ipAddress = null;
+      }
+      const response = await generateQrSession(deviceInfo, ipAddress);
+      const qrCode = response.data?.qrCode;
+      if (qrCode) {
+        setQrDataUrl(qrCode);
+      } else {
+        setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại')); 
+      }
+    } catch (error) {
+      setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+    } finally {
+      setIsQrLoading(false);
+    }
+  };
+
+  const handleCloseQrModal = () => {
+    setIsQrModalOpen(false);
+    setQrDataUrl(null);
+    setQrError("");
+    setIsQrLoading(false);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
@@ -89,7 +130,7 @@ export default function LoginPage() {
           {/* MÃ QR Row */}
           <div className="grid grid-cols-8">
             <div className="col-span-7"></div>
-            <div className="col-span-1 p-2 font-bold text-sm border text-center rounded-sm">
+            <div className="col-span-1 p-2 font-bold text-sm border text-center rounded-sm cursor-pointer hover:bg-gray-100" onClick={handleOpenQrModal}>
               QR
             </div>
           </div>
@@ -138,24 +179,6 @@ export default function LoginPage() {
                   <span className="text-xs text-gray-600">({t('common.login', 'Log in')})</span>
                 </button>
               </div>
-              {/* <div className="flex gap-4 w-full">
-                <div className="flex-[2]">
-                  <input
-                    type="text"
-                    className="border px-3 py-3 rounded w-full text-sm h-[64px]"
-                    placeholder="NHẬP KÝ TỰ KHÔI PHỤC TAI KHOẢN"
-                  />
-                  <p className="text-xs text-gray-500 italic mt-1">
-                    (input account recovery character to unlock)
-                  </p>
-                </div>
-                <div className="flex-[1]">
-                  <button className="border-2 border-black text-black font-bold px-4 py-2 rounded hover:bg-gray-200 w-full text-sm h-[64px]">
-                    XÁC NHẬN <br />
-                    (Verify)
-                  </button>
-                </div>
-              </div> */}
             </div>
             {errorMessage && (
               <h2 className="text-xl text-center text-red-500">
@@ -168,6 +191,29 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      {isQrModalOpen && (
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+            <button className="absolute top-2 right-2 text-gray-600 hover:text-black" onClick={handleCloseQrModal}>✕</button>
+            <h3 className="text-xl font-bold mb-4 text-center">{t('auth.qrTitle', 'MÃ QR ĐĂNG NHẬP')}</h3>
+            {isQrLoading && (
+              <div className="text-center py-8">{t('common.loading', 'Đang tải...')}</div>
+            )}
+            {!isQrLoading && qrError && (
+              <div className="text-center text-red-600 py-4">{qrError}</div>
+            )}
+            {!isQrLoading && qrDataUrl && (
+              <div className="flex items-center justify-center">
+                <img src={qrDataUrl} alt="QR Code" className="w-64 h-64 object-contain border" />
+              </div>
+            )}
+            {!isQrLoading && !qrDataUrl && !qrError && (
+              <div className="text-center text-gray-600 py-8">{t('auth.qrNoData', 'Chưa có dữ liệu QR')}</div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

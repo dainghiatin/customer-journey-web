@@ -256,8 +256,12 @@ function HomePage() {
                 <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
                 {/* <p><em>(ADVERTISING)</em></p> */}
             </footer>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50 }}>
-                <p>{t('common.updateNotice', 'CẬP NHẬT DS NHẬN THƯỞNG, KL HÀNG HÓA ….')} </p>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold'  }}>
+                <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10}}>
+                <div>{t('common.companyName', '© CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</div>
+                <div>{t('common.taxCode', 'MST: 3702678200')}</div>
             </div>
         </>
     );

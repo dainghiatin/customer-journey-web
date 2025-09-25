@@ -82,4 +82,25 @@ const verifyBankNumber = async (bankNumber, bankName, accountName = "ABC") => {
     return response;
 };
 
-export { login, getMe, changePassword, verifyBankNumber };
+const generateQrSession = async (deviceInfo, ipAddress = null) => {
+    try {
+        const payload = { deviceInfo };
+        if (ipAddress) payload.ipAddress = ipAddress;
+        const response = await axios.post(
+            `${API_URL}/auth/generate-qr`,
+            payload,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+        return response;
+    } catch (error) {
+        if (error.response) {
+            throw new Error(error.response.data?.error?.message || "QR generation failed");
+        } else if (error.request) {
+            throw new Error("No response from server");
+        } else {
+            throw new Error("Error setting up QR generate request");
+        }
+    }
+};
+
+export { login, getMe, changePassword, verifyBankNumber, generateQrSession };

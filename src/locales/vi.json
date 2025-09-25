@@ -21,7 +21,9 @@
     "confirm": "Xác nhận",
     "close": "Đóng",
     "advertising": "QUẢNG CÁO",
-     "updateNotice": "CẬP NHẬT DS NHẬN THƯỞNG, KL HÀNG HÓA ….",
+     "updateNotice": "DANH SÁCH THƯỞNG",
+    "companyName": "© CÔNG TY TNHH ĐẠI NGHĨA TÍN",
+    "taxCode": "MST: 3702678200",
     "stt": "STT",
     "map": "Bản đồ",
     "nextEn": "Next",
@@ -59,7 +61,10 @@
     "uploadSignature": "TẢI CHỮ KÝ",
     "uploadSignatureEn": "Upload your signature",
     "accountNumberPlaceholder": "ID THÀNH VIÊN - SỐ TÀI KHOẢN (ID - Account number)",
-    "selectBankPlaceholder": "Chọn ngân hàng (With bank)"
+    "selectBankPlaceholder": "Chọn ngân hàng (With bank)",
+    "qrTitle": "MÃ QR ĐĂNG NHẬP",
+    "qrError": "Không lấy được mã QR, vui lòng thử lại",
+    "qrNoData": "Chưa có dữ liệu QR"
   },
   "navigation": {
     "home": "Trang chủ",
