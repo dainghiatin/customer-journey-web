@@ -13,6 +13,9 @@ import CountrySpecificComponent from '../components/CountrySpecificComponent';
 import CompanyInfoTable from '../components/CompanyInfoTable';
 import EventFilterComponent from "../components/EventFilterComponent";
 import EventComponent from "../components/EventComponent";
+// Thêm import cho QR
+import axios from "axios";
+import { generateQrSession } from "../services/authService";
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
@@ -122,7 +125,11 @@ function HomePage() {
     
     // Check if user is logged in via token as well
     const [authToken, setAuthToken] = useState(null);
-    
+    // State cho QR modal
+    const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+    const [isQrLoading, setIsQrLoading] = useState(false);
+    const [qrError, setQrError] = useState("");
+    const [qrDataUrl, setQrDataUrl] = useState(null);
     useEffect(() => {
         const token = localStorage.getItem("authToken");
         setAuthToken(token);
@@ -148,11 +155,51 @@ function HomePage() {
         { name: "VN", value: "vi" },
         { name: "EN", value: "en" },
     ];
+
+    // Handler mở/đóng QR modal
+    const handleOpenQrModal = async () => {
+        try {
+            setIsQrModalOpen(true);
+            setIsQrLoading(true);
+            setQrError("");
+            setQrDataUrl(null);
+
+            const deviceInfo = navigator.userAgent || 'unknown';
+            let ipAddress = '';
+            try {
+                const ipRes = await axios.get('https://api.ipify.org?format=json');
+                ipAddress = ipRes.data?.ip || '';
+            } catch (ipErr) {
+                // Không chặn flow nếu không lấy được IP
+                ipAddress = '';
+            }
+
+            const response = await generateQrSession(deviceInfo, ipAddress);
+            const qrCode = response.data?.qrCode;
+            if (qrCode) {
+                setQrDataUrl(qrCode);
+            } else {
+                setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+            }
+        } catch (error) {
+            setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+        } finally {
+            setIsQrLoading(false);
+        }
+    };
+
+    const handleCloseQrModal = () => {
+        setIsQrModalOpen(false);
+        setQrDataUrl(null);
+        setQrError("");
+        setIsQrLoading(false);
+    };
+
     return (
         <>
             <header className="grid-container">
                 <div className="grid-col-1" style={{ height: "100%", minWidth:"60px" }}>
-                    <div style={{ width: "100%", height: "10%" }}>
+                    <div style={{ width: "100%", height: "10%" }} onClick={handleOpenQrModal} className="cursor-pointer">
                         <p className="flex sm:hidden text-[clamp(10px,1vw,20px)]">
                             <strong>APP</strong>
                         </p>
@@ -250,19 +297,40 @@ function HomePage() {
                     <HeroHeader isCompact={false} />
                 </div>
             )}
-            <EventFilterComponent />
-            <EventComponent />
-            <footer className="footer">
-                <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
-                {/* <p><em>(ADVERTISING)</em></p> */}
-            </footer>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold'  }}>
-                <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10}}>
-                <div>{t('common.companyName', '© CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</div>
-                <div>{t('common.taxCode', 'MST: 3702678200')}</div>
-            </div>
+
+            {/* Modal QR */}
+            {isQrModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50 p-4">
+                    <div className="relative bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                        <button className="absolute top-2 right-2 text-gray-600 hover:text-black" onClick={handleCloseQrModal}>✕</button>
+                        <h3 className="text-xl font-bold mb-4 text-center">{t('auth.qrTitle', 'MÃ QR ĐĂNG NHẬP')}</h3>
+
+                        {isQrLoading && (
+                            <div className="flex items-center justify-center py-8">
+                                <svg className="animate-spin h-6 w-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                                <span className="ml-3">{t('common.loading', 'Đang tải QR...')}</span>
+                            </div>
+                        )}
+
+                        {!isQrLoading && qrError && (
+                            <div className="text-center text-red-600 py-4">{qrError}</div>
+                        )}
+
+                        {!isQrLoading && qrDataUrl && (
+                            <div className="flex flex-col items-center">
+                                <img src={qrDataUrl} alt="QR Code" className="w-64 h-64 object-contain border" />
+                            </div>
+                        )}
+
+                        {!isQrLoading && !qrDataUrl && !qrError && (
+                            <div className="text-center text-gray-600 py-8">{t('auth.qrNoData', 'Chưa có dữ liệu QR')}</div>
+                        )}
+                    </div>
+                </div>
+            )}
         </>
     );
 }
