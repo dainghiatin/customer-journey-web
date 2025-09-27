@@ -223,7 +223,6 @@ function HomePage() {
 
     return (
         <>
-            <button onClick={() => { markAsRead(17, notifications[0].id) }}>Mark as read</button>
             <header className="grid-container">
                 <div className="grid-col-1" style={{ height: "100%", minWidth: "60px" }}>
                     <div style={{ width: "100%", height: "10%" }} onClick={handleOpenQrModal} className="cursor-pointer">
