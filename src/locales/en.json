@@ -29,7 +29,8 @@
     "stt": "No.",
     "map": "Map",
     "home": "HOME",
-    "bdk": "BDK"
+    "bdk": "BDK",
+    "no_notifications": "No notifications"
    },
   "aiLive": {
     "avatar": "AVATAR",

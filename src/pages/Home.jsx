@@ -2,9 +2,9 @@
 import Banner from "../assets/banner_place.png";
 import Wheel from '@uiw/react-color-wheel';
 import { hsvaToHex } from '@uiw/color-convert';
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  HeroHeader, Body, SearchSection,DropdownAuth } from "../components/Body";
+import { HeroHeader, Body, SearchSection, DropdownAuth } from "../components/Body";
 import { getMetric } from "../services/metricService";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -13,6 +13,10 @@ import CountrySpecificComponent from '../components/CountrySpecificComponent';
 import CompanyInfoTable from '../components/CompanyInfoTable';
 import EventFilterComponent from "../components/EventFilterComponent";
 import EventComponent from "../components/EventComponent";
+import useNotifications from "../custom-hooks/useNotifications";
+import markAsRead from "../services/notificationService";
+import NotificationDropdown from "../components/NotificationDropdown";
+
 // Thêm import cho QR
 import axios from "axios";
 import { generateQrSession } from "../services/authService";
@@ -47,7 +51,7 @@ const DataTable = () => {
             .then((response) => {
                 setMetric(response.data?.data);
                 console.log(response.data?.data);
-                
+
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -55,66 +59,66 @@ const DataTable = () => {
     }, []);
 
     return (
-      <div className="overflow-x-auto h-full w-full">
-        <table className="border border-black text-sm text-left h-full w-full">
-          <tbody style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}>
-            {/* Row 1 */}
-            <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">
-                <span>{t('metrics.listedValue', 'GIÁ TRỊ LÊN SÀN:')}:</span>
-                <br />
-                <span className="italic lowercase font-normal">({t('metrics.listedValueEn', 'LISTED VALUE')})</span>
-              </td>
-              <td className="p-2 border border-black"><br /><strong>{metric.listedValue}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.transactions', 'LƯỢT GIAO DỊCH')}:<br /><span className="italic lowercase font-normal">({t('metrics.transactionsEn', 'TRANSACTIONS')})</span></td>
-              <td className="p-2 border border-black"><strong>{metric.transactions}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.accesses', 'LƯỢT TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.accessesEn', 'ACCESSES')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.accesses}</strong></td>
-            </tr>
-            
-            {/* Row 2 */}
-            <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">{t('metrics.successfully', 'THÀNH CÔNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.successfullyEn', 'SUCCESSFULLY')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.successfully}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.amount', 'SỐ TIỀN')}:<br /><span className="italic lowercase font-normal">({t('metrics.amountEn', 'AMOUNT')})</span></td>
-              <td className="p-2 border border-black"><strong>{metric.amount}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.duration', 'THỜI LƯỢNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.durationEn', 'DURATION')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.duration}</strong></td>
-            </tr>
-            
-            {/* Row 3 - Single Row */}
-            <tr className="border border-black">
-              <td className="p-2 border border-black font-bold text-center" colSpan={2}>{t('metrics.bankUpdate', 'NGÂN HÀNG CẬP NHẬT')}<br /><span className="italic lowercase font-normal">({t('metrics.bankUpdateEn', 'ẩn - hiện')})</span></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.deposited', 'ĐÃ GỬI')}:<br /><span className="italic lowercase font-normal">({t('metrics.depositedEn', 'DEPOSITED')})</span></td>
-              <td className="p-2 border border-black"><strong>{metric.deposited}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.videoViews', 'LƯỢT XEM VIDEO')}:<br /><span className="italic lowercase font-normal">({t('metrics.videoViewsEn', 'VIDEO VIEWS')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.videoViews}</strong></td>
-            </tr>
-            
-            {/* Row 4 */}
-            <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">{t('metrics.withTerm', 'CÓ KỲ HẠN')}</td>
-              <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
-              <td className="p-2 border border-black font-bold">{t('metrics.withdrawn', 'ĐÃ RÚT')}:<br /><span className="italic lowercase font-normal">({t('metrics.withdrawnEn', 'WITHDRAWED')})</span></td>
-              <td className="p-2 border border-black"><strong>{metric.withdrawn}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.members', 'THÀNH VIÊN')}:<br /><span className="italic lowercase font-normal">({t('metrics.membersEn', 'MEMBERS')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.members}</strong></td>
-            </tr>
-            
-            {/* Row 5 */}
-            <tr className="border border-black">
-              <td className="p-2 border border-black font-bold">{t('metrics.withoutTerm', 'KHÔNG KỲ HẠN')}</td>
-              <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
-              <td className="p-2 border border-black font-bold">{t('metrics.remaining', 'CÒN LẠI')}:<br /><span className="italic lowercase font-normal">({t('metrics.remainingEn', 'REMAINING')})</span></td>
-              <td className="p-2 border border-black"><strong>{metric.remaining}</strong></td>
-              <td className="p-2 border border-black font-bold">{t('metrics.online', 'TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.onlineEn', 'ONLINE')})</span></td>
-              <td className="p-2 border border-black"><br /><strong>{metric.online}</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div className="overflow-x-auto h-full w-full">
+            <table className="border border-black text-sm text-left h-full w-full">
+                <tbody style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}>
+                    {/* Row 1 */}
+                    <tr className="border border-black">
+                        <td className="p-2 border border-black font-bold">
+                            <span>{t('metrics.listedValue', 'GIÁ TRỊ LÊN SÀN:')}:</span>
+                            <br />
+                            <span className="italic lowercase font-normal">({t('metrics.listedValueEn', 'LISTED VALUE')})</span>
+                        </td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.listedValue}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.transactions', 'LƯỢT GIAO DỊCH')}:<br /><span className="italic lowercase font-normal">({t('metrics.transactionsEn', 'TRANSACTIONS')})</span></td>
+                        <td className="p-2 border border-black"><strong>{metric.transactions}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.accesses', 'LƯỢT TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.accessesEn', 'ACCESSES')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.accesses}</strong></td>
+                    </tr>
+
+                    {/* Row 2 */}
+                    <tr className="border border-black">
+                        <td className="p-2 border border-black font-bold">{t('metrics.successfully', 'THÀNH CÔNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.successfullyEn', 'SUCCESSFULLY')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.successfully}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.amount', 'SỐ TIỀN')}:<br /><span className="italic lowercase font-normal">({t('metrics.amountEn', 'AMOUNT')})</span></td>
+                        <td className="p-2 border border-black"><strong>{metric.amount}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.duration', 'THỜI LƯỢNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.durationEn', 'DURATION')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.duration}</strong></td>
+                    </tr>
+
+                    {/* Row 3 - Single Row */}
+                    <tr className="border border-black">
+                        <td className="p-2 border border-black font-bold text-center" colSpan={2}>{t('metrics.bankUpdate', 'NGÂN HÀNG CẬP NHẬT')}<br /><span className="italic lowercase font-normal">({t('metrics.bankUpdateEn', 'ẩn - hiện')})</span></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.deposited', 'ĐÃ GỬI')}:<br /><span className="italic lowercase font-normal">({t('metrics.depositedEn', 'DEPOSITED')})</span></td>
+                        <td className="p-2 border border-black"><strong>{metric.deposited}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.videoViews', 'LƯỢT XEM VIDEO')}:<br /><span className="italic lowercase font-normal">({t('metrics.videoViewsEn', 'VIDEO VIEWS')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.videoViews}</strong></td>
+                    </tr>
+
+                    {/* Row 4 */}
+                    <tr className="border border-black">
+                        <td className="p-2 border border-black font-bold">{t('metrics.withTerm', 'CÓ KỲ HẠN')}</td>
+                        <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.withdrawn', 'ĐÃ RÚT')}:<br /><span className="italic lowercase font-normal">({t('metrics.withdrawnEn', 'WITHDRAWED')})</span></td>
+                        <td className="p-2 border border-black"><strong>{metric.withdrawn}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.members', 'THÀNH VIÊN')}:<br /><span className="italic lowercase font-normal">({t('metrics.membersEn', 'MEMBERS')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.members}</strong></td>
+                    </tr>
+
+                    {/* Row 5 */}
+                    <tr className="border border-black">
+                        <td className="p-2 border border-black font-bold">{t('metrics.withoutTerm', 'KHÔNG KỲ HẠN')}</td>
+                        <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.remaining', 'CÒN LẠI')}:<br /><span className="italic lowercase font-normal">({t('metrics.remainingEn', 'REMAINING')})</span></td>
+                        <td className="p-2 border border-black"><strong>{metric.remaining}</strong></td>
+                        <td className="p-2 border border-black font-bold">{t('metrics.online', 'TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.onlineEn', 'ONLINE')})</span></td>
+                        <td className="p-2 border border-black"><br /><strong>{metric.online}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
-  };
+};
 function HomePage() {
     const { t, i18n } = useTranslation();
     const { user, isAuthenticated } = useSelector(state => state.auth);
@@ -122,7 +126,7 @@ function HomePage() {
     const [selectedLang, setSelectedLang] = useState(i18n.language || "vi");
     const [hsva, setHsva] = useState({ h: 214, s: 43, v: 90, a: 1 });
     const [color, setColor] = useState("#1242ae");
-    
+
     // Check if user is logged in via token as well
     const [authToken, setAuthToken] = useState(null);
     // State cho QR modal
@@ -134,7 +138,7 @@ function HomePage() {
         const token = localStorage.getItem("authToken");
         setAuthToken(token);
     }, []);
-    
+
     const isUserLoggedIn = isAuthenticated || authToken;
     useEffect(() => {
         const savedColor = localStorage.getItem("selectedColor");
@@ -195,10 +199,33 @@ function HomePage() {
         setIsQrLoading(false);
     };
 
+    const notifications = useNotifications(17);
+
+    useEffect(() => {
+        console.log(notifications);
+    }, [notifications]);
+
+
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef();
+
+
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     return (
         <>
+            <button onClick={() => { markAsRead(17, notifications[0].id) }}>Mark as read</button>
             <header className="grid-container">
-                <div className="grid-col-1" style={{ height: "100%", minWidth:"60px" }}>
+                <div className="grid-col-1" style={{ height: "100%", minWidth: "60px" }}>
                     <div style={{ width: "100%", height: "10%" }} onClick={handleOpenQrModal} className="cursor-pointer">
                         <p className="flex sm:hidden text-[clamp(10px,1vw,20px)]">
                             <strong>APP</strong>
@@ -209,11 +236,11 @@ function HomePage() {
                             <strong>QR</strong>
                         </p>
                     </div>
-                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
+                    <button onClick={() => { }} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%" }}>
                         {/* <p><strong>MÁY TÍNH</strong></p><p><em>(COMPUTER)</em></p> */}
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-computer"></i>
                     </button>
-                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
+                    <button onClick={() => { }} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%" }}>
                         {/* <p><strong>DIỆN THOẠI</strong></p><p><em>(PHONE)</em></p> */}
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-mobile-screen-button"></i>
                     </button>
@@ -231,10 +258,10 @@ function HomePage() {
                                 onChange={handleChangeColor} // Cập nhật khi chọn màu mới
                             />
                         </div>
-                        
+
                     </div>
                     <div style={{ width: "100%", height: "10%" }}>
-                    <div style={{ border: 0, width: "100%", paddingRight: 10 }}>
+                        <div style={{ border: 0, width: "100%", paddingRight: 10 }}>
                             <select
                                 value={selectedLang}
                                 onChange={(e) => {
@@ -251,10 +278,43 @@ function HomePage() {
                             </select>
                         </div>
                     </div>
-                    <button onClick={()=>{}} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%"}}>
-                        {/* <p><strong>THÔNG BÁO</strong></p><p><em>(NOTE)</em></p> */}
-                        <i style={{ fontSize:"clamp(10px, 1vw, 20px)" }} className="fa-solid fa-bell"></i>
+
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="sm:py-3 cursor-pointer relative"
+                        style={{ width: "100%", height: "10%" }}
+                    >
+                        <i
+                            style={{ fontSize: "clamp(10px, 1vw, 20px)" }}
+                            className="fa-solid fa-bell"
+                        ></i>
+                        {notifications.filter(note => !note.read).length > 0 && (
+                            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
+                                {notifications.filter(note => !note.read).length}   
+                            </span>
+                        )}
                     </button>
+                    {isOpen && (
+                        <div ref={dropdownRef} className="absolute left w-50 bg-white shadow-lg rounded-md z-50 border border-gray-200">
+                            <div className="p-2">
+                                <ul className="max-h-50 overflow-y-auto">
+                                    {notifications.length > 0 ? (
+                                        notifications.slice(0, 5).map((note, idx) => (
+                                            <li
+                                                onMouseEnter={() => !note.read && markAsRead(17, note.id)}  
+                                                key={idx}
+                                                className="text-sm p-2 hover:bg-gray-100 cursor-pointer"
+                                            >
+                                                {note.message} {note.read ? '' : ' (new)'}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <li className="text-sm p-2 text-gray-500">{t('common.no_notifications')}</li>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="!hidden md:!block grid-col-3" style={{ height: "100%" }}>
@@ -275,14 +335,14 @@ function HomePage() {
                         <DataTable />
                     )}
                 </div>
-                
+
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
                     <div className="grid-col-4" style={{}}>
                         <HeroHeader isCompact={true} />
                     </div>
                 )}
-                
+
                 {/* Show HeroHeader in place of logo/table on mobile */}
                 <div className="md:hidden flex items-center justify-center flex-1 min-w-0" style={{ height: `clamp(120px, 25vw, 300px)` }}>
                     <HeroHeader isCompact={false} />
@@ -290,13 +350,27 @@ function HomePage() {
             </header>
             {/* <Body /> */}
             <DropdownAuth />
-            
+
             {/* HeroHeader outside grid when not logged in */}
             {!isUserLoggedIn && (
                 <div className="hidden md:block">
                     <HeroHeader isCompact={false} />
                 </div>
             )}
+
+            <EventFilterComponent />
+            <EventComponent />
+            <footer className="footer">
+                <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
+                {/* <p><em>(ADVERTISING)</em></p> */}
+            </footer>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold'  }}>
+                <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10}}>
+                <div>{t('common.companyName', '© CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</div>
+                <div>{t('common.taxCode', 'MST: 3702678200')}</div>
+            </div>
 
             {/* Modal QR */}
             {isQrModalOpen && (
