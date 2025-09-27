@@ -227,7 +227,7 @@ function HomePage() {
                 <div className="grid-col-1" style={{ height: "100%", minWidth: "60px" }}>
                     <div style={{ width: "100%", height: "10%" }} onClick={handleOpenQrModal} className="cursor-pointer">
                         <p className="flex sm:hidden text-[clamp(10px,1vw,20px)]">
-                            <strong>APP</strong>
+                            <strong>QR</strong>
                         </p>
 
                         {/* Chỉ hiển thị trên màn hình lớn hơn sm (md trở lên) */}
