@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
 import { useTranslation } from 'react-i18next';
 import {
-  Settings as SettingsIcon,
+  KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 import { SearchSection } from './Body';
 
@@ -173,9 +173,9 @@ const CategorySelect = ({
                     fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)"
                 }}
             >
-                <div className='flex grow items-center justify-center flex-col'>
+                <div className='flex grow items-center justify-center flex-col h-12'>
                     <span>{selected} </span>
-                    <span className='lowercase' style={{ fontWeight: 'normal', fontStyle: "italic" }}>({selected_en})</span>
+                    {/* <span className='lowercase' style={{ fontWeight: 'normal', fontStyle: "italic" }}>({selected_en})</span> */}
                 </div>
                 <span style={{ fontSize: "16px", fontWeight: "bold", marginLeft: "10px" }}>
                     {open ? "▲" : "▼"}
@@ -266,7 +266,7 @@ function EventFilterComponent(){
                 flexDirection: 'column', 
                 alignItems: 'flex-end', 
                 gap: 4, 
-                marginBottom: 20,
+                marginBottom: 0,
                 marginRight: 20
             }}>
                 {/* First row: 4 buttons aligned to the right */}

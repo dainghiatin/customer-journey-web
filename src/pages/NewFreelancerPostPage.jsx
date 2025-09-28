@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NewFreelancerPostDirectComponent from "../components/NewFreelancerPostDirectComponent";
 import NewFreelancerPostOnlineComponent from "../components/NewFreelancerPostOnlineComponent";
-import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
+import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from 'lucide-react';
 
 export default function NewFreelancerPostPage() {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ export default function NewFreelancerPostPage() {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 

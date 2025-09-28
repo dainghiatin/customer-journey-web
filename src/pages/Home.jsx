@@ -43,55 +43,53 @@ const DataTable = () => {
                 <tbody style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}>
                     {/* Row 1 */}
                     <tr className="border border-black">
-                        <td className="p-1 border border-black font-bold">
+                        <td className="px-1   border border-black font-bold h-5">
                             <span>{t('metrics.listedValue', 'GIÁ TRỊ LÊN SÀN:')}:</span>
-                            <br />
-                            <span className="italic lowercase font-normal">({t('metrics.listedValueEn', 'LISTED VALUE')})</span>
                         </td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.listedValue}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.transactions', 'LƯỢT GIAO DỊCH')}:<br /><span className="italic lowercase font-normal">({t('metrics.transactionsEn', 'TRANSACTIONS')})</span></td>
-                        <td className="p-2 border border-black"><strong>{metric.transactions}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.accesses', 'LƯỢT TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.accessesEn', 'ACCESSES')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.accesses}</strong></td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.listedValue}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.transactions', 'LƯỢT GIAO DỊCH')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.transactions}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.accesses', 'LƯỢT TRUY CẬP')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.accesses}</strong></td>
                     </tr>
 
                     {/* Row 2 */}
                     <tr className="border border-black">
-                        <td className="p-2 border border-black font-bold">{t('metrics.successfully', 'THÀNH CÔNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.successfullyEn', 'SUCCESSFULLY')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.successfully}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.amount', 'SỐ TIỀN')}:<br /><span className="italic lowercase font-normal">({t('metrics.amountEn', 'AMOUNT')})</span></td>
-                        <td className="p-2 border border-black"><strong>{metric.amount}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.duration', 'THỜI LƯỢNG')}:<br /><span className="italic lowercase font-normal">({t('metrics.durationEn', 'DURATION')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.duration}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.successfully', 'THÀNH CÔNG')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.successfully}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.amount', 'SỐ TIỀN')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.amount}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.duration', 'THỜI LƯỢNG')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.duration}</strong></td>
                     </tr>
 
                     {/* Row 3 - Single Row */}
                     <tr className="border border-black">
-                        <td className="p-2 border border-black font-bold text-center" colSpan={2}>{t('metrics.bankUpdate', 'NGÂN HÀNG CẬP NHẬT')}<br /><span className="italic lowercase font-normal">({t('metrics.bankUpdateEn', 'ẩn - hiện')})</span></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.deposited', 'ĐÃ GỬI')}:<br /><span className="italic lowercase font-normal">({t('metrics.depositedEn', 'DEPOSITED')})</span></td>
-                        <td className="p-2 border border-black"><strong>{metric.deposited}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.videoViews', 'LƯỢT XEM VIDEO')}:<br /><span className="italic lowercase font-normal">({t('metrics.videoViewsEn', 'VIDEO VIEWS')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.videoViews}</strong></td>
+                        <td className="px-1 border border-black font-bold text-center h-5" colSpan={2}>{t('metrics.bankUpdate', 'NGÂN HÀNG CẬP NHẬT')}:</td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.deposited', 'ĐÃ GỬI')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.deposited}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.videoViews', 'LƯỢT XEM VIDEO')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.videoViews}</strong></td>
                     </tr>
 
                     {/* Row 4 */}
                     <tr className="border border-black">
-                        <td className="p-2 border border-black font-bold">{t('metrics.withTerm', 'CÓ KỲ HẠN')}</td>
-                        <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.withdrawn', 'ĐÃ RÚT')}:<br /><span className="italic lowercase font-normal">({t('metrics.withdrawnEn', 'WITHDRAWED')})</span></td>
-                        <td className="p-2 border border-black"><strong>{metric.withdrawn}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.members', 'THÀNH VIÊN')}:<br /><span className="italic lowercase font-normal">({t('metrics.membersEn', 'MEMBERS')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.members}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.withTerm', 'CÓ KỲ HẠN')}</td>
+                        <td className="px-1 border border-black h-5">{t('metrics.update', 'CẬP NHẬT')}</td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.withdrawn', 'ĐÃ RÚT')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.withdrawn}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.members', 'THÀNH VIÊN')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.members}</strong></td>
                     </tr>
 
                     {/* Row 5 */}
                     <tr className="border border-black">
-                        <td className="p-2 border border-black font-bold">{t('metrics.withoutTerm', 'KHÔNG KỲ HẠN')}</td>
-                        <td className="p-2 border border-black">{t('metrics.update', 'CẬP NHẬT')}</td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.remaining', 'CÒN LẠI')}:<br /><span className="italic lowercase font-normal">({t('metrics.remainingEn', 'REMAINING')})</span></td>
-                        <td className="p-2 border border-black"><strong>{metric.remaining}</strong></td>
-                        <td className="p-2 border border-black font-bold">{t('metrics.online', 'TRUY CẬP')}:<br /><span className="italic lowercase font-normal">({t('metrics.onlineEn', 'ONLINE')})</span></td>
-                        <td className="p-2 border border-black"><br /><strong>{metric.online}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.withoutTerm', 'KHÔNG KỲ HẠN')}</td>
+                        <td className="px-1 border border-black h-5">{t('metrics.update', 'CẬP NHẬT')}</td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.remaining', 'CÒN LẠI')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.remaining}</strong></td>
+                        <td className="px-1 border border-black font-bold h-5">{t('metrics.online', 'TRUY CẬP')}:</td>
+                        <td className="px-1 border border-black h-5"><strong>{metric.online}</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -217,14 +215,16 @@ function HomePage() {
                             <strong>QR</strong>
                         </p>
                     </div>
-                    <button onClick={() => { }} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%" }}>
-                        {/* <p><strong>MÁY TÍNH</strong></p><p><em>(COMPUTER)</em></p> */}
+                    {/* Chỉ hiện trên màn hình lớn */}
+                    <button className="hidden sm:block w-full h-[10%] sm:py-3 cursor-pointer">
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-computer"></i>
                     </button>
-                    <button onClick={() => { }} className="sm:py-3 cursor-pointer" style={{ width: "100%", height: "10%" }}>
-                        {/* <p><strong>DIỆN THOẠI</strong></p><p><em>(PHONE)</em></p> */}
+
+                    {/* Chỉ hiện trên màn hình nhỏ */}
+                    <button className="block sm:hidden w-full h-[10%] sm:py-3 cursor-pointer">
                         <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-mobile-screen-button"></i>
                     </button>
+
                     <div style={{ width: "100%", height: "10%", display: "flex", flexDirection: 'column' }}>
                         {/* <div style={{ height:"100%",  aspectRatio: "1/1" }}> */}
                         {/* <Fragment> */}
@@ -248,6 +248,7 @@ function HomePage() {
                                 onChange={(e) => {
                                     setSelectedLang(e.target.value);
                                     i18n.changeLanguage(e.target.value);
+                                    localStorage.setItem("selectedLang", e.target.value);
                                 }}
                                 style={{ width: "100%", padding: "5px", backgroundColor: color, border: 0, textAlign: 'center', fontSize: "clamp(10px, 1vw, 20px)" }}
                             >
@@ -277,14 +278,14 @@ function HomePage() {
                     </button>
                     {isOpen && (
                         <div ref={dropdownRef} className="absolute left w-50 bg-white shadow-lg rounded-md z-50 border border-gray-200">
-                            <div className="p-2">
+                            <div className="px-1">
                                 <ul className="max-h-50 overflow-y-auto">
                                     {notifications.length > 0 ? (
                                         notifications.slice(0, 5).map((note, idx) => (
                                             <li
                                                 onMouseEnter={() => !note.read && markAsRead(17, note.id)}
                                                 key={idx}
-                                                className="text-sm p-2 hover:bg-gray-100 cursor-pointer"
+                                                className="text-sm px-1 hover:bg-gray-100 cursor-pointer"
                                             >
                                                 {!note.read ? (
                                                     <b className="font-bold">{note.message} (new)</b>
@@ -296,7 +297,7 @@ function HomePage() {
                                             </li>
                                         ))
                                     ) : (
-                                        <li className="text-sm p-2 text-gray-500">{t('common.no_notifications')}</li>
+                                        <li className="text-sm px-1 text-gray-500">{t('common.no_notifications')}</li>
                                     )}
                                 </ul>
                             </div>
@@ -305,7 +306,7 @@ function HomePage() {
                 </div>
 
                 <div className="!hidden md:!block grid-col-3" style={{ height: "100%" }}>
-                    <div style={{ width: "100%", height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
+                    <div style={{ width: "100%", height: `clamp(120px, 25vw, 190px)`, border: '1px solid' }}>
                         {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
                         {isUserLoggedIn ? (
                             <CountrySpecificComponent userCountry={selectedLang} />
@@ -314,7 +315,7 @@ function HomePage() {
                         )}
                     </div>
                 </div>
-                <div className="!hidden md:!block grid-col-2" style={{ height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
+                <div className="!hidden md:!block grid-col-2" style={{ height: `clamp(120px, 25vw, 190px)`, border: '1px solid' }}>
                     {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
@@ -326,7 +327,7 @@ function HomePage() {
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
                     <div className="grid-col-4" style={{}}>
-                        <HeroHeader isCompact={true} />
+                        <HeroHeader selectedLang={selectedLang} isCompact={true} />
                     </div>
                 )}
 
@@ -336,14 +337,22 @@ function HomePage() {
                 </div>
             </header>
             {/* <Body /> */}
-            <DropdownAuth />
+
+            <div className="flex">
+                <DropdownAuth />
+                {!isUserLoggedIn && (
+                    <div className="hidden md:block">
+                        <HeroHeader isCompact={false} />
+                    </div>
+                )}
+            </div>
+            <div className="">
+
+            </div>
+
 
             {/* HeroHeader outside grid when not logged in */}
-            {!isUserLoggedIn && (
-                <div className="hidden md:block">
-                    <HeroHeader isCompact={false} />
-                </div>
-            )}
+
 
             <EventFilterComponent />
             <EventComponent />
@@ -351,9 +360,11 @@ function HomePage() {
 
             <div
                 onClick={() => navigate("/reward-list")}
-                style={{ display: "flex", 
-                cursor: "pointer",
-                justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold' }}>
+                style={{
+                    display: "flex",
+                    cursor: "pointer",
+                    justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold'
+                }}>
                 <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10 }}>
@@ -367,7 +378,7 @@ function HomePage() {
             {isQrModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50 p-4">
                     <div className="relative bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-                        <button className="absolute top-2 right-2 text-gray-600 hover:text-black" onClick={handleCloseQrModal}>✕</button>
+                        <button className="absolute topx-1 right-2 text-gray-600 hover:text-black" onClick={handleCloseQrModal}>✕</button>
                         <h3 className="text-xl font-bold mb-4 text-center">{t('auth.qrTitle', 'MÃ QR ĐĂNG NHẬP')}</h3>
 
                         {isQrLoading && (

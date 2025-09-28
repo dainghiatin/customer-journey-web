@@ -158,7 +158,7 @@
 }
 
 .action-section-1 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -252,10 +252,10 @@
 
 /* SEARCH SECTION */
 .search-section {
-    width: fit-content; /* Make the section take full width of its container */
+    width: 20%; /* Make the section take full width of its container */
     
     margin: 0 auto; /* Center the section horizontally */
-    padding: 20px; /* Add padding inside the section */
+    padding: 0px; /* Add padding inside the section */
     box-sizing: border-box; /* Ensure padding and border are included in the width */
     display: flex;
     flex-direction: column; /* Stack children vertically */
@@ -269,12 +269,15 @@
     gap: 4px;
     align-items: center;
     flex-wrap: nowrap;
+    margin-top: 50px    ;
 }
 
 @media screen and (max-width: 768px) {
     .filter-buttons-row {
-        transform: scale(0.8);
+        transform: scale(0.6);
         transform-origin: right center;
+        height: 35px;
+        margin-top: 0px    ;
     }
 }
 
@@ -337,7 +340,7 @@
 }
 @media screen and (max-width: 768px) {
   .filter-section {
-    margin-top: -80px; /* giảm khoảng trống phía trên trên mobile */
+    margin-top: -40px; /* giảm khoảng trống phía trên trên mobile */
     gap: 12px; /* thu hẹp khoảng cách giữa filter và search */
   }
   .search-section {

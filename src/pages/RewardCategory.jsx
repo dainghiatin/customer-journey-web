@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Home as HomeIcon,
-  Settings as SettingsIcon,
+  KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 import "../styles/Login.css";
 import { useTranslation } from 'react-i18next';
@@ -57,7 +57,7 @@ export default function RewardCategoryPage() {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 

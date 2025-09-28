@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
+import { Home as HomeIcon, KeyboardIcon as KeyboardIconIcon } from 'lucide-react';
 
 const AdditionalPaymentPage = () => {
   const { t } = useTranslation();
@@ -52,7 +52,7 @@ const AdditionalPaymentPage = () => {
           className="text-red-600 hover:text-red-800"
           onClick={() => navigate("/admin-control")}
         >
-          <SettingsIcon size={28} />
+          <KeyboardIcon size={28} />
         </button>
       </div>
 

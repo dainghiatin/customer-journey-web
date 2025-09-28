@@ -6,7 +6,7 @@ import { createLive } from "../services/liveService";
 import { createVideo } from "../services/videoService";
 import {
   Home as HomeIcon,
-  Settings as SettingsIcon,
+  KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 
 export default function NewAiLivePostPage() {
@@ -152,7 +152,7 @@ const handleSubmitMovie = async (e) => {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 

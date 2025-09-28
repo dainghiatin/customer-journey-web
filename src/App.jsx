@@ -19,6 +19,12 @@ import NewAiLivePostPage from './pages/NewAiLivePostPage.jsx'
 import AdminControlPage from './pages/AdminControlPage.jsx'
 import RewardListPage from './pages/RewardListPage.jsx'
 function App() {
+  // const pwd = import.meta.env.VITE_REACT_APP_PASSWORD || "123456";
+  // const input = prompt("Enter your password:");
+  // if (input != pwd) {
+  //   return null;
+  // }
+
   return (
     <>
      <Routes>
