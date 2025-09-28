@@ -25,7 +25,7 @@ const GoodsPaymentPage = () => {
         <div className="col-span-1"></div>
         <div className="col-span-2">
           <button className="border-1 px-6 py-2 font-bold rounded text-sm">
-            {t('payment.transferToWallet', 'CHUYỂN VỀ VÍ')} 
+            {t('payment.transferToWallet', 'CHUYỂN VỀ VÍ')}
             <br />
             ({t('payment.transferToWalletEn', 'Transfer to wallet')})
           </button>
@@ -35,7 +35,7 @@ const GoodsPaymentPage = () => {
         <div className="col-span-4">
           <select name="" id="" className="border w-full">
             <option value="">
-              {t('payment.posted', 'BÀI ĐĂNG')} <br/>
+              {t('payment.posted', 'BÀI ĐĂNG')} <br />
               ({t('payment.postedEn', 'POSTED')})
             </option>
             <option value="">{t('payment.joined', 'BÀI THAM GIA')} ({t('payment.joinedEn', 'JOINED')})</option>
@@ -83,7 +83,7 @@ const GoodsPaymentPage = () => {
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           ({t('payment.command', 'lệnh')})
         </div>
-       
+
         <div className="col-span-5"></div>
       </div>
 
@@ -183,7 +183,7 @@ const GoodsPaymentPage = () => {
             ({t('payment.deliveryAndReceivePaymentEn', 'Delivery goods and receive payment')})
           </div>
         </div>
-  
+
         <div className="border-3 p-3 font-bold text-center rounded-lg">
           {t('payment.takeBackGoodsLose100', 'NHẬN LẠI HÀNG VÀ BÙ 100% CỌC')}
           <div className="text-xs italic">
@@ -191,7 +191,7 @@ const GoodsPaymentPage = () => {
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
+          {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
           <div className="text-xs italic">
             ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
           </div>
@@ -206,13 +206,13 @@ const GoodsPaymentPage = () => {
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
+          {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
           <div className="text-xs italic">
             ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         {t('payment.returnGoodsGet100', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 100% CỌC')}
+          {t('payment.returnGoodsGet100', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 100% CỌC')}
           <div className="text-xs italic">
             ({t('payment.returnGoodsGet100En', 'Return goods and take 100% deposite')})
           </div>
@@ -235,8 +235,8 @@ const GoodsPaymentPage = () => {
 }
 
 const FreelancerPaymentPage = () => {
-    const { t } = useTranslation();
-    return (<>
+  const { t } = useTranslation();
+  return (<>
 
 
     <div>
@@ -254,7 +254,7 @@ const FreelancerPaymentPage = () => {
         <div className="col-span-1"></div>
         <div className="col-span-2">
           <button className="border-1 px-6 py-2 font-bold rounded text-sm">
-            CHUYỂN VỀ VÍ 
+            CHUYỂN VỀ VÍ
             <br />
             (Transfer to wallet)
           </button>
@@ -264,14 +264,14 @@ const FreelancerPaymentPage = () => {
         <div className="col-span-4">
           <select name="" id="" className="border w-full">
             <option value="">
-              BÀI ĐĂNG <br/>
+              BÀI ĐĂNG <br />
               (POSTED)
             </option>
             <option value="">BÀI THAM GIA (JOINED)</option>
           </select>
         </div>
       </div>
-       <div className="grid grid-cols-10 border-blue-800">
+      <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
           ĐANG NHẬN CỌC:
           <div className="text-xs italic">(Accepting deposit)</div>
@@ -312,7 +312,7 @@ const FreelancerPaymentPage = () => {
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           (lệnh)
         </div>
-        
+
         <div className="col-span-5"></div>
       </div>
 
@@ -419,9 +419,9 @@ const FreelancerPaymentPage = () => {
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         KHÔNG GIAO VIỆC VÀ BÙ 100% CỌC
+          KHÔNG GIAO VIỆC VÀ BÙ 100% CỌC
           <div className="text-xs italic">
-           (Not deliver work and lost 100% deposite)
+            (Not deliver work and lost 100% deposite)
           </div>
         </div>
       </div>
@@ -440,7 +440,7 @@ const FreelancerPaymentPage = () => {
           </div>
         </div>
         <div className="border-3 p-3 font-bold text-center rounded-lg">
-         KHÔNG NHẬN VIỆC VÀ ĐƯỢC 50% CỌC
+          KHÔNG NHẬN VIỆC VÀ ĐƯỢC 50% CỌC
           <div className="text-xs italic">
             (Not accept and take 50% deposit)
           </div>
@@ -497,6 +497,13 @@ const PaymentPage = () => {
     document.getElementById("root").style.backgroundColor = color;
   }, [color]);
 
+  function isNumberKey(evt) {
+  var charCode = (evt.which) ? evt.which : evt.keyCode
+  if (charCode > 31 && (charCode < 48 || charCode > 57))
+    return false;
+  return true;
+}
+
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setUser(token);
@@ -520,13 +527,13 @@ const PaymentPage = () => {
       <div className="w-full max-w-4xl shadow-lg rounded relative">
         {/* Header with Navigation */}
         <div className="flex items-center justify-between relative mb-6">
-          <button 
+          <button
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/")}
           >
             <HomeIcon size={28} />
           </button>
-          
+
           <div className="flex-1 text-center">
             <h1 className="text-3xl font-bold inline-block relative">
               <span className="relative inline-block">
@@ -544,8 +551,8 @@ const PaymentPage = () => {
               <i>({t('payment.paymentTransactionEn', 'Payment Transaction')})</i>
             </h2>
           </div>
-          
-          <button 
+
+          <button
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
@@ -557,7 +564,7 @@ const PaymentPage = () => {
         <div>
           {/* MÃ QR Row */}
           <div className="grid grid-cols-8">
-            <div className="col-span-4 p-2 font-bold text-sm">{t('payment.qr', 'QR')}:</div>
+            <div className="col-span-4 p-2 font-bold text-sm"></div>
             <div className="col-span-4 p-2 font-bold text-sm text-end">
               {t('payment.scanQr', 'Quét QR')}
               <br />
@@ -585,14 +592,17 @@ const PaymentPage = () => {
                 <i>(Transfer)</i>
               </div>
 
-              <div className="col-span-1 border p-2 flex flex-col items-center">
+              <div className="col-span-1 border p-2 font-bold">
                 <label className="text-xl text-gray-500 mb-1 italic">
                   Số tiền
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
                   placeholder="(nhập số tiền)"
                   className="w-20 h-10 text-center"
+                    pattern="[0-9]*"
+                  onKeyDown={isNumberKey}
                 />
                 <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
               </div>
@@ -632,9 +642,30 @@ const PaymentPage = () => {
                   Số tiền
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
                   placeholder="(nhập số tiền)"
                   className="w-20 h-10 text-center"
+                    pattern="[0-9]*"
+
+                  onKeyDown={(e) => {
+    // allow control keys (backspace, delete, arrows, tab)
+    if (
+      ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)
+    ) {
+      return;
+    }
+    // block anything that is not a digit
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault();
+    }
+  }}
+                  onPaste={(e) => { 
+                    const paste = e.clipboardData.getData("text");
+                    if (!/^\d+$/.test(paste)) {
+                      e.preventDefault(); // block if not digits only
+                    }
+                  }}
                 />
                 <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
               </div>
@@ -653,9 +684,21 @@ const PaymentPage = () => {
                   Số tiền
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
                   placeholder="(nhập số tiền)"
                   className="w-20 h-10 text-center"
+                  onKeyDown={(e) => {
+                    if (["e", "E", "+", "-", "."].includes(e.key)) {
+                      e.preventDefault(); // block typing invalid chars
+                    }
+                  }}
+                  onPaste={(e) => { 
+                    const paste = e.clipboardData.getData("text");
+                    if (!/^\d+$/.test(paste)) {
+                      e.preventDefault(); // block if not digits only
+                    }
+                  }}
                 />
                 <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
               </div>
@@ -674,9 +717,21 @@ const PaymentPage = () => {
                   Số tiền
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
                   placeholder="(nhập số tiền)"
                   className="w-20 h-10 text-center"
+                  onKeyDown={(e) => {
+                    if (["e", "E", "+", "-", "."].includes(e.key)) {
+                      e.preventDefault(); // block typing invalid chars
+                    }
+                  }}
+                  onPaste={(e) => { 
+                    const paste = e.clipboardData.getData("text");
+                    if (!/^\d+$/.test(paste)) {
+                      e.preventDefault(); // block if not digits only
+                    }
+                  }}
                 />
                 <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
               </div>
@@ -711,9 +766,23 @@ const PaymentPage = () => {
               </div>
               <div className="col-span-1 border-blue-800 p-2 text-sm text-center">
                 <input
-                  type="text"
+                  type="number"
+                  min={0}
                   placeholder="(nhập số tiền)"
                   className="h-full"
+                    pattern="[0-9]*"
+
+                  onKeyDown={(e) => {
+                    if (["e", "E", "+", "-", "."].includes(e.key)) {
+                      e.preventDefault(); // block typing invalid chars
+                    }
+                  }}
+                  onPaste={(e) => { 
+                    const paste = e.clipboardData.getData("text");
+                    if (!/^\d+$/.test(paste)) {
+                      e.preventDefault(); // block if not digits only
+                    }
+                  }}
                 />
               </div>
               <div className="col-span-1 border-blue-800 p-2 text-sm text-center h-full flex items-center justify-center">
@@ -728,14 +797,14 @@ const PaymentPage = () => {
               <div className="col-span-2">
                 <div className="border-3 border-black font-bold rounded cursor-pointer hover:bg-white-100 text-center">
                   THANH TOÁN DỊCH VỤ
-                  <br/>
-                   (Service payment)
+                  <br />
+                  (Service payment)
                 </div>
               </div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 p-2">
-            <button onClick={()=>{setPage(Page !=="goods" ? "goods" : null)}} className="grid gap-5 border-black-800 pr-2">
+            <button onClick={() => { setPage(Page !== "goods" ? "goods" : null) }} className="grid gap-5 border-black-800 pr-2">
               <div className="border-3 p-3 font-bold text-center rounded-lg">
                 HÀNG HÓA
                 <div className="text-xs italic">
@@ -745,7 +814,7 @@ const PaymentPage = () => {
 
             </button>
 
-            <button onClick={()=>{setPage(Page !=="freelancer" ? "freelancer" : null)}} className="grid gap-5 pl-2">
+            <button onClick={() => { setPage(Page !== "freelancer" ? "freelancer" : null) }} className="grid gap-5 pl-2">
               <div className="border-3 p-3 font-bold text-center rounded-lg">
                 CÔNG VIỆC TỰ DO
                 <div className="text-xs italic">

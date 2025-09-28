@@ -16,6 +16,11 @@ import EventComponent from "../components/EventComponent";
 import useNotifications from "../custom-hooks/useNotifications";
 import markAsRead from "../services/notificationService";
 import NotificationDropdown from "../components/NotificationDropdown";
+import useMetric from "../custom-hooks/useMetric";
+import AdBanner from "../components/AdBaner";
+import { Link, useNavigate } from 'react-router-dom';
+
+
 
 // Thêm import cho QR
 import axios from "axios";
@@ -29,35 +34,8 @@ const CustomPointer = () => (
 const DataTable = () => {
     const { t } = useTranslation();
 
-    const [metric, setMetric] = useState(
-        {
-            listedValue: "0",
-            transactions: "0",
-            accesses: "0",
-            successfully: "0",
-            amount: "0",
-            duration: "0",
-            latestBank: "0",
-            deposited: "0",
-            videoViews: "0",
-            withdrawn: "0",
-            members: 0,
-            remaining: "0",
-            online: 1,
-        }
-    );
+    const metric = useMetric();
 
-    useEffect(() => {
-        getMetric()
-            .then((response) => {
-                setMetric(response.data?.data);
-                console.log(response.data?.data);
-
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }, []);
 
     return (
         <div className="overflow-x-auto h-full w-full">
@@ -65,7 +43,7 @@ const DataTable = () => {
                 <tbody style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}>
                     {/* Row 1 */}
                     <tr className="border border-black">
-                        <td className="p-2 border border-black font-bold">
+                        <td className="p-1 border border-black font-bold">
                             <span>{t('metrics.listedValue', 'GIÁ TRỊ LÊN SÀN:')}:</span>
                             <br />
                             <span className="italic lowercase font-normal">({t('metrics.listedValueEn', 'LISTED VALUE')})</span>
@@ -201,7 +179,7 @@ function HomePage() {
     };
 
     const userInStorege = JSON.parse(localStorage.getItem("user"));
-    const notifications = useNotifications(userInStorege?.id);
+    const notifications = useNotifications(17);
 
     useEffect(() => {
         console.log(notifications);
@@ -210,6 +188,8 @@ function HomePage() {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef();
+
+    const navigate = useNavigate();
 
 
 
@@ -367,17 +347,21 @@ function HomePage() {
 
             <EventFilterComponent />
             <EventComponent />
-            <footer className="footer">
-                <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
-                {/* <p><em>(ADVERTISING)</em></p> */}
-            </footer>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold' }}>
+
+
+            <div
+                onClick={() => navigate("/reward-list")}
+                style={{ display: "flex", 
+                cursor: "pointer",
+                justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold' }}>
                 <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10 }}>
                 <div>{t('common.companyName', '© CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</div>
                 <div>{t('common.taxCode', 'MST: 3702678200')}</div>
             </div>
+            <AdBanner />
+
 
             {/* Modal QR */}
             {isQrModalOpen && (

@@ -92,8 +92,8 @@ export default function ListOfGoodsPage() {
     setSelectedCategory(category)
     setSelectedSubcategory(subcategory)
     setSelectedCondition(condition)
-    setSelectedProvince(localStorage.getItem("province")===undefined? null : localStorage.getItem("province"))
-    setSelectedCountry(localStorage.getItem("nation")===undefined? null : localStorage.getItem("nation"))
+    // setSelectedProvince(localStorage.getItem("province")===undefined? null : localStorage.getItem("province"))
+    // setSelectedCountry(localStorage.getItem("nation")===undefined? null : localStorage.getItem("nation"))
 
 
   }, []);

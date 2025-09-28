@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Mock data cho events
 const mockEvents = [
@@ -24,6 +25,7 @@ const mockEvents = [
 
 export default function EventComponent() {
     const [startColumnIndex, setStartColumnIndex] = useState(0);
+    const navigate = useNavigate();
     
     // Desktop: hiển thị 6 cột x 2 dòng = 12 events
     // Mobile: hiển thị 2 cột x 2 dòng = 4 events
@@ -69,7 +71,7 @@ export default function EventComponent() {
     const canGoNext = startColumnIndex < maxColumns - 1;
 
     const EventCard = ({ event }) => (
-        <div style={{ 
+        <div onClick={() => navigate(`/list-of-goods/${event.id}`)} style={{ 
             backgroundColor: "white", 
             aspectRatio: 3 / 4, 
             padding: '10px',
@@ -80,7 +82,8 @@ export default function EventComponent() {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            border: '1px solid black'
+            border: '1px solid black',
+            cursor: 'pointer'
         }}>
             <h3 style={{ margin: '5px 0', fontSize: '16px' }}>{event.title}</h3>
             <h4 style={{ margin: '5px 0', fontSize: '14px' }}><em>{event.subtitle}</em></h4>
