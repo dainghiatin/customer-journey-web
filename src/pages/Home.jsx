@@ -200,7 +200,8 @@ function HomePage() {
         setIsQrLoading(false);
     };
 
-    const notifications = useNotifications(17);
+    const userInStorege = JSON.parse(localStorage.getItem("user"));
+    const notifications = useNotifications(userInStorege?.id);
 
     useEffect(() => {
         console.log(notifications);

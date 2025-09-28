@@ -16,11 +16,11 @@ export default function ListOfGoodsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubcategory, setSelectedSubcategory] = useState("");
-  const [selectedCondition, setSelectedCondition] = useState("");
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [selectedCondition, setSelectedCondition] = useState(null);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -41,11 +41,11 @@ export default function ListOfGoodsPage() {
 
   useEffect(() => {
     setFilters({
-      listingType: selectedCategory ? categories[selectedCategory].en.toLowerCase() : '',
-      categoryType: selectedSubcategory ? subcategories[selectedSubcategory].en.toLowerCase() : '',
-      conditionType: selectedCondition ? conditions[selectedCondition].en.toLowerCase() : '',
-      nation: selectedCountry,
-      province: selectedProvince,
+      listingType: selectedCategory ? categories[selectedCategory]?.en?.toLowerCase() : '',
+      categoryType: selectedSubcategory ? subcategories[selectedSubcategory]?.en?.toLowerCase() : '',
+      conditionType: selectedCondition ? conditions[selectedCondition]?.en?.toLowerCase() : '',
+      nation: selectedCountry ? selectedCountry : '',
+      province: selectedProvince ? selectedProvince : '',
       name: searchTerm
     });
   }, [selectedCategory, selectedSubcategory, selectedCondition, selectedCountry, selectedProvince, searchTerm]);
