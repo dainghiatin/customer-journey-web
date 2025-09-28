@@ -20,6 +20,7 @@ import NotificationDropdown from "../components/NotificationDropdown";
 // Thêm import cho QR
 import axios from "axios";
 import { generateQrSession } from "../services/authService";
+import _default from "react-select";
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
 );
@@ -289,7 +290,7 @@ function HomePage() {
                         ></i>
                         {notifications.filter(note => !note.read).length > 0 && (
                             <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                                {notifications.filter(note => !note.read).length}   
+                                {notifications.filter(note => !note.read).length}
                             </span>
                         )}
                     </button>
@@ -300,11 +301,17 @@ function HomePage() {
                                     {notifications.length > 0 ? (
                                         notifications.slice(0, 5).map((note, idx) => (
                                             <li
-                                                onMouseEnter={() => !note.read && markAsRead(17, note.id)}  
+                                                onMouseEnter={() => !note.read && markAsRead(17, note.id)}
                                                 key={idx}
                                                 className="text-sm p-2 hover:bg-gray-100 cursor-pointer"
                                             >
-                                                {note.message} {note.read ? '' : ' (new)'}
+                                                {!note.read ? (
+                                                    <b className="font-bold">{note.message} (new)</b>
+                                                ) : (
+                                                    <>
+                                                        {note.message}
+                                                    </>
+                                                )}
                                             </li>
                                         ))
                                     ) : (
@@ -363,10 +370,10 @@ function HomePage() {
                 <h3><strong>{t('common.advertising', 'QUẢNG CÁO')}</strong></h3>
                 {/* <p><em>(ADVERTISING)</em></p> */}
             </footer>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold'  }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 50, borderBottom: '1px solid', fontWeight: 'bold' }}>
                 <p>{t('common.updateNotice', 'DANH SÁCH THƯỞNG')} </p>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10}}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 50, fontSize: 10 }}>
                 <div>{t('common.companyName', '© CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</div>
                 <div>{t('common.taxCode', 'MST: 3702678200')}</div>
             </div>
