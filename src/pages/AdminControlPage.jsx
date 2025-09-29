@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Home as HomeIcon,
-  KeyboardIcon as KeyboardIconIcon,
+  KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 import "../styles/Login.css";
 import { useTranslation } from 'react-i18next';
