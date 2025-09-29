@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Home as HomeIcon,
-  Settings as SettingsIcon,
+  KeyboardIcon as KeyboardIconIcon,
 } from "lucide-react";
 import "../styles/Login.css";
 import { useTranslation } from 'react-i18next';
@@ -55,7 +55,7 @@ export default function AdminControlPage() {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 
@@ -79,7 +79,7 @@ export default function AdminControlPage() {
               </div>
               <div className="bg-green-100 p-4 rounded-lg">
                 <h3 className="font-semibold text-green-800">
-                  {t('adminControl.systemSettings', 'Cài đặt hệ thống')}
+                  {t('adminControl.systemKeyboardIcon', 'Cài đặt hệ thống')}
                 </h3>
                 <p className="text-sm text-green-600 mt-2">
                   {t('adminControl.comingSoon', 'Sắp ra mắt')}

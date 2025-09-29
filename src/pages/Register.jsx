@@ -84,7 +84,7 @@ export default function RegisterPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // For bank_number field, only allow numeric characters
     if (name === "bank_number") {
       const numericValue = value.replace(/[^0-9]/g, '');
@@ -92,17 +92,17 @@ export default function RegisterPage() {
     } else {
       setFormData({ ...formData, [name]: value });
     }
-    
+
     // Clear validation errors when user starts typing
     if (validationErrors[name]) {
       setValidationErrors({ ...validationErrors, [name]: "" });
     }
-    
+
     // Validate recovery character matching
     if (name === "repeat_recovery_character" || name === "recovery_character") {
       const recoveryChar = name === "recovery_character" ? value : formData.recovery_character;
       const repeatRecoveryChar = name === "repeat_recovery_character" ? value : formData.repeat_recovery_character;
-      
+
       if (repeatRecoveryChar && recoveryChar !== repeatRecoveryChar) {
         setValidationErrors(prev => ({
           ...prev,
@@ -119,31 +119,31 @@ export default function RegisterPage() {
 
   const validateForm = () => {
     const errors = {};
-    
+
     // Check if bank is selected
     if (!formData.bank_name) {
       errors.bank_name = t('auth.bankRequired', 'Vui lòng chọn ngân hàng');
     }
-    
+
     // Check if recovery characters match
-    if (formData.recovery_character && formData.repeat_recovery_character && 
-        formData.recovery_character !== formData.repeat_recovery_character) {
+    if (formData.recovery_character && formData.repeat_recovery_character &&
+      formData.recovery_character !== formData.repeat_recovery_character) {
       errors.repeat_recovery_character = t('auth.recoveryCharacterMismatch', 'Ký tự khôi phục không khớp');
     }
-    
+
     // Check required fields
     if (!formData.recovery_character) {
       errors.recovery_character = t('auth.recoveryCharacterRequired', 'Ký tự khôi phục là bắt buộc');
     }
-    
+
     if (!formData.repeat_recovery_character) {
       errors.repeat_recovery_character = t('auth.repeatRecoveryCharacterRequired', 'Vui lòng nhập lại ký tự khôi phục');
     }
-    
+
     if (!selectedCountry) {
       errors.country = t('auth.countryRequired', 'Vui lòng chọn quốc gia');
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -152,23 +152,23 @@ export default function RegisterPage() {
   const isFormValid = () => {
     // Check if bank is selected
     if (!formData.bank_name) return false;
-    
+
     // Check if recovery characters match
-    if (formData.recovery_character && formData.repeat_recovery_character && 
-        formData.recovery_character !== formData.repeat_recovery_character) return false;
-    
+    if (formData.recovery_character && formData.repeat_recovery_character &&
+      formData.recovery_character !== formData.repeat_recovery_character) return false;
+
     // Check required fields
     if (!formData.recovery_character) return false;
     if (!formData.repeat_recovery_character) return false;
     if (!selectedCountry) return false;
-    
+
     return true;
   };
 
   const handleContractDownload = async () => {
     try {
       const response = await downloadContract();
-      
+
       // Create blob URL and trigger download
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
@@ -215,14 +215,22 @@ export default function RegisterPage() {
 
       console.log("Đăng ký thành công:", response.data);
       dispatch(changePasswordAction(response.data?.user));
-
       alert(t('auth.registerSuccess', 'Đăng ký thành công!'));
-      navigate("/change-password"); // Chuyển hướng sau khi đăng ký thành công
+      if (response.status == 200) {
+        localStorage.setItem("authToken", response.data.token);
+        // Store complete user data in localStorage for easy access
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        dispatch(loginAction(response.data?.user))
+        console.log(auth);
+        navigate("/");
+      } else {
+        alert(t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI'));
+      }
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
-      const errorMessage = error.response?.data?.error?.message || 
-                          error.response?.data?.message || 
-                          t('auth.registerError', 'Đăng ký thất bại. Vui lòng thử lại.');
+      const errorMessage = error.response?.data?.error?.message ||
+        error.response?.data?.message ||
+        t('auth.registerError', 'Đăng ký thất bại. Vui lòng thử lại.');
       setError(errorMessage);
       alert(errorMessage); // Display error to user
     }
@@ -301,30 +309,30 @@ export default function RegisterPage() {
             </h2>
           </div>
         </div>
-        {page === 1 && ( <div className="mt-6">
+        {page === 1 && (<div className="mt-6">
           {error && <p className="text-red-500">{error}</p>}
-          <div className="space-y-4 mt-4"> 
-             <div className="grid grid-cols-1 items-center gap-4">
-                <div className="relative w-full flex items-center">
-                  <Select
-                    options={countries} // mảng bạn đã set bằng setCountries
-                    onChange={(option) => {
-                      setSelectedCountry(option);
-                      if (validationErrors.country) {
-                        setValidationErrors({ ...validationErrors, country: "" });
-                      }
-                    }}
-                    value={selectedCountry}
-                    placeholder={t('auth.countryPlaceholder', 'Quốc gia (Nation)')}
-                    className="w-full"
-                  />
-                  <span className="text-red-500 ml-2">*</span>
-                </div>
-                {validationErrors.country && (
-                  <p className="text-red-500 text-sm mt-1">{validationErrors.country}</p>
-                )}
-              </div> 
-             {/* <span className="text-red-500 ml-2">*</span> */}
+          <div className="space-y-4 mt-4">
+            <div className="grid grid-cols-1 items-center gap-4">
+              <div className="relative w-full flex items-center">
+                <Select
+                  options={countries} // mảng bạn đã set bằng setCountries
+                  onChange={(option) => {
+                    setSelectedCountry(option);
+                    if (validationErrors.country) {
+                      setValidationErrors({ ...validationErrors, country: "" });
+                    }
+                  }}
+                  value={selectedCountry}
+                  placeholder={t('auth.countryPlaceholder', 'Quốc gia (Nation)')}
+                  className="w-full"
+                />
+                <span className="text-red-500 ml-2">*</span>
+              </div>
+              {validationErrors.country && (
+                <p className="text-red-500 text-sm mt-1">{validationErrors.country}</p>
+              )}
+            </div>
+            {/* <span className="text-red-500 ml-2">*</span> */}
           </div>
           <div className="space-y-4 mt-4">
 
@@ -367,9 +375,9 @@ export default function RegisterPage() {
                   type="text"
                   className="border p-2 rounded w-full"
                   placeholder={t('auth.accountNumberPlaceholder', 'ID - SỐ TÀI KHOẢN (ID - Account number)')}
-                    name="bank_number"
-                    value={formData.bank_number}
-                    onChange={handleInputChange}
+                  name="bank_number"
+                  value={formData.bank_number}
+                  onChange={handleInputChange}
                 />
                 <span className="text-red-500 ml-2">*</span>
               </div>
@@ -481,11 +489,10 @@ export default function RegisterPage() {
           </div>
           <div className="text-center mt-4">
             <button
-              className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${
-                isFormValid() && !isVerifying
+              className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${isFormValid() && !isVerifying
                   ? 'text-black hover:bg-gray-200'
                   : 'text-gray-400 bg-gray-100 cursor-not-allowed'
-              }`}
+                }`}
               onClick={handleNextClick}
               disabled={!isFormValid() || isVerifying}
             >
@@ -496,7 +503,7 @@ export default function RegisterPage() {
         </div>)}
         {page === 2 && (
           <div className="mt-6">
-           
+
             <button
               className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center"
               onClick={handleContractDownload}
@@ -509,7 +516,7 @@ export default function RegisterPage() {
             </button>
 
             {/* New signature upload button */}
-            <div className="grid grid-cols-1 items-center gap-4 mb-4">
+            {/* <div className="grid grid-cols-1 items-center gap-4 mb-4">
               <div className="relative w-full flex items-center">
                 <label
                   htmlFor="contract-signature-upload"
@@ -529,7 +536,7 @@ export default function RegisterPage() {
                 </label>
                 <span className="text-red-500 ml-2">*</span>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex items-start gap-2">
               <div className="flex flex-col items-center">
@@ -565,7 +572,7 @@ export default function RegisterPage() {
                   ({t('auth.term4En', 'Login incorrectly 05 times in a row will lock the account')})
                 </span>
                 <br />
-               <b>{t('auth.term5', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
+                <b>{t('auth.term5', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
                 <br />
                 <span className="text-xs text-gray-600">
                   ({t('auth.term5En', 'Automatically delete after 365 days posted')})
@@ -573,15 +580,15 @@ export default function RegisterPage() {
                 <br />
               </div>
             </div>
-                      <div className="text-center mt-4">
-            <button
-              className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
-              onClick={()=>handleRegister()}
-            >
-              {t('auth.registerTitle', 'Đăng ký')} <br />
-              <span className="text-xs text-gray-600">({t('common.register', 'Register')})</span>
-            </button>
-          </div>
+            <div className="text-center mt-4">
+              <button
+                className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
+                onClick={() => handleRegister()}
+              >
+                {t('auth.registerTitle', 'Đăng ký')} <br />
+                <span className="text-xs text-gray-600">({t('common.register', 'Register')})</span>
+              </button>
+            </div>
           </div>
         )}
       </div>

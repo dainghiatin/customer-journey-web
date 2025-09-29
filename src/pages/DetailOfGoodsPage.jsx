@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { getProductById, updateProductPriceInfo } from "../services/productService";
 import {
   Home as HomeIcon,
-  Settings as SettingsIcon,
+  KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 
 
@@ -181,7 +181,7 @@ const fetchProductDetails = async () => {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 

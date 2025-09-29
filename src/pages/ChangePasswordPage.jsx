@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePasswordAction } from "../context/action/authActions";
 import { changePassword } from "../services/authService";
 import { useTranslation } from 'react-i18next';
-import { Home as HomeIcon, Settings as SettingsIcon } from 'lucide-react';
+import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from 'lucide-react';
 
 
 export default function ChangePasswordPage() {
@@ -144,7 +144,7 @@ export default function ChangePasswordPage() {
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
-            <SettingsIcon size={28} />
+            <KeyboardIcon size={28} />
           </button>
         </div>
 
@@ -165,7 +165,7 @@ export default function ChangePasswordPage() {
             <input
               type="text"
               className="border p-2 rounded w-full"
-              placeholder={t('auth.idPlaceholder', 'CCCD / MST (ID)')}
+              placeholder={t('auth.idPlaceholder', 'TK BANK (ID)')}
               name="cccd"
               value={formData.cccd}
               onChange={handleInputChange}

@@ -139,7 +139,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 className="border p-2 rounded w-full"
-                placeholder={t('auth.idPlaceholder', 'CCCD / MST (ID)')}
+                placeholder={t('auth.idPlaceholder', 'TK BANK (ID)')}
                 value={cccd}
                 onChange={(e) => setCccd(e.target.value)}
               />
