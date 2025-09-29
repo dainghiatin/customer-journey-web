@@ -328,12 +328,21 @@ function HomePage() {
                 {isUserLoggedIn && (
                     <div className="grid-col-4" style={{}}>
                         <HeroHeader selectedLang={selectedLang} isCompact={true} />
+                        <EventFilterComponent />
                     </div>
                 )}
 
                 {/* Show HeroHeader in place of logo/table on mobile */}
-                <div className="md:hidden flex items-center justify-center flex-1 min-w-0" style={{ height: `clamp(120px, 25vw, 300px)` }}>
-                    <HeroHeader isCompact={false} />
+                <div className="md:hidden flex flex-col" style={{
+
+                    marginTop: "10px"
+                }}>
+                    <div className="flex flex-col">
+                        <HeroHeader isCompact={false} />
+                        
+                        <EventFilterComponent />
+                    </div>
+
                 </div>
             </header>
             {/* <Body /> */}
@@ -343,6 +352,7 @@ function HomePage() {
                 {!isUserLoggedIn && (
                     <div className="hidden md:block">
                         <HeroHeader isCompact={false} />
+                        <EventFilterComponent />
                     </div>
                 )}
             </div>
@@ -354,7 +364,7 @@ function HomePage() {
             {/* HeroHeader outside grid when not logged in */}
 
 
-            <EventFilterComponent />
+
             <EventComponent />
 
 

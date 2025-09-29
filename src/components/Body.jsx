@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
+import EventFilterComponent from './EventFilterComponent';
 
 import { logoutAction } from '../context/action/authActions';
 
@@ -16,13 +17,14 @@ function HeroHeader({ selectedLang, isCompact = false }) {
     const { t } = useTranslation();
 
     // Adjust font sizes based on compact mode
-    const titleFontSize = isCompact ? '2vw' : '3vw';
+    const titleFontSize = isCompact ? '20px' : '3vw';
     const subtitleFontSize = isCompact ? '1.5vw' : '2vw';
     const marginBottom = isCompact ? '2vw' : '-2vw';
-    const marginTop = isCompact ? '1vw' : '3vw';
+    const marginTop = isCompact ? '1vw' : '0vw';
 
     return (
-        <div style={{ position: "relative", marginBottom: marginBottom }}>
+        <>
+        <div style={{ position: "relative", marginBottom: "5px" }}>
             <div className="hero-title flex" style={{
                 marginTop: "0px",
                 fontWeight: "bold",
@@ -41,29 +43,32 @@ function HeroHeader({ selectedLang, isCompact = false }) {
                 </h4>
             </div>
             <aside className="main-aside-2" >
-                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '7vw', position: "absolute", top: '3.5vw', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
+                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
                     <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
                         <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
                     </div>
                 </Link>
-                <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '7vw', position: "absolute", top: '3.5vw', textAlign: "center" }}>
+                <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
                     <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
                         <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
                     </div>
                 </Link>
-                <Link to={'freelancer'} className="border-1 main-aside-2-2 w-[22vw] left-[1vw] sm:w-[14vw] sm:left-[2vw]" style={{ left: '13vw', position: "absolute", bottom: '-3vw' }}>
+                <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw' }}>
                     <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
                         <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
                         {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                     </div>
                 </Link>
-                <Link to={'payment'} className="main-aside-2-2 border-1 border-black w-[22vw] right-[1vw] sm:w-[14vw] sm:right-[2vw]" style={{ position: "absolute", bottom: "-3vw", right: '13vw' }}>
+                <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%' }}>
                     <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                         <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
                     </div>
                 </Link>
             </aside>
+            
         </div>
+        
+        </>
     )
 }
 

@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
 import { useTranslation } from 'react-i18next';
 import {
-  KeyboardIcon as KeyboardIcon,
+    KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 import { SearchSection } from './Body';
 
@@ -160,17 +160,19 @@ const CategorySelect = ({
     };
 
     return (
-        <div style={{ width: "80%", position: "relative" }}>
+        <>
             {/* Selection box */}
             <div
                 onClick={() => setOpen(!open)}
-                className='items-center'
+                className='items-center flex'
                 style={{
-                    width: "clamp(6rem, 21vw, 20rem)", padding: "5px", border: "2px solid black",
+                    border: "2px solid black",
                     textAlign: "center", cursor: "pointer",
                     backgroundColor: "transparent",
                     display: "flex", justifyContent: "space-between",
-                    fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)"
+                    fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)",
+                    flexGrow: "30%",
+                    width: "clamp(6rem, 21vw, 20rem)",
                 }}
             >
                 <div className='flex grow items-center justify-center flex-col h-12'>
@@ -208,11 +210,11 @@ const CategorySelect = ({
                     ))}
                 </ul>
             )}
-        </div>
+        </>
     );
 };
 
-function EventFilterComponent(){
+function EventFilterComponent() {
     const [category, setCategory] = useState("");
     const [subcategory, setSubcategory] = useState("");
     const [condition, setCondition] = useState("");
@@ -260,35 +262,35 @@ function EventFilterComponent(){
         }
     };
     return (
-        <section className="action-section filter-section" style={{}}>
-            <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'flex-end', 
-                gap: 4, 
-                marginBottom: 0,
-                marginRight: 20
+        <>
+            <div  style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                width: "100%",
+                marginTop: "8%",
+                alignItems: "flex-start"
             }}>
                 {/* First row: 4 buttons aligned to the right */}
-                <div className="filter-buttons-row">
-                    <CategorySelect
-                        title="DANH MỤC"
-                        items={categories}
-                        onChange={handleCategoryChange}
-                        value={category}
-                    />
-                    <CategorySelect
-                        title="Subcategories"
-                        items={subCategories}
-                        onChange={handleCategoryChange}
-                        value={subcategory}
-                    />
-                    <CategorySelect
-                        title="Conditions"
-                        items={conditions}
-                        onChange={handleCategoryChange}
-                        value={condition}
-                    />
+                <CategorySelect
+                    title="DANH MỤC"
+                    items={categories}
+                    onChange={handleCategoryChange}
+                    value={category}
+                />
+                <CategorySelect
+                    title="Subcategories"
+                    items={subCategories}
+                    onChange={handleCategoryChange}
+                    value={subcategory}
+                />
+                <CategorySelect
+                    title="Conditions"
+                    items={conditions}
+                    onChange={handleCategoryChange}
+                    value={condition}
+                />
+                <div className="">
                     <CategorySelect
                         title="Nation"
                         items={[]}
@@ -296,10 +298,7 @@ function EventFilterComponent(){
                         value={nation}
                         fetchItems={getCountries}
                     />
-                </div>
-                
-                {/* Second row: Province button aligned to the right */}
-                <div className="filter-buttons-row">
+
                     <CategorySelect
                         title="Province"
                         items={[]}
@@ -309,7 +308,11 @@ function EventFilterComponent(){
                         dependsOn={nation?.en}
                     />
                 </div>
-                
+
+
+                {/* Second row: Province button aligned to the right */}
+
+
                 {/* <CategorySelect
                     title="District"
                     items={[]}
@@ -320,7 +323,7 @@ function EventFilterComponent(){
                 /> */}
             </div>
             <SearchSection />
-        </section>
+        </>
     )
 };
 
