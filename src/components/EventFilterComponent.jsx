@@ -172,7 +172,7 @@ const CategorySelect = ({
                     display: "flex", justifyContent: "space-between",
                     fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)",
                     flexGrow: "30%",
-                    width: "clamp(6rem, 21vw, 20rem)",
+                    width: "clamp(5rem, 21vw, 20rem)",
                 }}
             >
                 <div className='flex grow items-center justify-center flex-col h-12'>
@@ -188,7 +188,7 @@ const CategorySelect = ({
             {open && (
                 <ul
                     style={{
-                        position: "absolute", width: "clamp(6rem, 21vw, 20rem)", border: "2px solid black",
+                        position: "absolute", width: "clamp(5rem, 21vw, 20rem)", border: "2px solid black",
                         background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000,
                         maxHeight: "300px", overflowY: "auto",
                     }}
