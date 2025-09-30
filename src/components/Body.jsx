@@ -17,7 +17,7 @@ function HeroHeader({ selectedLang, isCompact = false }) {
     const { t } = useTranslation();
 
     // Adjust font sizes based on compact mode
-    const titleFontSize = isCompact ? '20px' : '3vw';
+    const titleFontSize = isCompact ? '20px' : '2.5vw';
     const subtitleFontSize = isCompact ? '1.5vw' : '2vw';
     const marginBottom = isCompact ? '2vw' : '-2vw';
     const marginTop = isCompact ? '1vw' : '0vw';
