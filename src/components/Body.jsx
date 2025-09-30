@@ -95,7 +95,11 @@ const DropdownAuth = () => {
         , []);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", width: 'fit-content' }}>
+        <div style={{ display: "flex", flexDirection: "column", width: 'fit-content', 
+            marginTop: !user
+            ? "clamp(-10rem, -5rem + 5vw, 0rem)"   // khi chưa login
+            : "clamp(-10rem, 21vw, -50rem)" // khi đã login 
+            }}>
 
             {!user ? <button
                 onClick={() => { navigate('login') }}

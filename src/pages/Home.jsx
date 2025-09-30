@@ -306,7 +306,7 @@ function HomePage() {
                 </div>
 
                 <div className="!hidden md:!block grid-col-3" style={{ height: "100%" }}>
-                    <div style={{ width: "100%", height: `clamp(120px, 25vw, 190px)`, border: '1px solid' }}>
+                    <div style={{ width: "100%", height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                         {/* Conditional rendering: GlobalInfoComponent for non-logged users, CountrySpecificComponent logo for logged users */}
                         {isUserLoggedIn ? (
                             <CountrySpecificComponent userCountry={selectedLang} />
@@ -315,7 +315,7 @@ function HomePage() {
                         )}
                     </div>
                 </div>
-                <div className="!hidden md:!block grid-col-2" style={{ height: `clamp(120px, 25vw, 190px)`, border: '1px solid' }}>
+                <div className="!hidden md:!block grid-col-2" style={{ height: `clamp(120px, 25vw, 300px)`, border: '1px solid' }}>
                     {/* Conditional rendering: DataTable for non-logged users, CompanyInfoTable for logged users */}
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
@@ -326,23 +326,16 @@ function HomePage() {
 
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
-                    <div className="grid-col-4" style={{}}>
+                    <div className="!hidden md:!block grid-col-4" style={{}}>
                         <HeroHeader selectedLang={selectedLang} isCompact={true} />
                         <EventFilterComponent />
                     </div>
                 )}
 
-                {/* Show HeroHeader in place of logo/table on mobile */}
-                <div className="md:hidden flex flex-col" style={{
-
-                    marginTop: "10px"
-                }}>
-                    <div className="flex flex-col">
-                        <HeroHeader isCompact={false} />
-                        
-                        <EventFilterComponent />
-                    </div>
-
+                {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
+                <div className="md:hidden w-full flex flex-col mt-2">
+                    <HeroHeader selectedLang={selectedLang} isCompact={false} />
+                    <EventFilterComponent />
                 </div>
             </header>
             {/* <Body /> */}
