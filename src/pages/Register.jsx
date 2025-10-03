@@ -187,11 +187,10 @@ export default function RegisterPage() {
 
   const handleRegister = async () => {
     console.log("formData: ", formData);
-    console.log(signature);
 
     try {
-      const uploadToCloudinaryResp = await uploadImageToCloudinary(signature);
-      console.log(uploadToCloudinaryResp);
+       const uploadToCloudinaryResp = "https://res.cloudinary.com/demo/image/upload/v1692323522/sample.jpg";
+      // console.log(uploadToCloudinaryResp);
 
       const { username, cccd } = formData;
       // Sinh mật khẩu ngẫu nhiên
