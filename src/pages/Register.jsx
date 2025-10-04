@@ -82,6 +82,32 @@ export default function RegisterPage() {
     fetchCountries();
   }, [color]);
 
+  // Add recovery character validation state
+  const [recoveryCharacterValidation, setRecoveryCharacterValidation] = useState({
+    hasUppercase: false,
+    hasLowercase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+    isValid: false
+  });
+
+  // Recovery character validation function
+  const validateRecoveryCharacter = (recoveryChar) => {
+    const hasUppercase = /[A-Z]/.test(recoveryChar);
+    const hasLowercase = /[a-z]/.test(recoveryChar);
+    const hasNumber = /\d/.test(recoveryChar);
+    const hasSpecialChar = /[@$!%*?&]/.test(recoveryChar);
+    const isValid = hasUppercase && hasLowercase && hasNumber && hasSpecialChar && recoveryChar.length >= 6;
+
+    return {
+      hasUppercase,
+      hasLowercase,
+      hasNumber,
+      hasSpecialChar,
+      isValid
+    };
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -96,6 +122,24 @@ export default function RegisterPage() {
     // Clear validation errors when user starts typing
     if (validationErrors[name]) {
       setValidationErrors({ ...validationErrors, [name]: "" });
+    }
+
+    // Validate recovery character with password-like requirements
+    if (name === "recovery_character") {
+      const validation = validateRecoveryCharacter(value);
+      setRecoveryCharacterValidation(validation);
+      // Check if recovery character meets requirements
+      if (!validation.isValid) {
+        setValidationErrors(prev => ({
+          ...prev,
+          recovery_character: t('auth.recoveryCharacterValidation.invalidRecoveryCharacter', 'Ký tự khôi phục phải chứa ít nhất 1 chữ in hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt (@$!%*?&)')
+        }));
+      } else {
+        setValidationErrors(prev => ({
+          ...prev,
+          recovery_character: ""
+        }));
+      }
     }
 
     // Validate recovery character matching
@@ -125,6 +169,8 @@ export default function RegisterPage() {
       errors.bank_name = t('auth.bankRequired', 'Vui lòng chọn ngân hàng');
     }
 
+    
+
     // Check if recovery characters match
     if (formData.recovery_character && formData.repeat_recovery_character &&
       formData.recovery_character !== formData.repeat_recovery_character) {
@@ -152,6 +198,11 @@ export default function RegisterPage() {
   const isFormValid = () => {
     // Check if bank is selected
     if (!formData.bank_name) return false;
+
+    // Check if recovery character meets requirements
+    
+    // Check if recovery character meets requirements
+    if (!recoveryCharacterValidation.isValid && formData.recovery_character) return false;
 
     // Check if recovery characters match
     if (formData.recovery_character && formData.repeat_recovery_character &&
@@ -373,7 +424,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.accountNumberPlaceholder', 'ID - SỐ TÀI KHOẢN (ID - Account number)')}
+                  placeholder={t('auth.accountNumberPlaceholder', 'ID = SỐ TÀI KHOẢN NGÂN HÀNG')}
                   name="bank_number"
                   value={formData.bank_number}
                   onChange={handleInputChange}

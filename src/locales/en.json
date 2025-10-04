@@ -30,7 +30,8 @@
     "map": "Map",
     "home": "HOME",
     "bdk": "BDK",
-    "no_notifications": "No notifications"
+    "no_notifications": "No notifications",
+    "notifications": "Notifications"
    },
   "aiLive": {
     "avatar": "AVATAR",
@@ -143,7 +144,7 @@
     "referrerIdPlaceholder": "REFERRER BANK NUMBER (Introducing from ID)",
     "uploadSignature": "UPLOAD SIGNATURE",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "MEMBER ID - ACCOUNT NUMBER",
+    "accountNumberPlaceholder": "BANK NUMBER (ID)",
     "selectBankPlaceholder": "Select Bank (With bank)",
     "qrTitle": "LOGIN QR CODE",
     "qrError": "Could not get QR code, please try again",
@@ -250,7 +251,7 @@
      "referrerIdPlaceholder": "REFERRER BANK NUMBER (Introducing from ID)",
      "uploadSignature": "UPLOAD SIGNATURE",
      "uploadSignatureEn": "Upload your signature",
-     "accountNumberPlaceholder": "MEMBER ID - ACCOUNT NUMBER (Account number)",
+     "accountNumberPlaceholder": "BANK NUMBER (ID)",
      "selectBankPlaceholder": "Select bank (With bank)",
      "addressPlaceholder": "RECEIVE GOODS'S ADDRESS - NUMBER (Number) * (Receive goods's address)",
      "pinLocation": "PIN LOCATION",

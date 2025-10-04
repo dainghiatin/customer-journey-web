@@ -7,11 +7,28 @@ export const getCountries = async () => {
       throw new Error("Network response was not ok");
     }
     const countries = await response.json();
-    return countries.map(country => ({
+
+    const priorityCodes = ["VN", "US"];
+
+    const reordered = countries.sort((a, b) => {
+      const aPriority = priorityCodes.indexOf(a.cca2);
+      const bPriority = priorityCodes.indexOf(b.cca2);
+
+      // 🔹 1. Prioritize VN, US
+      if (aPriority !== -1 && bPriority !== -1) return aPriority - bPriority;
+      if (aPriority !== -1) return -1;
+      if (bPriority !== -1) return 1;
+
+      // 🔹 2. Then sort alphabetically by name.common
+      return a.name.common.localeCompare(b.name.common, "en", { sensitivity: "base" });
+    });
+
+    return reordered.map(country => ({
       vi: country.name.common,
       en: country.name.common,
       flag: country.flags.svg
     }));
+
   } catch (error) {
     console.error("Error fetching countries:", error);
     return [];

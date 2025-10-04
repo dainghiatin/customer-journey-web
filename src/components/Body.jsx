@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
@@ -12,6 +12,10 @@ import { useTranslation } from 'react-i18next';
 import {
     KeyboardIcon,
 } from "lucide-react";
+import { uploadImageToCloudinary } from '../services/cloudinary';
+import { updateAvatar } from '../services/authService';
+
+
 
 function HeroHeader({ selectedLang, isCompact = false }) {
     const { t } = useTranslation();
@@ -24,50 +28,50 @@ function HeroHeader({ selectedLang, isCompact = false }) {
 
     return (
         <>
-        <div style={{ position: "relative", marginBottom: "5px" }}>
-            <div className="hero-title flex" style={{
-                marginTop: "0px",
-                fontWeight: "bold",
+            <div style={{ position: "relative", marginBottom: "5px" }}>
+                <div className="hero-title flex" style={{
+                    marginTop: "0px",
+                    fontWeight: "bold",
 
-            }}>
-                <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
-                <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
-            </div>
-            <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold" }}>
-                <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
-                <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
-                    <em>
-                        ({t('hero.subtitleEn', 'Target: National V-Commercial')})
-                    </em>
+                }}>
+                    <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
+                    <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                </div>
+                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold" }}>
+                    <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
+                    <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
+                        <em>
+                            ({t('hero.subtitleEn', 'Target: National V-Commercial')})
+                        </em>
 
-                </h4>
+                    </h4>
+                </div>
+                <aside className="main-aside-2" >
+                    <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
+                            <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
+                        </div>
+                    </Link>
+                    <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                            <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
+                        </div>
+                    </Link>
+                    <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw' }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
+                            <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
+                            {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
+                        </div>
+                    </Link>
+                    <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%' }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                            <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
+                        </div>
+                    </Link>
+                </aside>
+
             </div>
-            <aside className="main-aside-2" >
-                <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
-                    <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
-                        <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
-                    </div>
-                </Link>
-                <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
-                    <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
-                        <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
-                    </div>
-                </Link>
-                <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw' }}>
-                    <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
-                        <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
-                        {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
-                    </div>
-                </Link>
-                <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%' }}>
-                    <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                        <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
-                    </div>
-                </Link>
-            </aside>
-            
-        </div>
-        
+
         </>
     )
 }
@@ -84,6 +88,77 @@ const DropdownAuth = () => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
 
+    const [previewImage, setPreviewImage] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const fileInputRef = useRef(null);
+
+    const handleAvatarClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files?.[0];
+        
+        if (!file) return;
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file');
+            return;
+        }
+
+        // Validate file size (e.g., max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size should be less than 5MB');
+            return;
+        }
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+
+        // Upload to server
+        await uploadAvatar(file);
+    };
+
+    const uploadAvatar = async (file) => {
+        try {
+            setUploading(true);
+            const token = localStorage.getItem("authToken");
+            
+            const formData = new FormData();
+            formData.append('avatar', file);
+            const rs = await uploadImageToCloudinary(file);
+            console.log(rs);
+
+            const response = await updateAvatar(rs);
+            console.log(response, response.data);
+            // const response = await axios.post(
+            //     `${API_URL}/auth/upload-avatar`,
+            //     formData,
+            //     {
+            //         headers: {
+            //             Authorization: `Bearer ${token}`,
+            //             'Content-Type': 'multipart/form-data',
+            //         },
+            //     }
+            // );
+
+            // Update auth context with new avatar
+            // auth.updateUser({ avt: response.data.avatar });
+            
+            alert('Avatar updated successfully!');
+        } catch (error) {
+            console.error('Avatar upload error:', error);
+            alert(error.response?.data?.message || 'Failed to upload avatar');
+        } finally {
+            setUploading(false);
+        }
+    };
+
     const DEFAULT_AVT = 'https://th.bing.com/th/id/OIP.aqzvZTh44zgk38UdpdE1KQHaHa?rs=1&pid=ImgDetMain';
     // const [password, setPassword] = useState(null);
     useEffect(() => {
@@ -95,11 +170,12 @@ const DropdownAuth = () => {
         , []);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", width: 'fit-content', 
+        <div style={{
+            display: "flex", flexDirection: "column", width: 'fit-content',
             marginTop: !user
-            ? "clamp(-10rem, -5rem + 5vw, 0rem)"   // khi chưa login
-            : "clamp(-10rem, 21vw, -50rem)" // khi đã login 
-            }}>
+                ? "clamp(-10rem, -5rem + 5vw, 0rem)"   // khi chưa login
+                : "clamp(-10rem, 21vw, -50rem)" // khi đã login 
+        }}>
 
             {!user ? <button
                 onClick={() => { navigate('login') }}
@@ -111,10 +187,16 @@ const DropdownAuth = () => {
 
                     className='flex flex-col items-center justify-center'
                     style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw", justifyContent: "center", alignItems: "center", display: "flex" }}
-                >
+                ><input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                    />
                     {/* Avartar */}
                     {/* <div className='lowercase' style={{ fontSize: "clamp(10px, 1vw, 20px)", fontStyle: 'italic' }}>(LOGIN)</div> */}
-                    <button onClick={() => { navigate('login') }}>
+                    <button onClick={handleAvatarClick}>
                         <img src={auth.user?.avt?.url || DEFAULT_AVT} alt="Avatar" style={{ borderRadius: '50%', height: "clamp(20px, 3vw, 50px)", aspectRatio: 1, }} />
                     </button>
 

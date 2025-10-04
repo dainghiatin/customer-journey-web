@@ -8,10 +8,10 @@ const login = async (cccd, password) => {
     const response = await axios.post(
         `${API_URL}/auth/login`,
         {
-          "cccd": cccd,
-          "password": password
+            "cccd": cccd,
+            "password": password
         }
-      );
+    );
     return response;
 };
 
@@ -19,11 +19,11 @@ const getMe = async (token) => {
     const response = await axios.get(
         `${API_URL}/auth/me`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }
-      );
+    );
     return response;
 }
 
@@ -103,4 +103,73 @@ const generateQrSession = async (deviceInfo, ipAddress = null) => {
     }
 };
 
-export { login, getMe, changePassword, verifyBankNumber, generateQrSession };
+const generateQrSessionInfo = async () => {
+    try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+            alert("Please login first");
+            return null;
+        }
+
+        const response = await axios.post(
+            `${API_URL}/auth/generate-qr-info`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        if (error.response) {
+            throw new Error(error.response.data?.error?.message || "QR generation failed");
+        } else if (error.request) {
+            throw new Error("No response from server");
+        } else {
+            throw new Error("Error setting up QR generate request");
+        }
+    }
+};
+
+/**
+ * Update user information
+ * @param {string} token - User's authentication token
+ * @param {Object} userData - User data to update
+ * @returns {Promise<Object>} - The response from the API
+ */
+const updateUser = async (token, userData) => {
+    const response = await axios.put(
+        `${API_URL}/auth/update`,
+        userData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+    return response;
+};
+
+const updateAvatar = async (avatarUrl) => {
+    const token = await localStorage.getItem("authToken");
+    if (!token) {
+        alert("Please login first");
+        return null;
+    }
+    const response = await axios.put(
+        `${API_URL}/auth/update`,
+        { avt: avatarUrl },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+    return response;
+};
+export { login, getMe, changePassword, verifyBankNumber, generateQrSession, generateQrSessionInfo
+    , updateUser, updateAvatar
+ };

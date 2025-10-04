@@ -24,7 +24,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // Thêm import cho QR
 import axios from "axios";
-import { generateQrSession } from "../services/authService";
+import { generateQrSessionInfo } from "../services/authService";
 import _default from "react-select";
 const CustomPointer = () => (
     <div style={{ inset: 0, display: "none", borderRadius: "100%", position: "absolute", background: "rgb(180, 80, 230)", width: 10, height: 10 }}></div>
@@ -145,17 +145,9 @@ function HomePage() {
             setQrError("");
             setQrDataUrl(null);
 
-            const deviceInfo = navigator.userAgent || 'unknown';
-            let ipAddress = '';
-            try {
-                const ipRes = await axios.get('https://api.ipify.org?format=json');
-                ipAddress = ipRes.data?.ip || '';
-            } catch (ipErr) {
-                // Không chặn flow nếu không lấy được IP
-                ipAddress = '';
-            }
+           
 
-            const response = await generateQrSession(deviceInfo, ipAddress);
+            const response = await generateQrSessionInfo();
             const qrCode = response.data?.qrCode;
             if (qrCode) {
                 setQrDataUrl(qrCode);
@@ -278,6 +270,7 @@ function HomePage() {
                     </button>
                     {isOpen && (
                         <div ref={dropdownRef} className="absolute left w-50 bg-white shadow-lg rounded-md z-50 border border-gray-200">
+                            <h6 className="text-sm px-1 font-bold">{t('common.notifications')}</h6>
                             <div className="px-1">
                                 <ul className="max-h-50 overflow-y-auto">
                                     {notifications.length > 0 ? (

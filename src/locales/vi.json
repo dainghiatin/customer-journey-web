@@ -30,7 +30,8 @@
     "accept": "Accept",
     "home": "HOME",
     "bdk": "BĐK",
-    "no_notifications": "Chưa có thông báo mới"
+    "no_notifications": "Chưa có thông báo mới",
+    "notifications": "Thông báo"
    },
   "hero": {
     "mainTitle": "CÔNG BẰNG LỚN - UY TÍN LỚN",
@@ -61,7 +62,7 @@
     "referrerIdPlaceholder": "TK BANK NGƯỜI GIỚI THIỆU (Introducing from ID)",
     "uploadSignature": "TẢI CHỮ KÝ",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "ID THÀNH VIÊN - SỐ TÀI KHOẢN (ID - Account number)",
+    "accountNumberPlaceholder": "ID = STK NGAN HANG",
     "selectBankPlaceholder": "Chọn ngân hàng (With bank)",
     "qrTitle": "MÃ QR ĐĂNG NHẬP",
     "qrError": "Không lấy được mã QR, vui lòng thử lại",
@@ -282,7 +283,7 @@
     "referrerIdPlaceholder": "TK BANK NGƯỜI GIỚI THIỆU (Introducing from ID)",
     "uploadSignature": "TẢI CHỮ KÝ",
     "uploadSignatureEn": "Upload your signature",
-    "accountNumberPlaceholder": "ID THÀNH VIÊN - SỐ TÀI KHOẢN (ID - Account number)",
+    "accountNumberPlaceholder": "ID = STK NGAN HANG",
     "selectBankPlaceholder": "Chọn ngân hàng (With bank)",
     "addressPlaceholder": "ĐỊA CHỈ NHẬN HÀNG - SỐ NHÀ (Number) * (Receive goods's address)",
     "pinLocation": "GHIM VỊ TRÍ",
