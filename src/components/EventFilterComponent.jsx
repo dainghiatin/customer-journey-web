@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
 
-import { logoutAction } from '../context/action/authActions';
+import { CHANGE_USER_COUNTRY } from '../context/action/filterAction';
+
+
 
 import Select from 'react-select';
 import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
@@ -228,6 +230,7 @@ function EventFilterComponent() {
 
     });
     const [district, setDistrict] = useState("");
+    const dispatch = useDispatch();
 
     useEffect(() => {
         localStorage.setItem("category", category?.en);
@@ -236,6 +239,7 @@ function EventFilterComponent() {
         localStorage.setItem("nation", nation?.en);
         localStorage.setItem("province", province?.en);
         localStorage.setItem("district", district?.en);
+        dispatch({ type: CHANGE_USER_COUNTRY, payload: nation?.en });
     }, [category, subcategory, condition, nation, province, district]);
     const handleCategoryChange = (title, item) => {
         switch (title) {

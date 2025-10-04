@@ -17,8 +17,9 @@ import { updateAvatar } from '../services/authService';
 
 
 
-function HeroHeader({ selectedLang, isCompact = false }) {
+function HeroHeader({ selectedLang, isCompact = false , userCountry }) {
     const { t } = useTranslation();
+    const nation = useSelector(state => state.filter.nation);
 
     // Adjust font sizes based on compact mode
     const titleFontSize = isCompact ? '20px' : '2.5vw';
@@ -41,7 +42,7 @@ function HeroHeader({ selectedLang, isCompact = false }) {
                     <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                     <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
                         <em>
-                            ({t('hero.subtitleEn', 'Target: National V-Commercial')})
+                            Target: National {nation?.charAt(0)}-Commercial
                         </em>
 
                     </h4>

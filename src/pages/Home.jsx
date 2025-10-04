@@ -111,6 +111,14 @@ function HomePage() {
     const [isQrLoading, setIsQrLoading] = useState(false);
     const [qrError, setQrError] = useState("");
     const [qrDataUrl, setQrDataUrl] = useState(null);
+    const [userCountry, setUserCountry] = useState('Vietnam');
+
+    useEffect(() => {
+        if (user?.country) {
+            setUserCountry(user.country);
+        }
+    }, []);
+
     useEffect(() => {
         const token = localStorage.getItem("authToken");
         setAuthToken(token);
@@ -320,7 +328,7 @@ function HomePage() {
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
                     <div className="!hidden md:!block grid-col-4" style={{}}>
-                        <HeroHeader selectedLang={selectedLang} isCompact={true} />
+                        <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
                         <EventFilterComponent />
                     </div>
                 )}
