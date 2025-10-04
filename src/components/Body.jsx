@@ -47,13 +47,13 @@ function HeroHeader({ selectedLang, isCompact = false }) {
                     </h4>
                 </div>
                 <aside className="main-aside-2" >
-                    <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(10px, 1.5vw, 30px)" }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
+                    <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
                             <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
                         </div>
                     </Link>
-                    <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                    <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
                             <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
                         </div>
                     </Link>
@@ -98,7 +98,7 @@ const DropdownAuth = () => {
 
     const handleFileChange = async (event) => {
         const file = event.target.files?.[0];
-        
+
         if (!file) return;
 
         // Validate file type
@@ -128,7 +128,7 @@ const DropdownAuth = () => {
         try {
             setUploading(true);
             const token = localStorage.getItem("authToken");
-            
+
             const formData = new FormData();
             formData.append('avatar', file);
             const rs = await uploadImageToCloudinary(file);
@@ -149,7 +149,7 @@ const DropdownAuth = () => {
 
             // Update auth context with new avatar
             // auth.updateUser({ avt: response.data.avatar });
-            
+
             alert('Avatar updated successfully!');
         } catch (error) {
             console.error('Avatar upload error:', error);
