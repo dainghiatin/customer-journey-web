@@ -69,7 +69,7 @@ export default function ListOfGoodsPage() {
   const fetchProducts = async () => {
       try {
         //setLoading(true);
-        const response = await filterProducts(filters, currentPage, 25, null, true);
+        const response = await filterProducts(filters, currentPage, 10, null, true);
         setProducts(response.data.data || []);
         setTotalPages(response.data.meta.pagination.pageCount);
         setCurrentPage(response.data.meta.pagination.page);
@@ -101,7 +101,7 @@ export default function ListOfGoodsPage() {
 
   // Categories data
   const categories = {
-    "SALE": { vi: "HÀNG BÁN", en: "Sale" },
+    "SALE": { vi: "HÀNG BÁN", en: "Sell" },
     "BUY": { vi: "CẦN MUA", en: "Buy" },
     "RENT": { vi: "HÀNG THUÊ", en: "Rent" },
     "FOR_RENT": { vi: "CHO THUÊ", en: "For rent" },
@@ -162,7 +162,7 @@ export default function ListOfGoodsPage() {
 
         <div className="mt-6">
           {/* Updated to 4-column grid */}
-          <div className="grid grid-cols-4 gap-0 border-2 border-black">
+          <div className="grid grid-cols-5 gap-0 border-2 border-black">
             {/* Column 1 - Categories */}
             <div className="border-r-2 border-black p-2 flex items-center justify-center">
               <select 
@@ -210,19 +210,45 @@ export default function ListOfGoodsPage() {
                 ))}
               </select>
             </div>
+
+            {/* Column 4 - Country */}
+            <div className="border-r-2 border-black p-2 flex items-center justify-center">
+              <select 
+                className="w-full p-2 border border-gray-300 my-4"
+                value={selectedCountry}
+                onChange={(e) => {
+                  setSelectedCountry(e.target.value);
+                  // Reset province when country changes
+                  setSelectedProvince('');
+                  // Update filters
+                  setFilters(prev => ({
+                    ...prev,
+                    country: e.target.value,
+                    province: ''
+                  }));
+                }}
+              >
+                <option value="">{t('goods.selectCountry', 'Chọn quốc gia')}</option>
+                <option value="Vietnam">{t('goods.vietnam', 'Việt Nam')} ({t('goods.vietnamEn', 'Vietnam')})</option>
+                <option value="USA">{t('goods.usa', 'Hoa Kỳ')} ({t('goods.usaEn', 'USA')})</option>
+                <option value="China">{t('goods.china', 'Trung Quốc')} ({t('goods.chinaEn', 'China')})</option>
+                <option value="Japan">{t('goods.japan', 'Nhật Bản')} ({t('goods.japanEn', 'Japan')})</option>
+                <option value="Korea">{t('goods.korea', 'Hàn Quốc')} ({t('goods.koreaEn', 'Korea')})</option>
+              </select>
+            </div>
             
-            {/* Column 4 - All and Filters */}
+            {/* Column 5 - All and Filters */}
             <div className="border-r-2 border-black p-2 flex items-center justify-center">
             <select className="w-full p-2 border border-gray-300 my-4">
                     <option value="">{t('goods.all', 'TẤT CẢ')} ({t('goods.allEn', 'All')})</option>
                     <option value="">{t('goods.selectProvince', 'Chọn tỉnh')} ({t('goods.selectProvinceEn', 'Select province')})</option>
-                    <option value="">{t('goods.selectCountry', 'Chọn nước')} ({t('goods.selectCountryEn', 'Select country')})</option>
+                    <option value="">TPHCM</option>
                   </select>
             </div>
           </div>
           
           {/* Search section */}
-          <div className="mt-2 p-2 border-2 border-black bg-yellow-200">
+          <div className="mt-2 p-2 border-2 border-black">
             <div className="flex items-center">
               <div className="font-bold mr-4">1. {t('goods.search', 'TÌM KIẾM')} <i>({t('goods.searchEn', 'search')})</i>:</div>
               <input 
