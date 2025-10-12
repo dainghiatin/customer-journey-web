@@ -69,9 +69,20 @@ export default function NewFreelancerPostPage() {
               <h3 className="font-bold text-lg">CÔNG VIỆC TỰ DO</h3>
               <p className="text-sm italic">(Freelancer)</p>
             </div>
-            
+            <div className="text-center p-4 border-b border-gray-300">
+              <h3 className="font-bold text-lg">TÀI KHOẢN CÔNG VIỆC TỰ DO</h3>
+              <p className="text-sm italic">(Account of Freelancer)</p>
+            </div>
             {/* Two columns layout */}
             <div className="grid grid-cols-2">
+              {/* Column 2 - TRỰC TUYẾN */}
+              <div 
+                className={`p-4 text-center cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
+                onClick={() => setActiveTab("online")}
+              >
+                <h3 className="font-bold text-blue-500">TRỰC TUYẾN</h3>
+                <p className="text-sm italic text-blue-500">(Online)</p>
+              </div>
               {/* Column 1 - THỰC TẾ */}
               <div 
                 className={`border-r border-gray-300 p-4 text-center cursor-pointer ${activeTab === "direct" ? "bg-orange-100" : ""}`}
@@ -81,14 +92,7 @@ export default function NewFreelancerPostPage() {
                 <p className="text-sm italic text-orange-500">(Actual)</p>
               </div>
 
-              {/* Column 2 - TRỰC TUYẾN */}
-              <div 
-                className={`p-4 text-center cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
-                onClick={() => setActiveTab("online")}
-              >
-                <h3 className="font-bold text-blue-500">TRỰC TUYẾN</h3>
-                <p className="text-sm italic text-blue-500">(Online)</p>
-              </div>
+
             </div>
           </div>
         </div>
