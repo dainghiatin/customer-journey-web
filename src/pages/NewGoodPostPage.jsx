@@ -18,6 +18,37 @@ export default function NewGoodPostPage() {
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [goodsItems, setGoodsItems] = useState([
+    {
+      id: 1,
+      name: "",
+      model: "",
+      size: "",
+      color: "",
+      image: null,
+      // New extended fields
+      qualityInfoFile: null,
+      warrantyChangeDays: "",
+      warrantyRepairDays: "",
+      repairWarrantyRetentionPercent: "",
+      maxDeliveryDaysAfterAcceptance: "",
+      handoverLocation: "",
+      contractDurationMultiplicity: "",
+      contractDurationUnit: "",
+      directPayment: "",
+      depositRequirementDirect: "",
+      paymentViaWallet: "",
+      depositRequirementWallet: "",
+      vat: "",
+      quantityMinimum: "",
+      unit: "",
+      unitMarketPrice: "",
+      unitAskingPrice: "",
+      amountDesired: "",
+      autoAcceptPrice: ""
+    }
+  ]);
+  
   const [goodsInfo, setGoodsInfo] = useState({
     name: "",
     model: "",
@@ -81,6 +112,48 @@ export default function NewGoodPostPage() {
     const token = localStorage.getItem("authToken");
     setUser(token);
   }, [color]);
+
+  const handleAddGoodsItem = () => {
+    setGoodsItems([
+      ...goodsItems,
+      {
+        id: goodsItems.length + 1,
+        name: "",
+        model: "",
+        size: "",
+        color: "",
+        image: null,
+        // New extended fields
+        qualityInfoFile: null,
+        warrantyChangeDays: "",
+        warrantyRepairDays: "",
+        repairWarrantyRetentionPercent: "",
+        maxDeliveryDaysAfterAcceptance: "",
+        handoverLocation: "",
+        contractDurationMultiplicity: "",
+        contractDurationUnit: "",
+        directPayment: "",
+        depositRequirementDirect: "",
+        paymentViaWallet: "",
+        depositRequirementWallet: "",
+        vat: "",
+        quantityMinimum: "",
+        unit: "",
+        unitMarketPrice: "",
+        unitAskingPrice: "",
+        amountDesired: "",
+        autoAcceptPrice: ""
+      }
+    ]);
+  };
+
+  const handleGoodsItemChange = (id, field, value) => {
+    setGoodsItems(
+      goodsItems.map(item => 
+        item.id === id ? { ...item, [field]: value } : item
+      )
+    );
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -165,210 +238,536 @@ export default function NewGoodPostPage() {
         <div className="mt-6">
           <form onSubmit={handleSubmit} className="border border-gray-300">
             {/* Top Categories Section */}
-            <div className="grid grid-cols-1">
-              <div className="border-b border-gray-300 p-2">
+            <div className="grid grid-cols-3">
+              <div className="border p-2 bg-blue-500 text-white">
                 <div className="font-bold text-center">HÀNG HÓA<br/><span className="text-sm font-normal italic">(Goods)</span></div>
               </div>
+              <div className="border p-2">
+                <div className="font-bold text-center" onClick={()=>navigate("/new-freelancer-post")}>CÔNG VIỆC TỰ DO<br/><span className="text-sm font-normal italic">(Freelancer)</span></div>
+              </div>
+              <div className="p-2 border">
+                <div className="font-bold text-center" onClick={()=>navigate("/new-ai-live-post")}>Ai LIVE</div>
+              </div>
             </div>
+            
+            {/* TÀI KHOẢN HÀNG HÓA Section */}
+             <div className="grid grid-cols-5 border-b border-gray-300">
+               <div className="border-r border-gray-300 p-2">
+                 <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <input 
+                   type="number" 
+                   name="exchangeRate" 
+                   className="w-full border border-gray-300 p-1 mt-1" 
+                   defaultValue="1"
+                   onChange={(e) => {
+                     const value = parseFloat(e.target.value) || 1;
+                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                     document.getElementById('calculatedValue').value = calculatedValue;
+                   }}
+                 />
+                 <div className="font-bold">1</div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <div className="font-bold  p-1 mt-1">VN</div>
+                 <div className="mt-1 flex items-center justify-center">
+                   <span className="mr-2">D|</span>
+                 </div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <input 
+                   type="number" 
+                   name="exchangeRate" 
+                   className="w-full border border-gray-300 p-1 mt-1" 
+                   defaultValue="1"
+                   onChange={(e) => {
+                     const value = parseFloat(e.target.value) || 1;
+                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                     document.getElementById('calculatedValue').value = calculatedValue;
+                   }}
+                 />
+                 <div className="font-bold">1</div>
+               </div>
+               <div className="p-2 text-center">
+                 <div className="font-bold">CHUYỂN VỀ VÍ</div>
+                 <div className="text-sm italic text-center">(Transfer to wallet)</div>
+                 <button 
+                   type="button" 
+                   className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                 >
+                   Chuyển
+                 </button>
+               </div>
+             </div>
               
-            {/* Category Selection Row */}
-            <div className="grid grid-cols-5 border-b border-gray-300">
-              <div className="border-r border-gray-300 p-2">
-                <div className="text-center">
-                  <select className="w-full border border-gray-300 p-1">
-                    <option value="">HÀNG BÁN (Sale)</option>
-                    <option value="">CẦN MUA (Buy)</option>
-                    <option value="">HÀNG THUÊ (Rent)</option>
-                    <option value="">CHO THUÊ (For rent)</option>
-                    <option value="">DỊCH VỤ (Service)</option>
-                  </select>
-                </div>
-              </div>
-              <div className="border-r border-gray-300 p-2">
-                <div className="text-center">
-                  <select className="w-full border border-gray-300 p-1">
-                    <option value="">HÀNG HÓA (Goods)</option>
-                    <option value="">BẤT ĐỘNG SẢN (Land, house)</option>
-                    <option value="">PHƯƠNG TIỆN (Vehicle)</option>
-                    <option value="">NHÂN LỰC (Manpower)</option>
-                    <option value="">XUẤT - NHẬP KHẨU (Import - Export)</option>
-                  </select>
-                </div>
-              </div>
-              <div className="border-r border-gray-300 p-2">
-                <div className="text-center">
-                  <select className="w-full border border-gray-300 p-1">
-                    <option value="">PHẾ LIỆU (Scrap)</option>
-                    <option value="">MỚI (New)</option>
-                    <option value="">CŨ (Old)</option>
-                    <option value="">CHƯA SỬ DỤNG (Unused)</option>
-                  </select>
-                </div>
-              </div>
-              <div className="p-2">
-                <div className="text-center">
-                  <select className="w-full border border-gray-300 p-1 mb-2">
-                    <option value="">QUỐC GIA (Nation)</option>
-                    <option value="">VN</option>
-                    <option value="">USA</option>
-                  </select>
-                </div>
-              </div>
-              <div className="p-2">
-                <div className="text-center">
-                  <select className="w-full border border-gray-300 p-1 mb-2">
-                    <option value="">TẤT CẢ (All)</option>
-                    <option value="">Chọn tỉnh (Select province)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+
               
             {/* Numbered rows section */}
             <div className="grid grid-cols-1">
-              {/* Row 1 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
+              <div className="grid grid-cols-17 border-b border-gray-300">
+                <div className="col-span-1 border-r border-gray-300 p-2 text-center w-full flex items-center justify-center">
                   <span className="font-bold">1</span>
                 </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-6">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>SỐ THỨ TỰ<br/><span className="text-xs italic">(#)</span></div>
-                      <div className="text-xs">(Rank)</div>
+                <div className="col-span-16">
+                  {/* Category Selection Row 1 */}
+                  <div className="grid grid-cols-4 border-b border-gray-300">
+                    <div className="border-r border-gray-300 p-2">
+                      <div className="text-center">
+                        <select className="w-full border border-gray-300 p-1">
+                          <option value="">HÀNG BÁN (Sale)</option>
+                          <option value="">CẦN MUA (Buy)</option>
+                          <option value="">HÀNG THUÊ (Rent)</option>
+                          <option value="">CHO THUÊ (For rent)</option>
+                          <option value="">DỊCH VỤ (Service)</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>TÊN HÀNG HÓA<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Name of goods)</div>
-                      <input type="text" name="name" value={goodsInfo.name} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
+                    <div className="border-r border-gray-300 p-2">
+                      <div className="text-center">
+                        <select className="w-full border border-gray-300 p-1">
+                          <option value="">HÀNG HÓA (Goods)</option>
+                          <option value="">BẤT ĐỘNG SẢN (Land, house)</option>
+                          <option value="">PHƯƠNG TIỆN (Vehicle)</option>
+                          <option value="">NHÂN LỰC (Manpower)</option>
+                          <option value="">XUẤT - NHẬP KHẨU (Import - Export)</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>MÃ SỐ<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Model)</div>
-                      <input type="text" name="model" value={goodsInfo.model} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
+                    <div className="border-r border-gray-300 p-2">
+                      <div className="text-center">
+                        <select className="w-full border border-gray-300 p-1">
+                          <option value="">PHẾ LIỆU (Scrap)</option>
+                          <option value="">MỚI (New)</option>
+                          <option value="">CŨ (Old)</option>
+                          <option value="">CHƯA SỬ DỤNG (Unused)</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>KÍCH THƯỚC<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Size)</div>
-                      <input type="text" name="size" value={goodsInfo.size} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>MÀU SẮC<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Color)</div>
-                      <input type="text" name="color" value={goodsInfo.color} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="p-2 text-center">
-                      <div>HÌNH ẢNH<br/><span className="text-xs italic">(tải lên)</span></div>
-                      <div className="text-xs">(Image)</div>
-                      <input type="file" className="w-full p-1 mt-1 text-xs" />
+                    <div className="p-2">
+                      <div className="text-center">
+                        <select className="w-full border border-gray-300 p-1 mb-2">
+                          <option value="">QUỐC GIA (Nation)</option>
+                          <option value="">VN</option>
+                          <option value="">USA</option>
+                        </select>
+                      </div><div className="text-center">
+                        <select className="w-full border border-gray-300 p-1 mb-2">
+                          <option value="">TẤT CẢ (All)</option>
+                          <option value="">Chọn tỉnh (Select province)</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
               {/* Row 2 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
+              <div className="grid grid-cols-17 border-b border-gray-300">
+                <div className="col-span-1 border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
                   <span className="font-bold">2</span>
                 </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-7">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>CHẤT LƯỢNG:<br/><span className="text-xs italic">(Quality)</span></div>
-                      <div className="text-xs">TẢI FILE KIỂM ĐỊNH, PHÂN TÍCH CHẤT LƯỢNG, HÓA ĐƠN HÀNG HÓA, HỢP ĐỒNG</div>
-                      <div className="text-xs">(Upload: CO, CQ, invoice, contract, inspection file)</div>
-                      <input type="file" className="w-full p-1 mt-1 text-xs" />
+                <div className="col-span-16">
+                  <div className="overflow-x-auto">
+                    {/* Header columns with horizontal scroll */}
+                    <div className="grid grid-flow-col auto-cols-[220px]">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>SỐ THỨ TỰ</div>
+                        <div className="text-xs">(#)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>TÊN HÀNG HÓA</div>
+                        <div className="text-xs">(Name of goods)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>MÃ SỐ</div>
+                        <div className="text-xs">(Model)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>KÍCH THƯỚC</div>
+                        <div className="text-xs">(Size)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>MÀU SẮC</div>
+                        <div className="text-xs">(Color)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>HÌNH ẢNH</div>
+                        <div className="text-xs">(Image) <span className="text-red-500">*</span></div>
+                      </div>
+                      {/* New columns */}
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>CHẤT LƯỢNG, THÔNG TIN HÀNG HÓA <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Quality, information of goods)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>SỐ NGÀY BẢO HÀNH ĐỔI TRẢ <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Days of warranty to change)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>SỐ NGÀY BẢO HÀNH SỬA CHỮA <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Days of warranty to repair)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>% TIỀN GIỮ LẠI ĐỂ BẢO HÀNH SỬA CHỮA <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(% value to repair warranty)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>SỐ NGÀY NHIỀU NHẤT ĐỂ GIAO HÀNG SAU KHI CHẤP NHẬN <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Maximum number of days to delivery after acceptance)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>ĐỊA ĐIỂM GIAO HÀNG <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Location of handover)</div>
+                      </div>
+                      {/* THỜI LƯỢNG THỰC HIỆN split into 2 columns */}
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>THỜI LƯỢNG THỰC HIỆN <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Contract duration) - Một/Nhiều</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>ĐƠN VỊ THỜI LƯỢNG</div>
+                        <div className="text-xs">(Time/Year)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>THANH TOÁN TRỰC TIẾP</div>
+                        <div className="text-xs">(Direct payment)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>YÊU CẦU ĐẶT CỌC, KÝ QUỸ CHO TT TRỰC TIẾP</div>
+                        <div className="text-xs">(Deposit requirement for direct payment) - Cài đặt mức chấp nhận</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>THANH TOÁN QUA SÀN TMĐT</div>
+                        <div className="text-xs">(Payment via wallet)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>YÊU CẦU ĐẶT CỌC, KÝ QUỸ QUA SÀN TMĐT</div>
+                        <div className="text-xs">(Deposit requirement to payment via wallet) - Cài đặt mức chấp nhận</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>HÓA ĐƠN GIÁ TRỊ GIA TĂNG <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(VAT)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>SỐ LƯỢNG TỐI THIỂU <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Quantity minimum)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>ĐVT <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Unit)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>ĐƠN GIÁ THỊ TRƯỜNG <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Unit market price)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>ĐƠN GIÁ MONG MUỐN THẤP NHẤT / CAO NHẤT <span className="text-red-500">*</span></div>
+                        <div className="text-xs">(Lowest unit asking price) - chọn 1 trong 2</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>THÀNH TIỀN MONG MUỐN THẤP NHẤT / CAO NHẤT</div>
+                        <div className="text-xs">(Lowest amount) - đi theo lệnh bên</div>
+                      </div>
+                      <div className="p-2 text-center border-r border-gray-300">
+                        <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤT</div>
+                        <div className="text-xs">(Lowest / Highest price to automatically accept) - đi theo lệnh bên</div>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ƯỚC LƯỢNG<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Estimate)</div>
-                      <input type="text" name="estimatedValue" value={goodsInfo.estimatedValue} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐVT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Unit)</div>
-                      <input type="text" name="unit" value={goodsInfo.unit} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐƠN GIÁ THỊ TRƯỜNG<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Unit market price)</div>
-                      <input type="text" name="price" value={goodsInfo.price} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐƠN GIÁ MONG MUỐN THẤP NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Lowest unit asking price)</div>
-                      <input type="text" name="askingPrice" value={goodsInfo.askingPrice} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐƠN GIÁ MONG MUỐN CAO NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Highest unit asking price)</div>
-                      <input type="text" name="highestAskingPrice" className="w-full border border-gray-300 p-1 mt-1" />
-                    </div>
-                    <div className="p-2 text-center">
-                      <div>SỐ NGÀY ĐỂ GIAO HÀNG SAU KHI CHẤP NHẬN<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Number of days to delivery after accept)</div>
-                      <input type="text" name="deliveryDay" value={goodsInfo.deliveryDay} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
+
+                    {/* Rows */}
+                    {goodsItems.map((item) => (
+                      <div key={item.id} className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
+                        <div className="border-r border-gray-300 p-2 text-center">
+                          <div>{item.id}</div>
+                        </div>
+                        <div className="border-r border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.name}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'name', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.model}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'model', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.size}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'size', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.color}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'color', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="file"
+                            onChange={(e) => handleGoodsItemChange(item.id, 'image', e.target.files[0])}
+                            className="w-full p-1 mt-1 text-xs border"
+                          />
+                        </div>
+                        {/* New cells */}
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <button type="button" className="mt-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">tải file</button>
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.warrantyChangeDays}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'warrantyChangeDays', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.warrantyRepairDays}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'warrantyRepairDays', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.repairWarrantyRetentionPercent}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'repairWarrantyRetentionPercent', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.maxDeliveryDaysAfterAcceptance}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'maxDeliveryDaysAfterAcceptance', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <select
+                            value={item.handoverLocation}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'handoverLocation', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          >
+                            <option value="">Chọn</option>
+                            <option value="Kho bên bán">Kho bên bán</option>
+                            <option value="Kho bên mua">Kho bên mua</option>
+                          </select>
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <select
+                            value={item.contractDurationMultiplicity}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'contractDurationMultiplicity', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          >
+                            <option value="">Chọn</option>
+                            <option value="one">Một (One)</option>
+                            <option value="many">Nhiều (Many)</option>
+                          </select>
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <select
+                            value={item.contractDurationUnit}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'contractDurationUnit', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          >
+                            <option value="">Chọn</option>
+                            <option value="time">LẦN (Time)</option>
+                            <option value="year">NĂM (Year)</option>
+                          </select>
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.directPayment}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'directPayment', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.depositRequirementDirect}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'depositRequirementDirect', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                            placeholder=""
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.paymentViaWallet}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'paymentViaWallet', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.depositRequirementWallet}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'depositRequirementWallet', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                            placeholder=""
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <select
+                            value={item.vat}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'vat', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          >
+                            <option value="">Chọn</option>
+                            <option value="yes">CÓ/YES</option>
+                            <option value="no">KHÔNG/NO</option>
+                          </select>
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.quantityMinimum}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'quantityMinimum', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.unit}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'unit', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.unitMarketPrice}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'unitMarketPrice', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.unitAskingPrice}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'unitAskingPrice', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                            placeholder=""
+                          />
+                        </div>
+                        <div className="border-r border-t border-b border-gray-300 p-2 text-center">
+                          <input
+                            type="text"
+                            value={item.amountDesired}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'amountDesired', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                            placeholder=""
+                          />
+                        </div>
+                        <div className="p-2 text-center border-r border-t border-b border-gray-300">
+                          <input
+                            type="text"
+                            value={item.autoAcceptPrice}
+                            onChange={(e) => handleGoodsItemChange(item.id, 'autoAcceptPrice', e.target.value)}
+                            className="w-full border border-gray-300 p-1 mt-1"
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <button
+                          type="button"
+                          onClick={handleAddGoodsItem}
+                          className="w-full text-center font-bold text-blue-500 hover:text-blue-700"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 text-center" style={{ gridColumnStart: 24 }}>
+                        <span>Tổng (Toal): 0</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
               {/* Row 3 */}
               <div className="grid grid-cols-8 border-b border-gray-300">
                 <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
                   <span className="font-bold">3</span>
                 </div>
                 <div className="col-span-7">
-                  <div className="grid grid-cols-5">
+                  <div className="grid grid-cols-3">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THỜI GIAN KẾT THÚC ĐĂNG BÀI<br/><span className="text-xs italic">(End post time)</span></div>
+                      <div>THỜI LƯỢNG DUYỆT GIÁ:<br/><span className="text-xs italic">(Price review time)</span></div>
                     </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THÀNH TIỀN MONG MUỐN THẤP NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Lowest amount)</div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THÀNH TIỀN MONG MUỐN CAO NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Highest amount)</div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Lowest price to automatically accept)</div>
-                      <input type="text" name="autoAcceptPrice" value={goodsInfo.autoAcceptPrice} onChange={handleInputChange} className="w-full border border-gray-300 p-1 mt-1" />
+                    <div className="border-r border-gray-300 p-2">
+                      <input 
+                        type="time" 
+                        name="priceReviewTime" 
+                        value={goodsInfo.priceReviewTime} 
+                        onChange={handleInputChange} 
+                        className="w-full border border-gray-300 p-1" 
+                        placeholder="(nhập)"
+                      />
                     </div>
                     <div className="p-2 text-center">
-                      <div>GIÁ TỰ ĐỘNG DUYỆT CAO NHẤT<br/><span className="text-xs italic">(nhập)</span></div>
-                      <div className="text-xs">(Highest price to automatically accept)</div>
-                      <input type="text" name="highestAutoAcceptPrice" className="w-full border border-gray-300 p-1 mt-1" />
+                      <div className="mt-2 text-red-500">*</div>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Row 4 */}
               <div className="grid grid-cols-8 border-b border-gray-300">
                 <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
                   <span className="font-bold">4</span>
                 </div>
                 <div className="col-span-7">
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-4">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THÔNG TIN HÀNG HÓA:<br/><span className="text-xs italic">(Goods information)</span></div>
+                      <div>THỜI GIAN KẾT THÚC ĐĂNG BÀI:<br/><span className="text-xs italic">(End Post Time)</span></div>
                     </div>
-                    <div className="p-2">
-                      <textarea 
-                        name="description" 
-                        value={goodsInfo.description} 
+                    <div className="border-r border-gray-300 p-2">
+                      <input 
+                        type="date" 
+                        name="endPostDate" 
+                        value={goodsInfo.endPostDate} 
                         onChange={handleInputChange} 
                         className="w-full border border-gray-300 p-1" 
-                        rows="3"
                         placeholder="(nhập)"
-                      ></textarea>
+                      />
+                    </div>
+                    <div className="border-r border-gray-300 p-2">
+                      <input 
+                        type="time" 
+                        name="endPostTime" 
+                        value={goodsInfo.endPostTime} 
+                        onChange={handleInputChange} 
+                        className="w-full border border-gray-300 p-1" 
+                        placeholder="(nhập)"
+                      />
+                    </div>
+                    <div className="p-2 text-center">
+                      <div className="text-red-500">*</div>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Row 5 */}
               <div className="grid grid-cols-8 border-b border-gray-300">
                 <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
@@ -382,21 +781,29 @@ export default function NewGoodPostPage() {
                     <div className="border-r border-gray-300 p-2">
                       <input 
                         type="text" 
+                        name="province" 
+                        value={goodsInfo.province} 
+                        onChange={handleInputChange} 
+                        className="w-full border border-gray-300 p-1" 
+                        placeholder="(nhập tỉnh)"
+                      />
+                      <input 
+                        type="text" 
                         name="address" 
                         value={goodsInfo.address} 
                         onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập)"
+                        className="w-full border border-gray-300 p-1 mt-1" 
+                        placeholder="(nhập xã)"
                       />
                     </div>
                     <div className="p-2 text-center">
                       <div>VỊ TRÍ<br/><span className="text-xs italic">(Map)</span></div>
-                      <div className="mt-2">+</div>
+                      <div className="mt-2 text-red-500">*</div>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Row 6 */}
               <div className="grid grid-cols-8 border-b border-gray-300">
                 <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
@@ -405,19 +812,17 @@ export default function NewGoodPostPage() {
                 <div className="col-span-7">
                   <div className="grid grid-cols-3">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐỊA ĐIỂM GIAO HÀNG:<br/><span className="text-xs italic">(Location of handover)</span></div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <select 
-                        name="deliveryLocation" 
-                        value={goodsInfo.deliveryLocation} 
+                      <input
+                        type="checkbox"
+                        name="confirmOwnership"
+                        value={goodsInfo.confirmOwnership}
                         onChange={handleInputChange}
                         className="w-full border border-gray-300 p-1"
-                      >
-                        <option value="">Chọn địa điểm</option>
-                        <option value="seller">KHO BÊN BÁN (Warehouse of seller)</option>
-                        <option value="buyer">KHO BÊN MUA (Warehouse of buyer)</option>
-                      </select>
+                      />
+                    </div>
+                    <div className="border-r border-gray-300 p-2">
+                      <div>XÁC NHẬN LÀ CHỦ SỞ HỮU VÀ CHỊU TRÁCH NHIỆM VỀ HÀNG HÓA / BÀI ĐĂNG.</div>
+                      <div>(Confirm owership, responsibilities about the goods / requirement/ posting)</div>
                     </div>
                     <div className="p-2 text-center">
                       <div className="text-red-500">*</div>
@@ -427,40 +832,148 @@ export default function NewGoodPostPage() {
               </div>
 
               {/* Row 7 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
+              <div className="grid grid-cols-17 border-b border-gray-300">
+                <div className="col-span-1 border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
                   <span className="font-bold">7</span>
                 </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-4">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THỜI LƯỢNG THỰC HIỆN:<br/><span className="text-xs italic">(Contract duration)</span></div>
+                <div className="col-span-16 grid grid-cols-4">
+                  {/* Right side with sub-rows */}
+                  <div className="col-span-7">
+                    {/* NẠP TIỀN QUẢNG CÁO */}
+                    <div className="grid grid-cols-5 border-b border-gray-300">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>PHÍ ĐĂNG KÝ SỰ KIỆN:</div>
+                        <div className="text-xs italic">(Event Fee)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="eventPercentFee"
+                          value={goodsInfo.eventPercentFee || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1 mr-1"
+                          placeholder="(nhập)"
+                        />
+                        <span className="text-gray-700">%</span>
+                      </div>
+                      <div className="p-2 text-center">
+                        <div>+</div>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="eventFee"
+                          value={goodsInfo.eventFee || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1 mr-1"
+                          placeholder="(nhập)"
+                        />
+                        <span className="text-gray-700">VND</span>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 text-center">
+                        <span>Trả trước <br />(Prepay)</span>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <select 
-                        name="contractDuration" 
-                        value={goodsInfo.contractDuration} 
-                        onChange={handleInputChange}
-                        className="w-full border border-gray-300 p-1"
-                      >
-                        <option value="">Chọn thời gian</option>
-                        <option value="1">1 LẦN (One)</option>
-                        <option value="month">THÁNG (Month)</option>
-                        <option value="year">NĂM (Year)</option>
-                      </select>
+
+                    {/* TRÊN TRANG CHỦ */}
+                    <div className="grid grid-cols-5 border-b border-gray-300">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>PHÍ LIVESTREAM:</div>
+                        <div className="text-xs italic">(Livestream Fee)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="livestreamPercentFee"
+                          value={goodsInfo.livestreamPercentFee || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1 mr-1"
+                          placeholder="(nhập)"
+                        />
+                        <span className="text-gray-700">%</span>
+                      </div>
+                      <div className="p-2 text-center">
+                        <div>+</div>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="livestreamFee"
+                          value={goodsInfo.livestreamFee || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1 mr-1"
+                          placeholder="(nhập)"
+                        />
+                        <span className="text-gray-700">VND</span>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 text-center">
+                        <span>Trả trước <br />(Prepay)</span>
+                      </div>
                     </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="contractPeriod" 
-                        value={goodsInfo.contractPeriod} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập)"
-                      />
+
+                    {/* TRÊN VIDEO */}
+                    <div className="grid grid-cols-3 border-b border-gray-300">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>PHÍ THÀNH CÔNG:</div>
+                        <div className="text-xs italic">(Success Fee)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="videoAd"
+                          value={goodsInfo.videoAd || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1"
+                          placeholder="(nhập)"
+                        />
+                      </div>
+                      <div className="p-2 text-center">
+                        <span className="text-gray-700">%</span>
+                        <div className="text-red-500">*</div>
+                      </div>
                     </div>
-                    <div className="p-2 text-center">
-                      <div className="text-red-500">*</div>
+
+                    {/* NỘI DUNG QUẢNG CÁO */}
+                    <div className="grid grid-cols-3 border-b border-gray-300">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>THUẾ + PHÍ KHÁC:</div>
+                        <div className="text-xs italic">(VAT + Other fees)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2">
+                        <div className="text-xs">0</div>
+                      </div>
+                      <div className="p-2 text-center">
+                        <div className="">%</div>
+                      </div>
+                    </div>
+
+                    {/* ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO */}
+                    <div className="grid grid-cols-5">
+                      <div className="border-r border-gray-300 p-2 text-center">
+                        <div>TỔNG PHÍ + THUẾ:</div>
+                        <div className="text-xs italic">(Total Fee + VAT)</div>
+                      </div>
+                      <div className="border-r border-gray-300 p-2 flex items-center">
+                        0
+                        <span className="text-gray-700">%</span>
+                      </div>
+                      <div className="p-2 text-center">
+                        <div>+</div>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 flex items-center">
+                        <input 
+                          type="text"
+                          name="totalFee"
+                          value={goodsInfo.totalFee || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1 mr-1"
+                          placeholder="(nhập)"
+                        />
+                        <span className="text-gray-700">VND</span>
+                      </div>
+                      <div className="border-l border-gray-300 p-2 text-center">
+                        <span>Trả trước <br />(Prepay)</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -470,136 +983,6 @@ export default function NewGoodPostPage() {
               <div className="grid grid-cols-8 border-b border-gray-300">
                 <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
                   <span className="font-bold">8</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-4">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>NGƯỜI PHỤ TRÁCH KHÁC:<br/><span className="text-xs italic">(Other person in charge)</span></div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="personInCharge" 
-                        value={goodsInfo.personInCharge} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập)"
-                      />
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <div className="text-center">
-                        <div>SĐT<br/><span className="text-xs italic">(Phone number)</span></div>
-                        <input 
-                          type="text" 
-                          name="phoneNumber" 
-                          value={goodsInfo.phoneNumber} 
-                          onChange={handleInputChange} 
-                          className="w-full border border-gray-300 p-1 mt-1" 
-                          placeholder="(nhập)"
-                        />
-                      </div>
-                    </div>
-                    <div className="p-2 text-center">
-                      <div>EMAIL<br/><span className="text-xs italic">(nhập)</span></div>
-                      <input 
-                        type="email" 
-                        name="email" 
-                        value={goodsInfo.email} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1 mt-1" 
-                        placeholder="(nhập)"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 9 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">9</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-2">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>XÁC NHẬN LÀ CHỦ SỞ HỮU VÀ CHỦ TRÁCH NHIỆM VỀ HÀNG HÓA<br/><span className="text-xs italic">(Confirm ownership and responsibility about the goods)</span></div>
-                    </div>
-                    <div className="p-2 text-center">
-                      <div className="flex justify-center items-center h-full">
-                        <input 
-                          type="checkbox" 
-                          name="ownershipConfirm" 
-                          checked={goodsInfo.ownershipConfirm}
-                          onChange={handleInputChange}
-                          className="w-4 h-4" 
-                        />
-                      </div>
-                      <div className="text-red-500 mt-2">*</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 10 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">10</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-2">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>PHÍ ĐĂNG KÝ SỰ KIỆN:<br/><span className="text-xs italic">(Event fee)</span></div>
-                    </div>
-                    <div className="p-2">
-                      <input 
-                        type="text" 
-                        name="fee" 
-                        value={goodsInfo.fee} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập) %"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 11 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">11</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-4">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>PHÍ LIVESTREAM:<br/><span className="text-xs italic">(Livestream fee)</span></div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="livestreamFee" 
-                        value={goodsInfo.livestreamFee} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập) %"
-                      />
-                    </div>
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div className="text-xs">(tải video lên)</div>
-                      <div className="text-xs">MỞ ĐẦU VIDEO BẰNG CÂU "NGHĨA = CÔNG BẰNG, VÌ NGHĨA QUÊN THÂN"</div>
-                      <div className="text-xs">(Start video by slogan: NGHĨA as FAIRNESS)</div>
-                    </div>
-                    <div className="p-2 text-center">
-                      <div className="text-red-500">*</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-{/* Row 12 */}
-<div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">12</span>
                 </div>
                 <div className="col-span-7 grid grid-cols-4">
                   {/* PHÍ QUẢNG CÁO column */}
@@ -615,22 +998,21 @@ export default function NewGoodPostPage() {
                     {/* NẠP TIỀN QUẢNG CÁO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>NẠP TIỀN QUẢNG CÁO</div>
+                        <div>SỐ TIỀN DÙNG CHO QUẢNG CÁO</div>
                         <div className="text-xs italic">(Amount for advertising)</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text" 
-                          name="advertisingAmount" 
-                          value={goodsInfo.advertisingAmount || ''} 
-                          onChange={handleInputChange} 
-                          className="w-full border border-gray-300 p-1" 
+                          type="text"
+                          name="advertisingAmount"
+                          value={goodsInfo.advertisingAmount || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                         />
                       </div>
                       <div className="p-2 text-center">
                         <div>VND</div>
-                        <div className="text-red-500">*</div>
                       </div>
                     </div>
 
@@ -642,17 +1024,16 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text" 
-                          name="mainPageAd" 
-                          value={goodsInfo.mainPageAd || ''} 
-                          onChange={handleInputChange} 
-                          className="w-full border border-gray-300 p-1" 
+                          type="text"
+                          name="mainPageAd"
+                          value={goodsInfo.mainPageAd || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                         />
                       </div>
                       <div className="p-2 text-center">
                         <div>VND / GIÂY (S) / LƯỢT XEM (View)</div>
-                        <div className="text-red-500">*</div>
                       </div>
                     </div>
 
@@ -664,17 +1045,16 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text" 
-                          name="videoAd" 
-                          value={goodsInfo.videoAd || ''} 
-                          onChange={handleInputChange} 
-                          className="w-full border border-gray-300 p-1" 
+                          type="text"
+                          name="videoAd"
+                          value={goodsInfo.videoAd || ''}
+                          onChange={handleInputChange}
+                          className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                         />
                       </div>
                       <div className="p-2 text-center">
                         <div>VND / GIÂY (S) / LƯỢT XEM (View)</div>
-                        <div className="text-red-500">*</div>
                       </div>
                     </div>
 
@@ -685,12 +1065,9 @@ export default function NewGoodPostPage() {
                         <div className="text-xs italic">(Advertising content)</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <div className="text-xs">(tải video lên)</div>
-                        <div className="text-xs">MỞ ĐẦU VIDEO BẰNG CÂU "NGHĨA = CÔNG BẰNG, VÌ NGHĨA QUÊN THÂN"</div>
-                        <div className="text-xs italic">(Start video by slogan: NGHĨA as FAIRNESS)</div>
+                        <input type="file" className="w-full border border-gray-300 p-1"/>
                       </div>
                       <div className="p-2 text-center">
-                        <div className="text-red-500">*</div>
                       </div>
                     </div>
 
@@ -705,70 +1082,13 @@ export default function NewGoodPostPage() {
                           type="checkbox" 
                           name="registerAdvertising" 
                           checked={goodsInfo.registerAdvertising || false} 
-                          onChange={handleInputChange} 
+                          onChange={handleInputChange}
                           className="w-4 h-4"
                         />
                       </div>
                       <div className="p-2 text-center">
-                        <div className="text-red-500">*</div>
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md">HỢP ĐỒNG DỊCH VỤ LÀM NỘI DUNG QUẢNG CÁO (ấn xem)</button>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 13 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">13</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-4">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>PHÍ THÀNH CÔNG:</div>
-                      <div className="text-xs italic">(Success fee)</div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="successFee" 
-                        value={goodsInfo.successFee || ''} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập) %"
-                      />
-                    </div>
-                    <div className="border-r border-gray-300 p-2"> %
-                    </div>
-                    <div className="p-2 text-center">
-                      <div className="text-red-500">*</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 14 */}
-              <div className="grid grid-cols-8 border-b border-gray-300">
-                <div className="border-r border-gray-300 p-2 text-center w-16 flex items-center justify-center">
-                  <span className="font-bold">14</span>
-                </div>
-                <div className="col-span-7">
-                  <div className="grid grid-cols-4">
-                    <div className="border-r border-gray-300 p-2 text-center">
-                      <div>TỔNG PHÍ:</div>
-                      <div className="text-xs italic">(Total fees)</div>
-                    </div>
-                    <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="totalFees" 
-                        value={goodsInfo.totalFees || ''} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(tính) %"
-                      />
-                    </div>
-                    <div className="border-r border-gray-300 p-2">%
                     </div>
                   </div>
                 </div>
@@ -781,7 +1101,7 @@ export default function NewGoodPostPage() {
                     type="checkbox" 
                     name="agreeTerms" 
                     checked={goodsInfo.agreeTerms || false} 
-                    onChange={handleInputChange} 
+                    onChange={handleInputChange}
                     className="w-4 h-4 mt-1 flex-shrink-0"
                     required
                   />

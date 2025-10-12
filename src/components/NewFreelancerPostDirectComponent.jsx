@@ -77,10 +77,27 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
         </div>
 
-        {/* Field 3: YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN */}
+        {/* Field 2: ƯỚC LƯỢNG */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
             3
+          </div>
+          <div className="col-span-11 p-2">
+            <div className="font-bold">
+              HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)
+            </div>
+            <input
+              type="file"
+              className="w-full mt-2 p-2 border border-gray-300 rounded"
+              placeholder={t('newFreelancerDirect.estimatePlaceholder', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)')}
+            />
+          </div>
+        </div>
+
+        {/* Field 3: YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN */}
+        <div className="grid grid-cols-12 border border-gray-300">
+          <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
+            4
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
@@ -97,7 +114,7 @@ const NewFreelancerPostDirectComponent = () => {
         {/* Field 4: THỜI GIAN */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
-            4
+            5
           </div>
           <div className="col-span-11 p-2 space-y-4">
             <div>
@@ -124,7 +141,7 @@ const NewFreelancerPostDirectComponent = () => {
         {/* Field 5: ĐỊA ĐIỂM */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
-            5
+            6
           </div>
           <div className="col-span-11 p-2 space-y-4">
             <div>

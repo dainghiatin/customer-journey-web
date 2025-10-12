@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,14 +6,15 @@ import { useTranslation } from 'react-i18next';
 import {
   Home as HomeIcon,
   KeyboardIcon as KeyboardIcon,
+  Camera as CameraIcon
 } from "lucide-react";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
-  const [cccd, setCccd] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showCamera, setShowCamera] = useState(false);
+  const [cameraStream, setCameraStream] = useState(null);
+  const videoRef = useRef(null);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -27,7 +28,38 @@ export default function NewPostPage() {
     document.getElementById("root").style.backgroundColor = color;
     const token = localStorage.getItem("authToken");
     setUser(token);
-  }, [color]);
+
+    // Cleanup camera stream when component unmounts
+    return () => {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [color, cameraStream]);
+
+  const openCamera = async (e) => {
+    e.preventDefault();
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      setCameraStream(stream);
+      setShowCamera(true);
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+      alert(t('camera.error', 'Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập.'));
+    }
+  };
+
+  const closeCamera = () => {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+    }
+    setCameraStream(null);
+    setShowCamera(false);
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -68,6 +100,29 @@ export default function NewPostPage() {
           </button>
         </div>
 
+        {/* Two large boxes layout */}
+        <div className="mt-6">
+          <div className="grid grid-cols-2 gap-4 border border-gray-300">
+            {/* Scan CCCD */}
+            <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={openCamera}>
+               <div className="flex flex-col items-center justify-center h-40">
+                 <CameraIcon size={48} className="mb-2" />
+                 <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
+                 <p className="text-sm italic">({t('posts.scanIdEn', 'Poster\'s ID')})</p>
+               </div>
+             </div>
+
+             {/* Recording Your Goods Video */}
+             <div className="p-4 text-center cursor-pointer" onClick={openCamera}>
+               <div className="flex flex-col items-center justify-center h-40">
+                 <CameraIcon size={48} className="mb-2" />
+                 <h3 className="font-bold text-lg">{t('posts.recordVideo', 'ĐĂNG KÝ KINH DOANH CỦA DOANH NGHIỆP ĐĂNG BÀI')}</h3>
+                 <p className="text-sm italic">({t('posts.recordVideoEn', 'Poster\'s TRADE REGISTRATION COMPANY')})</p>
+               </div>
+             </div>
+          </div>
+        </div>
+
         {/* Three columns layout */}
         <div className="mt-6">
           <div className="grid grid-cols-3 gap-4 border border-gray-300">
@@ -89,6 +144,45 @@ export default function NewPostPage() {
             </Link>
           </div>
         </div>
+
+        {/* Camera Modal */}
+        {showCamera && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div className="bg-white p-4 rounded-lg max-w-2xl w-full">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">{t('camera.title', 'Camera')}</h2>
+                <button 
+                  className="text-gray-700 hover:text-gray-900"
+                  onClick={closeCamera}
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="relative">
+                <video 
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  className="w-full h-auto border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mt-4 flex justify-center">
+                <button 
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
+                  onClick={closeCamera}
+                >
+                  {t('camera.capture', 'Chụp')}
+                </button>
+                <button 
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                  onClick={closeCamera}
+                >
+                  {t('camera.cancel', 'Hủy')}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
