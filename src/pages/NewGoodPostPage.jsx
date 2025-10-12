@@ -602,7 +602,7 @@ export default function NewGoodPostPage() {
                             value={item.depositRequirementDirect}
                             onChange={(e) => handleGoodsItemChange(item.id, 'depositRequirementDirect', e.target.value)}
                             className="w-full border border-gray-300 p-1 mt-1"
-                            placeholder="Cài đặt mức chấp nhận"
+                            placeholder=""
                           />
                         </div>
                         <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -619,7 +619,7 @@ export default function NewGoodPostPage() {
                             value={item.depositRequirementWallet}
                             onChange={(e) => handleGoodsItemChange(item.id, 'depositRequirementWallet', e.target.value)}
                             className="w-full border border-gray-300 p-1 mt-1"
-                            placeholder="Cài đặt mức chấp nhận"
+                            placeholder=""
                           />
                         </div>
                         <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -663,7 +663,7 @@ export default function NewGoodPostPage() {
                             value={item.unitAskingPrice}
                             onChange={(e) => handleGoodsItemChange(item.id, 'unitAskingPrice', e.target.value)}
                             className="w-full border border-gray-300 p-1 mt-1"
-                            placeholder="chọn 1 trong 2"
+                            placeholder=""
                           />
                         </div>
                         <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -672,7 +672,7 @@ export default function NewGoodPostPage() {
                             value={item.amountDesired}
                             onChange={(e) => handleGoodsItemChange(item.id, 'amountDesired', e.target.value)}
                             className="w-full border border-gray-300 p-1 mt-1"
-                            placeholder="đi theo lệnh bên"
+                            placeholder=""
                           />
                         </div>
                         <div className="p-2 text-center border-r border-t border-b border-gray-300">
@@ -681,7 +681,7 @@ export default function NewGoodPostPage() {
                             value={item.autoAcceptPrice}
                             onChange={(e) => handleGoodsItemChange(item.id, 'autoAcceptPrice', e.target.value)}
                             className="w-full border border-gray-300 p-1 mt-1"
-                            placeholder="đi theo lệnh bên"
+                            placeholder=""
                           />
                         </div>
                       </div>
