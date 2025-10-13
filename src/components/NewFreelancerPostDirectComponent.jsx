@@ -51,11 +51,14 @@ const NewFreelancerPostDirectComponent = () => {
             <div className="font-bold">
               {/* TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span> */}
             </div>
-            <input
-              type="text"
-              className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder={t('newFreelancerDirect.jobNamePlaceholder', 'TÊN CÔNG VIỆC (Name of JOB)')}
-            />
+            <div className="flex items-center">
+              <input
+                type="text"
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                placeholder={t('newFreelancerDirect.jobNamePlaceholder', 'TÊN CÔNG VIỆC (Name of JOB)')}
+              />
+              <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+            </div>
           </div>
         </div>
 
@@ -69,15 +72,18 @@ const NewFreelancerPostDirectComponent = () => {
             <div className="font-bold">
               {/* ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span> */}
             </div>
-            <input
+            <div className="flex items-center">
+              <input
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder={t('newFreelancerDirect.estimatePlaceholder', 'ƯỚC LƯỢNG (Estimate)')}
-            />
+              placeholder={t('newFreelancerDirect.estimatePlaceholder', 'ƯỚC LƯỢNG, ĐƠN VỊ TÍNH (Estimate, Unit)')}
+              />
+              <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+            </div>
           </div>
         </div>
 
-        {/* Field 2: ƯỚC LƯỢNG */}
+        {/* Field 3: ƯỚC LƯỢNG */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
             3
@@ -86,15 +92,18 @@ const NewFreelancerPostDirectComponent = () => {
             <div className="font-bold">
               HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)
             </div>
-            <input
-              type="file"
-              className="w-full mt-2 p-2 border border-gray-300 rounded"
-              placeholder={t('newFreelancerDirect.estimatePlaceholder', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)')}
-            />
+            <div className="flex items-center">
+              <input
+                type="file"
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                placeholder={t('newFreelancerDirect.estimatePlaceholder', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)')}
+              />
+              <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+            </div>
           </div>
         </div>
 
-        {/* Field 3: YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN */}
+        {/* Field 4: YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
             4
@@ -103,15 +112,19 @@ const NewFreelancerPostDirectComponent = () => {
             <div className="font-bold">
               {/* YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN <span className="italic font-normal text-sm">(Manpower, equipment requirement)</span> */}
             </div>
-            <textarea
-              className="w-full mt-2 p-2 border border-gray-300 rounded"
-              rows="3"
-              placeholder={t('newFreelancerDirect.requirementsPlaceholder', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)')}
-            ></textarea>
+            <div className="flex items-center">
+              <textarea
+                className="w-full mt-2 p-2 border border-gray-300 rounded"
+                rows="3"
+                placeholder={t('newFreelancerDirect.requirementsPlaceholder', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)')}
+              ></textarea>
+              <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+            </div>
+
           </div>
         </div>
 
-        {/* Field 4: THỜI GIAN */}
+        {/* Field 5: THỜI GIAN */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
             5
@@ -121,24 +134,30 @@ const NewFreelancerPostDirectComponent = () => {
               <div className="font-bold">
                 {t('newFreelancerDirect.startTime', 'THỜI GIAN NHẬN VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.startTimeEn', 'Start time')})</span>
               </div>
-              <input
-                type="datetime-local"
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
-              />
+              <div className="flex items-center">
+                <input
+                  type="datetime-local"
+                  className="w-full mt-2 p-2 border border-gray-300 rounded"
+                />
+                <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+              </div>
             </div>
             <div>
               <div className="font-bold">
                 {t('newFreelancerDirect.finishTime', 'THỜI GIAN HOÀN THÀNH')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.finishTimeEn', 'Finish time')})</span>
               </div>
-              <input
-                type="datetime-local"
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
-              />
+              <div className="flex items-center">
+                <input
+                  type="datetime-local"
+                  className="w-full mt-2 p-2 border border-gray-300 rounded"
+                />
+                <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Field 5: ĐỊA ĐIỂM */}
+        {/* Field 6: ĐỊA ĐIỂM */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
             6
@@ -148,33 +167,39 @@ const NewFreelancerPostDirectComponent = () => {
               <div className="font-bold">
                 {/* ĐỊA ĐIỂM NHẬN VIỆC <span className="italic font-normal text-sm">(Start location)</span> */}
               </div>
-              <input
-                type="text"
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder={t('newFreelancerDirect.startLocationPlaceholder', 'ĐỊA ĐIỂM NHẬN VIỆC (Start location)')}
-              />
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  className="w-full mt-2 p-2 border border-gray-300 rounded"
+                  placeholder={t('newFreelancerDirect.startLocationPlaceholder', 'ĐỊA ĐIỂM NHẬN VIỆC (Start location)')}
+                />
+                <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+              </div>
             </div>
             <div>
               <div className="font-bold">
                 {/* ĐỊA ĐIỂM HOÀN THÀNH <span className="italic font-normal text-sm">(Finish location)</span> */}
               </div>
-              <input
-                type="text"
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder={t('newFreelancerDirect.finishLocationPlaceholder', 'ĐỊA ĐIỂM HOÀN THÀNH (Finish location)')}
-              />
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  className="w-full mt-2 p-2 border border-gray-300 rounded"
+                  placeholder={t('newFreelancerDirect.finishLocationPlaceholder', 'ĐỊA ĐIỂM HOÀN THÀNH (Finish location)')}
+                />
+                <span className="text-red-500 font-bold ml-2 mt-2">*</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Field 6: GIÁ */}
+        {/* Field 7: GIÁ */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
-            6
+            7
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              {t('newFreelancerDirect.price', 'GIÁ')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.priceEn', 'Price')})</span>
+              {t('newFreelancerDirect.price', 'GIÁ MONG MUỐN')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.priceEn', 'AskingPrice')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
@@ -185,18 +210,63 @@ const NewFreelancerPostDirectComponent = () => {
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
-            <div className="text-center w-full">VND</div>
+            <div className="text-center w-full">VND <span className="text-red-500">*</span></div>
           </div>
         </div>
 
-        {/* Field 7: ĐẶT CỌC 02 BÊN */}
+        {/* Field 8: VAT */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
-            7
+            8
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              {t('newFreelancerDirect.deposit', 'ĐẶT CỌC 02 BÊN')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.depositEn', 'Deposit')})</span>
+              HÓA ĐƠN GIÁ TRỊ GIA TĂNG <span className="italic font-normal text-sm">(VAT)</span>
+            </div>
+          </div>
+          <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
+            <select
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="10">CÓ/YES</option>
+              <option value="0">KHÔNG/NO</option>
+            </select>
+          </div>
+          <div className="col-span-4 p-2 flex items-center">
+            <div className="text-center w-full"> <span className="text-red-500">*</span></div>
+          </div>
+        </div>
+
+        {/* Field 9: THỜI LƯỢNG DUYỆT GIÁ */}
+        <div className="grid grid-cols-12 border border-gray-300">
+          <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
+            9
+          </div>
+          <div className="col-span-3 p-2">
+            <div className="font-bold">
+              THỜI LƯỢNG DUYỆT GIÁ: <span className="italic font-normal text-sm">(Price review time)</span>
+            </div>
+          </div>
+          <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
+            <input
+              type="time"
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Chọn giờ / phút"
+            />
+          </div>
+          <div className="col-span-4 p-2 flex items-center">
+            <div className="text-center w-full">Nhỏ hơn 24h <span className="text-red-500">*</span></div>
+          </div>
+        </div>
+
+        {/* Field 10: ĐẶT CỌC 02 BÊN */}
+        <div className="grid grid-cols-12 border border-gray-300">
+          <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
+            10
+          </div>
+          <div className="col-span-3 p-2">
+            <div className="font-bold">
+              ĐẶT CỌC, KÝ QUỸ 02 BÊN: <span className="italic font-normal text-sm">(Deposit)</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
@@ -207,37 +277,91 @@ const NewFreelancerPostDirectComponent = () => {
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
-            <div className="text-center w-full">VND</div>
+            <div className="text-center w-full">VND <span className="text-red-500">*</span></div>
           </div>
         </div>
 
-        {/* Field 8: PHÍ TRẢ SẢN */}
+        {/* Field 11: PHÍ KHÁC */}
         <div className="grid grid-cols-12 border border-gray-300">
           <div className="col-span-1 border-r border-gray-300 p-2 flex items-center justify-center font-bold">
-            8
+            11
           </div>
-          <div className="col-span-3 p-2">
-            <div className="font-bold">
-              {t('newFreelancerDirect.serviceFee', 'PHÍ TRẢ SẢN')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.serviceFeeEn', 'Service fee')})</span>
+          <div className="col-span-11 p-2 space-y-4">
+            <div className="overflow-x-auto">
+              <div className="min-w-max grid grid-cols-7 gap-2">
+                {/* Dòng 1 */}
+                <div className="font-bold border border-gray-300 p-3 bg-gray-50">PHÍ ĐĂNG KÝ SỰ KIỆN: <br />(Event fee)</div>
+                <div className="border border-gray-300 p-2">
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">+</div>
+                <div className="border border-gray-300 p-2">
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">VNĐ</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">TRẢ TRƯỚC <br />(Prepay)</div>
+                
+                {/* Khoảng cách giữa dòng 1 và 2 */}
+                <div className="col-span-7 h-4"></div>
+                
+                {/* Dòng 2 */}
+                <div className="font-bold border border-gray-300 p-3 bg-gray-50">PHÍ THÀNH CÔNG: <br />(Success fee)</div>
+                <div className="border border-gray-300 p-2">
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3 text-red-500 text-xl font-bold">*</div>
+                <div className="border border-gray-300 p-3"></div>
+                <div className="border border-gray-300 p-3"></div>
+                <div className="border border-gray-300 p-3"></div>
+                
+                {/* Khoảng cách giữa dòng 2 và 3 */}
+                <div className="col-span-7 h-4"></div>
+                
+                {/* Dòng 3 */}
+                <div className="font-bold border border-gray-300 p-3 bg-gray-50">THUẾ + PHÍ KHÁC: <br />(VAT + Other fees)</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">0</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="border border-gray-300 p-3"></div>
+                <div className="border border-gray-300 p-3"></div>
+                <div className="border border-gray-300 p-3"></div>
+                <div className="border border-gray-300 p-3"></div>
+                
+                {/* Khoảng cách giữa dòng 3 và 4 */}
+                <div className="col-span-7 h-4"></div>
+                
+                {/* Dòng 4 */}
+                <div className="font-bold border border-gray-300 p-3 bg-gray-50">TỔNG PHÍ + THUẾ <br />(Total fees + VAT)</div>
+                <div className="border border-gray-300 p-2">
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">+</div>
+                <div className="border border-gray-300 p-2">
+                  <input 
+                    type="text" 
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">VNĐ</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">TRẢ TRƯỚC <br />(Prepay)</div>
+              </div>
             </div>
           </div>
-          <div className="col-span-2 border-l border-r border-gray-300 p-2 flex items-center">
-            <input
-              type="number"
-              className="w-full p-2 border border-gray-300 rounded"
-              placeholder={t('newFreelancerDirect.percentagePlaceholder', 'Nhập %')}
-            />
-          </div>
-          <div className="col-span-2 border-r border-gray-300 p-2 flex items-center">
-            <div className="text-center w-full">%</div>
-          </div>
-          <div className="col-span-2 border-r border-gray-300 p-2 flex items-center">
-            <div className="text-center w-full">= ...............</div>
-          </div>
-          <div className="col-span-2 p-2 flex items-center">
-            <div className="text-center w-full">VND</div>
-          </div>
-        </div>
+        </div> 
 
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
