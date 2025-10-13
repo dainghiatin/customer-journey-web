@@ -469,6 +469,7 @@ const Body = () => {
 }
 
 function SearchSection() {
+    const navigate = useNavigate();
     return (
         <section className="search-section">
             <div className="search-title " style={{ cursor: "pointer" }}>
