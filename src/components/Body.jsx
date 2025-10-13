@@ -472,9 +472,7 @@ function SearchSection() {
     return (
         <section className="search-section">
             <div className="search-title " style={{ cursor: "pointer" }}>
-                <button onClick={() => {
-                    window.location.href = "/list-of-goods";
-                }}>
+                <button onClick={() => navigate(`/list-of-goods`)}>
                     <h3><strong>TÌM KIẾM</strong></h3>
                 </button>
             </div>
