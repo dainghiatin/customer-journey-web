@@ -18,9 +18,6 @@
     }
     
 }
-td {
-    height: 38px;
-}
 
 /* GRID COL 1 */
 .grid-col-1 {
@@ -194,6 +191,9 @@ td {
     .company-info-table .data-cell {
         font-size: 9px !important;
     }
+}
+td {
+    height: 25px;
 }
 
 @media screen and (max-width: 360px) {

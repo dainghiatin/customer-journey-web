@@ -2,219 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMetric } from '../services/metricService';
-
 import { CHANGE_USER_COUNTRY } from '../context/action/filterAction';
-
-
-
-import Select from 'react-select';
 import { getCountries, getCountryByCode, getDistrictByCode } from '../services/countries';
 import { useTranslation } from 'react-i18next';
 import {
     KeyboardIcon as KeyboardIcon,
 } from "lucide-react";
 import { SearchSection } from './Body';
-
-const categories = [
-    {
-        vi: "HÀNG BÁN",
-        en: "SALE",
-    },
-    {
-        vi: "CẦN MUA",
-        en: "BUY",
-    },
-    {
-        vi: "CẦN THUÊ",
-        en: "RENT",
-    },
-    {
-        vi: "CHO THUÊ",
-        en: "FOR RENT",
-    },
-    {
-        vi: "DỊCH VỤ",
-        en: "SERVICES",
-    },
-];
-
-const subCategories = [
-    {
-        vi: "HÀNG HÓA",
-        en: "GOODS",
-    },
-    {
-        vi: "BẤT ĐỘNG SẢN",
-        en: "LAND AND HOUSE",
-    },
-    {
-        vi: "PHƯƠNG TIỆN",
-        en: "VEHICLE",
-    },
-    {
-        vi: "NHÂN LỰC",
-        en: "MANPOWER",
-    },
-    {
-        vi: "XUẤT - NHẬP KHẨU",
-        en: "IMPORT - EXPORT",
-    },
-];
-
-const conditions = [
-    {
-        vi: "PHẾ LIỆU",
-        en: "SCRAP",
-    },
-    {
-        vi: "MỚI",
-        en: "NEW",
-    },
-    {
-        vi: "CŨ",
-        en: "OLD",
-    },
-    {
-        vi: "CHƯA SỬ DỤNG",
-        en: "UNUSED",
-    },
-];
-
-const regions = [
-    { vi: "TẤT CẢ", en: "ALL" },
-    { vi: "ĐÔNG NAM BỘ", en: "SOUTH EAST", num: "I" },
-    { vi: "ĐÔNG BẮC BỘ", en: "NORTH EAST", num: "II" },
-    { vi: "TÂY NAM BỘ", en: "SOUTH WEST", num: "III" },
-    { vi: "TÂY BẮC BỘ", en: "NORTH WEST", num: "IV" },
-    { vi: "BẮC TRUNG BỘ", en: "NORTH CENTRAL", num: "V" },
-    { vi: "NAM TRUNG BỘ", en: "SOUTH CENTRAL", num: "VI" },
-    { vi: "TÂY NGUYÊN", en: "HIGHLANDS", num: "VII" },
-    { vi: "NƯỚC KHÁC", en: "OTHER COUNTRIES", num: "VIII" },
-];
-
-// const SelectNation = ({ title, items }) => {
-//     const options = [
-//         { value: 'vietnam', label: 'Vietnam' },
-//         { value: 'usa', label: 'USA' },
-//         { value: 'japan', label: 'Japan' }
-//     ];
-//     const handleChange = (selectedOption) => {
-//         console.log('Selected:', selectedOption);
-//     };
-//     useEffect(() => {
-
-//     }, []);
-//     return (
-//         <div style={{ width: "50%", position: "relative" }}>
-//             <Select options={options} onChange={handleChange} />
-//         </div>
-//     )
-// }
-
-const CategorySelect = ({
-    title,
-    items,
-    onChange, // Generic onChange handler for any selection type
-    value, // Current selected value (optional)
-    fetchItems, // Optional function to fetch items dynamically
-    dependsOn // Optional dependency for fetching items
-}) => {
-    const [itemList, setItemList] = useState(items || []);
-    const [selected, setSelected] = useState(value?.vi || items?.[0]?.vi || "");
-    const [selected_en, setSelectedEN] = useState(value?.en || items?.[0]?.en || "");
-    const [open, setOpen] = useState(false);
-
-    // Fetch items if a fetch function is provided
-    useEffect(() => {
-        const loadItems = async () => {
-            if (fetchItems) {
-                try {
-                    const response = await fetchItems(dependsOn);
-                    if (response) {
-                        setItemList(response);
-                    }
-                } catch (error) {
-                    console.error(`Error fetching items for ${title}:`, error);
-                }
-            }
-        };
-
-        loadItems();
-    }, [title, fetchItems, dependsOn]);
-
-    // Update selected values when value prop changes
-    useEffect(() => {
-        if (value) {
-            setSelected(value.vi || "");
-            setSelectedEN(value.en || "");
-        }
-    }, [value]);
-
-    const handleSelection = (item) => {
-        setSelected(item.vi);
-        setSelectedEN(item.en);
-        setOpen(false);
-
-        // Call the generic onChange handler with the selected item and title
-        if (onChange) {
-            onChange(title, item);
-        }
-    };
-
-    return (
-        <>
-            {/* Selection box */}
-            <div
-                onClick={() => setOpen(!open)}
-                className='items-center flex'
-                style={{
-                    border: "2px solid black",
-                    textAlign: "center", cursor: "pointer",
-                    backgroundColor: "transparent",
-                    display: "flex", justifyContent: "space-between",
-                    fontWeight: "bold", fontSize: "clamp(10px, 1vw, 20px)",
-                    flexGrow: "30%",
-                    width: "clamp(5rem, 21vw, 20rem)",
-                }}
-            >
-                <div className='flex grow items-center justify-center flex-col h-12'>
-                    <span>{selected} </span>
-                    {/* <span className='lowercase' style={{ fontWeight: 'normal', fontStyle: "italic" }}>({selected_en})</span> */}
-                </div>
-                <span style={{ fontSize: "16px", fontWeight: "bold", marginLeft: "10px" }}>
-                    {open ? "▲" : "▼"}
-                </span>
-            </div>
-
-            {/* Dropdown list */}
-            {open && (
-                <ul
-                    style={{
-                        position: "absolute", width: "clamp(5rem, 21vw, 20rem)", border: "2px solid black",
-                        background: "white", listStyle: "none", padding: 0, margin: 0, zIndex: 1000,
-                        maxHeight: "300px", overflowY: "auto",
-                    }}
-                >
-                    {itemList.map((item, index) => (
-                        <li
-                            key={index}
-                            style={{
-                                padding: "5px", cursor: "pointer",
-                                fontWeight: "bold", borderBottom: "1px solid gray",
-                                display: "flex", justifyContent: "center",
-                                flexDirection: "column", textAlign: "center"
-                            }}
-                            onClick={() => handleSelection(item)}
-                        >
-                            <span className="font-bold">{item.vi}</span>
-                            <b className='lowercase'>({item.en})</b>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </>
-    );
-};
+import CategorySelect from './CategorySelect';
+import { categories, subCategories, conditions, regions } from '../constants/filterConstants';
 
 function EventFilterComponent() {
     const [category, setCategory] = useState("");
@@ -241,6 +37,7 @@ function EventFilterComponent() {
         localStorage.setItem("district", district?.en);
         dispatch({ type: CHANGE_USER_COUNTRY, payload: nation?.en });
     }, [category, subcategory, condition, nation, province, district]);
+    
     const handleCategoryChange = (title, item) => {
         switch (title) {
             case "DANH MỤC":
@@ -265,34 +62,38 @@ function EventFilterComponent() {
                 break;
         }
     };
+    
     return (
         <>
-            <div  style={{
+            <div style={{
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
                 width: "100%",
                 marginTop: "8%",
-                alignItems: "flex-start"
+                alignItems: "flex-start",
+                gap: "10px"
             }}>
-                {/* First row: 4 buttons aligned to the right */}
                 <CategorySelect
                     title="DANH MỤC"
                     items={categories}
                     onChange={handleCategoryChange}
                     value={category}
+                    placeholder="Chọn danh mục"
                 />
                 <CategorySelect
                     title="Subcategories"
                     items={subCategories}
                     onChange={handleCategoryChange}
                     value={subcategory}
+                    placeholder="Chọn phân loại"
                 />
                 <CategorySelect
                     title="Conditions"
                     items={conditions}
                     onChange={handleCategoryChange}
                     value={condition}
+                    placeholder="Chọn tình trạng"
                 />
                 <div className="">
                     <CategorySelect
@@ -301,6 +102,7 @@ function EventFilterComponent() {
                         onChange={handleCategoryChange}
                         value={nation}
                         fetchItems={getCountries}
+                        placeholder="Chọn quốc gia"
                     />
 
                     <CategorySelect
@@ -310,21 +112,9 @@ function EventFilterComponent() {
                         value={province}
                         fetchItems={getCountryByCode}
                         dependsOn={nation?.en}
+                        placeholder="Chọn tỉnh/thành"
                     />
                 </div>
-
-
-                {/* Second row: Province button aligned to the right */}
-
-
-                {/* <CategorySelect
-                    title="District"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={district}
-                    fetchItems={getDistrictByCode}
-                    dependsOn={province?.en}
-                /> */}
             </div>
             <SearchSection />
         </>

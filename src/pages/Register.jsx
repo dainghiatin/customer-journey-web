@@ -254,7 +254,7 @@ export default function RegisterPage() {
         signature: uploadToCloudinaryResp,
 
       };
-      console.log("ne: ", payload);
+      
       const response = await axios.post(
         `${API_URL}/auth/register`,
         payload,
@@ -270,9 +270,7 @@ export default function RegisterPage() {
         localStorage.setItem("authToken", response.data.token);
         // Store complete user data in localStorage for easy access
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        dispatch(loginAction(response.data?.user))
-        console.log(auth);
-        navigate("/");
+        navigate("/change-password");
       } else {
         alert(t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI'));
       }

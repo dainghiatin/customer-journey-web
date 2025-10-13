@@ -17,7 +17,7 @@ import { updateAvatar } from '../services/authService';
 
 
 
-function HeroHeader({ selectedLang, isCompact = false , userCountry }) {
+function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
     const { t } = useTranslation();
     const nation = useSelector(state => state.filter.nation);
 
@@ -33,31 +33,52 @@ function HeroHeader({ selectedLang, isCompact = false , userCountry }) {
                 <div className="hero-title flex" style={{
                     marginTop: "0px",
                     fontWeight: "bold",
-
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                    alignItems: "center",
                 }}>
-                    <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}</h3>
-                    <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                    <div className="flex-1 flex items-center justify-end">
+                        <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" ,justifyItems:"center"}}>
+                            <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
+                                <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="flex-2 flex"
+                        style={{
+                            justifyContent: "flex-start",
+                            alignContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <h3 style={{ color: "black", fontSize: titleFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
+                            {t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')} 
+                        </h3>
+                        <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                    </div>
+                    <div className="flex-1">
+                        <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" >
+                            <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                                <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
-                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold" }}>
+                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold", position: "relative" }}>
                     <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                     <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
                         <em>
                             Target: National {nation?.charAt(0)}-Commercial
                         </em>
-
                     </h4>
+
+                    {/* Buttons positioned relative to the subtitle */}
+
+
                 </div>
                 <aside className="main-aside-2" >
-                    <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ left: '77%', position: "absolute", top: '20%', textAlign: "center" }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
-                            <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
-                        </div>
-                    </Link>
-                    <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw]" style={{ right: '77%', position: "absolute", top: '20%', fontSize: "clamp(7px, 1.2vw, 20px)" }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
-                            <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
-                        </div>
-                    </Link>
                     <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw' }}>
                         <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
                             <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>

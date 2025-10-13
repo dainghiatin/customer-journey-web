@@ -8,6 +8,7 @@ import { loginAction, changePasswordAction } from '../context/action/authActions
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { generateQrSession } from "../services/authService";
+import QRModalComponent from '../components/QRModalComponent';
 
 
 export default function LoginPage() {
@@ -97,6 +98,12 @@ export default function LoginPage() {
     setQrDataUrl(null);
     setQrError("");
     setIsQrLoading(false);
+  };
+
+  const handleScanResult = (result) => {
+    console.log('QR Scan Result:', result);
+    alert(`QR Code scanned: ${result}`);
+    handleCloseQrModal();
   };
 
   return (
@@ -192,28 +199,15 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {isQrModalOpen && (
-        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
-            <button className="absolute top-2 right-2 text-gray-600 hover:text-black" onClick={handleCloseQrModal}>✕</button>
-            <h3 className="text-xl font-bold mb-4 text-center">{t('auth.qrTitle', 'MÃ QR ĐĂNG NHẬP')}</h3>
-            {isQrLoading && (
-              <div className="text-center py-8">{t('common.loading', 'Đang tải...')}</div>
-            )}
-            {!isQrLoading && qrError && (
-              <div className="text-center text-red-600 py-4">{qrError}</div>
-            )}
-            {!isQrLoading && qrDataUrl && (
-              <div className="flex items-center justify-center">
-                <img src={qrDataUrl} alt="QR Code" className="w-64 h-64 object-contain border" />
-              </div>
-            )}
-            {!isQrLoading && !qrDataUrl && !qrError && (
-              <div className="text-center text-gray-600 py-8">{t('auth.qrNoData', 'Chưa có dữ liệu QR')}</div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* QR Modal */}
+      <QRModalComponent
+        isOpen={isQrModalOpen}
+        onClose={handleCloseQrModal}
+        isLoading={isQrLoading}
+        error={qrError}
+        qrDataUrl={qrDataUrl}
+        onScanResult={handleScanResult}
+      />
     </div>
   );
 }

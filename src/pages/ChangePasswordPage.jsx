@@ -105,7 +105,7 @@ export default function ChangePasswordPage() {
       
 
       alert(t('auth.changePasswordSuccess', 'Đổi mật khẩu thành công!'));
-      navigate("/login"); // Chuyển hướng sau khi đăng ký thành công
+      navigate("/"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.response?.data || error.message);
       setError(t('auth.changePasswordError', 'Đổi mật khẩu thất bại. Vui lòng thử lại.'));
