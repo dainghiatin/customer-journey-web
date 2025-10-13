@@ -215,7 +215,7 @@
    },
    "newFreelancerDirect": {
      "jobNamePlaceholder": "JOB NAME (Name of JOB)",
-     "estimatePlaceholder": "ESTIMATE (Estimate)",
+     "estimatePlaceholder": "ESTIMATE, UNIT (Estimate, Unit)",
      "requirementsPlaceholder": "MANPOWER, EQUIPMENT REQUIREMENTS (Manpower, equipment requirement)",
      "startTime": "START TIME",
      "startTimeEn": "Start time",
@@ -224,7 +224,7 @@
      "startLocationPlaceholder": "START LOCATION (Start location)",
      "finishLocationPlaceholder": "FINISH LOCATION (Finish location)",
      "price": "PRICE",
-     "priceEn": "Price",
+     "priceEn": "Asking Price",
      "pricePlaceholder": "Enter price",
      "deposit": "DEPOSIT",
      "depositEn": "Deposit",
@@ -595,7 +595,7 @@
   },
    "newFreelancerOnline": {
       "jobNamePlaceholder": "JOB NAME (Name of JOB)",
-      "estimatePlaceholder": "ESTIMATE (Estimate)",
+      "estimatePlaceholder": "ESTIMATE, UNIT (Estimate, Unit)",
       "requirementsPlaceholder": "MANPOWER REQUIREMENTS (Manpower equipment)",
       "startTime": "START TIME",
       "startTimeEn": "Start time",

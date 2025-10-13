@@ -247,7 +247,7 @@
   },
   "newFreelancerDirect": {
     "jobNamePlaceholder": "TÊN CÔNG VIỆC (Name of JOB)",
-    "estimatePlaceholder": "ƯỚC LƯỢNG (Estimate)",
+    "estimatePlaceholder": "ƯỚC LƯỢNG, ĐƠN VỊ TÍNH (Estimate, Unit)",
     "requirementsPlaceholder": "YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN (Manpower, equipment requirement)",
     "startTime": "THỜI GIAN NHẬN VIỆC",
     "startTimeEn": "Start time",
@@ -255,8 +255,8 @@
     "finishTimeEn": "Finish time",
     "startLocationPlaceholder": "ĐỊA ĐIỂM NHẬN VIỆC (Start location)",
     "finishLocationPlaceholder": "ĐỊA ĐIỂM HOÀN THÀNH (Finish location)",
-    "price": "GIÁ",
-    "priceEn": "Price",
+    "price": "GIÁ MONG MUỐN",
+    "priceEn": "Asking Price",
     "pricePlaceholder": "Nhập giá",
     "deposit": "ĐẶT CỌC 02 BÊN",
     "depositEn": "Deposit",
@@ -626,7 +626,7 @@
   },
    "newFreelancerOnline": {
     "jobNamePlaceholder": "TÊN CÔNG VIỆC (Name of JOB)",
-    "estimatePlaceholder": "ƯỚC LƯỢNG (Estimate)",
+    "estimatePlaceholder": "ƯỚC LƯỢNG, ĐƠN VỊ TÍNH (Estimate, Unit)",
     "requirementsPlaceholder": "YÊU CẦU NHÂN LỰC (Manpower equipment)",
     "startTime": "THỜI GIAN NHẬN VIỆC",
     "startTimeEn": "Start time",

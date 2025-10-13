@@ -64,25 +64,70 @@ export default function NewFreelancerPostPage() {
         {/* Table layout matching the image */}
         <div className="mt-6">
           <div className="border border-gray-300">
-            {/* Header row - CÔNG VIỆC TỰ DO */}
-            <div className="text-center p-4 border-b border-gray-300">
-              <h3 className="font-bold text-lg">CÔNG VIỆC TỰ DO</h3>
-              <p className="text-sm italic">(Freelancer)</p>
+            {/* Top Categories Section */}
+            <div className="grid grid-cols-3">
+              <div className="border p-2">
+                <div className="font-bold text-center">HÀNG HÓA<br/><span className="text-sm font-normal italic">(Goods)</span></div>
+              </div>
+              <div className="border p-2 bg-blue-500 text-white">
+                <div className="font-bold text-center" onClick={()=>navigate("/new-freelancer-post")}>CÔNG VIỆC TỰ DO<br/><span className="text-sm font-normal italic">(Freelancer)</span></div>
+              </div>
+              <div className="p-2 border">
+                <div className="font-bold text-center" onClick={()=>navigate("/new-ai-live-post")}>Ai LIVE</div>
+              </div>
             </div>
-            <div className="text-center p-4 border-b border-gray-300">
-              <h3 className="font-bold text-lg">TÀI KHOẢN CÔNG VIỆC TỰ DO</h3>
-              <p className="text-sm italic">(Account of Freelancer)</p>
-            </div>
+            {/* TÀI KHOẢN HÀNG HÓA Section */}
+             <div className="grid grid-cols-5 border-b border-gray-300">
+               <div className="border-r border-gray-300 p-2">
+                 <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <input 
+                   type="number" 
+                   name="exchangeRate" 
+                   className="w-full border border-gray-300 p-1 mt-1" 
+                   defaultValue="1"
+                   onChange={(e) => {
+                     const value = parseFloat(e.target.value) || 1;
+                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                     document.getElementById('calculatedValue').value = calculatedValue;
+                   }}
+                 />
+                 <div className="font-bold">1</div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <div className="font-bold  p-1 mt-1">VN</div>
+                 <div className="mt-1 flex items-center justify-center">
+                   <span className="mr-2">D|</span>
+                 </div>
+               </div>
+               <div className="border-r border-gray-300 p-2 text-center">
+                 <input 
+                   type="number" 
+                   name="exchangeRate" 
+                   className="w-full border border-gray-300 p-1 mt-1" 
+                   defaultValue="1"
+                   onChange={(e) => {
+                     const value = parseFloat(e.target.value) || 1;
+                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                     document.getElementById('calculatedValue').value = calculatedValue;
+                   }}
+                 />
+                 <div className="font-bold">1</div>
+               </div>
+               <div className="p-2 text-center">
+                 <div className="font-bold">CHUYỂN VỀ VÍ</div>
+                 <div className="text-sm italic text-center">(Transfer to wallet)</div>
+                 <button 
+                   type="button" 
+                   className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                 >
+                   Chuyển
+                 </button>
+               </div>
+             </div>
             {/* Two columns layout */}
             <div className="grid grid-cols-2">
-              {/* Column 2 - TRỰC TUYẾN */}
-              <div 
-                className={`p-4 text-center cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
-                onClick={() => setActiveTab("online")}
-              >
-                <h3 className="font-bold text-blue-500">TRỰC TUYẾN</h3>
-                <p className="text-sm italic text-blue-500">(Online)</p>
-              </div>
               {/* Column 1 - THỰC TẾ */}
               <div 
                 className={`border-r border-gray-300 p-4 text-center cursor-pointer ${activeTab === "direct" ? "bg-orange-100" : ""}`}
@@ -91,8 +136,14 @@ export default function NewFreelancerPostPage() {
                 <h3 className="font-bold text-orange-500">THỰC TẾ</h3>
                 <p className="text-sm italic text-orange-500">(Actual)</p>
               </div>
-
-
+              {/* Column 2 - TRỰC TUYẾN */}
+              <div 
+                className={`p-4 text-center cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
+                onClick={() => setActiveTab("online")}
+              >
+                <h3 className="font-bold text-blue-500">TRỰC TUYẾN</h3>
+                <p className="text-sm italic text-blue-500">(Online)</p>
+              </div>
             </div>
           </div>
         </div>
