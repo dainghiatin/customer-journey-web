@@ -40,7 +40,7 @@ function App() {
         <Route exact path="/new-post" element={<NewPostPage />} />
         <Route exact path="/new-good-post" element={<NewGoodPostPage />} />
         <Route exact path="/list-of-goods" element={<ListOfGoodsPage />} />
-        <Route exact path="/list-of-goods/:id" element={<DetailOfGoodsPage />} />
+        {/* <Route exact path="/list-of-goods/:id" element={<DetailOfGoodsPage />} /> */}
 
         <Route exact path="/freelancer" element={<FreelancerPage />} />
         <Route exact path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
