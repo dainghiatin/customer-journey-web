@@ -46,6 +46,7 @@ export default function RegisterPage() {
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [signature, setSignature] = useState();
   const navigate = useNavigate();
+  const [isReadContract, setIsReadContract] = useState(false);
   const [countries, setCountries] = useState([]);
   const [formData, setFormData] = useState({
     username: "",
@@ -230,6 +231,7 @@ export default function RegisterPage() {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      setIsReadContract(true);
     } catch (error) {
       console.error("Lỗi khi tải hợp đồng:", error);
       alert(t('auth.contractDownloadError', 'Không thể tải file hợp đồng. Vui lòng thử lại.'));
@@ -237,7 +239,10 @@ export default function RegisterPage() {
   };
 
   const handleRegister = async () => {
-    console.log("formData: ", formData);
+    if (!isFormValid() || !isReadContract) {
+      alert(t('auth.invalidForm', 'Vui lòng điền đầy đủ thông tin và đọc và chấp nhận hợp đồng'));
+      return;
+    }
 
     try {
        const uploadToCloudinaryResp = "https://res.cloudinary.com/demo/image/upload/v1692323522/sample.jpg";
@@ -525,7 +530,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.referrerIdPlaceholder', 'CCCD / MST NGƯỜI GIỚI THIỆU (Introducing from ID)')}
+                  placeholder={t('auth.referrerIdPlaceholder', 'ID NGƯỜI GIỚI THIỆU')}
                   name="reference_id"
                   value={formData.reference_id}
                   onChange={handleInputChange}
@@ -545,7 +550,6 @@ export default function RegisterPage() {
               disabled={!isFormValid() || isVerifying}
             >
               {t('common.next', 'Tiếp Theo')} <br />
-              <span className="text-xs text-gray-600">({t('common.nextEn', 'Next')})</span>
             </button>
           </div>
         </div>)}
@@ -553,14 +557,13 @@ export default function RegisterPage() {
           <div className="mt-6">
 
             <button
-              className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center"
+              className="border-2 border-black text-black font-bold px-6 py-2 rounded text-center hover:bg-gray-200 mt-4 mb-4 flex w-full justify-center items-center"
               onClick={handleContractDownload}
             >
-              {t('auth.checkContract', 'KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ')}
-              <br />
-              ({t('auth.checkContractEn', 'Check the Contract')})
-              <br />
-              ({t('auth.clickToViewFile', 'Ấn xem file')})
+              <div className="flex flex-col items-center text-center">
+                <p>{t('auth.checkContract', 'KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ')} <em className="text-red-500">*</em></p>
+                <p>({t('auth.clickToViewFile', 'Click to view file')})</p>
+              </div>
             </button>
 
             {/* New signature upload button */}
@@ -632,6 +635,7 @@ export default function RegisterPage() {
               <button
                 className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
                 onClick={() => handleRegister()}
+                tooltip={!isReadContract ? 'Vui lòng đọc và chấp nhận hợp đồng' : ''}
               >
                 {t('auth.registerTitle', 'Đăng ký')} <br />
                 <span className="text-xs text-gray-600">({t('common.register', 'Register')})</span>

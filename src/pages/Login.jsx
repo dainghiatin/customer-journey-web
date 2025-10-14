@@ -183,7 +183,7 @@ export default function LoginPage() {
                   onClick={handleLogin}
                 >
                   {t('auth.loginTitle', 'ĐĂNG NHẬP')} <br />
-                  <span className="text-xs text-gray-600">({t('common.login', 'Log in')})</span>
+                  
                 </button>
               </div>
             </div>

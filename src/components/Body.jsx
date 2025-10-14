@@ -22,7 +22,7 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
     const nation = useSelector(state => state.filter.nation);
 
     // Adjust font sizes based on compact mode
-    const titleFontSize = isCompact ? '20px' : '2.5vw';
+    const titleFontSize = isCompact ? '20px' : '3.2vw';
     const subtitleFontSize = isCompact ? '1.5vw' : '2vw';
     const marginBottom = isCompact ? '2vw' : '-2vw';
     const marginTop = isCompact ? '1vw' : '0vw';
@@ -53,24 +53,24 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                             flexDirection: "column",
                         }}
                     >
-                        <h3 style={{ color: "black", fontSize: titleFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
+                        <h3 style={{ color: "blue", fontSize: titleFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
                             {t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')} 
                         </h3>
-                        <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                        <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
                     </div>
                     <div className="flex-1">
                         <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" >
-                            <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                            <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 0, 20px)" }}>
                                 <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
                             </div>
                         </Link>
                     </div>
                 </div>
                 <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold", position: "relative" }}>
-                    <h3 style={{ color: "black", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
-                    <h4 className='' style={{ color: "black", fontSize: subtitleFontSize }}>
+                    <h3 style={{ color: "blue", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
+                    <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}>
                         <em>
-                            Target: National {nation?.charAt(0)}-Commercial
+                            Target: National  <em style={{ color: "red" }}>{nation?.charAt(0)}</em>-Commercial
                         </em>
                     </h4>
 
@@ -86,8 +86,8 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                         </div>
                     </Link>
                     <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%' }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 1vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                            <p className=""><strong>{t('navigation.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}</strong></p>
+                        <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 4vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                            <p className=""><strong>{t('navigation.paymentTransaction', 'THANH TOÁN')}</strong></p>
                         </div>
                     </Link>
                 </aside>
@@ -194,9 +194,13 @@ const DropdownAuth = () => {
     return (
         <div style={{
             display: "flex", flexDirection: "column", width: 'fit-content',
+            position: "fixed",
+            top: "150px",
+            left: "0",
+            zIndex: 1000,
             marginTop: !user
-                ? "clamp(-10rem, -5rem + 5vw, 0rem)"   // khi chưa login
-                : "clamp(-10rem, 21vw, -50rem)" // khi đã login 
+                ? "clamp(0rem, -5rem + 5vw, 0rem)"   // khi chưa login
+                : "clamp(0rem, 21vw, -50rem)" // khi đã login 
         }}>
 
             {!user ? <button

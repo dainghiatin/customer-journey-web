@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 const CategorySelect = ({
     title,
@@ -9,8 +9,10 @@ const CategorySelect = ({
     fetchItems, // Optional function to fetch items dynamically
     dependsOn, // Optional dependency for fetching items
     placeholder = "Chọn...",
+    placeholderKey,
     isDisabled = false
 }) => {
+    const { t, i18n } = useTranslation();
     const [itemList, setItemList] = useState(items || []);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -35,135 +37,66 @@ const CategorySelect = ({
         loadItems();
     }, [title, fetchItems, dependsOn]);
 
-    // Convert items to react-select format
-    const options = itemList.map((item, index) => ({
-        value: item,
-        label: item.vi,
-        sublabel: item.en
-    }));
+    // Determine selected index based on provided value
+    const selectedIndex = value
+        ? itemList.findIndex(
+            (item) => item?.vi === value?.vi && item?.en === value?.en
+        )
+        : -1;
 
-    // Find current selected option
-    const selectedOption = value ? options.find(option => 
-        option.value.vi === value.vi && option.value.en === value.en
-    ) : null;
-
-    const handleSelection = (selectedOption) => {
-        if (selectedOption && onChange) {
-            onChange(title, selectedOption.value);
+    const handleChange = (e) => {
+        const idx = parseInt(e.target.value, 10);
+        if (!Number.isNaN(idx) && itemList[idx] && onChange) {
+            onChange(title, itemList[idx]);
         }
     };
 
-    // Custom option component to show both Vietnamese and English
-    const CustomOption = ({ innerRef, innerProps, data }) => (
-        <div
-            ref={innerRef}
-            {...innerProps}
-            style={{
-                padding: '8px 12px',
-                cursor: 'pointer',
-                borderBottom: '1px solid #e5e5e5',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-            }}
-        >
-            <span style={{ fontWeight: 'bold' }}>{data.label}</span>
-            <span style={{ fontSize: '0.85em', fontStyle: 'italic', textTransform: 'lowercase' }}>
-                ({data.sublabel})
-            </span>
-        </div>
-    );
+    const getLabel = (item) => {
+        const lang = (i18n?.language || 'vi').toLowerCase();
+        const isVi = lang.startsWith('vi');
+        return isVi ? item?.vi : item?.en;
+    };
 
-    // Custom single value component
-    const CustomSingleValue = ({ data }) => (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <span style={{ fontWeight: 'bold' }}>{data.label}</span>
-        </div>
-    );
+    const getLoadingText = () => t('common.loading', 'Đang tải...');
 
-    const customStyles = {
-        control: (provided, state) => ({
-            ...provided,
-            border: '2px solid black',
-            borderRadius: 0,
-            minHeight: '48px',
-            width: 'clamp(5rem, 21vw, 20rem)',
-            backgroundColor: 'transparent',
-            boxShadow: 'none',
-            '&:hover': {
-                border: '2px solid black'
-            }
-        }),
-        valueContainer: (provided) => ({
-            ...provided,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2px 8px'
-        }),
-        singleValue: (provided) => ({
-            ...provided,
-            margin: 0,
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 'clamp(10px, 1vw, 20px)'
-        }),
-        indicatorSeparator: () => ({
-            display: 'none'
-        }),
-        dropdownIndicator: (provided) => ({
-            ...provided,
-            color: 'black',
-            fontSize: '16px',
-            fontWeight: 'bold',
-            padding: '8px'
-        }),
-        menu: (provided) => ({
-            ...provided,
-            border: '2px solid black',
-            borderRadius: 0,
-            boxShadow: 'none',
-            zIndex: 1000
-        }),
-        menuList: (provided) => ({
-            ...provided,
-            padding: 0,
-            maxHeight: '300px'
-        }),
-        option: (provided, state) => ({
-            ...provided,
-            backgroundColor: state.isSelected ? '#f0f0f0' : 'white',
-            color: 'black',
-            '&:hover': {
-                backgroundColor: '#f5f5f5'
-            },
-            padding: 0
-        }),
-        placeholder: (provided) => ({
-            ...provided,
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 'clamp(10px, 1vw, 20px)'
-        })
+    const getPlaceholderText = () => {
+        if (placeholder && typeof placeholder === 'object') {
+            return getLabel(placeholder);
+        }
+        if (placeholderKey) {
+            return t(placeholderKey, placeholder || '');
+        }
+        return placeholder || '';
     };
 
     return (
-        <div style={{ position: 'relative' }}>
-            <Select
-                options={options}
-                value={selectedOption}
-                onChange={handleSelection}
-                placeholder={placeholder}
-                isLoading={isLoading}
-                isDisabled={isDisabled}
-                components={{
-                    Option: CustomOption,
-                    SingleValue: CustomSingleValue
+        <div style={{ position: 'relative', flex: 1 }}>
+            <select
+                value={selectedIndex >= 0 ? String(selectedIndex) : ''}
+                onChange={handleChange}
+                disabled={isDisabled || isLoading}
+                style={{
+                    width: '100%',
+                    border: '2px solid black',
+                    borderRadius: 0,
+                    minHeight: '48px',
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                    padding: '8px',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 'clamp(10px, 1vw, 20px)'
                 }}
-                styles={customStyles}
-                menuPortalTarget={document.body}
-                menuPosition="fixed"
-            />
+            >
+                <option value="" disabled>
+                    {isLoading ? getLoadingText() : getPlaceholderText()}
+                </option>
+                {itemList.map((item, idx) => (
+                    <option key={idx} value={idx}>
+                        {getLabel(item)}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 };

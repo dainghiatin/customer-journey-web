@@ -24,7 +24,12 @@ const mockEvents = [
 ];
 
 export default function EventComponent() {
-    const [startColumnIndex, setStartColumnIndex] = useState(0);
+    // Trang hiện tại cho desktop và mobile (mỗi swipe -> sang trang mới)
+    const [pageDesktop, setPageDesktop] = useState(0);
+    const [pageMobile, setPageMobile] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragStartX, setDragStartX] = useState(null);
+    const [dragLastX, setDragLastX] = useState(null);
     const navigate = useNavigate();
     
     // Desktop: hiển thị 6 cột x 2 dòng = 12 events
@@ -35,6 +40,8 @@ export default function EventComponent() {
     
     const getCurrentEvents = (isMobile = false) => {
         const columns = isMobile ? columnsMobile : columnsDesktop;
+        const page = isMobile ? pageMobile : pageDesktop;
+        const startColumnIndex = page * columns; // mỗi trang chứa đúng số cột
         const events = [];
         
         // Tạo grid đúng thứ tự: dòng trên (1,3,5...), dòng dưới (2,4,6...)
@@ -57,18 +64,68 @@ export default function EventComponent() {
         return events;
     };
     
-    const handlePrevious = () => {
-        setStartColumnIndex(prev => Math.max(0, prev - 1));
+    const getMaxPages = (isMobile = false) => {
+        const columns = isMobile ? columnsMobile : columnsDesktop;
+        const maxColumns = Math.ceil(mockEvents.length / 2); // mỗi cột = 2 events
+        return Math.max(1, Math.ceil(maxColumns / columns));
+    };
+
+    const handlePrevious = (isMobile = false) => {
+        if (isMobile) {
+            setPageMobile(prev => Math.max(0, prev - 1));
+        } else {
+            setPageDesktop(prev => Math.max(0, prev - 1));
+        }
     };
     
-    const handleNext = () => {
-        const maxColumns = Math.ceil(mockEvents.length / 2);
-        setStartColumnIndex(prev => Math.min(maxColumns - 1, prev + 1));
+    const handleNext = (isMobile = false) => {
+        const maxPages = getMaxPages(isMobile);
+        if (isMobile) {
+            setPageMobile(prev => Math.min(maxPages - 1, prev + 1));
+        } else {
+            setPageDesktop(prev => Math.min(maxPages - 1, prev + 1));
+        }
     };
     
-    const canGoPrevious = startColumnIndex > 0;
-    const maxColumns = Math.ceil(mockEvents.length / 2);
-    const canGoNext = startColumnIndex < maxColumns - 1;
+    const canGoPreviousDesktop = pageDesktop > 0;
+    const canGoNextDesktop = pageDesktop < getMaxPages(false) - 1;
+    const canGoPreviousMobile = pageMobile > 0;
+    const canGoNextMobile = pageMobile < getMaxPages(true) - 1;
+
+    const swipeThreshold = 50; // px
+
+    const onPointerDown = (clientX) => {
+        setIsDragging(true);
+        setDragStartX(clientX);
+        setDragLastX(clientX);
+    };
+
+    const onPointerMove = (clientX) => {
+        if (!isDragging || dragStartX === null) return;
+        setDragLastX(clientX);
+    };
+
+    const onPointerUp = (isMobile = false) => {
+        if (!isDragging || dragStartX === null || dragLastX === null) {
+            setIsDragging(false);
+            setDragStartX(null);
+            setDragLastX(null);
+            return;
+        }
+        const deltaX = dragLastX - dragStartX;
+        if (Math.abs(deltaX) > swipeThreshold) {
+            if (deltaX < 0) {
+                const canGoNext = isMobile ? canGoNextMobile : canGoNextDesktop;
+                if (canGoNext) handleNext(isMobile);
+            } else if (deltaX > 0) {
+                const canGoPrevious = isMobile ? canGoPreviousMobile : canGoPreviousDesktop;
+                if (canGoPrevious) handlePrevious(isMobile);
+            }
+        }
+        setIsDragging(false);
+        setDragStartX(null);
+        setDragLastX(null);
+    };
 
     const EventCard = ({ event }) => (
         <div onClick={() => navigate(`/list-of-goods/${event.id}`)} style={{ 
@@ -115,7 +172,7 @@ export default function EventComponent() {
     );
 
     return (
-        <section className="action-section" style={{}}>
+        <section className="action-section " >
             {/* Desktop Layout */}
             <div className="action-section-1" style={{ 
                 alignItems: 'center',
@@ -124,18 +181,28 @@ export default function EventComponent() {
             }}>
                 <NavigationButton 
                     direction="prev" 
-                    onClick={handlePrevious}
-                    disabled={!canGoPrevious}
+                    onClick={() => handlePrevious(false)}
+                    disabled={!canGoPreviousDesktop}
                 />
                 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(6, 1fr)',
-                    gridTemplateRows: 'repeat(2, 1fr)',
-                    gap: '10px',
-                    flex: 1,
-                    padding: '0 10px'
-                }}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(6, 1fr)',
+                        gridTemplateRows: 'repeat(2, 1fr)',
+                        gap: '10px',
+                        flex: 1,
+                        padding: '0 10px',
+                        userSelect: 'none'
+                    }}
+                    onMouseDown={(e) => onPointerDown(e.clientX)}
+                    onMouseMove={(e) => onPointerMove(e.clientX)}
+                    onMouseUp={() => onPointerUp(false)}
+                    onMouseLeave={() => onPointerUp(false)}
+                    onTouchStart={(e) => onPointerDown(e.touches[0].clientX)}
+                    onTouchMove={(e) => onPointerMove(e.touches[0].clientX)}
+                    onTouchEnd={() => onPointerUp(false)}
+                >
                     {getCurrentEvents(false).map((event, index) => (
                         <EventCard key={`${event.id}-${index}`} event={event} />
                     ))}
@@ -143,8 +210,8 @@ export default function EventComponent() {
                 
                 <NavigationButton 
                     direction="next" 
-                    onClick={handleNext}
-                    disabled={!canGoNext}
+                    onClick={() => handleNext(false)}
+                    disabled={!canGoNextDesktop}
                 />
             </div>
 
@@ -157,19 +224,25 @@ export default function EventComponent() {
             }}>
                 <NavigationButton 
                     direction="prev" 
-                    onClick={handlePrevious}
-                    disabled={!canGoPrevious}
+                    onClick={() => handlePrevious(true)}
+                    disabled={!canGoPreviousMobile}
                     isMobile={true}
                 />
                 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gridTemplateRows: 'repeat(2, 1fr)',
-                    gap: '10px',
-                    flex: 1,
-                    padding: '0 10px'
-                }}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gridTemplateRows: 'repeat(2, 1fr)',
+                        gap: '10px',
+                        flex: 1,
+                        padding: '0 10px',
+                        userSelect: 'none'
+                    }}
+                    onTouchStart={(e) => onPointerDown(e.touches[0].clientX)}
+                    onTouchMove={(e) => onPointerMove(e.touches[0].clientX)}
+                    onTouchEnd={() => onPointerUp(true)}
+                >
                     {getCurrentEvents(true).map((event, index) => (
                         <EventCard key={`${event.id}-${index}`} event={event} />
                     ))}
@@ -177,8 +250,8 @@ export default function EventComponent() {
                 
                 <NavigationButton 
                     direction="next" 
-                    onClick={handleNext}
-                    disabled={!canGoNext}
+                    onClick={() => handleNext(true)}
+                    disabled={!canGoNextMobile}
                     isMobile={true}
                 />
             </div>

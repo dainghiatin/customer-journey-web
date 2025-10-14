@@ -68,10 +68,9 @@ function EventFilterComponent() {
             <div style={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'center',
                 width: "100%",
                 marginTop: "8%",
-                alignItems: "flex-start",
+                alignItems: "self-start",
                 gap: "10px"
             }}>
                 <CategorySelect
@@ -79,41 +78,40 @@ function EventFilterComponent() {
                     items={categories}
                     onChange={handleCategoryChange}
                     value={category}
-                    placeholder="Chọn danh mục"
+                    placeholder={{ vi: "Chọn danh mục", en: "Select category" }}
                 />
                 <CategorySelect
                     title="Subcategories"
                     items={subCategories}
                     onChange={handleCategoryChange}
                     value={subcategory}
-                    placeholder="Chọn phân loại"
+                    placeholder={{ vi: "Chọn phân loại", en: "Select subcategory" }}
                 />
                 <CategorySelect
                     title="Conditions"
                     items={conditions}
                     onChange={handleCategoryChange}
                     value={condition}
-                    placeholder="Chọn tình trạng"
+                    placeholder={{ vi: "Chọn tình trạng", en: "Select condition" }}
                 />
-                <div className="">
+                <div className="flex-1">
                     <CategorySelect
-                        title="Nation"
-                        items={[]}
-                        onChange={handleCategoryChange}
-                        value={nation}
-                        fetchItems={getCountries}
-                        placeholder="Chọn quốc gia"
-                    />
-
-                    <CategorySelect
-                        title="Province"
-                        items={[]}
-                        onChange={handleCategoryChange}
-                        value={province}
-                        fetchItems={getCountryByCode}
-                        dependsOn={nation?.en}
-                        placeholder="Chọn tỉnh/thành"
-                    />
+                    title="Nation"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={nation}
+                    fetchItems={getCountries}
+                    placeholder={{ vi: "Chọn quốc gia", en: "Select country" }}
+                />
+                <CategorySelect
+                    title="Province"
+                    items={[]}
+                    onChange={handleCategoryChange}
+                    value={province}
+                    fetchItems={getCountryByCode}
+                    dependsOn={nation?.en}
+                    placeholder={{ vi: "Chọn tỉnh/thành", en: "Select province/city" }}
+                />
                 </div>
             </div>
             <SearchSection />

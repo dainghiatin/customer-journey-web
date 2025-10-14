@@ -18,6 +18,7 @@ import AiLivePage from './pages/AiLivePage.jsx'
 import NewAiLivePostPage from './pages/NewAiLivePostPage.jsx'
 import AdminControlPage from './pages/AdminControlPage.jsx'
 import RewardListPage from './pages/RewardListPage.jsx'
+import ProtectedRoute from './routes/ProtectedRoute.jsx'
 function App() {
   // const pwd = import.meta.env.VITE_REACT_APP_PASSWORD || "123456";
   // const input = prompt("Enter your password:");
@@ -31,26 +32,29 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/payment" element={<PaymentPage />} />
-        <Route exact path="/additional-payment" element={<AdditionalPaymentPage />} />
-        <Route exact path="/with-drawth-payment" element={<WithDrawthPaymentPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
 
-        
-        <Route exact path="/new-post" element={<NewPostPage />} />
-        <Route exact path="/new-good-post" element={<NewGoodPostPage />} />
         <Route exact path="/list-of-goods" element={<ListOfGoodsPage />} />
         <Route exact path="/list-of-goods/:id" element={<DetailOfGoodsPage />} />
 
         <Route exact path="/freelancer" element={<FreelancerPage />} />
-        <Route exact path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
         <Route exact path="/detail-of-goods" element={<DetailOfGoodsPage />} />
 
-        <Route exact path="/ai-live" element={<AiLivePage />} />
-        <Route exact path="/new-ai-live-post" element={<NewAiLivePostPage />} />
-        <Route exact path="/admin-control" element={<AdminControlPage />} />
+        {/* Protected routes require authToken in localStorage */}
+        <Route element={<ProtectedRoute />}> 
+          <Route exact path="/payment" element={<PaymentPage />} />
+          <Route exact path="/additional-payment" element={<AdditionalPaymentPage />} />
+          <Route exact path="/with-drawth-payment" element={<WithDrawthPaymentPage />} />
 
-        <Route exact path="/reward-list" element={<RewardListPage />} />
+          <Route exact path="/new-post" element={<NewPostPage />} />
+          <Route exact path="/new-good-post" element={<NewGoodPostPage />} />
+          <Route exact path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
+
+          <Route exact path="/ai-live" element={<AiLivePage />} />
+          <Route exact path="/new-ai-live-post" element={<NewAiLivePostPage />} />
+          <Route exact path="/admin-control" element={<AdminControlPage />} />
+          <Route exact path="/reward-list" element={<RewardListPage />} />
+        </Route>
       </Routes>
     </>
   )

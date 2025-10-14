@@ -21,13 +21,13 @@ import { generateQrSessionInfo } from "../services/authService";
 function HomePage() {
     const { t, i18n } = useTranslation();
     const { user, isAuthenticated } = useSelector(state => state.auth);
-    
+    const lang = localStorage.getItem("selectedLang") || "vi";
     // State management
-    const [selectedLang, setSelectedLang] = useState(i18n.language || "vi");
+    const [selectedLang, setSelectedLang] = useState(lang || i18n.language);
     const [color, setColor] = useState("#1242ae");
     const [authToken, setAuthToken] = useState(null);
     const [userCountry, setUserCountry] = useState('Vietnam');
-    
+
     // QR Modal states
     const [isQrModalOpen, setIsQrModalOpen] = useState(false);
     const [isQrLoading, setIsQrLoading] = useState(false);
@@ -56,6 +56,13 @@ function HomePage() {
     useEffect(() => {
         document.getElementById("root").style.backgroundColor = color;
     }, [color]);
+
+    // Ensure i18n uses the stored/selected language
+    useEffect(() => {
+        if (selectedLang && i18n.language !== selectedLang) {
+            i18n.changeLanguage(selectedLang);
+        }
+    }, [selectedLang]);
 
     // Computed values
     const isUserLoggedIn = isAuthenticated || authToken;
@@ -110,7 +117,7 @@ function HomePage() {
     return (
         <>
             <header className="grid-container "
-            style={{ maxHeight: "130px" }}
+                style={{  }}
             >
                 {/* Header Component */}
                 <HeaderComponent
@@ -137,42 +144,43 @@ function HomePage() {
                         <CompanyInfoTable userCountry={selectedLang} />
                     ) : (
                         <DataTableComponent />
-                    )}  
+                    )}
                 </div>
 
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
-                    <div className="!hidden md:!block grid-col-4">
+                    <div className="!hidden md:!block grid-col-4 w-full">
                         <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
+                        
                         <EventFilterComponent />
                     </div>
                 )}
 
                 {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
-                <div className="md:hidden w-full flex flex-col mt-2">
+                <div className="md:hidden w-full flex flex-col mt-2 w-full">
                     <HeroHeader selectedLang={selectedLang} isCompact={false} />
                     <EventFilterComponent />
                 </div>
             </header>
 
             {/* Body Content */}
-            <div className="flex">
-                <DropdownAuth />
+            
+                
                 {!isUserLoggedIn && (
-                    <div className="hidden md:block">
+                    <div className="flex">
+                    <div className="hidden md:block w-full">
                         <HeroHeader isCompact={false} />
                         <EventFilterComponent />
                     </div>
+                    </div>
                 )}
-            </div>
-
-            {/* Event Component */}
+            
+            <DropdownAuth />
+            <br />
             <EventComponent />
 
-            {/* Footer Component */}
             <FooterComponent />
 
-            {/* Ad Banner */}
             <AdBanner />
 
             {/* QR Modal */}
