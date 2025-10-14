@@ -49,7 +49,7 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              {/* TÊN CÔNG VIỆC <span className="italic font-normal text-sm">(Name of JOB)</span> */}
+              {t('newFreelancerDirect.jobName', 'TÊN CÔNG VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.jobNameEn', 'Name of JOB')})</span>
             </div>
             <div className="flex items-center">
               <input
@@ -70,7 +70,7 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              {/* ƯỚC LƯỢNG <span className="italic font-normal text-sm">(Estimate)</span> */}
+              {t('newFreelancerDirect.estimate', 'ƯỚC LƯỢNG')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.estimateEn', 'Estimate')})</span>
             </div>
             <div className="flex items-center">
               <input
@@ -90,13 +90,13 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)
+              {t('newFreelancerDirect.jobProfile', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.jobProfileEn', 'Job profile / pictures')})</span>
             </div>
             <div className="flex items-center">
               <input
                 type="file"
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder={t('newFreelancerDirect.estimatePlaceholder', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)')}
+                placeholder={t('newFreelancerDirect.jobProfilePlaceholder', 'HỒ SƠ / HÌNH ẢNH CÔNG VIỆC (Job profile / pictures)')}
               />
               <span className="text-red-500 font-bold ml-2 mt-2">*</span>
             </div>
@@ -110,7 +110,7 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-11 p-2">
             <div className="font-bold">
-              {/* YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN <span className="italic font-normal text-sm">(Manpower, equipment requirement)</span> */}
+              {t('newFreelancerDirect.requirements', 'YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.requirementsEn', 'Manpower, equipment requirement')})</span>
             </div>
             <div className="flex items-center">
               <textarea
@@ -165,7 +165,7 @@ const NewFreelancerPostDirectComponent = () => {
           <div className="col-span-11 p-2 space-y-4">
             <div>
               <div className="font-bold">
-                {/* ĐỊA ĐIỂM NHẬN VIỆC <span className="italic font-normal text-sm">(Start location)</span> */}
+                {t('newFreelancerDirect.startLocation', 'ĐỊA ĐIỂM NHẬN VIỆC')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.startLocationEn', 'Start location')})</span>
               </div>
               <div className="flex items-center">
                 <input
@@ -178,7 +178,7 @@ const NewFreelancerPostDirectComponent = () => {
             </div>
             <div>
               <div className="font-bold">
-                {/* ĐỊA ĐIỂM HOÀN THÀNH <span className="italic font-normal text-sm">(Finish location)</span> */}
+                {t('newFreelancerDirect.finishLocation', 'ĐỊA ĐIỂM HOÀN THÀNH')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.finishLocationEn', 'Finish location')})</span>
               </div>
               <div className="flex items-center">
                 <input
@@ -210,7 +210,7 @@ const NewFreelancerPostDirectComponent = () => {
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
-            <div className="text-center w-full">VND <span className="text-red-500">*</span></div>
+            <div className="text-center w-full">{t('common.currency', 'VND')} <span className="text-red-500">*</span></div>
           </div>
         </div>
 
@@ -221,15 +221,15 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              HÓA ĐƠN GIÁ TRỊ GIA TĂNG <span className="italic font-normal text-sm">(VAT)</span>
+              {t('newFreelancerDirect.vat', 'HÓA ĐƠN GIÁ TRỊ GIA TĂNG')} <span className="italic font-normal text-sm">({t('newFreelancerDirect.vatEn', 'VAT')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <select
               className="w-full p-2 border border-gray-300 rounded"
             >
-              <option value="10">CÓ/YES</option>
-              <option value="0">KHÔNG/NO</option>
+              <option value="10">{t('common.yes', 'CÓ')}/{t('common.yesEn', 'YES')}</option>
+              <option value="0">{t('common.no', 'KHÔNG')}/{t('common.noEn', 'NO')}</option>
             </select>
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -244,18 +244,18 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              THỜI LƯỢNG DUYỆT GIÁ: <span className="italic font-normal text-sm">(Price review time)</span>
+              {t('newFreelancerDirect.priceReviewTime', 'THỜI LƯỢNG DUYỆT GIÁ')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.priceReviewTimeEn', 'Price review time')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="time"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Chọn giờ / phút"
+              placeholder={t('newFreelancerDirect.timePickerPlaceholder', 'Chọn giờ / phút')}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
-            <div className="text-center w-full">Nhỏ hơn 24h <span className="text-red-500">*</span></div>
+            <div className="text-center w-full">{t('newFreelancerDirect.lessThan24h', 'Nhỏ hơn 24h')} <span className="text-red-500">*</span></div>
           </div>
         </div>
 
@@ -266,7 +266,7 @@ const NewFreelancerPostDirectComponent = () => {
           </div>
           <div className="col-span-3 p-2">
             <div className="font-bold">
-              ĐẶT CỌC, KÝ QUỸ 02 BÊN: <span className="italic font-normal text-sm">(Deposit)</span>
+              {t('newFreelancerDirect.deposit', 'ĐẶT CỌC, KÝ QUỸ 02 BÊN')}: <span className="italic font-normal text-sm">({t('newFreelancerDirect.depositEn', 'Deposit')})</span>
             </div>
           </div>
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
@@ -277,7 +277,7 @@ const NewFreelancerPostDirectComponent = () => {
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
-            <div className="text-center w-full">VND <span className="text-red-500">*</span></div>
+            <div className="text-center w-full">{t('common.currency', 'VND')} <span className="text-red-500">*</span></div>
           </div>
         </div>
 
@@ -290,23 +290,23 @@ const NewFreelancerPostDirectComponent = () => {
             <div className="overflow-x-auto">
               <div className="min-w-max grid grid-cols-7 gap-2">
                 {/* Dòng 1 */}
-                <div className="font-bold border border-gray-300 p-3 bg-gray-50">PHÍ ĐĂNG KÝ SỰ KIỆN: <br />(Event fee)</div>
+                <div className="font-bold border border-gray-300 p-3 bg-gray-50">{t('newFreelancerDirect.eventFee', 'PHÍ ĐĂNG KÝ SỰ KIỆN')}: <br />({t('newFreelancerDirect.eventFeeEn', 'Event fee')})</div>
                 <div className="border border-gray-300 p-2">
                   <input 
                     type="text" 
                     className="w-full p-2 border border-gray-300 rounded"
                   />
                 </div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">+</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.plus', '+')}</div>
                 <div className="border border-gray-300 p-2">
                   <input 
                     type="text" 
                     className="w-full p-2 border border-gray-300 rounded"
                   />
                 </div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">VNĐ</div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">TRẢ TRƯỚC <br />(Prepay)</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.currency', 'VNĐ')}</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('newFreelancerDirect.prepay', 'TRẢ TRƯỚC')} <br />({t('newFreelancerDirect.prepayEn', 'Prepay')})</div>
                 
                 {/* Khoảng cách giữa dòng 1 và 2 */}
                 <div className="col-span-7 h-4"></div>
@@ -319,7 +319,7 @@ const NewFreelancerPostDirectComponent = () => {
                     className="w-full p-2 border border-gray-300 rounded"
                   />
                 </div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
                 <div className="flex items-center justify-center border border-gray-300 p-3 text-red-500 text-xl font-bold">*</div>
                 <div className="border border-gray-300 p-3"></div>
                 <div className="border border-gray-300 p-3"></div>
@@ -331,7 +331,7 @@ const NewFreelancerPostDirectComponent = () => {
                 {/* Dòng 3 */}
                 <div className="font-bold border border-gray-300 p-3 bg-gray-50">THUẾ + PHÍ KHÁC: <br />(VAT + Other fees)</div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">0</div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
                 <div className="border border-gray-300 p-3"></div>
                 <div className="border border-gray-300 p-3"></div>
                 <div className="border border-gray-300 p-3"></div>
@@ -348,16 +348,16 @@ const NewFreelancerPostDirectComponent = () => {
                     className="w-full p-2 border border-gray-300 rounded"
                   />
                 </div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">%</div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">+</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.plus', '+')}</div>
                 <div className="border border-gray-300 p-2">
                   <input 
                     type="text" 
                     className="w-full p-2 border border-gray-300 rounded"
                   />
                 </div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">VNĐ</div>
-                <div className="flex items-center justify-center border border-gray-300 p-3">TRẢ TRƯỚC <br />(Prepay)</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.currency', 'VNĐ')}</div>
+                <div className="flex items-center justify-center border border-gray-300 p-3">{t('newFreelancerDirect.prepay', 'TRẢ TRƯỚC')} <br />({t('newFreelancerDirect.prepayEn', 'Prepay')})</div>
               </div>
             </div>
           </div>
@@ -365,7 +365,7 @@ const NewFreelancerPostDirectComponent = () => {
 
         {/* Submit Button */}
         <div className="flex justify-center mt-8">
-          <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center">
+          <button onClick={handleSubmit} className="border border-black px-16 py-2 text-center cursor-pointer hover:bg-gray-100">
             <div className="font-bold">{t('newFreelancerDirect.postButton', 'ĐĂNG BÀI')}</div>
             <div className="italic text-sm">({t('newFreelancerDirect.postButtonEn', 'POST')})</div>
           </button>
