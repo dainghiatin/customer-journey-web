@@ -8,6 +8,7 @@ import {
   KeyboardIcon as KeyboardIcon,
   Camera as CameraIcon
 } from "lucide-react";
+import PostTypeMenu from "../components/PostTypeMenu";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
@@ -125,23 +126,9 @@ export default function NewPostPage() {
 
         {/* Three columns layout */}
         <div className="mt-6">
-          <div className="grid grid-cols-3 gap-4 border border-gray-300">
-            {/* Column 1 */}
-            <Link to={'../new-good-post'} className="border-r border-gray-400 p-4 text-center">
-              <h3 className="font-bold text-lg">{t('posts.goods', 'HÀNG HÓA')}</h3>
-              <p className="text-sm italic">({t('posts.goodsEn', 'Goods')})</p>
-            </Link>
-
-            {/* Column 2 */}
-            <Link to={'../new-freelancer-post'} className="border-r border-gray-400 p-4 text-center">
-              <h3 className="font-bold text-lg">{t('posts.freelancer', 'CÔNG VIỆC TỰ DO')}</h3>
-              <p className="text-sm italic">({t('posts.freelancerEn', 'Freelancer')})</p>
-            </Link>
-
-            {/* Column 3 */}
-            <Link to={'../new-ai-live-post'} className="p-4 text-center">
-              <h3 className="font-bold text-lg">{t('posts.aiLive', 'Ai LIVE')}</h3>
-            </Link>
+          <div className="border border-gray-300">
+            {/* Using the common PostTypeMenu component */}
+            <PostTypeMenu activeType={null} />
           </div>
         </div>
 

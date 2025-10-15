@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { createProduct } from "../services/productService";
 import ProductGrid from "../components/ProductGrid";
+import PostTypeMenu from "../components/PostTypeMenu";
 
 export default function NewGoodPostPage() {
   const { t } = useTranslation();
@@ -239,17 +240,7 @@ export default function NewGoodPostPage() {
         <div className="mt-6">
           <form onSubmit={handleSubmit} className="border border-gray-300">
             {/* Top Categories Section */}
-            <div className="grid grid-cols-3">
-              <div className="border p-2 bg-blue-500 text-white">
-                <div className="font-bold text-center">HÀNG HÓA<br/><span className="text-sm font-normal italic">(Goods)</span></div>
-              </div>
-              <div className="border p-2">
-                <div className="font-bold text-center" onClick={()=>navigate("/new-freelancer-post")}>CÔNG VIỆC TỰ DO<br/><span className="text-sm font-normal italic">(Freelancer)</span></div>
-              </div>
-              <div className="p-2 border">
-                <div className="font-bold text-center" onClick={()=>navigate("/new-ai-live-post")}>Ai LIVE</div>
-              </div>
-            </div>
+            <PostTypeMenu activeType="goods" />
             
             {/* TÀI KHOẢN HÀNG HÓA Section */}
              <div className="grid grid-cols-5 border-b border-gray-300">

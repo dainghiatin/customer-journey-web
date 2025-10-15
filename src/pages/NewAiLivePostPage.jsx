@@ -7,7 +7,10 @@ import { createVideo } from "../services/videoService";
 import {
   Home as HomeIcon,
   KeyboardIcon as KeyboardIcon,
+  Eye as EyeIcon,
+  EyeOff as EyeOffIcon,
 } from "lucide-react";
+import PostTypeMenu from "../components/PostTypeMenu";
 
 export default function NewAiLivePostPage() {
   const { t } = useTranslation();
@@ -16,10 +19,16 @@ export default function NewAiLivePostPage() {
   const [videoFile, setVideoFile] = useState(null);
   const [movieFile, setMovieFile] = useState(null);
   const [liveTime, setLiveTime] = useState("");
+  const [liveTimeStartHour, setLiveTimeStartHour] = useState("");
+  const [liveTimeStartDate, setLiveTimeStartDate] = useState("");
+  const [liveTimeEndHour, setLiveTimeEndHour] = useState("");
+  const [liveTimeEndDate, setLiveTimeEndDate] = useState("");
   const [videoName, setVideoName] = useState("");
   const [movieName, setMovieName] = useState("");
   const [liveName, setLiveName] = useState("");
   const [activeTab, setActiveTab] = useState("video"); // Thêm state tab
+  const [isVisible1, setIsVisible1] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
 
 
   const [videoData, setVideoData] = useState({
@@ -157,18 +166,77 @@ const handleSubmitMovie = async (e) => {
         </div>
 
         {/* Tabs */}
-        <div className="grid grid-cols-3 text-center border border-black text-black">
-          <div className="p-3 font-semibold border-r">
-            HÀNG HÓA<br /><i>(Goods)</i>
+        <div className="border border-black text-black">
+          <PostTypeMenu activeType="ailive" />
+        </div>
+        {/* TÀI KHOẢN HÀNG HÓA Section */}
+        <div className="grid grid-cols-5 border border-gray-300">
+          <div className="border-r border-gray-300 p-2">
+            <div className="font-bold text-center">TÀI KHOẢN Ai LIVE<br/><span className="text-sm font-normal italic">(Account of Ai LIVE)</span></div>
           </div>
-          <div className="p-3 font-semibold border-r">
-            CÔNG VIỆC TỰ DO<br /><i>(Freelancer)</i>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <input 
+              type="number"
+              name="exchangeRate" 
+              className="w-full border border-gray-300 p-1 mt-1" 
+              defaultValue="0"
+              onChange={(e) => {
+                const value = parseFloat(e.target.value) || 0;
+                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                document.getElementById('calculatedValue').value = calculatedValue;
+              }}
+            />
+            <div className="font-bold flex items-center justify-center">
+              <span className="mr-2">{isVisible1 ? "0" : "•••"}</span>
+              <button 
+                type="button" 
+                onClick={() => setIsVisible1(!isVisible1)}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+              </button>
+            </div>
           </div>
-          <div className="p-3 font-semibold bg-blue-600 text-white">
-            Ai LIVE
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div className="font-bold  p-1 mt-1">VN</div>
+            <div className="mt-1 flex items-center justify-center">
+              <span className="mr-2">D|</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <input 
+              type="number" 
+              name="exchangeRate" 
+              className="w-full border border-gray-300 p-1 mt-1" 
+              defaultValue="0"
+              onChange={(e) => {
+                const value = parseFloat(e.target.value) || 0;
+                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                document.getElementById('calculatedValue').value = calculatedValue;
+              }}
+            />
+            <div className="font-bold flex items-center justify-center">
+              <span className="mr-2">{isVisible2 ? "0" : "•••"}</span>
+              <button 
+                type="button" 
+                onClick={() => setIsVisible2(!isVisible2)}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+              </button>
+            </div>
+          </div>
+          <div className="p-2 text-center">
+            <div className="font-bold">CHUYỂN VỀ VÍ</div>
+            <div className="text-sm italic text-center">(Transfer to wallet)</div>
+            <button 
+              type="button" 
+              className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+            >
+              Chuyển
+            </button>
           </div>
         </div>
-
         {/* Categories: VIDEO - PHIM - TRỰC TIẾP */}
         <div className="grid grid-cols-3 text-center text-white mt-4">
           <div
@@ -190,7 +258,7 @@ const handleSubmitMovie = async (e) => {
             TRỰC TIẾP<br /><span className="italic text-sm">(Live)</span>
           </div>
         </div>
-
+        
         {/* Input Zones */}
         {activeTab === "video" && (
           <div className="text-black text-sm mt-1">
@@ -239,39 +307,47 @@ const handleSubmitMovie = async (e) => {
                 <input type="checkbox" className="mr-2" /> Cho phép
             </div>
             <div className="bg-blue-100 p-4">
-                <label className="block font-semibold mb-2">
-                HIỆN QUẢNG CÁO
-                <span className="block italic text-gray-600">(Show ad)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
-
-                <label className="block font-semibold mt-4 mb-2">
-                CHÈN QUẢNG CÁO
-                <span className="block italic text-gray-600">(Insert ad)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
+                <div className="flex flex-wrap -mx-2">
+                    <div className="w-1/2 px-2">
+                        <label className="block font-semibold mb-2">
+                        HIỆN QUẢNG CÁO
+                        <span className="block italic text-gray-600">(Show ad)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
+                    </div>
+                    <div className="w-1/2 px-2">
+                        <label className="block font-semibold mb-2">
+                        CHÈN QUẢNG CÁO
+                        <span className="block italic text-gray-600">(Insert ad)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ/giây hoặc lượt" />
+                    </div>
+                </div>
             </div>
             <div className="bg-blue-100 p-4">
                 <label className="block font-semibold mb-2">
-                BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ…
-                <span className="block italic text-gray-600">(Start from seconds)</span>
+                KÍCH HOẠT QUẢNG CÁO TỪ GIÂY THỨ…
+                <span className="block italic text-gray-600">(Start advertising from seconds…)</span>
                 </label>
                 <input type="number" className="w-full border px-2 py-1" />
 
                 <label className="block font-semibold mt-4 mb-2">
-                BẮT ĐẦU QUẢNG CÁO TỪ LƯỢT XEM THỨ…
-                <span className="block italic text-gray-600">(Start from views)</span>
+                KÍCH HOẠT QUẢNG CÁO TỪ LƯỢT XEM THỨ…
+                <span className="block italic text-gray-600">(Start advertising from views…)</span>
                 </label>
                 <input type="number" className="w-full border px-2 py-1" />
             </div>
             <div className="bg-blue-100 p-4">
-                <label className="block font-semibold mb-2">
-                tick
-                </label>
-                <input type="checkbox" className="mr-2" />
-                <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
-                <br />
-                <span className="italic text-gray-600">(Confirm copyright)</span>
+                <div className="flex items-center">
+                    <div className="w-1/15 flex justify-start pl-2">
+                        <input type="checkbox" className="w-6 h-6" />
+                    </div>
+                    <div className="w-14/15">
+                        <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
+                        <br />
+                        <span className="italic text-gray-600">(Confirm copyright)</span>
+                    </div>
+                </div>
             </div>
             <div className="bg-blue-100 p-4"></div>
           </div>
@@ -316,7 +392,7 @@ const handleSubmitMovie = async (e) => {
                 * GIÁ XEM
                 <span className="block italic text-gray-600">(Watch price)</span>
                 </label>
-                <input type="number" className="w-full border px-2 py-1" placeholder="Nhập giá xem" />
+                <input type="number" className="w-full border px-2 py-1" placeholder="Nhập giá xem (VNĐ / PHIM)" />
 
                 <label className="block text-red-600 font-semibold mt-4 mb-2">
                 % CHỦ PHIM NHẬN VỀ
@@ -325,30 +401,48 @@ const handleSubmitMovie = async (e) => {
                 <input type="number" className="w-full border px-2 py-1" placeholder="%" />
             </div>
             <div className="bg-cyan-100 p-4">
+                <label className="block text-red-600 font-semibold mb-2">
+                  QUẢNG CÁO TRÊN TRANG CHỦ
+                <span className="block text-gray-600 italic">(Advertising on mainpage)</span>
+                </label>
                 <label className="block font-semibold mb-2">
                 NẠP TIỀN
                 <span className="block italic text-gray-600">(Deposit)</span>
                 </label>
-                <input type="number" className="w-full border px-2 py-1" />
+                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ" />
 
-                <label className="block font-semibold mt-4 mb-2">
-                ĐƠN GIÁ (VNĐ / GIÂY / LƯỢT)
-                <span className="block italic text-gray-600">(Unit price)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
+
             </div>
             <div className="bg-cyan-100 p-4">
-                <label className="block font-semibold mb-2">
-                QUẢNG CÁO TRÊN TRANG CHỦ
-                <span className="block italic text-gray-600">(Mainpage)</span>
-                </label>
-                <input type="text" className="w-full border px-2 py-1" />
+                <div className="flex flex-wrap -mx-2">
+                    <div className="w-1/2 px-2">
+                        <label className="block font-semibold mb-2">
+                        ĐƠN GIÁ (VNĐ / GIÂY / LƯỢT)
+                        <span className="block italic text-gray-600">(Unit price)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" />
+                    </div>
+                    <div className="w-1/2 px-2">
+                        <label bel className="block mt-4 font-semibold">
+                        NỘI DUNG QUẢNG CÁO
+                        <span className="block italic text-gray-600">(Ad content)</span>
+                        </label>
+                        <input type="file" />
+                    </div>
+            </div>
+            <div className="bg-cyan-100 p-4">
+                <div className="flex items-center">
+                    <div className="w-1/15 flex justify-start pl-2">
+                        <input type="checkbox" className="w-6 h-6" />
+                    </div>
+                    <div className="w-14/15">
+                        <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
+                        <br />
+                        <span className="italic text-gray-600">(Confirm copyright)</span>
+                    </div>
+                </div>
+            </div>
 
-                <label className="block mt-4 font-semibold">
-                NỘI DUNG QUẢNG CÁO
-                <span className="block italic text-gray-600">(Ad content)</span>
-                </label>
-                <input type="file" />
             </div>
             <div className="bg-cyan-100 p-4"></div>
           </div>
@@ -361,17 +455,48 @@ const handleSubmitMovie = async (e) => {
                 * THỜI GIAN DỰ KIẾN PHÁT SÓNG
                 <span className="block text-orange-600 italic">(Expected airing time)</span>
               </label>
-              <select
-                value={liveTime}
-                onChange={(e) => setLiveTime(e.target.value)}
-                className="w-full border rounded px-2 py-1"
-              >
-                <option value="">Chọn thời gian</option>
-                <option value="today-8am">Hôm nay - 08:00</option>
-                <option value="today-8pm">Hôm nay - 20:00</option>
-                <option value="tomorrow-8am">Ngày mai - 08:00</option>
-                <option value="custom">Tùy chọn...</option>
-              </select>
+              
+              <div className="flex flex-wrap -mx-2 mb-4">
+                <div className="w-1/2 px-2">
+                  <label className="block text-black font-semibold mb-1">
+                    Từ:
+                  </label>
+                  <div className="flex space-x-2 mb-2">
+                    <input
+                      type="time"
+                      value={liveTimeStartHour || ""}
+                      onChange={(e) => setLiveTimeStartHour(e.target.value)}
+                      className="w-full border rounded px-2 py-1"
+                    />
+                  </div>
+                  <input
+                    type="date"
+                    value={liveTimeStartDate || ""}
+                    onChange={(e) => setLiveTimeStartDate(e.target.value)}
+                    className="w-full border rounded px-2 py-1"
+                  />
+                </div>
+                
+                <div className="w-1/2 px-2">
+                  <label className="block text-black font-semibold mb-1">
+                    Đến:
+                  </label>
+                  <div className="flex space-x-2 mb-2">
+                    <input
+                      type="time"
+                      value={liveTimeEndHour || ""}
+                      onChange={(e) => setLiveTimeEndHour(e.target.value)}
+                      className="w-full border rounded px-2 py-1"
+                    />
+                  </div>
+                  <input
+                    type="date"
+                    value={liveTimeEndDate || ""}
+                    onChange={(e) => setLiveTimeEndDate(e.target.value)}
+                    className="w-full border rounded px-2 py-1"
+                  />
+                </div>
+              </div>
               <label className="block mt-4 text-black font-semibold">
                   * TÊN TRỰC TIẾP
                   <span className="block text-gray-600 italic">(Live's name)</span>
@@ -399,68 +524,86 @@ const handleSubmitMovie = async (e) => {
                 <input type="file" />
             </div>
             <div className="bg-green-100 p-4">
-                <label className="block font-semibold mb-2">
-                GIÁ XEM
-                <span className="block italic text-gray-600">(Watch price)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
-
-                <label className="block font-semibold mt-4 mb-2">
-                GIÁ NHẮN TIN
-                <span className="block italic text-gray-600">(Message price)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
-
-                <label className="block font-semibold mt-4 mb-2">
-                % CHỦ LIVE NHẬN VỀ
-                <span className="block italic text-gray-600">(% Live owner receive)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" placeholder="%" />
+                <div className="flex flex-wrap -mx-2">
+                    <div className="w-1/3 px-2">
+                        <label className="block font-semibold mb-2">
+                        GIÁ XEM 
+                       <span className="block italic text-gray-600">(Watch price)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / LIVE"/>
+                    </div>
+                    
+                    <div className="w-1/3 px-2">
+                        <label className="block font-semibold mb-2">
+                        GIÁ NHẮN TIN
+                        <span className="block italic text-gray-600">(Message price)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / TIN NHẮN"/>
+                    </div>
+                    
+                    <div className="w-1/3 px-2">
+                        <label className="block font-semibold mb-2">
+                        GIÁ TIN NHẮN VIP
+                        <span className="block italic text-gray-600">(% Live owner receive)</span>
+                        </label>
+                        <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / TIN NHẮN" />
+                    </div>
+                </div>
             </div>
             <div className="bg-green-100 p-4">
-                <label className="block font-semibold mb-2">
-                NẠP TIỀN
-                <span className="block italic text-gray-600">(Deposit)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
-
-                <label className="block font-semibold mt-4 mb-2">
-                VNĐ
-                <span className="block italic text-gray-600">(Theo địa phương)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
-            </div>
-            <div className="bg-green-100 p-4">
-                <label className="block font-semibold mb-2">
-                ĐƠN GIÁ
-                <span className="block italic text-gray-600">(Unit price)</span>
-                </label>
-                <input type="number" className="w-full border px-2 py-1" />
-
-                <label className="block mt-4 font-semibold">
-                NỘI DUNG QUẢNG CÁO
-                <span className="block italic text-gray-600">(Ad content)</span>
-                </label>
-                <input type="file" />
+                <div className="flex flex-wrap -mx-2">
+                    <div className="w-1/3 px-2 flex items-center">
+                        <label className="block text-red-600 font-semibold">
+                          QUẢNG CÁO TRÊN TRANG CHỦ
+                          <span className="block text-gray-600 italic">(Advertising on mainpage)</span>
+                        </label>
+                    </div>
+                    
+                    <div className="w-2/3 px-2">
+                        <div className="mb-4">
+                            <label className="block font-semibold mb-2">
+                            NẠP TIỀN
+                            <span className="block italic text-gray-600">(Deposit)</span>
+                            </label>
+                            <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ" />
+                        </div>
+                        
+                        <div className="mb-4">
+                            <label className="block font-semibold mb-2">
+                            ĐƠN GIÁ
+                            <span className="block italic text-gray-600">(Unit price)</span>
+                            </label>
+                            <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / GIÂY (S) / LƯỢT XEM (View)" />
+                        </div>
+                        
+                        <div>
+                            <label className="block font-semibold mb-2">
+                            NỘI DUNG QUẢNG CÁO
+                            <span className="block italic text-gray-600">(Ad content)</span>
+                            </label>
+                            <input type="file" className="w-full" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="bg-green-100 p-4 space-y-4">
-                <label className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="font-semibold">CHO PHÉP QUẢNG CÁO TRÊN LIVE NÀY</span>
-                <span className="italic text-gray-600">(Allow advertising on this Live)</span>
-                </label>
-
+                <div className="flex items-center">
+                    <label className="block text-red-600 font-semibold">
+                      CHO PHÉP QUẢNG CÁO TRÊN LIVE NÀY
+                      <span className="block text-gray-600 italic">(Allow advertising on this Live)</span>
+                    </label>
+                </div>
                 <div>
                 <label className="font-semibold block">
                     HIỆN QUẢNG CÁO
                     <span className="block italic text-gray-600">(Show ad)</span>
                 </label>
-                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / GIÂY (S)" />
+                <input type="number" className="w-full border px-2 py-1" placeholder="VNĐ / GIÂY (S) / LƯỢT XEM" />
                 </div>
 
                 <div>
                 <label className="font-semibold block">
-                    BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ…
+                    BẮT ĐẦU QUẢNG CÁO TỪ GIÂY THỨ...
                     <span className="block italic text-gray-600">(Start advertising from seconds…)</span>
                 </label>
                 <input type="number" className="w-full border px-2 py-1" />
@@ -474,13 +617,17 @@ const handleSubmitMovie = async (e) => {
                 <input type="number" className="w-full border px-2 py-1" />
                 </div>
 
-                <div>
-                <label className="text-red-600 font-semibold block">
-                    * tick
-                </label>
-                <span className="italic text-gray-600">
-                    (Confirm copyright, do not Live anything Prohibited by law)
-                </span>
+                <div className="">
+                    <div className="flex items-center">
+                        <div className="w-1/15 flex justify-start pl-2">
+                            <input type="checkbox" className="w-6 h-6" />
+                        </div>
+                        <div className="w-14/15">
+                            <span className="font-semibold">CAM KẾT BẢN QUYỀN</span>
+                            <br />
+                            <span className="italic text-gray-600">(Confirm copyright)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
           </div>
@@ -492,10 +639,10 @@ const handleSubmitMovie = async (e) => {
             <span className="font-semibold text-black">Tick</span>
         </label>
         <p className="text-sm text-black leading-relaxed">
-            Tôi xác nhận là chủ sở hữu, có bản quyền, được phép truyền tải và phát sóng các video, phim, các buổi phát sóng trực tiếp này với không phải mục đích quảng cáo, bán hàng và đồng ý chấp nhận tuân theo hợp đồng cũng như mọi điều khoản và điều kiện do HỆ THỐNG WEBSITE, APP yêu cầu.
+            Tôi xác nhận là chủ sở hữu, có bản quyền, được phép truyền tải và phát sóng các video, phim, các buổi phát sóng trực tiếp này với không phải mục đích quảng cáo, bán hàng và đồng ý chấp nhận tuân theo hợp đồng cũng như mọi điều khoản và điều kiện do Sàn thương mại điện tử yêu cầu.
             <br />
             <span className="italic">
-            (I confirm that I am the owner, have the copyright, and am authorized to transmit and broadcast these videos, movies, and live broadcasts without advertising, sale goods and I agree and accept to comply with the contract as well as all terms and conditions required by the WEBSITE, APP.)
+            (I confirm that I am the owner, have the copyright, and am authorized to transmit and broadcast these videos, movies, and live broadcasts without advertising, sale goods and I agree and accept to comply with the contract as well as all terms and conditions required by the E-Commercial.)
             </span>
         </p>
         </div>
