@@ -59,7 +59,7 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                         <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
                     </div>
                     <div className="flex-1">
-                        <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" >
+                        <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" }}>
                             <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 0, 20px)" }}>
                                 <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
                             </div>
@@ -85,8 +85,8 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                             {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         </div>
                     </Link>
-                    <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%' }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", fontSize: "clamp(6px, 4vw, 20px)", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%', fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                             <p className=""><strong>{t('navigation.paymentTransaction', 'THANH TOÁN')}</strong></p>
                         </div>
                     </Link>
