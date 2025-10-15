@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import NewFreelancerPostDirectComponent from "../components/NewFreelancerPostDirectComponent";
 import NewFreelancerPostOnlineComponent from "../components/NewFreelancerPostOnlineComponent";
 import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from 'lucide-react';
+import PostTypeMenu from "../components/PostTypeMenu";
 
 export default function NewFreelancerPostPage() {
   const { t } = useTranslation();
@@ -65,21 +66,11 @@ export default function NewFreelancerPostPage() {
         <div className="mt-6">
           <div className="border border-gray-300">
             {/* Top Categories Section */}
-            <div className="grid grid-cols-3">
-              <div className="border p-2">
-                <div className="font-bold text-center">HÀNG HÓA<br/><span className="text-sm font-normal italic">(Goods)</span></div>
-              </div>
-              <div className="border p-2 bg-blue-500 text-white">
-                <div className="font-bold text-center" onClick={()=>navigate("/new-freelancer-post")}>CÔNG VIỆC TỰ DO<br/><span className="text-sm font-normal italic">(Freelancer)</span></div>
-              </div>
-              <div className="p-2 border">
-                <div className="font-bold text-center" onClick={()=>navigate("/new-ai-live-post")}>Ai LIVE</div>
-              </div>
-            </div>
+            <PostTypeMenu activeType="freelancer" />
             {/* TÀI KHOẢN HÀNG HÓA Section */}
              <div className="grid grid-cols-5 border-b border-gray-300">
                <div className="border-r border-gray-300 p-2">
-                 <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
+                 <div className="font-bold text-center">TÀI KHOẢN CÔNG VIỆC TỰ DO<br/><span className="text-sm font-normal italic">(Account of freelancer)</span></div>
                </div>
                <div className="border-r border-gray-300 p-2 text-center">
                  <input 
