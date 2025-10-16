@@ -120,7 +120,7 @@ function HomePage() {
                 style={{ position: "relative", top: 0, zIndex: 1000 }}
             >
                 {/* Header Component */}
- 
+
                 <HeaderComponent
                     color={color}
                     onColorChange={handleChangeColor}
@@ -131,11 +131,11 @@ function HomePage() {
                 <DropdownAuth />
 
                 {/* Main Content Grid */}
-               <div className="flex-1">
-                <CountrySpecificComponent userCountry={selectedLang} />
-               </div>
+                <div className="flex-1">
+                    <CountrySpecificComponent userCountry={selectedLang} />
+                </div>
 
-                <div className="!hidden md:!block flex-2" style={{ height: "100%" , flex: 5}}>
+                <div className="!hidden md:!block flex-2" style={{ height: "100%", flex: 3 }}>
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
                     ) : (
@@ -147,14 +147,14 @@ function HomePage() {
                 {isUserLoggedIn && (
                     <div className="!hidden md:!block grid-col-4 w-full">
                         <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
-                        
+
                         <EventFilterComponent />
                     </div>
                 )}
 
                 {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
                 <div className="md:hidden w-full flex flex-col mt-2 w-full"
-                style={{ width: "clamp(80%, 80%, 100%) "}}
+                    style={{ width: "clamp(80%, 80%, 100%) " }}
                 >
                     <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry} />
                     <EventFilterComponent />
@@ -162,18 +162,18 @@ function HomePage() {
             </header>
 
             {/* Body Content */}
-            
-                
-                {!isUserLoggedIn && (
-                    <div className="flex">
+
+
+            {!isUserLoggedIn && (
+                <div className="flex">
                     <div className="hidden md:block w-full">
                         <HeroHeader isCompact={false} />
                         <EventFilterComponent />
                     </div>
-                    </div>
-                )}
-            
-            
+                </div>
+            )}
+
+
             <br />
             <EventComponent />
 
