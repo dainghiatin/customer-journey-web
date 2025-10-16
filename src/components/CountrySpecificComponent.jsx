@@ -32,19 +32,13 @@ const CountrySpecificComponent = ({ userCountry = 'vi' }) => {
   const currentLang = i18n.language || 'vi';
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="!hidden md:!block w-full h-full flex flex-col avt">
       {/* Global Logo - Planet Earth */}
-      <div className="">
-        <div className="">
           <img
             src={currentCountry.flag}
             alt="Country"
             className="w-full h-full max-w-[100px] max-h-[100px] sm:max-w-[130px] sm:max-h-[130px] md:max-w-[130px] md:max-h-[200px] object-contain mx-auto"
           />
-        </div>
-      </div>
-      
-   
     </div>
   );
 };

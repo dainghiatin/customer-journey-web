@@ -79,7 +79,7 @@ const CategorySelect = ({
                     width: '100%',
                     border: '2px solid black',
                     borderRadius: 0,
-                    minHeight: '48px',
+                    minHeight: 'clamp(3vh, 6vw, 12vh)',
                     backgroundColor: 'transparent',
                     boxShadow: 'none',
                     padding: '8px',

@@ -17,13 +17,24 @@ import { updateAvatar } from '../services/authService';
 
 
 
-function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
+function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCountry }) {
     const { t } = useTranslation();
     const nation = useSelector(state => state.filter.nation);
 
     // Adjust font sizes based on compact mode
-    const titleFontSize = isCompact ? '20px' : '3.2vw';
-    const subtitleFontSize = isCompact ? '1.5vw' : '2vw';
+    let titleFontSize = isCompact ? '1.7vw' : '3.2vw';
+    if(ismobile){
+        titleFontSize = '3vw';
+    }
+    let subtitleFontSize = isCompact ? '1.5vw' : '2.2vw';
+    if(ismobile){
+        subtitleFontSize = '2.5vw';
+    }
+
+    let secondaryFontSize = isCompact ? '1.3vw' : '2vw';
+    if(ismobile){
+        secondaryFontSize = '2.5vw';
+    }
     const marginBottom = isCompact ? '2vw' : '-2vw';
     const marginTop = isCompact ? '1vw' : '0vw';
 
@@ -34,11 +45,10 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                     marginTop: "0px",
                     fontWeight: "bold",
                     flexDirection: "row",
-                    justifyContent: "flex-start",
                     alignContent: "center",
                     alignItems: "center",
                 }}>
-                    <div className="flex-1 flex items-center justify-end">
+                    <div className="flex-1 flex items-center justify-end" style={{ marginTop: "clamp(18px,2.7vw, 45px)" }}>
                         <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" ,justifyItems:"center"}}>
                             <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
                                 <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
@@ -58,7 +68,7 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                         </h3>
                         <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1" style={{ marginTop: "clamp(18px,2.7vw, 45px)" }}>
                         <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" }}>
                             <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 0, 20px)" }}>
                                 <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
@@ -66,8 +76,8 @@ function HeroHeader({ selectedLang, isCompact = false, userCountry }) {
                         </Link>
                     </div>
                 </div>
-                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold", position: "relative" }}>
-                    <h3 style={{ color: "blue", fontSize: titleFontSize, }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
+                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold", position: "relative", fontSize: secondaryFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
+                    <h3 style={{ color: "blue" }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                     <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}>
                         <em>
                             Target: National  <em style={{ color: "red" }}>{nation?.charAt(0)}</em>-Commercial
@@ -194,7 +204,7 @@ const DropdownAuth = () => {
     return (
         <div style={{
             display: "flex", flexDirection: "column", width: 'fit-content',
-            position: "fixed",
+            position: "absolute",
             top: "150px",
             left: "0",
             zIndex: 1000,
@@ -475,8 +485,8 @@ const Body = () => {
 function SearchSection() {
     const navigate = useNavigate();
     return (
-        <section className="search-section">
-            <div className="search-title " style={{ cursor: "pointer" }}>
+        <section className="search-section" style={{ minHeight: 'clamp(3vh, 6vw, 12vh)', fontSize: 'clamp(10px, 1vw, 20px)' }}>
+            <div className="search-title " style={{ cursor: "pointer", minWidth: "40px"}}>
                 <button onClick={() => navigate(`/list-of-goods`)}>
                     <h3><strong>TÌM KIẾM</strong></h3>
                 </button>

@@ -117,9 +117,10 @@ function HomePage() {
     return (
         <>
             <header className="grid-container "
-                style={{  }}
+                style={{ position: "relative", top: 0, zIndex: 1000 }}
             >
                 {/* Header Component */}
+ 
                 <HeaderComponent
                     color={color}
                     onColorChange={handleChangeColor}
@@ -127,19 +128,14 @@ function HomePage() {
                     selectedLang={selectedLang}
                     onLanguageChange={handleLanguageChange}
                 />
+                <DropdownAuth />
 
                 {/* Main Content Grid */}
-                <div >
-                    <div >
-                        {isUserLoggedIn ? (
-                            <CountrySpecificComponent userCountry={selectedLang} />
-                        ) : (
-                            <GlobalInfoComponent />
-                        )}
-                    </div>
-                </div>
+               <div className="flex-1">
+                <CountrySpecificComponent userCountry={selectedLang} />
+               </div>
 
-                <div className="!hidden md:!block flex-1" style={{ height: "100%" }}>
+                <div className="!hidden md:!block flex-2" style={{ height: "100%" , flex: 5}}>
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
                     ) : (
@@ -157,8 +153,10 @@ function HomePage() {
                 )}
 
                 {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
-                <div className="md:hidden w-full flex flex-col mt-2 w-full">
-                    <HeroHeader selectedLang={selectedLang} isCompact={false} />
+                <div className="md:hidden w-full flex flex-col mt-2 w-full"
+                style={{ width: "clamp(80%, 80%, 100%) "}}
+                >
+                    <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry} />
                     <EventFilterComponent />
                 </div>
             </header>
@@ -175,7 +173,7 @@ function HomePage() {
                     </div>
                 )}
             
-            <DropdownAuth />
+            
             <br />
             <EventComponent />
 
