@@ -9,6 +9,7 @@ import {
   Camera as CameraIcon
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
+import useBlinkIdScanner from "../components/MicrolinkIDScanner";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
@@ -18,6 +19,18 @@ export default function NewPostPage() {
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
+  const { containerRef, toggle, isReady } = useBlinkIdScanner({
+    onResult: (result) => {
+      console.log('Result:', result);
+      setShowCamera(false);
+    },
+    onDestroy: () => {
+      setShowCamera(false);
+    },
+    cameraManagerUiOptions: { showMirrorCameraButton: false },
+    // resourcesLocation defaults to "/resources"
+  });
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -39,19 +52,8 @@ export default function NewPostPage() {
   }, [color, cameraStream]);
 
   const openCamera = async (e) => {
-    e.preventDefault();
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      setCameraStream(stream);
-      setShowCamera(true);
-      
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-      alert(t('camera.error', 'Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập.'));
-    }
+    setShowCamera(true);
+    toggle();
   };
 
   const closeCamera = () => {
@@ -66,7 +68,7 @@ export default function NewPostPage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-between relative">
-          <button 
+          <button
             className="text-red-600 hover:text-red-800 relative"
             onClick={() => navigate("/")}
           >
@@ -93,7 +95,7 @@ export default function NewPostPage() {
               <i>({t('posts.newPostEn', 'New post')})</i>
             </h2>
           </div>
-          <button 
+          <button
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
@@ -102,25 +104,25 @@ export default function NewPostPage() {
         </div>
 
         {/* Two large boxes layout */}
-        <div className="mt-6">
+        <div className="mt-6" ref={containerRef}>
           <div className="grid grid-cols-2 gap-4 border border-gray-300">
             {/* Scan CCCD */}
             <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={openCamera}>
-               <div className="flex flex-col items-center justify-center h-40">
-                 <CameraIcon size={48} className="mb-2" />
-                 <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
-                 <p className="text-sm italic">({t('posts.scanIdEn', 'Poster\'s ID')})</p>
-               </div>
-             </div>
+              <div className="flex flex-col items-center justify-center h-40">
+                <CameraIcon size={48} className="mb-2" />
+                <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
+                <p className="text-sm italic">({t('posts.scanIdEn', 'Poster\'s ID')})</p>
+              </div>
+            </div>
 
-             {/* Recording Your Goods Video */}
-             <div className="p-4 text-center cursor-pointer" onClick={openCamera}>
-               <div className="flex flex-col items-center justify-center h-40">
-                 <CameraIcon size={48} className="mb-2" />
-                 <h3 className="font-bold text-lg">{t('posts.recordVideo', 'ĐĂNG KÝ KINH DOANH CỦA DOANH NGHIỆP ĐĂNG BÀI')}</h3>
-                 <p className="text-sm italic">({t('posts.recordVideoEn', 'Poster\'s TRADE REGISTRATION COMPANY')})</p>
-               </div>
-             </div>
+            {/* Recording Your Goods Video */}
+            <div className="p-4 text-center cursor-pointer" onClick={openCamera}>
+              <div className="flex flex-col items-center justify-center h-40">
+                <CameraIcon size={48} className="mb-2" />
+                <h3 className="font-bold text-lg">{t('posts.recordVideo', 'ĐĂNG KÝ KINH DOANH CỦA DOANH NGHIỆP ĐĂNG BÀI')}</h3>
+                <p className="text-sm italic">({t('posts.recordVideoEn', 'Poster\'s TRADE REGISTRATION COMPANY')})</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -132,44 +134,6 @@ export default function NewPostPage() {
           </div>
         </div>
 
-        {/* Camera Modal */}
-        {showCamera && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="bg-white p-4 rounded-lg max-w-2xl w-full">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">{t('camera.title', 'Camera')}</h2>
-                <button 
-                  className="text-gray-700 hover:text-gray-900"
-                  onClick={closeCamera}
-                >
-                  ✕
-                </button>
-              </div>
-              <div className="relative">
-                <video 
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  className="w-full h-auto border border-gray-300 rounded"
-                />
-              </div>
-              <div className="mt-4 flex justify-center">
-                <button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
-                  onClick={closeCamera}
-                >
-                  {t('camera.capture', 'Chụp')}
-                </button>
-                <button 
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-                  onClick={closeCamera}
-                >
-                  {t('camera.cancel', 'Hủy')}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
