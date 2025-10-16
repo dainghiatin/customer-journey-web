@@ -595,12 +595,14 @@
     "timeEn": "Time",
     "year": "NĂM",
     "yearEn": "Year",
-    "endTime": "THỜI GIAN KẾT THÚC",
-    "endTimeEn": "End time",
+    "endTime": "THỜI GIAN KẾT THÚC ĐĂNG BÀI",
+    "endTimeEn": "End post time",
     "dayMonthYear": "ngày, tháng, năm",
     "hourMinute": "giờ, phút",
     "accept": "CHẤP NHẬN",
-    "acceptEn": "Accept"
+    "acceptEn": "Accept",
+    "timeReviewPrice": "THỜI GIAN DUYỆT GIÁ",
+    "timeReviewPriceEn": "Price review time"
   },
   "rewardList": {
     "title": "DANH SÁCH NHẬN THƯỞNG",

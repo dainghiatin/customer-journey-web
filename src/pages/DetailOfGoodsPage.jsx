@@ -256,95 +256,25 @@ const fetchProductDetails = async () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  {t('detailOfGoods.goodsInfo', 'THÔNG TIN HÀNG HÓA')}
+                  {t('detailOfGoods.timeReviewPrice', 'THỜI GIAN DUYỆT GIÁ')}
                   <br />
-                  <span className="text-sm italic">({t('detailOfGoods.goodsInfoEn', 'INFORMATION OF GOODS')})</span>
+                  <span className="text-sm italic">({t('detailOfGoods.timeReviewPriceEn', 'Time review price')})</span>
                 </td>
                 <td
                   className="border border-gray-300 p-2 text-center"
                   colSpan="4"
                 >
                   <span className="text-sm italic">{product.description}</span>
-
+                  
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Address Information */}
-        <div className="w-full border border-gray-300 mt-4">
-          <table className="w-full border-collapse">
-            <tbody>
-              <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  {t('detailOfGoods.goodsAddress', 'ĐỊA CHỈ HÀNG HÓA')}:
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.goodsAddressEn', 'Goods address')})</span>
-                </td>
-                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
-                  {product.address}
-
-                </td>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  {t('detailOfGoods.handoverLocation', 'ĐỊA ĐIỂM GIAO HÀNG')}:
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.handoverLocationEn', 'Location of handover')})</span>
-                </td>
-                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
-                  {product.location}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Contract Duration */}
-        <div className="w-full border border-gray-300 mt-4">
-          <table className="w-full border-collapse">
-            <tbody>
               <tr>
                 <td
                   className="border border-gray-300 p-2 text-center font-bold w-1/5"
-                  rowSpan="2"
                 >
-                  {t('detailOfGoods.contractDuration', 'THỜI LƯỢNG THỰC HIỆN')}:
+                  {t('detailOfGoods.endTime', 'THỜI GIAN KẾT THÚC ĐĂNG BÀI')}:
                   <br />
-                  <span className="text-sm italic">({t('detailOfGoods.contractDurationEn', 'Contract duration')})</span>
-                </td>
-                <td className="border border-gray-300 p-2 text-center w-1/6">
-                  <span>
-                    {product.contractDuration} <br />
-
-                    {t('detailOfGoods.one', 'MỘT')}
-                    <br />
-                    ({t('detailOfGoods.oneEn', 'One')})
-                    <br />
-                    {t('detailOfGoods.many', 'NHIỀU')}
-                    <br />
-                    ({t('detailOfGoods.manyEn', 'Many')})
-                  </span>
-                </td>
-                <td className="border border-gray-300 p-2 text-center w-1/6">
-                  <span>
-                    ({t('detailOfGoods.command', 'lệnh')})
-                    <br />
-                    {t('detailOfGoods.time', 'LẦN')}
-                    <br />
-                    ({t('detailOfGoods.timeEn', 'Time')})
-                    <br />
-                    {t('detailOfGoods.year', 'NĂM')}
-                    <br />
-                    ({t('detailOfGoods.yearEn', 'Year')})
-                  </span>
-                </td>
-                <td
-                  className="border border-gray-300 p-2 text-center font-bold w-1/5"
-                  rowSpan="2"
-                >
-                  {t('detailOfGoods.endTime', 'THỜI GIAN KẾT THÚC')}:
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.endTimeEn', 'End time')})</span>
+                  <span className="text-sm italic">({t('detailOfGoods.endTimeEn', 'End post time')})</span>
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleDateString('vi-VN', {
@@ -363,9 +293,25 @@ const fetchProductDetails = async () => {
                   <span className="text-sm italic">({t('detailOfGoods.hourMinute', 'giờ, phút')})</span>
                 </td>
               </tr>
+              <tr>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5" rowSpan="2">
+                  {t('detailOfGoods.goodsAddress', 'ĐỊA CHỈ HÀNG HÓA')}:
+                  <br />
+                  <span className="text-sm italic">({t('detailOfGoods.goodsAddressEn', 'Goods address')})</span>
+                </td>
+                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
+                  {product.address}
+
+                </td>
+                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
+                  #Map#
+
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
+
 
         {/* Accept Section */}
         <div className="w-full  mt-4">
