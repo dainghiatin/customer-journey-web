@@ -31,14 +31,25 @@ export default function useBlinkIdScanner(options = {}) {
       licenseKey,
       cameraManagerUiOptions,
       feedbackUiOptions,
-      scanningSettings,
-      scanningMode,
       microblinkProxyUrl,
       wasmVariant,
       useLightweightBuild,
       userId,
       targetNode: containerRef.current ?? undefined,
+      scanningMode,
+
+      scanningSettings: {
+        returnInputImages: true,
+        scanCroppedDocumentImage: true,
+        croppedImageSettings: {
+          returnDocumentImage: true,
+          returnFaceImage: true,
+          returnSignatureImage: true,
+        },
+      },
     });
+
+
 
     if (typeof onResult === "function") {
       instance.addOnResultCallback(onResult);

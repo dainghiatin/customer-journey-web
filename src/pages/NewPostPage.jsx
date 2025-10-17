@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
 import useBlinkIdScanner from "../components/MicrolinkIDScanner";
+import { extractSideDocumentImage } from "@microblink/blinkid";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
@@ -19,10 +20,45 @@ export default function NewPostPage() {
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  // Store document images ready for Cloudinary upload
+  const [documentImageFiles, setDocumentImageFiles] = useState({ front: null, back: null });
+  const [isDocumentImagesReady, setIsDocumentImagesReady] = useState(false);
+
+  const ImageDataToBlob = function (imageData) {
+    let w = imageData.width;
+    let h = imageData.height;
+    let canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    let ctx = canvas.getContext("2d");
+    ctx.putImageData(imageData, 0, 0);        // synchronous
+
+    return new Promise((resolve) => {
+      canvas.toBlob(resolve); // implied image/png format
+    });
+  }
 
   const { containerRef, toggle, isReady } = useBlinkIdScanner({
-    onResult: (result) => {
-      console.log('Result:', result);
+    onResult: async (result) => {
+      // Extract front and back document images
+      const frontImageData = extractSideDocumentImage(result, "first");
+      const backImageData = extractSideDocumentImage(result, "second");
+
+      const timestamp = Date.now();
+      const [frontBlob, backBlob] = await Promise.all([
+        frontImageData ? ImageDataToBlob(frontImageData) : Promise.resolve(null),
+        backImageData ? ImageDataToBlob(backImageData) : Promise.resolve(null),
+      ]);
+
+      const frontFile = frontBlob ? new File([frontBlob], `document_front_${timestamp}.png`, { type: "image/png" }) : null;
+      const backFile = backBlob ? new File([backBlob], `document_back_${timestamp}.png`, { type: "image/png" }) : null;
+
+      setDocumentImageFiles({ front: frontFile, back: backFile });
+      setIsDocumentImagesReady(Boolean(frontFile) && Boolean(backFile));
+      console.log(URL.createObjectURL(frontFile));
+      console.log(URL.createObjectURL(backFile));
+
+      // Stop scanning and close camera UI
       setShowCamera(false);
     },
     onDestroy: () => {
@@ -111,7 +147,7 @@ export default function NewPostPage() {
               <div className="flex flex-col items-center justify-center h-40">
                 <CameraIcon size={48} className="mb-2" />
                 <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
-                <p className="text-sm italic">({t('posts.scanIdEn', 'Poster\'s ID')})</p>
+                <p className="text-sm italic">({t('posts.scanIdEn', "Poster's ID")})</p>
               </div>
             </div>
 
@@ -120,7 +156,7 @@ export default function NewPostPage() {
               <div className="flex flex-col items-center justify-center h-40">
                 <CameraIcon size={48} className="mb-2" />
                 <h3 className="font-bold text-lg">{t('posts.recordVideo', 'ĐĂNG KÝ KINH DOANH CỦA DOANH NGHIỆP ĐĂNG BÀI')}</h3>
-                <p className="text-sm italic">({t('posts.recordVideoEn', 'Poster\'s TRADE REGISTRATION COMPANY')})</p>
+                <p className="text-sm italic">({t('posts.recordVideoEn', "Poster's TRADE REGISTRATION COMPANY")})</p>
               </div>
             </div>
           </div>
