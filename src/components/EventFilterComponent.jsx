@@ -13,19 +13,30 @@ import CategorySelect from './CategorySelect';
 import { categories, subCategories, conditions, regions } from '../constants/filterConstants';
 
 function EventFilterComponent() {
-    const [category, setCategory] = useState("");
-    const [subcategory, setSubcategory] = useState("");
-    const [condition, setCondition] = useState("");
+    const [category, setCategory] = useState({
+        vi: "HÀNG BÁN",
+        en: "SALE",
+    });
+    const [subcategory, setSubcategory] = useState({
+        vi: "HÀNG HÓA",
+        en: "GOODS",
+    });
+    const [condition, setCondition] = useState({
+        vi: "PHẾ LIỆU",
+        en: "SCRAP",
+    });
     const [nation, setNation] = useState({
         vi: "Viet Nam",
         en: "Vietnam"
     });
     const [province, setProvince] = useState({
-        vi: "An Giang",
-        en: "An Giang"
-
+        vi: "Tất cả",
+        en: "all",
     });
-    const [district, setDistrict] = useState("");
+    const [district, setDistrict] = useState({
+        vi: "Tất cả",
+        en: "all",
+    });
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,7 +48,7 @@ function EventFilterComponent() {
         localStorage.setItem("district", district?.en);
         dispatch({ type: CHANGE_USER_COUNTRY, payload: nation?.en });
     }, [category, subcategory, condition, nation, province, district]);
-    
+
     const handleCategoryChange = (title, item) => {
         switch (title) {
             case "DANH MỤC":
@@ -62,7 +73,7 @@ function EventFilterComponent() {
                 break;
         }
     };
-    
+
     return (
         <>
             <div style={{
@@ -96,22 +107,24 @@ function EventFilterComponent() {
                 />
                 <div className="flex-1">
                     <CategorySelect
-                    title="Nation"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={nation}
-                    fetchItems={getCountries}
-                    placeholder={{ vi: "Chọn quốc gia", en: "Select country" }}
-                />
-                <CategorySelect
-                    title="Province"
-                    items={[]}
-                    onChange={handleCategoryChange}
-                    value={province}
-                    fetchItems={getCountryByCode}
-                    dependsOn={nation?.en}
-                    placeholder={{ vi: "Chọn tỉnh/thành", en: "Select province/city" }}
-                />
+                        title="Nation"
+                        items={[]}
+                        onChange={handleCategoryChange}
+                        value={nation}
+                        fetchItems={getCountries}
+                        placeholder={{ vi: "Chọn quốc gia", en: "Select country" }}
+                        initIndex={1}
+                    />
+                    <CategorySelect
+                        title="Province"
+                        items={[]}
+                        onChange={handleCategoryChange}
+                        value={province}
+                        fetchItems={getCountryByCode}
+                        dependsOn={nation?.en}
+                        placeholder={{ vi: "Chọn tỉnh/thành", en: "Select province/city" }}
+                        initIndex={0}
+                    />
                 </div>
             </div>
             <SearchSection />

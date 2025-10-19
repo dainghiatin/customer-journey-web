@@ -20,6 +20,7 @@ import { updateAvatar } from '../services/authService';
 function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCountry }) {
     const { t } = useTranslation();
     const nation = useSelector(state => state.filter.nation);
+    const isLoggedIn = localStorage.getItem('authToken') !== null && localStorage.getItem('authToken') !== '';
 
     // Adjust font sizes based on compact mode
     let titleFontSize = isCompact ? '1.7vw' : '3.2vw';
@@ -49,7 +50,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCou
                     alignItems: "center",
                 }}>
                     <div className="flex-1 flex items-center justify-end" style={{ marginTop: "clamp(18px,2.7vw, 45px)" }}>
-                        <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" ,justifyItems:"center"}}>
+                        <Link to={'new-post'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.7vw, 22px)" ,justifyItems:"center"}}>
                             <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)" }}>
                                 <p><strong>{t('navigation.newPost', 'ĐĂNG BÀI MỚI')}</strong></p>
                             </div>
@@ -69,7 +70,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCou
                         <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
                     </div>
                     <div className="flex-1" style={{ marginTop: "clamp(18px,2.7vw, 45px)" }}>
-                        <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                        <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center" style={{ fontSize: "clamp(7px, 2.9vw, 40px)" }}>
                             <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(18px,3vw, 45px)", fontSize: "clamp(7px, 0, 20px)" }}>
                                 <p><strong>{t('navigation.aiLive', 'Ai LIVE')}</strong></p>
                             </div>
@@ -80,7 +81,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCou
                     <h3 style={{ color: "blue" }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                     <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize }}>
                         <em>
-                            Target: National  <em style={{ color: "red" }}>{nation?.charAt(0)}</em>-Commercial
+                            Target: National  <em style={{ color: "red" }}>{isLoggedIn ? nation?.charAt(0) : 'E'}</em>-Commercial
                         </em>
                     </h4>
 
@@ -89,13 +90,13 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false ,userCou
 
                 </div>
                 <aside className="main-aside-2" >
-                    <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw' }}>
-                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.2vw, 20px)", height: "clamp(20px,4vw, 60px)" }}>
+                    <Link to={'freelancer'} className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ right: '66%', position: "absolute", bottom: '-3vw', height: "clamp(18px,3.2vw, 45px)" }}>
+                        <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", fontSize: "clamp(7px, 1.3vw, 1.7vw)", height: "clamp(20px,4vw, 60px)" }}>
                             <p><strong>{t('navigation.freelancer', 'CÔNG VIỆC TỰ DO')}</strong></p>
                             {/* <p><strong>VIỆC LÀM TỰ DO</strong></p> */}
                         </div>
                     </Link>
-                    <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%', fontSize: "clamp(7px, 1.2vw, 20px)" }}>
+                    <Link to={'payment'} className="main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-3vw", left: '66%', fontSize: "clamp(7px, 1.7vw, 2vw)", height: "clamp(18px,3.2vw, 45px)" }}>
                         <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                             <p className=""><strong>{t('navigation.paymentTransaction', 'THANH TOÁN')}</strong></p>
                         </div>
@@ -205,9 +206,9 @@ const DropdownAuth = () => {
         <div style={{
             display: "flex", flexDirection: "column", width: 'fit-content',
             position: "absolute",
-            top: "150px",
+            top: "clamp(11rem, 14vw, 50rem)",
             left: "0",
-            zIndex: 1000,
+            zIndex: 1000,   
             marginTop: !user
                 ? "clamp(0rem, -5rem + 5vw, 0rem)"   // khi chưa login
                 : "clamp(0rem, 21vw, -50rem)" // khi đã login 
@@ -485,7 +486,7 @@ const Body = () => {
 function SearchSection() {
     const navigate = useNavigate();
     return (
-        <section className="search-section" style={{ minHeight: 'clamp(3vh, 6vw, 12vh)', fontSize: 'clamp(10px, 1vw, 20px)' }}>
+        <section className="search-section" style={{ minHeight: 'clamp(3vh, 6vw, 12vh)', fontSize: 'clamp(1vw, 2vw, 2.2vw)' }}>
             <div className="search-title " style={{ cursor: "pointer", minWidth: "40px"}}>
                 <button onClick={() => navigate(`/list-of-goods`)}>
                     <h3><strong>TÌM KIẾM</strong></h3>

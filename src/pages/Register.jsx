@@ -240,7 +240,7 @@ export default function RegisterPage() {
 
   const handleRegister = async () => {
     if (!isFormValid() || !isReadContract) {
-      alert(t('auth.invalidForm', 'Vui lòng điền đầy đủ thông tin và đọc và chấp nhận hợp đồng'));
+      alert(t('auth.invalidForm', 'Vui lòng đọc và chấp nhận hợp đồng'));
       return;
     }
 

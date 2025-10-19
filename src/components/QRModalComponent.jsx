@@ -9,12 +9,13 @@ const QRModalComponent = ({
     isLoading, 
     error, 
     qrDataUrl,
-    onScanResult 
+    onScanResult,
+    isAuthenticated
 }) => {
     const { t } = useTranslation();
     
     // QR Scanner state
-    const [isScanning, setIsScanning] = useState(false);
+    const [isScanning, setIsScanning] = useState(!isAuthenticated);
     const [scanError, setScanError] = useState('');
     const [qrReader, setQrReader] = useState(null);
     const webcamRef = useRef(null);
@@ -22,10 +23,11 @@ const QRModalComponent = ({
 
     // Initialize QR Reader
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && !isAuthenticated) {
             const reader = new BrowserMultiFormatReader();
             setQrReader(reader);
             setScanError('');
+            setIsScanning(true);
         }
         
         return () => {
@@ -36,13 +38,12 @@ const QRModalComponent = ({
                 clearInterval(scanIntervalRef.current);
             }
         };
-    }, [isOpen]);
+    }, [isOpen, isAuthenticated]);
 
     // Handle scanning when isScanning state changes
     useEffect(() => {
         if (isScanning && qrReader && webcamRef.current) {
             console.log('Starting continuous scanning...');
-            console.log('Webcam Ref:', webcamRef.current);
             
             // Start continuous scanning
             scanIntervalRef.current = setInterval(async () => {
@@ -78,12 +79,10 @@ const QRModalComponent = ({
 
     // Start QR scanning
     const startScanning = async () => {
-        
         if (!qrReader) {
-            setScanError(t('qr.scanError', 'Lỗi khi khởi tạo QR Reader'));
-            return;
+            const reader = new BrowserMultiFormatReader();
+            setQrReader(reader);
         }
-        
         setScanError('');
         setIsScanning(true);
     };
@@ -110,14 +109,13 @@ const QRModalComponent = ({
 
     // Handle modal close
     const handleClose = () => {
-        stopScanning();
         onClose();
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50 p-4">
+        <div className="fixed inset-0 z-100000 flex items-center justify-center bg-black/50 bg-opacity-50 p-4">
             <div className="relative bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
                 {/* Close Button */}
                 <button 
@@ -131,8 +129,6 @@ const QRModalComponent = ({
                 <h3 className="text-xl font-bold mb-4 text-center">
                     {isScanning ? t('qr.scanTitle', 'QUÉT MÃ QR') : t('auth.qrTitle', 'MÃ QR ĐĂNG NHẬP')}
                 </h3>
-
-                
 
                 {/* Loading State */}
                 {isLoading && (
@@ -170,8 +166,8 @@ const QRModalComponent = ({
                     </div>
                 )}
 
-                {/* QR Code Display - Only show when not scanning */}
-                {!isLoading && !isScanning && qrDataUrl && (
+                {/* QR Code Display - Only show when authenticated and not scanning */}
+                {!isLoading && !isScanning && isAuthenticated && qrDataUrl && (
                     <div className="flex flex-col items-center">
                         <img 
                             src={qrDataUrl} 
@@ -180,15 +176,6 @@ const QRModalComponent = ({
                         />
                     </div>
                 )}
-
-                {/* No Data State - Only show when not scanning */}
-                {!isLoading && !isScanning && !qrDataUrl && !error && (
-                    <div className="text-center text-gray-600 py-8">
-                        {t('auth.qrNoData', 'Chưa có dữ liệu QR')}
-                    </div>
-                )}
-
-
 
                 {/* Camera Scanner Section */}
                 {isScanning && (
@@ -201,13 +188,9 @@ const QRModalComponent = ({
                                 videoConstraints={{
                                     width: 300,
                                     height: 300,
-                                    facingMode: { ideal: "environment" } // Back camera on mobile
+                                    facingMode: { ideal: "environment" }
                                 }}
                                 className="w-full h-64 object-cover rounded border"
-                                onUserMedia={(stream) => {
-                                }}
-                                onUserMediaError={(error)    => {
-                                }}
                             />
                             
                             {/* Scanning overlay */}
@@ -228,16 +211,6 @@ const QRModalComponent = ({
                                 </span>
                             </div>
                         </div>
-
-                        {/* Stop scanning button */}
-                        <div className="text-center mt-4">
-                            <button
-                                onClick={stopScanning}
-                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-                            >
-                                {t('qr.stopScan', 'Dừng quét')}
-                            </button>
-                        </div>
                     </div>
                 )}
 
@@ -247,10 +220,9 @@ const QRModalComponent = ({
                         {scanError}
                     </div>
                 )}
-                <br />
 
-                {/* Camera Button - Show when not scanning and not loading */}
-                {!isScanning && !isLoading && (
+                {/* Camera Button - Show only when authenticated and not scanning */}
+                {!isScanning && !isLoading && isAuthenticated && (
                     <div className="text-center mb-4">
                         <button
                             onClick={startScanning}

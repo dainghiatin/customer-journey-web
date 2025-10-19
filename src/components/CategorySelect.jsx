@@ -10,7 +10,8 @@ const CategorySelect = ({
     dependsOn, // Optional dependency for fetching items
     placeholder = "Chọn...",
     placeholderKey,
-    isDisabled = false
+    isDisabled = false,
+    initIndex = 0,
 }) => {
     const { t, i18n } = useTranslation();
     const [itemList, setItemList] = useState(items || []);
@@ -72,7 +73,7 @@ const CategorySelect = ({
     return (
         <div style={{ position: 'relative', flex: 1 }}>
             <select
-                value={selectedIndex >= 0 ? String(selectedIndex) : ''}
+                value={selectedIndex >= 0 ? String(selectedIndex) : initIndex || ''}
                 onChange={handleChange}
                 disabled={isDisabled || isLoading}
                 style={{
@@ -88,9 +89,7 @@ const CategorySelect = ({
                     fontSize: 'clamp(10px, 1vw, 20px)'
                 }}
             >
-                <option value="" disabled>
-                    {isLoading ? getLoadingText() : getPlaceholderText()}
-                </option>
+                
                 {itemList.map((item, idx) => (
                     <option key={idx} value={idx}>
                         {getLabel(item)}

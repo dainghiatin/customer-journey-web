@@ -1,4 +1,5 @@
 export const categories = [
+    { vi: "Chọn danh mục", en: "Select category" },
     {
         vi: "HÀNG BÁN",
         en: "SALE",
@@ -22,6 +23,7 @@ export const categories = [
 ];
 
 export const subCategories = [
+    { vi: "Chọn phân loại", en: "Select subcategory" },
     {
         vi: "HÀNG HÓA",
         en: "GOODS",
@@ -45,6 +47,7 @@ export const subCategories = [
 ];
 
 export const conditions = [
+    { vi: "Chọn tình trạng", en: "Select condition" },
     {
         vi: "PHẾ LIỆU",
         en: "SCRAP",

@@ -192,7 +192,8 @@
 }
 
 td {
-    height: 25px;
+    height: 26px;
+    max-width: 1vw;
 }
 
 @media screen and (max-width: 391px) {

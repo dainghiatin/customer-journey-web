@@ -31,11 +31,13 @@ const CountrySpecificComponent = ({ userCountry = 'vi' }) => {
   const currentCountry = countryData[userCountry] || countryData.vi;
   const currentLang = i18n.language || 'vi';
 
+  const isLoggedIn = localStorage.getItem('authToken') !== null && localStorage.getItem('authToken') !== '';
+
   return (
-    <div className="!hidden md:!block w-full h-full flex flex-col avt">
+    <div className="!hidden md:!block w-full h-full flex flex-col avt" style={{ width: "clamp(50px, 130px, 130px) " }}>
       {/* Global Logo - Planet Earth */}
           <img
-            src={currentCountry.flag}
+            src={isLoggedIn ? currentCountry.flag : './planet.jpg'}
             alt="Country"
             className="w-full h-full max-w-[100px] max-h-[100px] sm:max-w-[130px] sm:max-h-[130px] md:max-w-[130px] md:max-h-[200px] object-contain mx-auto"
           />

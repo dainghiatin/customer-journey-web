@@ -65,7 +65,7 @@ function HomePage() {
     }, [selectedLang]);
 
     // Computed values
-    const isUserLoggedIn = isAuthenticated || authToken;
+    const isUserLoggedIn = localStorage.getItem("authToken") !== null;
 
     // Handlers
     const handleChangeColor = (e) => {
@@ -79,23 +79,27 @@ function HomePage() {
     };
 
     const handleOpenQrModal = async () => {
-        try {
-            setIsQrModalOpen(true);
-            setIsQrLoading(true);
-            setQrError("");
-            setQrDataUrl(null);
+        setIsQrModalOpen(true);
+        
+        // Only generate QR code if user is authenticated
+        if (isUserLoggedIn) {
+            try {
+                setIsQrLoading(true);
+                setQrError("");
+                setQrDataUrl(null);
 
-            const response = await generateQrSessionInfo();
-            const qrCode = response.data?.qrCode;
-            if (qrCode) {
-                setQrDataUrl(qrCode);
-            } else {
-                setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+                const response = await generateQrSessionInfo();
+                const qrCode = response.data?.qrCode;
+                if (qrCode) {
+                    setQrDataUrl(qrCode);
+                } else {
+                    setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+                }
+            } catch (error) {
+                setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+            } finally {
+                setIsQrLoading(false);
             }
-        } catch (error) {
-            setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
-        } finally {
-            setIsQrLoading(false);
         }
     };
 
@@ -131,7 +135,7 @@ function HomePage() {
                 <DropdownAuth />
 
                 {/* Main Content Grid */}
-                <div className="flex-1">
+                <div className="flex-1" style={{ maxWidth: "clamp(50px, 130px, 130px) ",margin: "0 5px" }} >
                     <CountrySpecificComponent userCountry={selectedLang} />
                 </div>
 
@@ -189,6 +193,7 @@ function HomePage() {
                 error={qrError}
                 qrDataUrl={qrDataUrl}
                 onScanResult={handleScanResult}
+                isAuthenticated={isUserLoggedIn}
             />
         </>
     );
