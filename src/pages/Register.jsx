@@ -170,7 +170,7 @@ export default function RegisterPage() {
       errors.bank_name = t('auth.bankRequired', 'Vui lòng chọn ngân hàng');
     }
 
-    
+
 
     // Check if recovery characters match
     if (formData.recovery_character && formData.repeat_recovery_character &&
@@ -201,7 +201,7 @@ export default function RegisterPage() {
     if (!formData.bank_name) return false;
 
     // Check if recovery character meets requirements
-    
+
     // Check if recovery character meets requirements
     if (!recoveryCharacterValidation.isValid && formData.recovery_character) return false;
 
@@ -245,7 +245,7 @@ export default function RegisterPage() {
     }
 
     try {
-       const uploadToCloudinaryResp = "https://res.cloudinary.com/demo/image/upload/v1692323522/sample.jpg";
+      const uploadToCloudinaryResp = "https://res.cloudinary.com/demo/image/upload/v1692323522/sample.jpg";
       // console.log(uploadToCloudinaryResp);
 
       const { username, cccd } = formData;
@@ -259,7 +259,7 @@ export default function RegisterPage() {
         signature: uploadToCloudinaryResp,
 
       };
-      
+
       const response = await axios.post(
         `${API_URL}/auth/register`,
         payload,
@@ -270,11 +270,11 @@ export default function RegisterPage() {
 
       console.log("Đăng ký thành công:", response.data);
       dispatch(changePasswordAction(response.data?.user));
-      alert(t('auth.registerSuccess', 'Đăng ký thành công!'));
+      alert(t('auth.registerSuccess', 'Đăng ký thành công!'));  
       if (response.status == 200) {
-        localStorage.setItem("authToken", response.data.token);
+        await localStorage.setItem("authToken", response.data.token);
         // Store complete user data in localStorage for easy access
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        await localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/change-password");
       } else {
         alert(t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI'));
@@ -543,8 +543,8 @@ export default function RegisterPage() {
           <div className="text-center mt-4">
             <button
               className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${isFormValid() && !isVerifying
-                  ? 'text-black hover:bg-gray-200'
-                  : 'text-gray-400 bg-gray-100 cursor-not-allowed'
+                ? 'text-black hover:bg-gray-200'
+                : 'text-gray-400 bg-gray-100 cursor-not-allowed'
                 }`}
               onClick={handleNextClick}
               disabled={!isFormValid() || isVerifying}

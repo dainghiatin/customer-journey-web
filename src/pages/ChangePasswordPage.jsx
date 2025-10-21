@@ -103,7 +103,7 @@ export default function ChangePasswordPage() {
       const response = await changePassword(formData.cccd, formData.newPassword, formData.confirmPassword)
       console.log(response.data);
       
-
+      
       alert(t('auth.changePasswordSuccess', 'Đổi mật khẩu thành công!'));
       navigate("/"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
