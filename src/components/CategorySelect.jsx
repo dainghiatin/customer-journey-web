@@ -71,8 +71,9 @@ const CategorySelect = ({
     };
 
     return (
-        <div style={{ position: 'relative', flex: 1 }}>
+        <div style={{ position: 'relative', flex: 1 }} className='cursor-pointer'>
             <select
+                className='cursor-pointer'
                 value={selectedIndex >= 0 ? String(selectedIndex) : initIndex || ''}
                 onChange={handleChange}
                 disabled={isDisabled || isLoading}
@@ -80,10 +81,9 @@ const CategorySelect = ({
                     width: '100%',
                     border: '2px solid black',
                     borderRadius: 0,
-                    minHeight: 'clamp(3vh, 6vw, 12vh)',
                     backgroundColor: 'transparent',
                     boxShadow: 'none',
-                    padding: '8px',
+                    padding: '3px',
                     textAlign: 'center',
                     fontWeight: 'bold',
                     fontSize: 'clamp(10px, 1vw, 20px)'

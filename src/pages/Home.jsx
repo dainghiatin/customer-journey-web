@@ -135,7 +135,7 @@ function HomePage() {
                 <DropdownAuth />
 
                 {/* Main Content Grid */}
-                <div className="flex-1" style={{ maxWidth: "clamp(50px, 130px, 130px) ",margin: "0 5px" }} >
+                <div  className="flex-1 avtblock" style={{ maxWidth: "clamp(50px, 130px, 130px) ",margin: "0 5px" }} >
                     <CountrySpecificComponent userCountry={selectedLang} />
                 </div>
 

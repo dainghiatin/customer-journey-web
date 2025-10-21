@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import useNotifications from "../custom-hooks/useNotifications";
 import markAsRead from "../services/notificationService";
 
-const HeaderComponent = ({ 
-    color, 
-    onColorChange, 
-    onQrClick, 
-    selectedLang, 
-    onLanguageChange 
+const HeaderComponent = ({
+    color,
+    onColorChange,
+    onQrClick,
+    selectedLang,
+    onLanguageChange
 }) => {
     const { t, i18n } = useTranslation();
     const notifications = useNotifications(17);
@@ -38,53 +38,68 @@ const HeaderComponent = ({
     };
 
     return (
-        <div className="grid-col-1" style={{ height: "100%", width: "clamp(10%, 10%, 100%)", maxWidth: '100px' }}>
-            {/* QR Button */}
-            <div 
-                style={{ width: "100%", height: "10%" }} 
-                onClick={onQrClick} 
-                className="cursor-pointer"
-            >
-                <p className="">
-                    <strong>QR</strong>
-                </p>
-                {/* <p className="hidden sm:flex text-[clamp(10px,1vw,20px)]">
+        <>
+            <div className="flex flex-col items-center" style={{ width: "fit-content", justifyContent: "start", border: "1px solid #1242ae", borderRadius: "1px" }}>
+                {/* QR Button */}
+                <div
+                    style={{ borderBottom: "1px solid #1242ae", borderRadius: "1px",borderTop: "1px solid #1242ae" }}
+                    onClick={onQrClick}
+                    className="cursor-pointer"
+
+                >
+                    <p className="px-2">
+                        <strong>QR</strong>
+                    </p>
+                    {/* <p className="hidden sm:flex text-[clamp(10px,1vw,20px)]">
                     <strong>QR</strong>
                 </p> */}
-            </div>
+                </div>
+                <div
+                    style={{ borderBottom: "1px solid #1242ae" }}
+                    className="cursor-pointer"
+                >
+                    <p className="px-2 hidden md:block">
+                        <i className="fa-solid fa-computer"></i>
+                    </p>
+                    <p className="px-2 block md:hidden">
+                        <i className="fa-solid fa-mobile-screen-button"></i>
+                    </p>
+                </div>
 
-            {/* Device Icon */}
-            <button className="p-2 hover:bg-gray-100 rounded transition-colors hidden md:block">
-                <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-computer"></i>
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded transition-colors block md:hidden">
-                <i style={{ fontSize: "clamp(10px, 1vw, 20px)" }} className="fa-solid fa-mobile-screen-button"></i>
-            </button>
+                <div
+                    className="cursor-pointer"
+                    onClick={() => document.getElementById("colorPicker").click()}
+                >
+                    {/* This div can show current color or an icon */}
+                    <div
+                        style={{
+                            width: "clamp(20px, 4vw, 40px)",
+                            height: "clamp(15px, 1.6vw, 40px)",
+                        }}
+                        className="cursor-pointer"
+                    ></div>
 
-            {/* Color Picker */}
-            <div >
-                <div style={{ border: 0, width: '50%' }}>
                     <input
+                        id="colorPicker"
+                        hidden
                         type="color"
                         value={color}
                         onChange={onColorChange}
+                        className="cursor-pointer"
                     />
                 </div>
-            </div>
 
-            {/* Language Selector */}
-            <div style={{ width: "100%", height: "10%" }}>
-                <div style={{ border: 0, width: "100%", paddingRight: 10 }}>
+
+                <div
+                    style={{ borderBottom: "1px solid #1242ae", borderTop: "1px solid #1242ae" }}
+                    className="cursor-pointer"
+                >
                     <select
+                        className="cursor-pointer"
                         value={selectedLang}
                         onChange={handleLanguageChange}
-                        style={{ 
-                            width: "100%", 
-                            padding: "5px", 
-                            backgroundColor: color, 
-                            border: 0, 
-                            textAlign: 'center', 
-                            fontSize: "clamp(10px, 1vw, 20px)" 
+                        style={{
+                            fontSize: "clamp(10px, 1vw, 20px)",
                         }}
                     >
                         {colors.map((colorOption) => (
@@ -94,26 +109,29 @@ const HeaderComponent = ({
                         ))}
                     </select>
                 </div>
+
+                <div
+                    style={{ width: "clamp(20px, 2vw, 40px)", textAlign: "center" }}
+                    className="cursor-pointer"
+                >
+                    <i
+                            style={{ fontSize: "clamp(10px, 1vw, 20px)" }}
+                            className="fa-solid fa-bell"
+                        ></i>
+                    {/* <button
+                        onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                        className="cursor-pointer"
+                        style={{}}
+                    >
+                        
+                        
+                    </button> */}
+                </div>
+
+
+
             </div>
 
-            {/* Notification Bell */}
-            <button
-                onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                className=""
-                style={{ width: "100%", height: "10%" }}
-            >
-                <i
-                    style={{ fontSize: "clamp(10px, 1vw, 20px)" }}
-                    className="fa-solid fa-bell"
-                ></i>
-                {notifications.filter(note => !note.read).length > 0 && (
-                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                        {notifications.filter(note => !note.read).length}
-                    </span>
-                )}
-            </button>
-
-            {/* Notification Dropdown */}
             {isNotificationOpen && (
                 <div ref={dropdownRef} className="absolute left w-50 bg-white shadow-lg rounded-md z-50 border border-gray-200">
                     <h6 className="text-sm px-1 font-bold">{t('common.notifications')}</h6>
@@ -142,7 +160,11 @@ const HeaderComponent = ({
                     </div>
                 </div>
             )}
-        </div>
+
+        </>
+
+
+
     );
 };
 
