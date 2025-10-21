@@ -65,7 +65,7 @@ function HomePage() {
     }, [selectedLang]);
 
     // Computed values
-    const isUserLoggedIn = isAuthenticated || authToken;
+    const isUserLoggedIn = localStorage.getItem("authToken") !== null;
 
     // Handlers
     const handleChangeColor = (e) => {
@@ -79,23 +79,27 @@ function HomePage() {
     };
 
     const handleOpenQrModal = async () => {
-        try {
-            setIsQrModalOpen(true);
-            setIsQrLoading(true);
-            setQrError("");
-            setQrDataUrl(null);
+        setIsQrModalOpen(true);
+        
+        // Only generate QR code if user is authenticated
+        if (isUserLoggedIn) {
+            try {
+                setIsQrLoading(true);
+                setQrError("");
+                setQrDataUrl(null);
 
-            const response = await generateQrSessionInfo();
-            const qrCode = response.data?.qrCode;
-            if (qrCode) {
-                setQrDataUrl(qrCode);
-            } else {
-                setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+                const response = await generateQrSessionInfo();
+                const qrCode = response.data?.qrCode;
+                if (qrCode) {
+                    setQrDataUrl(qrCode);
+                } else {
+                    setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+                }
+            } catch (error) {
+                setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
+            } finally {
+                setIsQrLoading(false);
             }
-        } catch (error) {
-            setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
-        } finally {
-            setIsQrLoading(false);
         }
     };
 
@@ -117,9 +121,10 @@ function HomePage() {
     return (
         <>
             <header className="grid-container "
-                style={{  }}
+                style={{ position: "relative", top: 0, zIndex: 1000 }}
             >
                 {/* Header Component */}
+
                 <HeaderComponent
                     color={color}
                     onColorChange={handleChangeColor}
@@ -127,19 +132,14 @@ function HomePage() {
                     selectedLang={selectedLang}
                     onLanguageChange={handleLanguageChange}
                 />
+                <DropdownAuth />
 
                 {/* Main Content Grid */}
-                <div >
-                    <div >
-                        {isUserLoggedIn ? (
-                            <CountrySpecificComponent userCountry={selectedLang} />
-                        ) : (
-                            <GlobalInfoComponent />
-                        )}
-                    </div>
+                <div className="flex-1" style={{ maxWidth: "clamp(50px, 130px, 130px) ",margin: "0 5px" }} >
+                    <CountrySpecificComponent userCountry={selectedLang} />
                 </div>
 
-                <div className="!hidden md:!block flex-1" style={{ height: "100%" }}>
+                <div className="!hidden md:!block flex-2" style={{ height: "100%", flex: 3 }}>
                     {isUserLoggedIn ? (
                         <CompanyInfoTable userCountry={selectedLang} />
                     ) : (
@@ -151,31 +151,33 @@ function HomePage() {
                 {isUserLoggedIn && (
                     <div className="!hidden md:!block grid-col-4 w-full">
                         <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
-                        
+
                         <EventFilterComponent />
                     </div>
                 )}
 
                 {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
-                <div className="md:hidden w-full flex flex-col mt-2 w-full">
-                    <HeroHeader selectedLang={selectedLang} isCompact={false} />
+                <div className="md:hidden w-full flex flex-col mt-2 w-full"
+                    style={{ width: "clamp(80%, 80%, 100%) " }}
+                >
+                    <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry} />
                     <EventFilterComponent />
                 </div>
             </header>
 
             {/* Body Content */}
-            
-                
-                {!isUserLoggedIn && (
-                    <div className="flex">
+
+
+            {!isUserLoggedIn && (
+                <div className="flex">
                     <div className="hidden md:block w-full">
                         <HeroHeader isCompact={false} />
                         <EventFilterComponent />
                     </div>
-                    </div>
-                )}
-            
-            <DropdownAuth />
+                </div>
+            )}
+
+
             <br />
             <EventComponent />
 
@@ -191,6 +193,7 @@ function HomePage() {
                 error={qrError}
                 qrDataUrl={qrDataUrl}
                 onScanResult={handleScanResult}
+                isAuthenticated={isUserLoggedIn}
             />
         </>
     );

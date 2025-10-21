@@ -41,22 +41,20 @@ export default function LoginPage() {
       const response = await login(cccd, password);
       console.log(response);
 
-      
+
       if (response.status == 200) {
         if (!response.data?.user?.confirmed) {
-           dispatch(changePasswordAction(response.data?.user))
+          dispatch(changePasswordAction(response.data?.user))
           navigate("/change-password");
-        }else{
-           localStorage.setItem("authToken", response.data.token);
-           // Store complete user data in localStorage for easy access
-           localStorage.setItem("user", JSON.stringify(response.data.user));
-           dispatch(loginAction(response.data?.user))
+        } else {
+          localStorage.setItem("authToken", response.data.token);
+          // Store complete user data in localStorage for easy access
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          dispatch(loginAction(response.data?.user))
           console.log(auth);
-        
-          alert(t('auth.loginSuccess', 'Đăng nhập thành công!'));
           navigate("/"); // Chuyển hướng về trang chủ
-        } 
-       
+        }
+
       } else {
         alert(t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI'));
       }
@@ -84,7 +82,7 @@ export default function LoginPage() {
       if (qrCode) {
         setQrDataUrl(qrCode);
       } else {
-        setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại')); 
+        setQrError(t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
       }
     } catch (error) {
       setQrError(error.message || t('auth.qrError', 'Không lấy được mã QR, vui lòng thử lại'));
@@ -183,7 +181,7 @@ export default function LoginPage() {
                   onClick={handleLogin}
                 >
                   {t('auth.loginTitle', 'ĐĂNG NHẬP')} <br />
-                  
+
                 </button>
               </div>
             </div>

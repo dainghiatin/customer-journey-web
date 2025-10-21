@@ -20,11 +20,6 @@ import AdminControlPage from './pages/AdminControlPage.jsx'
 import RewardListPage from './pages/RewardListPage.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 function App() {
-  // const pwd = import.meta.env.VITE_REACT_APP_PASSWORD || "123456";
-  // const input = prompt("Enter your password:");
-  // if (input != pwd) {
-  //   return null;
-  // }
 
   return (
     <>
@@ -39,6 +34,7 @@ function App() {
 
         <Route exact path="/freelancer" element={<FreelancerPage />} />
         <Route exact path="/detail-of-goods" element={<DetailOfGoodsPage />} />
+         <Route exact path="/ai-live" element={<AiLivePage />} />
 
         {/* Protected routes require authToken in localStorage */}
         <Route element={<ProtectedRoute />}> 
@@ -50,7 +46,7 @@ function App() {
           <Route exact path="/new-good-post" element={<NewGoodPostPage />} />
           <Route exact path="/new-freelancer-post" element={<NewFreelancerPostPage />} />
 
-          <Route exact path="/ai-live" element={<AiLivePage />} />
+         
           <Route exact path="/new-ai-live-post" element={<NewAiLivePostPage />} />
           <Route exact path="/admin-control" element={<AdminControlPage />} />
           <Route exact path="/reward-list" element={<RewardListPage />} />

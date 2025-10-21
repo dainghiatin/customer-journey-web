@@ -1,4 +1,4 @@
-import { StrictMode, React } from 'react'
+import React, { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
@@ -7,11 +7,66 @@ import { Provider } from 'react-redux';
 import store from './context/store'
 import './i18n'
 
+// Simple password gate without blocking initial render
+function PasswordGate({ children }) {
+  const pwd = import.meta.env.VITE_REACT_APP_PASSWORD || '123456';
+  const [input, setInput] = useState('');
+  const [verified, setVerified] = useState(!pwd); // if no password configured, skip gate
+  const [error, setError] = useState('');
+
+  if (!verified) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#f5f5f5' }}>
+        <div style={{ background: 'white', padding: 24, borderRadius: 8, boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+          <h2 style={{ marginBottom: 12 }}>Enter password</h2>
+          <input
+            type="password"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                if (input === pwd) {
+                  setVerified(true);
+                  setError('');
+                } else {
+                  setError('Incorrect password');
+                }
+              }
+            }}
+            style={{ width: 240, padding: 8, border: '1px solid #ccc', borderRadius: 4 }}
+            placeholder="Password"
+          />
+          <div style={{ marginTop: 10, display: 'flex', gap: 8 }}>
+            <button
+              onClick={() => {
+                if (input === pwd) {
+                  setVerified(true);
+                  setError('');
+                } else {
+                  setError('Incorrect password');
+                }
+              }}
+              style={{ padding: '8px 12px', background: '#ef4444', color: 'white', border: 'none', borderRadius: 4 }}
+            >
+              Submit
+            </button>
+            {error && <span style={{ color: 'red' }}>{error}</span>}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return children;
+}
+
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <StrictMode>
       <BrowserRouter>
-        <App />
+        <PasswordGate>
+          <App />
+        </PasswordGate>
       </BrowserRouter>
     </StrictMode>
   </Provider>,

@@ -7,6 +7,7 @@ export const getCountries = async () => {
       throw new Error("Network response was not ok");
     }
     const countries = await response.json();
+    const all = { vi: "Chọn quốc gia", en: "Select country" }
 
     const priorityCodes = ["VN", "US"];
 
@@ -22,12 +23,13 @@ export const getCountries = async () => {
       // 🔹 2. Then sort alphabetically by name.common
       return a.name.common.localeCompare(b.name.common, "en", { sensitivity: "base" });
     });
-
-    return reordered.map(country => ({
+    const countriesWithAll = [all, ...reordered.map(country => ({
       vi: country.name.common,
       en: country.name.common,
       flag: country.flags.svg
-    }));
+    }))];
+
+    return countriesWithAll;
 
   } catch (error) {
     console.error("Error fetching countries:", error);
@@ -54,10 +56,11 @@ export const getCountryByCode = async (name) => {
     const response = await fetch("https://countriesnow.space/api/v0.1/countries/states", requestOptions);
     const country = await response.json();
 
-    const provices = country.data.states.map(state => ({
+    const all = { vi: "Chọn tỉnh/thành", en: "Select province/city" }
+    const provices = [all, ...country.data.states.map(state => ({
       vi: state.name,
       en: state.name,
-    }));
+    }))];
     return provices;
   } catch (error) {
     console.error("Error fetching country by code:", error);
@@ -81,12 +84,12 @@ export const getDistrictByCode = async (province) => {
 
     const response = await fetch("https://countriesnow.space/api/v0.1/countries/state/cities", requestOptions);
     const result = await response.json();
-
+    const all = { vi: "Chọn tỉnh/thành", en: "Select province/city" }
     const districts = result.data.map(district => ({
       vi: district,
       en: district,
     }));
-    return districts;
+    return [all, ...districts];
   } catch (error) {
     console.error("Error fetching districts by province code:", error);
     return [];

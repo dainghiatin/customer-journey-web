@@ -10,6 +10,8 @@ import {
   Camera as CameraIcon
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
+import useBlinkIdScanner from "../components/MicrolinkIDScanner";
+import { extractSideDocumentImage } from "@microblink/blinkid";
 
 export default function NewPostPage() {
   const { t } = useTranslation();
@@ -226,7 +228,7 @@ export default function NewPostPage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         <div className="flex items-center justify-between relative">
-          <button 
+          <button
             className="text-red-600 hover:text-red-800 relative"
             onClick={() => navigate("/")}
           >
@@ -253,7 +255,7 @@ export default function NewPostPage() {
               <i>({t('posts.newPostEn', 'New post')})</i>
             </h2>
           </div>
-          <button 
+          <button
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
@@ -262,7 +264,7 @@ export default function NewPostPage() {
         </div>
 
         {/* Two large boxes layout */}
-        <div className="mt-6">
+        <div className="mt-6" ref={containerRef}>
           <div className="grid grid-cols-2 gap-4 border border-gray-300">
             {/* Scan CCCD */}
             <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={(e) => openCamera(e, 'photo')}>

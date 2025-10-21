@@ -38,7 +38,7 @@ const HeaderComponent = ({
     };
 
     return (
-        <div className="grid-col-1" style={{ height: "100%", minWidth: "60px" }}>
+        <div className="grid-col-1" style={{ height: "100%", width: "clamp(10%, 10%, 100%)", maxWidth: '100px' }}>
             {/* QR Button */}
             <div 
                 style={{ width: "100%", height: "10%" }} 

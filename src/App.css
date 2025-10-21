@@ -148,8 +148,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
-    padding: 10px;
+    width: clamp(52%, 52%, 100%);
 }
 @media screen and (max-width: 768px) {
     .grid-col-4 {
@@ -193,10 +192,11 @@
 }
 
 td {
-    height: 25px;
+    height: 26px;
+    max-width: 1vw;
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 391px) {
     .company-info-table {
         font-size: 8px !important;
     }
@@ -209,6 +209,9 @@ td {
     .company-info-table .data-cell {
         font-size: 8px !important;
     }
+    .avt {
+        display: none !important;
+    }   
 }
 
 

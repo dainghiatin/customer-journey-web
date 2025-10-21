@@ -103,7 +103,7 @@ export default function ChangePasswordPage() {
       const response = await changePassword(formData.cccd, formData.newPassword, formData.confirmPassword)
       console.log(response.data);
       
-
+      
       alert(t('auth.changePasswordSuccess', 'Đổi mật khẩu thành công!'));
       navigate("/"); // Chuyển hướng sau khi đăng ký thành công
     } catch (error) {
@@ -172,10 +172,10 @@ export default function ChangePasswordPage() {
 
             />
             <input
-              type="password"
+              type="text"
               className="border p-2 rounded w-full"
               placeholder={t('auth.oldPasswordPlaceholder', 'MẬT KHẨU CŨ (Old password)')}
-              value={formData.password}
+              value={user?.fullName?.replace(/\s+/g, '') || 'Tran Van A'.replace(/\s+/g, '')}
               disabled
             />
    
