@@ -90,7 +90,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false, userCou
 
                 </div>
                 <aside className="main-aside-2" >
-                    <Link to={'freelancer'} className=" border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center cursor-pointer" style={{ right: '66%', position: "absolute", bottom: '-1vw', height: "clamp(18px,3.2vw, 45px)" }}>
+                    <Link to={'freelancer'} className=" border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center cursor-pointer" style={{ right: '66%', position: "absolute", bottom: '-2vw', height: "clamp(18px,3.2vw, 45px)" }}>
                         <div
                             className="flex items-center justify-center"
                             style={{

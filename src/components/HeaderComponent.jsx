@@ -39,93 +39,78 @@ const HeaderComponent = ({
 
     return (
         <>
-            <div className="flex flex-col items-center" style={{ width: "fit-content", justifyContent: "start", border: "1px solid #1242ae", borderRadius: "1px" }}>
+            <div className="flex flex-col items-center" style={{ width: "fit-content", justifyContent: "start", borderRadius: "1px" }}>
                 {/* QR Button */}
-                <div
-                    style={{ borderBottom: "1px solid #1242ae", borderRadius: "1px",borderTop: "1px solid #1242ae" }}
-                    onClick={onQrClick}
-                    className="cursor-pointer"
-
-                >
-                    <p className="px-2">
-                        <strong>QR</strong>
-                    </p>
-                    {/* <p className="hidden sm:flex text-[clamp(10px,1vw,20px)]">
-                    <strong>QR</strong>
-                </p> */}
-                </div>
-                <div
-                    style={{ borderBottom: "1px solid #1242ae" }}
-                    className="cursor-pointer"
-                >
-                    <p className="px-2 hidden md:block">
-                        <i className="fa-solid fa-computer"></i>
-                    </p>
-                    <p className="px-2 block md:hidden">
-                        <i className="fa-solid fa-mobile-screen-button"></i>
-                    </p>
-                </div>
-
-                <div
-                    className="cursor-pointer"
-                    onClick={() => document.getElementById("colorPicker").click()}
-                >
-                    {/* This div can show current color or an icon */}
+                <div className="flex flex-col border border-[#1242ae] rounded-[1px] overflow-hidden">
+                    {/* QR Button */}
                     <div
-                        style={{
-                            width: "clamp(20px, 4vw, 40px)",
-                            height: "clamp(15px, 1.6vw, 40px)",
-                        }}
-                        className="cursor-pointer"
-                    ></div>
-
-                    <input
-                        id="colorPicker"
-                        hidden
-                        type="color"
-                        value={color}
-                        onChange={onColorChange}
-                        className="cursor-pointer"
-                    />
-                </div>
-
-
-                <div
-                    style={{ borderBottom: "1px solid #1242ae", borderTop: "1px solid #1242ae" }}
-                    className="cursor-pointer"
-                >
-                    <select
-                        className="cursor-pointer"
-                        value={selectedLang}
-                        onChange={handleLanguageChange}
-                        style={{
-                            fontSize: "clamp(10px, 1vw, 20px)",
-                        }}
+                        onClick={onQrClick}
+                        className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b"
                     >
-                        {colors.map((colorOption) => (
-                            <option key={colorOption.value} value={colorOption.value}>
-                                {colorOption.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                        <p className="px-2 font-bold">QR</p>
+                    </div>
 
-                <div
-                    style={{ width: "clamp(20px, 2vw, 40px)", textAlign: "center" }}
-                    className="cursor-pointer"
-                >
-                    <i
+                    {/* Computer / Mobile Icon */}
+                    <div className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b">
+                        <p className="px-2 hidden md:block">
+                            <i className="fa-solid fa-computer"></i>
+                        </p>
+                        <p className="px-2 block md:hidden">
+                            <i className="fa-solid fa-mobile-screen-button"></i>
+                        </p>
+                    </div>
+
+                    {/* Color Picker */}
+                    <div
+                        className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b"
+                        onClick={() => document.getElementById("colorPicker").click()}
+                    >
+                        <div
+                            style={{
+                                width: "clamp(20px, 4vw, 40px)",
+                                height: "clamp(15px, 1.6vw, 40px)",
+                            }}
+                            className="cursor-pointer"
+                        ></div>
+
+                        <input
+                            id="colorPicker"
+                            hidden
+                            type="color"
+                            value={color}
+                            onChange={onColorChange}
+                            className="cursor-pointer"
+                        />
+                    </div>
+
+                    {/* Language Select */}
+                    <div className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b py-2">
+                        <select
+                            className="cursor-pointer bg-transparent outline-none"
+                            value={selectedLang}
+                            onChange={handleLanguageChange}
+                            style={{
+                                fontSize: "clamp(10px, 1vw, 20px)",
+                            }}
+                        >
+                            {colors.map((colorOption) => (
+                                <option key={colorOption.value} value={colorOption.value}>
+                                    {colorOption.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Bell Icon */}
+                    <div
+                        style={{ width: "clamp(20px, 2vw, 40px)" }}
+                        className="cursor-pointer flex items-center justify-center py-2"
+                    >
+                        <i
                             style={{ fontSize: "clamp(10px, 1vw, 20px)" }}
                             className="fa-solid fa-bell"
                         ></i>
-                    {/* <button
-                        onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                        className="cursor-pointer"
-                        style={{}}
-                    >
-                        
-                        
-                    </button> */}
+                    </div>
                 </div>
 
 
