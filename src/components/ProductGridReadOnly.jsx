@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Eye as EyeIcon, Forward as ForwardIcon } from "lucide-react";
 
 export default function ProductGridReadOnly({ products = [], onItemsChange }) {
   const [items, setItems] = useState(products || []);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     setItems(products || []);
@@ -21,12 +23,39 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
         <div className="border-r border-gray-300 p-2 text-center">
           <div>ID</div>
         </div>
-        <div className="border-r border-gray-300 p-2 text-center" style={{ width: 220 * 5 }}>
+        <div className="border-r border-gray-300 p-2 text-center flex items-center justify-between" style={{ width: 220 * 5 }}>
           <input
             type="text"
-            className="w-full border border-gray-300 p-1 mt-1"
+            className="flex-1 border border-gray-300 p-1 mt-1 mr-2"
             disabled
           />
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setIsFollowing(!isFollowing)}
+              className={`p-1 rounded-full transition-colors ${
+                isFollowing 
+                  ? 'text-blue-500 hover:text-blue-600' 
+                  : 'text-gray-400 hover:text-blue-500'
+              }`}
+              title={isFollowing ? 'Bỏ theo dõi' : 'Theo dõi'}
+            >
+              <EyeIcon 
+                size={20} 
+                strokeWidth={isFollowing ? 2.5 : 1.5}
+                className={isFollowing ? 'text-blue-500' : 'text-gray-400'}
+              />
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Đã sao chép link chia sẻ!');
+              }}
+              className="p-1 rounded-full text-green-500 hover:text-green-600 transition-colors"
+              title="Chia sẻ"
+            >
+              <ForwardIcon size={20} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -162,9 +191,15 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
             <div className="text-xs">(Lowest amount) - đi theo lệnh bên</div>
           </div>
           <div className="p-2 text-center border-r border-gray-300">
-            <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤT</div>
+            <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤTTT</div>
             <div className="text-xs">
               (Lowest / Highest price to automatically accept) - đi theo lệnh bên
+            </div>
+          </div>
+          <div className="p-2 text-center border-r border-gray-300">
+            <div>GIÁ TỰ ĐỘNG TỪ CHỐI CAO NHẤT/THẤP NHẤT</div>
+            <div className="text-xs">
+              (AUTOMATIC REJECT HIGHEST/LOWEST PRICE)
             </div>
           </div>
           <div className="p-2 text-center border-r border-gray-300">
@@ -464,6 +499,18 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 value={item.autoAcceptPrice}
                 onChange={(e) =>
                   handleItemChange(item.id, "autoAcceptPrice", e.target.value)
+                }
+                className="w-full border border-gray-300 p-1 mt-1"
+                placeholder=""
+                disabled
+              />
+            </div>
+            <div className="p-2 text-center border-r border-t border-b border-gray-300">
+              <input
+                type="text"
+                value={item.autoRejectPrice}
+                onChange={(e) =>
+                  handleItemChange(item.id, "autoRejectPrice", e.target.value)
                 }
                 className="w-full border border-gray-300 p-1 mt-1"
                 placeholder=""

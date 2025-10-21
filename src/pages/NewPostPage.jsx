@@ -35,6 +35,7 @@ export default function NewPostPage() {
   const [recordSeconds, setRecordSeconds] = useState(0);
   const recordTimerRef = useRef(null);
   const [previewBlocked, setPreviewBlocked] = useState(false);
+  const containerRef = useRef(null);
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;

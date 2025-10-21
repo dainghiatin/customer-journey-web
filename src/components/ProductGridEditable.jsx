@@ -42,6 +42,7 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
       unitAskingPrice: "",
       amountDesired: "",
       autoAcceptPrice: "",
+      autoRejectPrice: "",
     };
     const updated = [...items, newItem];
     setItems(updated);
@@ -179,12 +180,18 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>THÀNH TIỀN MONG MUỐN THẤP NHẤT / CAO NHẤT</div>
-            <div className="text-xs">(Lowest amount) - đi theo lệnh bên</div>
+            <div className="text-xs">(Lowest amount)</div>
           </div>
           <div className="p-2 text-center border-r border-gray-300">
             <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤT</div>
             <div className="text-xs">
-              (Lowest / Highest price to automatically accept) - đi theo lệnh bên
+              (Lowest / Highest price to automatically accept)
+            </div>
+          </div>
+          <div className="p-2 text-center border-r border-gray-300">
+            <div>GIÁ TỰ ĐỘNG TỪ CHỐI CAO NHẤT/THẤP NHẤT</div>
+            <div className="text-xs">
+              (AUTOMATIC REJECT HIGHEST/LOWEST PRICE)
             </div>
           </div>
         </div>
@@ -470,6 +477,17 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
                 value={item.autoAcceptPrice}
                 onChange={(e) =>
                   handleItemChange(item.id, "autoAcceptPrice", e.target.value)
+                }
+                className="w-full border border-gray-300 p-1 mt-1"
+                placeholder=""
+              />
+            </div>
+            <div className="p-2 text-center border-r border-t border-b border-gray-300">
+              <input
+                type="text"
+                value={item.autoRejectPrice}
+                onChange={(e) =>
+                  handleItemChange(item.id, "autoRejectPrice", e.target.value)
                 }
                 className="w-full border border-gray-300 p-1 mt-1"
                 placeholder=""
