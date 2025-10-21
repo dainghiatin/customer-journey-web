@@ -37,6 +37,20 @@ export default function NewPostPage() {
   const [previewBlocked, setPreviewBlocked] = useState(false);
   const containerRef = useRef(null);
 
+  const { scanId, toggle} = useBlinkIdScanner({
+    onSuccess: (result) => {
+      setHasIdCaptured(true);
+      setIdPhotoDataUrl(result.faceImage);
+      console.log(result);
+      closeCamera();
+    },
+    onError: (error) => {
+      console.error("BlinkID Scan Error:", error);
+      alert(t('scanner.error', 'Lỗi khi quét ID. Vui lòng thử lại.'));
+      closeCamera();
+    }
+  });
+
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
     setColor(newColor);
@@ -225,6 +239,8 @@ export default function NewPostPage() {
     }
   };
 
+
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
@@ -268,7 +284,7 @@ export default function NewPostPage() {
         <div className="mt-6" ref={containerRef}>
           <div className="grid grid-cols-2 gap-4 border border-gray-300">
             {/* Scan CCCD */}
-            <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={(e) => openCamera(e, 'photo')}>
+            <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={(e) => toggle(e)}>
                <div className="flex flex-col items-center justify-center h-40">
                  <CameraIcon size={48} className="mb-2" />
                  <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
