@@ -7,6 +7,8 @@ import { getProductById, updateProductPriceInfo } from "../services/productServi
 import {
   Home as HomeIcon,
   KeyboardIcon as KeyboardIcon,
+  Eye as EyeIcon,
+  EyeOff as EyeOffIcon,
 } from "lucide-react";
 import ProductGrid from "../components/ProductGrid";
 
@@ -22,6 +24,8 @@ export default function DetailOfGoodsPage() {
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
+  const [isVisible1, setIsVisible1] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
   const [priceData, setPriceData] = useState({
     setPrice: null,
     depositRequirement: null,
@@ -185,7 +189,74 @@ const fetchProductDetails = async () => {
             <KeyboardIcon size={28} />
           </button>
         </div>
-
+        {/* TÀI KHOẢN HÀNG HÓA Section */}
+        <div className="grid grid-cols-5 border border-gray-300">
+          <div className="border-r border-gray-300 p-2">
+            <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <input 
+              type="number" 
+              name="exchangeRate" 
+              className="w-full border border-gray-300 p-1 mt-1" 
+              defaultValue="1"
+              onChange={(e) => {
+                const value = parseFloat(e.target.value) || 1;
+                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                document.getElementById('calculatedValue').value = calculatedValue;
+              }}     
+            />
+            <div className="font-bold flex items-center justify-center">
+              <span className="mr-2">{isVisible1 ? "1" : "•••"}</span>
+              <button 
+                type="button" 
+                onClick={() => setIsVisible1(!isVisible1)}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+              </button>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div className="font-bold  p-1 mt-1">VN</div>
+            <div className="mt-1 flex items-center justify-center">
+              <span className="mr-2">D|</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <input 
+              type="number" 
+              name="exchangeRate" 
+              className="w-full border border-gray-300 p-1 mt-1" 
+              defaultValue="1"
+              onChange={(e) => {
+                const value = parseFloat(e.target.value) || 1;
+                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                document.getElementById('calculatedValue').value = calculatedValue;
+              }}
+            />
+            <div className="font-bold flex items-center justify-center">
+              <span className="mr-2">{isVisible2 ? "1" : "•••"}</span>
+              <button 
+                type="button" 
+                onClick={() => setIsVisible2(!isVisible2)}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+              </button>
+            </div>
+          </div>
+          <div className="p-2 text-center">
+            <div className="font-bold">CHUYỂN VỀ VÍ</div>
+            <div className="text-sm italic text-center">(Transfer to wallet)</div>
+            <button 
+              type="button" 
+              className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+            >
+              Chuyển
+            </button>
+          </div>
+        </div>
         {/* Category Selection Table */}
         <div className="w-full border border-gray-300 mt-4">
           <table className="w-full border-collapse">
