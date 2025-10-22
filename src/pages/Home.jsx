@@ -126,7 +126,7 @@ function HomePage() {
         width: 56,
         height: 56,
         borderRadius: 9999,
-        backgroundColor: hovered ? '#1a56db' : '#1242ae',
+        backgroundColor: '#1a56db',
         color: '#ffffff',
         display: 'flex',
         alignItems: 'center',
@@ -218,9 +218,7 @@ function HomePage() {
                 title="Sổ liên lạc"
                 aria-label="Sổ liên lạc"
                 style={baseStyle}
-                onClick={handleClick}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                
             >
                 <BookOpenCheckIcon size={26} strokeWidth={2.5} />
             </button>
