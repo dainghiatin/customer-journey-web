@@ -122,7 +122,7 @@ function HomePage() {
 
     const baseStyle = {
         position: 'fixed',
-        bottom: "25vh",
+        bottom: "16vh",
         right: 16,
         width: 56,
         height: 56,
