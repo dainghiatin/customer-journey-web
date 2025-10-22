@@ -14,7 +14,6 @@ import HeaderComponent from "../components/HeaderComponent";
 import QRModalComponent from "../components/QRModalComponent";
 import FooterComponent from "../components/FooterComponent";
 import DataTableComponent from "../components/DataTableComponent";
-import ContactBookIcon from "../components/ContactBookIcon";
 
 
 // Services
@@ -82,7 +81,7 @@ function HomePage() {
 
     const handleOpenQrModal = async () => {
         setIsQrModalOpen(true);
-        
+
         // Only generate QR code if user is authenticated
         if (isUserLoggedIn) {
             try {
@@ -120,6 +119,25 @@ function HomePage() {
         handleCloseQrModal();
     };
 
+    const baseStyle = {
+        position: 'fixed',
+        bottom: "25vh",
+        right: 16,
+        width: 56,
+        height: 56,
+        borderRadius: 9999,
+        backgroundColor: hovered ? '#1a56db' : '#1242ae',
+        color: '#ffffff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
+        cursor: 'pointer',
+        zIndex: 1000,
+        transition: 'background-color 150ms ease, transform 150ms ease',
+        transform: hovered ? 'scale(1.06)' : 'scale(1)',
+    };
+
     return (
         <>
             <header className="grid-container "
@@ -137,7 +155,7 @@ function HomePage() {
                 <DropdownAuth />
 
                 {/* Main Content Grid */}
-                <div  className="flex-1 avtblock" style={{ maxWidth: "clamp(50px, 130px, 130px) ",margin: "0 5px" }} >
+                <div className="flex-1 avtblock" style={{ maxWidth: "clamp(50px, 130px, 130px) ", margin: "0 5px" }} >
                     <CountrySpecificComponent userCountry={selectedLang} />
                 </div>
 
@@ -196,7 +214,16 @@ function HomePage() {
                 onScanResult={handleScanResult}
                 isAuthenticated={isUserLoggedIn}
             />
-            <ContactBookIcon />
+            <button
+                title="Sổ liên lạc"
+                aria-label="Sổ liên lạc"
+                style={baseStyle}
+                onClick={handleClick}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+            >
+                <BookOpenCheckIcon size={26} strokeWidth={2.5} />
+            </button>
         </>
     );
 }
