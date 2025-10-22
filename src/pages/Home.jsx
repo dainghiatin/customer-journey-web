@@ -14,7 +14,7 @@ import HeaderComponent from "../components/HeaderComponent";
 import QRModalComponent from "../components/QRModalComponent";
 import FooterComponent from "../components/FooterComponent";
 import DataTableComponent from "../components/DataTableComponent";
-import ContactBookIcon from '../components/ContactBookIcon.jsx'
+import ContactBookIcon from '../components/ContactBookIcon'
 
 
 // Services
