@@ -52,6 +52,7 @@ function App() {
           <Route exact path="/reward-list" element={<RewardListPage />} />
         </Route>
       </Routes>
+      
     </>
   )
 }

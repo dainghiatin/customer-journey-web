@@ -14,6 +14,8 @@ import HeaderComponent from "../components/HeaderComponent";
 import QRModalComponent from "../components/QRModalComponent";
 import FooterComponent from "../components/FooterComponent";
 import DataTableComponent from "../components/DataTableComponent";
+import ContactBookIcon from '../components/ContactBookIcon.jsx'
+
 
 // Services
 import { generateQrSessionInfo } from "../services/authService";
@@ -194,6 +196,7 @@ function HomePage() {
                 onScanResult={handleScanResult}
                 isAuthenticated={isUserLoggedIn}
             />
+            <ContactBookIcon />
         </>
     );
 }
