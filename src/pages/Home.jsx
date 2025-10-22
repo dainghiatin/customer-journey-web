@@ -134,8 +134,7 @@ function HomePage() {
         boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
         cursor: 'pointer',
         zIndex: 1000,
-        transition: 'background-color 150ms ease, transform 150ms ease',
-        transform: hovered ? 'scale(1.06)' : 'scale(1)',
+        transition: 'background-color 150ms ease, transform 150ms ease'
     };
 
     return (
