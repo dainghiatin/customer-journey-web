@@ -172,7 +172,7 @@ export default function EventComponent() {
     );
 
     return (
-        <section className="action-section " >
+        <section className="action-section " style={{ marginTop: '5px' }} >
             {/* Desktop Layout */}
             <div className="action-section-1" style={{ 
                 alignItems: 'center',
