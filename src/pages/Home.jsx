@@ -149,7 +149,7 @@ function HomePage() {
 
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
-                    <div className="!hidden md:!block grid-col-4 w-full">
+                    <div className="!hidden md:!block grid-col-4 w-full " style={{ marginTop: "-1vw" }}>
                         <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
 
                         <EventFilterComponent />
@@ -169,7 +169,7 @@ function HomePage() {
 
 
             {!isUserLoggedIn && (
-                <div className="flex">
+                <div className="flex" style={{ marginTop: "-20px" }}>
                     <div className="hidden md:block w-full">
                         <HeroHeader isCompact={false} />
                         <EventFilterComponent />
@@ -178,7 +178,6 @@ function HomePage() {
             )}
 
 
-            <br />
             <EventComponent />
 
             <FooterComponent />

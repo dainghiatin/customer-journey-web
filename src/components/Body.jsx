@@ -37,7 +37,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false, userCou
         secondaryFontSize = '2.5vw';
     }
     const marginBottom = isCompact ? '2vw' : '-1.5vw';
-    const marginTop = isCompact ? '1vw' : '-1vw';
+    const marginTop = isCompact ? '1vw' : '-6vh';
 
     return (
         <>
@@ -67,7 +67,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false, userCou
                         <h3 style={{ color: "blue", fontSize: titleFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
                             {t('hero.mainTitle', 'CÔNG BẰNG LỚN - UY TÍN LỚN')}
                         </h3>
-                        <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize, marginTop: marginTop }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
+                        <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize, marginTop: "-3vh" }}><em>({t('hero.mainTitleEn', 'Great fairness - Great reputation')})</em></h4>
                     </div>
                     <div className="flex-1" style={{ marginTop: "clamp(18px,2.7vw, 45px)" }}>
                         <Link to={'ai-live'} className="main-aside-2-1 border w-[18vw] sm:w-[12vw] flex items-center justify-center hove" style={{ fontSize: "clamp(7px, 2.9vw, 40px)" }}>
@@ -77,7 +77,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false, userCou
                         </Link>
                     </div>
                 </div>
-                <div className="hero-subtitle" style={{ border: 0, marginTop: marginTop, alignSelf: "center", fontWeight: "bold", position: "relative", fontSize: secondaryFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
+                <div className="hero-subtitle" style={{ border: 0, marginTop: "-1vh", alignSelf: "center", fontWeight: "bold", position: "relative", fontSize: secondaryFontSize, width: "100%", textAlign: "center", whiteSpace: "nowrap" }}>
                     <h3 style={{ color: "blue" }}>{t('hero.subtitle', 'MỤC TIÊU: CÔNG CỤ THƯƠNG MẠI CỦA MỖI QUỐC GIA')}</h3>
                     <h4 className='' style={{ color: "blue", fontSize: subtitleFontSize, marginTop: "-0.8vw" }}>
                         <em>
@@ -115,7 +115,7 @@ function HeroHeader({ selectedLang, isCompact = false, ismobile = false, userCou
                         </div>
 
                     </Link>
-                    <Link to={'payment'} className=" cursor-pointer main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-1vw", left: '66%', fontSize: "clamp(7px, 1.7vw, 2vw)", height: "clamp(18px,3.2vw, 45px)" }}>
+                    <Link to={'payment'} className=" cursor-pointer main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center" style={{ position: "absolute", bottom: "-2vw", left: '66%', fontSize: "clamp(7px, 1.7vw, 2vw)", height: "clamp(18px,3.2vw, 45px)" }}>
                         <div className="flex items-center justify-center" style={{ color: "black", textAlign: "center", height: "clamp(20px,4vw, 60px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                             <p className=""><strong>{t('navigation.paymentTransaction', 'THANH TOÁN')}</strong></p>
                         </div>
@@ -223,14 +223,14 @@ const DropdownAuth = () => {
 
     return (
         <div style={{
-            display: "flex", flexDirection: "column", width: 'fit-content',
+            display: "flex", flexDirection: "column", maxWidth: '20vw',
             position: "absolute",
             top: "clamp(11rem, 14vw, 50rem)",
             left: "0",
             zIndex: 1000,
             marginTop: !user
                 ? "clamp(0rem, -5rem + 5vw, 0rem)"   // khi chưa login
-                : "clamp(0rem, 21vw, -50rem)" // khi đã login 
+                : "clamp(-1vw, 21vw, -50rem)" // khi đã login 
         }}
 
         >
@@ -245,7 +245,7 @@ const DropdownAuth = () => {
                 <div
 
                     className='flex flex-col items-center justify-center'
-                    style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw", justifyContent: "center", alignItems: "center", display: "flex" }}
+                    style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw", justifyContent: "center", alignItems: "center", display: "flex" , marginBottom: "1vw" }}
                 ><input
                         ref={fileInputRef}
                         type="file"
@@ -261,7 +261,7 @@ const DropdownAuth = () => {
 
                 </div>}
             {user ? <div className="flex items-center justify-center gap-2 h-[55px]"
-                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw" }}
+                style={{ fontSize: "clamp(10px, 1vw, 20px)", fontWeight: 'bold', background: 'none', cursor: 'pointer', border: '1px solid black', padding: "1vw", marginBottom: "1vw"  }}
                 onClick={() => navigate("/admin-control")}
             >
                 <button
@@ -509,7 +509,7 @@ const Body = () => {
 function SearchSection() {
     const navigate = useNavigate();
     return (
-        <section className="search-section" style={{  fontSize: 'clamp(1vw, 2vw, 2.2vw)' }}>
+        <section className="search-section" style={{  fontSize: 'clamp(1vw, 1.8vw, 2.2vw)', wrap: 'nowrap' }}>
             <div className="search-title cursor-pointer" style={{ cursor: "pointer" }}>
                 <button className='cursor-pointer' onClick={() => navigate(`/list-of-goods`)}>
                     <h3><strong>TÌM KIẾM</strong></h3>

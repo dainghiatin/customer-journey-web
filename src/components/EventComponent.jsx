@@ -176,7 +176,7 @@ export default function EventComponent() {
             {/* Desktop Layout */}
             <div className="action-section-1" style={{ 
                 alignItems: 'center',
-                gap: 10,
+                gap: '2vw',
                 position: 'relative'
             }}>
                 <NavigationButton 

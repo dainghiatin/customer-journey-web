@@ -80,7 +80,7 @@ function EventFilterComponent() {
                 display: 'flex',
                 flexDirection: 'row',
                 width: "100%",
-                marginTop: "5%",
+                marginTop: "8vh",
                 alignItems: "self-start",
                 gap: "10px"
             }}>

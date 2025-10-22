@@ -42,15 +42,15 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
   // Mock data for different countries as fallback
   const countryData = {
     vi: {
-      companyName: 'CÔNG TY TNHH CÔNG NGHỆ VIỆT NAM',
+      companyName: 'CÔNG TY TNHH ĐẠI NGHĨA TÍN',
       companyNameEn: 'VIETNAM TECHNOLOGY CO., LTD',
-      mst: '0123456789',
-      stk: '1234567890',
-      daiDien: 'Nguyễn Văn A',
-      soGphd: 'GP001234567',
-      nganHang: 'Vietcombank',
-      chucDanh: 'Giám đốc điều hành',
-      diaChi: '123 Đường ABC, Quận 1, TP.HCM, Việt Nam'
+      mst: '3702678200',
+      stk: '',
+      daiDien: 'VŨ VĂN NGHĨA',
+      soGphd: '',
+      nganHang: '',
+      chucDanh: 'CEO',
+      diaChi: 'TỔ 4, ẤP 5, AN PHƯỚC, ĐỒNG NAI, VIỆT NAM'
     },
     en: {
       companyName: 'US TECHNOLOGY CORPORATION',
@@ -67,7 +67,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
 
   // Create dynamic data based on user information
   const getDynamicData = () => {
-    if (!userData) {
+    if (userData) {
       return countryData[userCountry] || countryData.vi;
     }
 
@@ -89,7 +89,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
 
   if (loading) {
     return (
-      <div className="w-full h-full p-4 flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 mx-auto mb-2"></div>
           <p>Đang tải thông tin...</p>
@@ -99,16 +99,13 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
   }
 
   return (
-    <div className="w-full h-full p-1 sm:p-2 md:p-4">
+    <div className="w-full h-full px-1">
       <div className="w-full h-full flex flex-col">
         {/* Company Name Header */}
         <div className="text-center mb-1 sm:mb-2 md:mb-4">
           <h2 className="font-bold text-xs sm:text-sm md:text-lg break-words leading-tight">
             {currentData.companyName}
           </h2>
-          <p className="text-xs sm:text-sm italic break-words leading-tight">
-            ({currentData.companyNameEn})
-          </p>
         </div>
         
         {/* Main Table */}
@@ -149,7 +146,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
                     </td>
                     <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
-                        {currentLang === 'vi' ? 'Ngân hàng:' : 'Bank:'}
+                        {currentLang === 'vi' ? 'NGÂN HÀNG:' : 'Bank:'}
                       </div>
                     </td>
                     <td className="p-1 sm:p-2 text-xs break-words data-cell">

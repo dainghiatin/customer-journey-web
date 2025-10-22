@@ -13,19 +13,19 @@ const DataTableComponent = () => {
 >
   {/* Row 1 */}
   <div className="flex border-b border-black">
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.listedValue", "GIÁ TRỊ LÊN SÀN:")}
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.listedValue}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.transactions", "LƯỢT GIAO DỊCH")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.transactions}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.accesses", "LƯỢT TRUY CẬP")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1">
@@ -35,19 +35,19 @@ const DataTableComponent = () => {
 
   {/* Row 2 */}
   <div className="flex border-b border-black">
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.successfully", "THÀNH CÔNG")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.successfully}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.amount", "SỐ TIỀN")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.amount}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.duration", "THỜI LƯỢNG")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1">
@@ -64,13 +64,13 @@ const DataTableComponent = () => {
   {t("metrics.bankUpdate", "NGÂN HÀNG CẬP NHẬT")}
 </div>
 
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.deposited", "ĐÃ GỬI")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.deposited}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.videoViews", "LƯỢT XEM VIDEO")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1">
@@ -80,19 +80,19 @@ const DataTableComponent = () => {
 
   {/* Row 4 */}
   <div className="flex border-b border-black">
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.withTerm", "CÓ KỲ HẠN")}
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       {t("metrics.update", "CẬP NHẬT")}
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.withdrawn", "ĐÃ RÚT")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.withdrawn}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.members", "THÀNH VIÊN")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1">
@@ -102,19 +102,19 @@ const DataTableComponent = () => {
 
   {/* Row 5 */}
   <div className="flex">
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.withoutTerm", "KHÔNG KỲ HẠN")}
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       {t("metrics.update", "CẬP NHẬT")}
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.remaining", "CÒN LẠI")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
       <strong>{metric.remaining}</strong>
     </div>
-    <div className="flex-1 flex items-center font-bold py-1 px-1 border-r border-black">
+    <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
       {t("metrics.online", "TRUY CẬP")}:
     </div>
     <div className="flex-2 flex items-center justify-end py-1 px-1">

@@ -251,3 +251,7 @@ td {
 .row-h {
   @apply h-[23px] flex items-center;
 }
+
+.table-cell {
+  flex: 0.7;
+}
