@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { BookOpenCheckIcon } from "lucide-react";
+import { BookUserIcon } from "lucide-react";
 
 // Components
 import { HeroHeader, Body, SearchSection, DropdownAuth } from "../components/Body";
@@ -220,7 +220,7 @@ function HomePage() {
                 style={baseStyle}
                 
             >
-                <BookOpenCheckIcon size={26} strokeWidth={2.5} />
+                <BookUserIcon size={26} strokeWidth={2.5} />
             </button>
         </>
     );

@@ -53,7 +53,7 @@ const HeaderComponent = ({
                     {/* Computer / Mobile Icon */}
                     <div className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b">
                         <p className="px-2 hidden md:block">
-                            <i className="fa-solid fa-computer"></i>
+                            APP
                         </p>
                         <p className="px-2 block md:hidden">
                             <i className="fa-solid fa-mobile-screen-button"></i>
