@@ -67,22 +67,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
 
   // Create dynamic data based on user information
   const getDynamicData = () => {
-    if (userData) {
-      return countryData[userCountry] || countryData.vi;
-    }
-
-    // Map user data to company info format
-    return {
-      companyName: userData.full_name || userData.username || 'CÔNG TY TNHH CÔNG NGHỆ VIỆT NAM',
-      companyNameEn: userData.full_name || userData.username || 'VIETNAM TECHNOLOGY CO., LTD',
-      mst: userData.cccd || '0123456789',
-      stk: userData.bank_number || '1234567890',
-      daiDien: userData.full_name || userData.username || 'Nguyễn Văn A',
-      soGphd: userData.reference_id || 'GP001234567',
-      nganHang: userData.bank_name || 'Vietcombank',
-      chucDanh: userData.is_ctv ? 'Cộng tác viên' : 'Giám đốc điều hành',
-      diaChi: userData.address_no || userData.address_on_map || '123 Đường ABC, Quận 1, TP.HCM, Việt Nam'
-    };
+    return countryData[userCountry] || countryData.vi;
   };
 
   const currentData = getDynamicData();
