@@ -250,13 +250,26 @@ export default function NewGoodPostPage() {
                <div className="border-r border-gray-300 p-2 text-center">
                  <input 
                    type="number" 
+                   min="1"
+                   step="1"
                    name="exchangeRate" 
                    className="w-full border border-gray-300 p-1 mt-1" 
                    defaultValue="1"
+                   onKeyDown={(e) => {
+                     // Prevent negative sign, decimal point, and non-numeric characters
+                     if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                       e.preventDefault();
+                     }
+                   }}
                    onChange={(e) => {
-                     const value = parseFloat(e.target.value) || 1;
-                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                     document.getElementById('calculatedValue').value = calculatedValue;
+                     // Ensure only positive integers
+                     const value = e.target.value;
+                     if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
+                       e.target.value = '1';
+                     } else {
+                       const calculatedValue = parseFloat(e.target.value) || 1;
+                       document.getElementById('calculatedValue').value = calculatedValue;
+                     }
                    }}     
                  />
                  <div className="font-bold">1</div>
@@ -270,13 +283,26 @@ export default function NewGoodPostPage() {
                <div className="border-r border-gray-300 p-2 text-center">
                  <input 
                    type="number" 
+                   min="1"
+                   step="1"
                    name="exchangeRate" 
                    className="w-full border border-gray-300 p-1 mt-1" 
                    defaultValue="1"
+                   onKeyDown={(e) => {
+                     // Prevent negative sign, decimal point, and non-numeric characters
+                     if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                       e.preventDefault();
+                     }
+                   }}
                    onChange={(e) => {
-                     const value = parseFloat(e.target.value) || 1;
-                     const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                     document.getElementById('calculatedValue').value = calculatedValue;
+                     // Ensure only positive integers
+                     const value = e.target.value;
+                     if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
+                       e.target.value = '1';
+                     } else {
+                       const calculatedValue = parseFloat(e.target.value) || 1;
+                       document.getElementById('calculatedValue').value = calculatedValue;
+                     }
                    }}
                  />
                  <div className="font-bold">1</div>
@@ -505,12 +531,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="eventPercentFee"
                           value={goodsInfo.eventPercentFee || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="text-gray-700">%</span>
                       </div>
@@ -519,12 +553,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="eventFee"
                           value={goodsInfo.eventFee || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="text-gray-700">VND</span>
                       </div>
@@ -541,12 +583,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="livestreamPercentFee"
                           value={goodsInfo.livestreamPercentFee || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="text-gray-700">%</span>
                       </div>
@@ -555,12 +605,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="livestreamFee"
                           value={goodsInfo.livestreamFee || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="text-gray-700">VND</span>
                       </div>
@@ -577,12 +635,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="videoAd"
                           value={goodsInfo.videoAd || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </div>
                       <div className="p-2 text-center">
@@ -620,12 +686,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="totalFee"
                           value={goodsInfo.totalFee || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="text-gray-700">VND</span>
                       </div>
@@ -661,12 +735,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="advertisingAmount"
                           value={goodsInfo.advertisingAmount || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </div>
                       <div className="p-2 text-center">
@@ -682,12 +764,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="mainPageAd"
                           value={goodsInfo.mainPageAd || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </div>
                       <div className="p-2 text-center">
@@ -703,12 +793,20 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <input 
-                          type="text"
+                          type="number"
+                          min="0"
+                          step="1"
                           name="videoAd"
                           value={goodsInfo.videoAd || ''}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
+                          onKeyDown={(e) => {
+                            // Prevent negative sign, decimal point, and non-numeric characters
+                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </div>
                       <div className="p-2 text-center">

@@ -168,8 +168,23 @@ const NewFreelancerPostOnlineComponent = () => {
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
+              min="1"
+              step="1"
               className="w-full p-2 border border-gray-300 rounded"
               placeholder={t('newFreelancerDirect.pricePlaceholder', 'Nhập giá')}
+              onKeyDown={(e) => {
+                // Prevent negative sign, decimal point, and non-numeric characters
+                if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => {
+                // Ensure only positive integers
+                const value = e.target.value;
+                if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
+                  e.target.value = '';
+                }
+              }}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -235,8 +250,23 @@ const NewFreelancerPostOnlineComponent = () => {
           <div className="col-span-4 border-l border-r border-gray-300 p-2 flex items-center">
             <input
               type="number"
+              min="1"
+              step="1"
               className="w-full p-2 border border-gray-300 rounded"
               placeholder={t('newFreelancerDirect.depositPlaceholder', 'Nhập số tiền đặt cọc')}
+              onKeyDown={(e) => {
+                // Prevent negative sign, decimal point, and non-numeric characters
+                if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => {
+                // Ensure only positive integers
+                const value = e.target.value;
+                if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
+                  e.target.value = '';
+                }
+              }}
             />
           </div>
           <div className="col-span-4 p-2 flex items-center">
@@ -256,16 +286,46 @@ const NewFreelancerPostOnlineComponent = () => {
                 <div className="font-bold border border-gray-300 p-3 bg-gray-50">{t('newFreelancerOnline.eventFee', 'PHÍ ĐĂNG KÝ SỰ KIỆN')}: <br />({t('newFreelancerOnline.eventFeeEn', 'Event fee')})</div>
                 <div className="border border-gray-300 p-2">
                   <input 
-                    type="text" 
+                    type="number"
+                    min="0"
+                    step="1"
                     className="w-full p-2 border border-gray-300 rounded"
+                    onKeyDown={(e) => {
+                      // Prevent negative sign, decimal point, and non-numeric characters
+                      if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      // Ensure only non-negative integers
+                      const value = e.target.value;
+                      if (value && (parseFloat(value) < 0 || !Number.isInteger(parseFloat(value)))) {
+                        e.target.value = '';
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.plus', '+')}</div>
                 <div className="border border-gray-300 p-2">
                   <input 
-                    type="text" 
+                    type="number"
+                    min="0"
+                    step="1"
                     className="w-full p-2 border border-gray-300 rounded"
+                    onKeyDown={(e) => {
+                      // Prevent negative sign, decimal point, and non-numeric characters
+                      if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      // Ensure only non-negative integers
+                      const value = e.target.value;
+                      if (value && (parseFloat(value) < 0 || !Number.isInteger(parseFloat(value)))) {
+                        e.target.value = '';
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.currency', 'VNĐ')}</div>
@@ -278,8 +338,23 @@ const NewFreelancerPostOnlineComponent = () => {
                 <div className="font-bold border border-gray-300 p-3 bg-gray-50">{t('newFreelancerOnline.successFee', 'PHÍ THÀNH CÔNG')}: <br />({t('newFreelancerOnline.successFeeEn', 'Success fee')})</div>
                 <div className="border border-gray-300 p-2">
                   <input 
-                    type="text" 
+                    type="number"
+                    min="0"
+                    step="1"
                     className="w-full p-2 border border-gray-300 rounded"
+                    onKeyDown={(e) => {
+                      // Prevent negative sign, decimal point, and non-numeric characters
+                      if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      // Ensure only non-negative integers
+                      const value = e.target.value;
+                      if (value && (parseFloat(value) < 0 || !Number.isInteger(parseFloat(value)))) {
+                        e.target.value = '';
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
@@ -307,16 +382,46 @@ const NewFreelancerPostOnlineComponent = () => {
                 <div className="font-bold border border-gray-300 p-3 bg-gray-50">{t('newFreelancerOnline.totalFeesVat', 'TỔNG PHÍ + THUẾ')} <br />({t('newFreelancerOnline.totalFeesVatEn', 'Total fees + VAT')})</div>
                 <div className="border border-gray-300 p-2">
                   <input 
-                    type="text" 
+                    type="number"
+                    min="0"
+                    step="1"
                     className="w-full p-2 border border-gray-300 rounded"
+                    onKeyDown={(e) => {
+                      // Prevent negative sign, decimal point, and non-numeric characters
+                      if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      // Ensure only non-negative integers
+                      const value = e.target.value;
+                      if (value && (parseFloat(value) < 0 || !Number.isInteger(parseFloat(value)))) {
+                        e.target.value = '';
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.percent', '%')}</div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">{t('common.plus', '+')}</div>
                 <div className="border border-gray-300 p-2">
                   <input 
-                    type="text" 
+                    type="number"
+                    min="0"
+                    step="1"
                     className="w-full p-2 border border-gray-300 rounded"
+                    onKeyDown={(e) => {
+                      // Prevent negative sign, decimal point, and non-numeric characters
+                      if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e) => {
+                      // Ensure only non-negative integers
+                      const value = e.target.value;
+                      if (value && (parseFloat(value) < 0 || !Number.isInteger(parseFloat(value)))) {
+                        e.target.value = '';
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">VNĐ</div>
