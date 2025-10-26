@@ -166,11 +166,8 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('posts.freelancer', 'CÔNG VIỆC TỰ DO')}
+              &nbsp;- {t('posts.freelancer')}
             </h1>
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('posts.freelancerEn', 'Freelancer')})</i>
-            </h2>
           </div>
           <button 
             className="text-red-600 hover:text-red-800"
@@ -183,7 +180,7 @@ const [freelancersOffline, setFreelancersOffline] = useState([
         {/* Loading state */}
         {loading && (
           <div className="text-center py-8">
-            <div className="text-lg text-gray-600">Đang tải...</div>
+            <div className="text-lg text-gray-600">{t('common.loading')}</div>
           </div>
         )}
 
@@ -191,7 +188,7 @@ const [freelancersOffline, setFreelancersOffline] = useState([
         {error && !loading && (
           <div className="text-center py-4 mb-4">
             <div className="text-red-600 bg-red-100 p-3 rounded">
-              Có lỗi xảy ra: {error}. Đang hiển thị dữ liệu mặc định.
+              {t('common.errorOccurred')}: {error}. {t('common.showingDefaultData')}.
             </div>
           </div>
         )}
@@ -205,32 +202,29 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                 {/* Row 1: TÀI KHOẢN CÔNG VIỆC TỰ DO */}
                 <div className="grid grid-cols-12 border-b border-gray-300">
                   <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                    {t('freelancer.accountOfFreelancer', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}
-                    <div className="text-sm text-gray-500"><i>({t('freelancer.accountOfFreelancerEn', 'Account of freelancer')})</i></div>
+                    {t('freelancer.accountOfFreelancer')}
                   </div>
                   <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                    <input disabled type="text" value={wallet.account_of_freelancer} placeholder="(lệnh)" className="w-full p-1 border rounded" />
+                    <input disabled type="text" value={wallet.account_of_freelancer} placeholder={`(${t('payment.command')})`} className="w-full p-1 border rounded" />
 
 
                   </div>
                   <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
                   <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                    <input type="text" placeholder="(nhập)" className="w-full p-1 border rounded" />
+                    <input type="text" placeholder={`(${t('common.enter')})`} className="w-full p-1 border rounded" />
                   </div>
                   <div className="col-span-2 p-3 text-center font-bold">
-                    {t('freelancer.transferToWallet', 'CHUYỂN VỀ VÍ')}
-                    <div className="text-sm text-gray-500"><i>({t('freelancer.transferToWalletEn', 'Transfer to wallet')})</i></div>
+                    {t('freelancer.transferToWallet')}
                   </div>
                 </div>
 
                 {/* Row 2: ĐĂNG ĐẶT CỌC */}
                 <div className="grid grid-cols-12 border-b border-gray-300">
                   <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                    {t('freelancer.depositing', 'ĐĂNG ĐẶT CỌC')}
-                    <div className="text-sm text-gray-500"><i>({t('freelancer.depositingEn', 'Depositing')})</i></div>
+                    {t('freelancer.depositing')}
                   </div>
                   <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                    <input disabled value={wallet.pending_amount} type="text" placeholder="(lệnh)" className="w-full p-1 border rounded" />
+                    <input disabled value={wallet.pending_amount} type="text" placeholder={`(${t('payment.command')})`} className="w-full p-1 border rounded" />
 
                   </div>
                   <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
@@ -243,15 +237,13 @@ const [freelancersOffline, setFreelancersOffline] = useState([
                     className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
                     onClick={() => setActiveTab("actual")}
                   >
-                    {t('freelancer.actual', 'THỰC TẾ')}
-                    <div className="text-sm text-gray-500"><i>({t('freelancer.actualEn', 'Actual')})</i></div>
+                    {t('freelancer.actual')}
                   </div>
                   <div 
                     className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "online" ? "bg-blue-100" : ""}`}
                     onClick={() => setActiveTab("online")}
                   >
-                    {t('freelancer.online', 'TRỰC TUYẾN')}
-                    <div className="text-sm text-gray-500"><i>({t('freelancer.onlineEn', 'Online')})</i></div>
+                    {t('freelancer.online')}
                   </div>
                 </div>
               </div>

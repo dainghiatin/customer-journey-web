@@ -3,10 +3,7 @@ import { useTranslation } from "react-i18next";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {
-  Home as HomeIcon,
-  KeyboardIcon as KeyboardIcon,
-} from "lucide-react";
+import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from "lucide-react";
 import { createProduct } from "../services/productService";
 import ProductGrid from "../components/ProductGrid";
 import PostTypeMenu from "../components/PostTypeMenu";
@@ -47,10 +44,10 @@ export default function NewGoodPostPage() {
       unitMarketPrice: "",
       unitAskingPrice: "",
       amountDesired: "",
-      autoAcceptPrice: ""
-    }
+      autoAcceptPrice: "",
+    },
   ]);
-  
+
   const [goodsInfo, setGoodsInfo] = useState({
     name: "",
     model: "",
@@ -65,7 +62,10 @@ export default function NewGoodPostPage() {
     description: "",
     estimatedValue: 0,
     image: "https://example.com/image.jpg",
-    qualityFiles: ["https://example.com/doc1.pdf", "https://example.com/doc2.pdf"],
+    qualityFiles: [
+      "https://example.com/doc1.pdf",
+      "https://example.com/doc2.pdf",
+    ],
     deliveryDate: "2023-12-31",
     depositRequirement: "",
     autoAcceptPrice: 0,
@@ -97,7 +97,7 @@ export default function NewGoodPostPage() {
     categoryType: "goods",
     conditionType: "new",
     nation: "",
-    province: ""
+    province: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -144,14 +144,14 @@ export default function NewGoodPostPage() {
         unitMarketPrice: "",
         unitAskingPrice: "",
         amountDesired: "",
-        autoAcceptPrice: ""
-      }
+        autoAcceptPrice: "",
+      },
     ]);
   };
 
   const handleGoodsItemChange = (id, field, value) => {
     setGoodsItems(
-      goodsItems.map(item => 
+      goodsItems.map((item) =>
         item.id === id ? { ...item, [field]: value } : item
       )
     );
@@ -161,7 +161,7 @@ export default function NewGoodPostPage() {
     const { name, value, type, checked } = e.target;
     setGoodsInfo({
       ...goodsInfo,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -172,41 +172,76 @@ export default function NewGoodPostPage() {
       ...goodsInfo,
       // Convert string values to numbers where needed, default to 0 instead of null
       price: goodsInfo.price ? parseFloat(goodsInfo.price) : 0,
-      askingPrice: goodsInfo.askingPrice ? parseFloat(goodsInfo.askingPrice) : 0,
-      estimatedValue: goodsInfo.estimatedValue ? parseFloat(goodsInfo.estimatedValue) : 0,
-      autoAcceptPrice: goodsInfo.autoAcceptPrice ? parseFloat(goodsInfo.autoAcceptPrice) : 0,
-      marketPrice: goodsInfo.marketPrice ? parseFloat(goodsInfo.marketPrice) : 0,
-      lowestUnitAskingPrice: goodsInfo.lowestUnitAskingPrice ? parseFloat(goodsInfo.lowestUnitAskingPrice) : 0,
-      highestUnitAskingPrice: goodsInfo.highestUnitAskingPrice ? parseFloat(goodsInfo.highestUnitAskingPrice) : 0,
-      deliveryDays: goodsInfo.deliveryDays ? parseInt(goodsInfo.deliveryDays) : 0,
-      lowestAmount: goodsInfo.lowestAmount ? parseInt(goodsInfo.lowestAmount) : 0,
-      highestAmount: goodsInfo.highestAmount ? parseInt(goodsInfo.highestAmount) : 0,
-      lowestAutoAcceptPrice: goodsInfo.lowestAutoAcceptPrice ? parseFloat(goodsInfo.lowestAutoAcceptPrice) : 0,
-      highestAutoAcceptPrice: goodsInfo.highestAutoAcceptPrice ? parseFloat(goodsInfo.highestAutoAcceptPrice) : 0,
-      contractDuration: goodsInfo.contractDuration ? parseInt(goodsInfo.contractDuration) : 0,
-      eventFeePercentage: goodsInfo.eventFeePercentage ? parseFloat(goodsInfo.eventFeePercentage) : 0,
-      livestreamFee: goodsInfo.livestreamFee ? parseFloat(goodsInfo.livestreamFee) : 0,
-      advertisingAmount: goodsInfo.advertisingAmount ? parseFloat(goodsInfo.advertisingAmount) : 0,
+      askingPrice: goodsInfo.askingPrice
+        ? parseFloat(goodsInfo.askingPrice)
+        : 0,
+      estimatedValue: goodsInfo.estimatedValue
+        ? parseFloat(goodsInfo.estimatedValue)
+        : 0,
+      autoAcceptPrice: goodsInfo.autoAcceptPrice
+        ? parseFloat(goodsInfo.autoAcceptPrice)
+        : 0,
+      marketPrice: goodsInfo.marketPrice
+        ? parseFloat(goodsInfo.marketPrice)
+        : 0,
+      lowestUnitAskingPrice: goodsInfo.lowestUnitAskingPrice
+        ? parseFloat(goodsInfo.lowestUnitAskingPrice)
+        : 0,
+      highestUnitAskingPrice: goodsInfo.highestUnitAskingPrice
+        ? parseFloat(goodsInfo.highestUnitAskingPrice)
+        : 0,
+      deliveryDays: goodsInfo.deliveryDays
+        ? parseInt(goodsInfo.deliveryDays)
+        : 0,
+      lowestAmount: goodsInfo.lowestAmount
+        ? parseInt(goodsInfo.lowestAmount)
+        : 0,
+      highestAmount: goodsInfo.highestAmount
+        ? parseInt(goodsInfo.highestAmount)
+        : 0,
+      lowestAutoAcceptPrice: goodsInfo.lowestAutoAcceptPrice
+        ? parseFloat(goodsInfo.lowestAutoAcceptPrice)
+        : 0,
+      highestAutoAcceptPrice: goodsInfo.highestAutoAcceptPrice
+        ? parseFloat(goodsInfo.highestAutoAcceptPrice)
+        : 0,
+      contractDuration: goodsInfo.contractDuration
+        ? parseInt(goodsInfo.contractDuration)
+        : 0,
+      eventFeePercentage: goodsInfo.eventFeePercentage
+        ? parseFloat(goodsInfo.eventFeePercentage)
+        : 0,
+      livestreamFee: goodsInfo.livestreamFee
+        ? parseFloat(goodsInfo.livestreamFee)
+        : 0,
+      advertisingAmount: goodsInfo.advertisingAmount
+        ? parseFloat(goodsInfo.advertisingAmount)
+        : 0,
       successFee: goodsInfo.successFee ? parseFloat(goodsInfo.successFee) : 0,
       totalFees: goodsInfo.totalFees ? parseFloat(goodsInfo.totalFees) : 0,
       image: "https://example.com/image.jpg",
-      qualityFiles: ["https://example.com/doc1.pdf", "https://example.com/doc2.pdf"],
+      qualityFiles: [
+        "https://example.com/doc1.pdf",
+        "https://example.com/doc2.pdf",
+      ],
       advertisingUrl: "https://example.com/advertising",
     };
     // Handle form submission logic here
-    createProduct("token", formattedData).then((res)=>{
-      console.log(res.data);
-      alert("Create success "+goodsInfo.name);
-    }).catch((e)=>{
-      console.log(e);
-    })
+    createProduct("token", formattedData)
+      .then((res) => {
+        console.log(res.data);
+        alert("Create success " + goodsInfo.name);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         <div className="flex items-center justify-between relative">
-          <button 
+          <button
             className="text-red-600 hover:text-red-800 relative"
             onClick={() => navigate("/")}
           >
@@ -224,11 +259,13 @@ export default function NewGoodPostPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>{" "}
-              - ĐĂNG BÀI MỚI - HÀNG HÓA
+              - {t("goods.newPost")}
             </h1>
-            <h2 className="text-xl italic text-gray-600">(New post)</h2>
+            <h2 className="text-xl italic text-gray-600">
+              {t("goods.newPostEn")}
+            </h2>
           </div>
-          <button 
+          <button
             className="text-red-600 hover:text-red-800"
             onClick={() => navigate("/admin-control")}
           >
@@ -241,86 +278,110 @@ export default function NewGoodPostPage() {
           <form onSubmit={handleSubmit} className="border border-gray-300">
             {/* Top Categories Section */}
             <PostTypeMenu activeType="goods" />
-            
-            {/* TÀI KHOẢN HÀNG HÓA Section */}
-             <div className="grid grid-cols-5 border-b border-gray-300">
-               <div className="border-r border-gray-300 p-2">
-                 <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
-               </div>
-               <div className="border-r border-gray-300 p-2 text-center">
-                 <input 
-                   type="number" 
-                   min="1"
-                   step="1"
-                   name="exchangeRate" 
-                   className="w-full border border-gray-300 p-1 mt-1" 
-                   defaultValue="1"
-                   onKeyDown={(e) => {
-                     // Prevent negative sign, decimal point, and non-numeric characters
-                     if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
-                       e.preventDefault();
-                     }
-                   }}
-                   onChange={(e) => {
-                     // Ensure only positive integers
-                     const value = e.target.value;
-                     if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
-                       e.target.value = '1';
-                     } else {
-                       const calculatedValue = parseFloat(e.target.value) || 1;
-                       document.getElementById('calculatedValue').value = calculatedValue;
-                     }
-                   }}     
-                 />
-                 <div className="font-bold">1</div>
-               </div>
-               <div className="border-r border-gray-300 p-2 text-center">
-                 <div className="font-bold  p-1 mt-1">VN</div>
-                 <div className="mt-1 flex items-center justify-center">
-                   <span className="mr-2">D|</span>
-                 </div>
-               </div>
-               <div className="border-r border-gray-300 p-2 text-center">
-                 <input 
-                   type="number" 
-                   min="1"
-                   step="1"
-                   name="exchangeRate" 
-                   className="w-full border border-gray-300 p-1 mt-1" 
-                   defaultValue="1"
-                   onKeyDown={(e) => {
-                     // Prevent negative sign, decimal point, and non-numeric characters
-                     if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
-                       e.preventDefault();
-                     }
-                   }}
-                   onChange={(e) => {
-                     // Ensure only positive integers
-                     const value = e.target.value;
-                     if (value && (parseFloat(value) <= 0 || !Number.isInteger(parseFloat(value)))) {
-                       e.target.value = '1';
-                     } else {
-                       const calculatedValue = parseFloat(e.target.value) || 1;
-                       document.getElementById('calculatedValue').value = calculatedValue;
-                     }
-                   }}
-                 />
-                 <div className="font-bold">1</div>
-               </div>
-               <div className="p-2 text-center">
-                 <div className="font-bold">CHUYỂN VỀ VÍ</div>
-                 <div className="text-sm italic text-center">(Transfer to wallet)</div>
-                 <button 
-                   type="button" 
-                   className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                 >
-                   Chuyển
-                 </button>
-               </div>
-             </div>
-              
 
-              
+            {/* TÀI KHOẢN HÀNG HÓA Section */}
+            <div className="grid grid-cols-5 border-b border-gray-300">
+              <div className="border-r border-gray-300 p-2">
+                <div className="font-bold text-center">
+                  {t("goods.accountOfGoods")}
+                </div>
+              </div>
+              <div className="border-r border-gray-300 p-2 text-center">
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  name="exchangeRate"
+                  className="w-full border border-gray-300 p-1 mt-1"
+                  defaultValue="1"
+                  onKeyDown={(e) => {
+                    // Prevent negative sign, decimal point, and non-numeric characters
+                    if (
+                      e.key === "-" ||
+                      e.key === "." ||
+                      e.key === "e" ||
+                      e.key === "E" ||
+                      e.key === "+"
+                    ) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onChange={(e) => {
+                    // Ensure only positive integers
+                    const value = e.target.value;
+                    if (
+                      value &&
+                      (parseFloat(value) <= 0 ||
+                        !Number.isInteger(parseFloat(value)))
+                    ) {
+                      e.target.value = "1";
+                    } else {
+                      const calculatedValue = parseFloat(e.target.value) || 1;
+                      document.getElementById("calculatedValue").value =
+                        calculatedValue;
+                    }
+                  }}
+                />
+                <div className="font-bold">1</div>
+              </div>
+              <div className="border-r border-gray-300 p-2 text-center">
+                <div className="font-bold  p-1 mt-1">VN</div>
+                <div className="mt-1 flex items-center justify-center">
+                  <span className="mr-2">D|</span>
+                </div>
+              </div>
+              <div className="border-r border-gray-300 p-2 text-center">
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  name="exchangeRate"
+                  className="w-full border border-gray-300 p-1 mt-1"
+                  defaultValue="1"
+                  onKeyDown={(e) => {
+                    // Prevent negative sign, decimal point, and non-numeric characters
+                    if (
+                      e.key === "-" ||
+                      e.key === "." ||
+                      e.key === "e" ||
+                      e.key === "E" ||
+                      e.key === "+"
+                    ) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onChange={(e) => {
+                    // Ensure only positive integers
+                    const value = e.target.value;
+                    if (
+                      value &&
+                      (parseFloat(value) <= 0 ||
+                        !Number.isInteger(parseFloat(value)))
+                    ) {
+                      e.target.value = "1";
+                    } else {
+                      const calculatedValue = parseFloat(e.target.value) || 1;
+                      document.getElementById("calculatedValue").value =
+                        calculatedValue;
+                    }
+                  }}
+                />
+                <div className="font-bold">1</div>
+              </div>
+              <div className="p-2 text-center">
+                <div className="font-bold">{t("goods.transferToWallet")}</div>
+                <div className="text-sm italic text-center">
+                  {t("goods.transferToWalletEn")}
+                </div>
+                <button
+                  type="button"
+                  className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                >
+                  {t("goods.transfer")}
+                </button>
+              </div>
+            </div>
+
             {/* Numbered rows section */}
             <div className="grid grid-cols-1">
               <div className="grid grid-cols-17 border-b border-gray-300">
@@ -333,46 +394,47 @@ export default function NewGoodPostPage() {
                     <div className="border-r border-gray-300 p-2">
                       <div className="text-center">
                         <select className="w-full border border-gray-300 p-1">
-                          <option value="">HÀNG BÁN (Sale)</option>
-                          <option value="">CẦN MUA (Buy)</option>
-                          <option value="">HÀNG THUÊ (Rent)</option>
-                          <option value="">CHO THUÊ (For rent)</option>
-                          <option value="">DỊCH VỤ (Service)</option>
+                          <option value="">{t("goods.sale")}</option>
+                          <option value="">{t("goods.buy")}</option>
+                          <option value="">{t("goods.rent")}</option>
+                          <option value="">{t("goods.forRent")}</option>
+                          <option value="">{t("goods.service")}</option>
                         </select>
                       </div>
                     </div>
                     <div className="border-r border-gray-300 p-2">
                       <div className="text-center">
                         <select className="w-full border border-gray-300 p-1">
-                          <option value="">HÀNG HÓA (Goods)</option>
-                          <option value="">BẤT ĐỘNG SẢN (Land, house)</option>
-                          <option value="">PHƯƠNG TIỆN (Vehicle)</option>
-                          <option value="">NHÂN LỰC (Manpower)</option>
-                          <option value="">XUẤT - NHẬP KHẨU (Import - Export)</option>
+                          <option value="">{t("goods.goods")}</option>
+                          <option value="">{t("goods.realEstate")}</option>
+                          <option value="">{t("goods.vehicle")}</option>
+                          <option value="">{t("goods.manpower")}</option>
+                          <option value="">{t("goods.importExport")}</option>
                         </select>
                       </div>
                     </div>
                     <div className="border-r border-gray-300 p-2">
                       <div className="text-center">
                         <select className="w-full border border-gray-300 p-1">
-                          <option value="">PHẾ LIỆU (Scrap)</option>
-                          <option value="">MỚI (New)</option>
-                          <option value="">CŨ (Old)</option>
-                          <option value="">CHƯA SỬ DỤNG (Unused)</option>
+                          <option value="">{t("goods.scrap")}</option>
+                          <option value="">{t("goods.new")}</option>
+                          <option value="">{t("goods.old")}</option>
+                          <option value="">{t("goods.unused")}</option>
                         </select>
                       </div>
                     </div>
                     <div className="p-2">
                       <div className="text-center">
                         <select className="w-full border border-gray-300 p-1 mb-2">
-                          <option value="">QUỐC GIA (Nation)</option>
+                          <option value="">{t("goods.nation")}</option>
                           <option value="">VN</option>
                           <option value="">USA</option>
                         </select>
-                      </div><div className="text-center">
+                      </div>
+                      <div className="text-center">
                         <select className="w-full border border-gray-300 p-1 mb-2">
-                          <option value="">TẤT CẢ (All)</option>
-                          <option value="">Chọn tỉnh (Select province)</option>
+                          <option value="">{t("goods.all")}</option>
+                          <option value="">{t("goods.selectProvince")}</option>
                         </select>
                       </div>
                     </div>
@@ -396,15 +458,15 @@ export default function NewGoodPostPage() {
                 <div className="col-span-7">
                   <div className="grid grid-cols-3">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THỜI LƯỢNG DUYỆT GIÁ:<br/><span className="text-xs italic">(Price review time)</span></div>
+                      <div>{t("goods.priceReviewTime")}</div>
                     </div>
                     <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="time" 
-                        name="priceReviewTime" 
-                        value={goodsInfo.priceReviewTime} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
+                      <input
+                        type="time"
+                        name="priceReviewTime"
+                        value={goodsInfo.priceReviewTime}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 p-1"
                         placeholder="(nhập)"
                       />
                     </div>
@@ -423,25 +485,25 @@ export default function NewGoodPostPage() {
                 <div className="col-span-7">
                   <div className="grid grid-cols-4">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>THỜI GIAN KẾT THÚC ĐĂNG BÀI:<br/><span className="text-xs italic">(End Post Time)</span></div>
+                      <div>{t("goods.endPostTime")}</div>
                     </div>
                     <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="date" 
-                        name="endPostDate" 
-                        value={goodsInfo.endPostDate} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
+                      <input
+                        type="date"
+                        name="endPostDate"
+                        value={goodsInfo.endPostDate}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 p-1"
                         placeholder="(nhập)"
                       />
                     </div>
                     <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="time" 
-                        name="endPostTime" 
-                        value={goodsInfo.endPostTime} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
+                      <input
+                        type="time"
+                        name="endPostTime"
+                        value={goodsInfo.endPostTime}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 p-1"
                         placeholder="(nhập)"
                       />
                     </div>
@@ -460,28 +522,28 @@ export default function NewGoodPostPage() {
                 <div className="col-span-7">
                   <div className="grid grid-cols-3">
                     <div className="border-r border-gray-300 p-2 text-center">
-                      <div>ĐỊA CHỈ HÀNG HÓA:<br/><span className="text-xs italic">(Goods address)</span></div>
+                      <div>{t("goods.goodsAddress")}</div>
                     </div>
                     <div className="border-r border-gray-300 p-2">
-                      <input 
-                        type="text" 
-                        name="province" 
-                        value={goodsInfo.province} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1" 
-                        placeholder="(nhập tỉnh)"
+                      <input
+                        type="text"
+                        name="province"
+                        value={goodsInfo.province}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 p-1"
+                        placeholder={t("goods.enterProvince")}
                       />
-                      <input 
-                        type="text" 
-                        name="address" 
-                        value={goodsInfo.address} 
-                        onChange={handleInputChange} 
-                        className="w-full border border-gray-300 p-1 mt-1" 
-                        placeholder="(nhập xã)"
+                      <input
+                        type="text"
+                        name="address"
+                        value={goodsInfo.address}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 p-1 mt-1"
+                        placeholder={t("goods.enterCommune")}
                       />
                     </div>
                     <div className="p-2 text-center">
-                      <div>VỊ TRÍ<br/><span className="text-xs italic">(Map)</span></div>
+                      <div>{t("goods.map")}</div>
                       <div className="mt-2 text-red-500">*</div>
                     </div>
                   </div>
@@ -505,8 +567,7 @@ export default function NewGoodPostPage() {
                       />
                     </div>
                     <div className="border-r border-gray-300 p-2">
-                      <div>XÁC NHẬN LÀ CHỦ SỞ HỮU VÀ CHỊU TRÁCH NHIỆM VỀ HÀNG HÓA / BÀI ĐĂNG.</div>
-                      <div>(Confirm owership, responsibilities about the goods / requirement/ posting)</div>
+                      <div>{t("goods.confirmOwnership")}</div>
                     </div>
                     <div className="p-2 text-center">
                       <div className="text-red-500">*</div>
@@ -526,22 +587,27 @@ export default function NewGoodPostPage() {
                     {/* NẠP TIỀN QUẢNG CÁO */}
                     <div className="grid grid-cols-5 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>PHÍ ĐĂNG KÝ SỰ KIỆN:</div>
-                        <div className="text-xs italic">(Event Fee)</div>
+                        <div>{t("goods.eventFee")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="eventPercentFee"
-                          value={goodsInfo.eventPercentFee || ''}
+                          value={goodsInfo.eventPercentFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -552,18 +618,24 @@ export default function NewGoodPostPage() {
                         <div>+</div>
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="eventFee"
-                          value={goodsInfo.eventFee || ''}
+                          value={goodsInfo.eventFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -571,29 +643,34 @@ export default function NewGoodPostPage() {
                         <span className="text-gray-700">VND</span>
                       </div>
                       <div className="border-l border-gray-300 p-2 text-center">
-                        <span>Trả trước <br />(Prepay)</span>
+                        <span>{t("goods.prepay")}</span>
                       </div>
                     </div>
 
                     {/* TRÊN TRANG CHỦ */}
                     <div className="grid grid-cols-5 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>PHÍ LIVESTREAM:</div>
-                        <div className="text-xs italic">(Livestream Fee)</div>
+                        <div>{t("goods.livestreamFee")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="livestreamPercentFee"
-                          value={goodsInfo.livestreamPercentFee || ''}
+                          value={goodsInfo.livestreamPercentFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -604,18 +681,24 @@ export default function NewGoodPostPage() {
                         <div>+</div>
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="livestreamFee"
-                          value={goodsInfo.livestreamFee || ''}
+                          value={goodsInfo.livestreamFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -623,29 +706,34 @@ export default function NewGoodPostPage() {
                         <span className="text-gray-700">VND</span>
                       </div>
                       <div className="border-l border-gray-300 p-2 text-center">
-                        <span>Trả trước <br />(Prepay)</span>
+                        <span>{t("goods.prepay")}</span>
                       </div>
                     </div>
 
                     {/* TRÊN VIDEO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>PHÍ THÀNH CÔNG:</div>
-                        <div className="text-xs italic">(Success Fee)</div>
+                        <div>{t("goods.successFee")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="videoAd"
-                          value={goodsInfo.videoAd || ''}
+                          value={goodsInfo.videoAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -660,8 +748,7 @@ export default function NewGoodPostPage() {
                     {/* NỘI DUNG QUẢNG CÁO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>THUẾ + PHÍ KHÁC:</div>
-                        <div className="text-xs italic">(VAT + Other fees)</div>
+                        <div>{t("goods.vatOtherFees")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
                         <div className="text-xs">0</div>
@@ -674,29 +761,33 @@ export default function NewGoodPostPage() {
                     {/* ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO */}
                     <div className="grid grid-cols-5">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>TỔNG PHÍ + THUẾ:</div>
-                        <div className="text-xs italic">(Total Fee + VAT)</div>
+                        <div>{t("goods.totalFeeVat")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2 flex items-center">
-                        0
-                        <span className="text-gray-700">%</span>
+                        0<span className="text-gray-700">%</span>
                       </div>
                       <div className="p-2 text-center">
                         <div>+</div>
                       </div>
                       <div className="border-l border-gray-300 p-2 flex items-center">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="totalFee"
-                          value={goodsInfo.totalFee || ''}
+                          value={goodsInfo.totalFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -704,7 +795,7 @@ export default function NewGoodPostPage() {
                         <span className="text-gray-700">VND</span>
                       </div>
                       <div className="border-l border-gray-300 p-2 text-center">
-                        <span>Trả trước <br />(Prepay)</span>
+                        <span>{t("goods.prepay")}</span>
                       </div>
                     </div>
                   </div>
@@ -720,32 +811,38 @@ export default function NewGoodPostPage() {
                   {/* PHÍ QUẢNG CÁO column */}
                   <div className="border-r border-gray-300 p-2 text-center flex items-center justify-center">
                     <div>
-                      <div className="font-semibold">PHÍ QUẢNG CÁO:</div>
-                      <div className="text-xs italic">(Advertising fee)</div>
+                      <div className="font-semibold">
+                        {t("goods.advertisingFee")}
+                      </div>
                     </div>
                   </div>
-                  
+
                   {/* Right side with sub-rows */}
                   <div className="col-span-3">
                     {/* NẠP TIỀN QUẢNG CÁO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>SỐ TIỀN DÙNG CHO QUẢNG CÁO</div>
-                        <div className="text-xs italic">(Amount for advertising)</div>
+                        <div>{t("goods.amountForAdvertising")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="advertisingAmount"
-                          value={goodsInfo.advertisingAmount || ''}
+                          value={goodsInfo.advertisingAmount || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -759,22 +856,27 @@ export default function NewGoodPostPage() {
                     {/* TRÊN TRANG CHỦ */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>TRÊN TRANG CHỦ</div>
-                        <div className="text-xs italic">(On main page)</div>
+                        <div>{t("goods.onMainPage")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="mainPageAd"
-                          value={goodsInfo.mainPageAd || ''}
+                          value={goodsInfo.mainPageAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -788,22 +890,27 @@ export default function NewGoodPostPage() {
                     {/* TRÊN VIDEO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>TRÊN VIDEO</div>
-                        <div className="text-xs italic">(On video)</div>
+                        <div>{t("goods.onVideo")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <input 
+                        <input
                           type="number"
                           min="0"
                           step="1"
                           name="videoAd"
-                          value={goodsInfo.videoAd || ''}
+                          value={goodsInfo.videoAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1"
                           placeholder="(nhập)"
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
-                            if (e.key === '-' || e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+') {
+                            if (
+                              e.key === "-" ||
+                              e.key === "." ||
+                              e.key === "e" ||
+                              e.key === "E" ||
+                              e.key === "+"
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -817,33 +924,35 @@ export default function NewGoodPostPage() {
                     {/* NỘI DUNG QUẢNG CÁO */}
                     <div className="grid grid-cols-3 border-b border-gray-300">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>NỘI DUNG QUẢNG CÁO</div>
-                        <div className="text-xs italic">(Advertising content)</div>
+                        <div>{t("goods.advertisingContent")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <input type="file" className="w-full border border-gray-300 p-1"/>
+                        <input
+                          type="file"
+                          className="w-full border border-gray-300 p-1"
+                        />
                       </div>
-                      <div className="p-2 text-center">
-                      </div>
+                      <div className="p-2 text-center"></div>
                     </div>
 
                     {/* ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO */}
                     <div className="grid grid-cols-3">
                       <div className="border-r border-gray-300 p-2 text-center">
-                        <div>ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO</div>
-                        <div className="text-xs italic">(Register to make advertising)</div>
+                        <div>{t("goods.registerAdvertising")}</div>
                       </div>
                       <div className="border-r border-gray-300 p-2">
-                        <input 
-                          type="checkbox" 
-                          name="registerAdvertising" 
-                          checked={goodsInfo.registerAdvertising || false} 
+                        <input
+                          type="checkbox"
+                          name="registerAdvertising"
+                          checked={goodsInfo.registerAdvertising || false}
                           onChange={handleInputChange}
                           className="w-4 h-4"
                         />
                       </div>
                       <div className="p-2 text-center">
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md">HỢP ĐỒNG DỊCH VỤ LÀM NỘI DUNG QUẢNG CÁO (ấn xem)</button>
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                          {t("goods.serviceContract")}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -853,35 +962,28 @@ export default function NewGoodPostPage() {
               {/* Bottom declaration section */}
               <div className="border-t border-gray-300 p-4">
                 <div className="flex items-start gap-3">
-                  <input 
-                    type="checkbox" 
-                    name="agreeTerms" 
-                    checked={goodsInfo.agreeTerms || false} 
+                  <input
+                    type="checkbox"
+                    name="agreeTerms"
+                    checked={goodsInfo.agreeTerms || false}
                     onChange={handleInputChange}
                     className="w-4 h-4 mt-1 flex-shrink-0"
                     required
                   />
                   <div className="text-justify text-sm">
-                    <div className="mb-2">
-                      Tôi cam kết những thông tin trên trên là hoàn toàn đúng sự thật và đồng ý, chấp nhận tuân theo các điều khoản của hợp đồng cũng như mọi điều khoản 
-                      và điều kiện do HỆ THỐNG WEBSITE, APP yêu cầu. Tôi xin chịu hoàn toàn trách nhiệm trước pháp luật về hàng hóa và các thông tin đăng tải.
-                    </div>
-                    <div className="italic text-xs">
-                      (I hereby certify that the above information is completely true and agree to comply with the terms of the contract as well as all terms and conditions 
-                      required by the WEBSITE SYSTEM, APP. I am fully responsible before the law for the goods and information posted.)
-                    </div>
+                    <div className="mb-2">{t("goods.termsAgreement")}</div>
                   </div>
                 </div>
               </div>
 
               {/* Send Request Button */}
               <div className="text-center p-4 border-t border-gray-300">
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="bg-gray-300 hover:bg-gray-100 text-black font-bold py-2 px-6 border border-gray-200"
                 >
-                  GỬI YÊU CẦU
-                  <div className="text-xs">(Send requirement)</div>
+                  {t("goods.sendRequirement")}
+                  <div className="text-xs">{t("goods.sendRequirementEn")}</div>
                 </button>
               </div>
             </div>
@@ -889,5 +991,5 @@ export default function NewGoodPostPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

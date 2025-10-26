@@ -134,11 +134,8 @@ export default function ChangePasswordPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('changePassword.title', 'ĐỔI MẬT KHẨU')}
+              &nbsp;- {t('changePassword.title')}
             </h1>
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('changePassword.titleEn', 'Change Password')})</i>
-            </h2>
           </div>
           <button 
             className="text-red-600 hover:text-red-800"
@@ -159,13 +156,12 @@ export default function ChangePasswordPage() {
               (CHANGE YOUR PASSWORD)
             </span>
           </h4> */}
-          <span className="text-xl font-bold text-black">{t('auth.changePasswordTitle', 'Đổi mật khẩu')} </span>
-          <span>({t('auth.changePasswordTitleEn', 'Change password')})</span>
+          <span className="text-xl font-bold text-black">{t('auth.changePasswordTitle')}</span>
           <div className="grid gap-4 mt-5">
             <input
               type="text"
               className="border p-2 rounded w-full"
-              placeholder={t('auth.idPlaceholder', 'TK BANK (ID)')}
+              placeholder={t('auth.idPlaceholder')}
               name="cccd"
               value={formData.cccd}
               onChange={handleInputChange}
@@ -174,7 +170,7 @@ export default function ChangePasswordPage() {
             <input
               type="text"
               className="border p-2 rounded w-full"
-              placeholder={t('auth.oldPasswordPlaceholder', 'MẬT KHẨU CŨ (Old password)')}
+              placeholder={t('auth.oldPasswordPlaceholder')}
               value={user?.fullName?.replace(/\s+/g, '') || 'Tran Van A'.replace(/\s+/g, '')}
               disabled
             />
@@ -185,7 +181,7 @@ export default function ChangePasswordPage() {
               formData.newPassword && !passwordValidation.isValid ? 'border-red-500' : 
               formData.newPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
             }`}
-            placeholder={t('auth.newPasswordPlaceholder', 'MẬT KHẨU MỚI')}
+            placeholder={t('auth.newPasswordPlaceholder')}
             name="newPassword"
             value={formData.newPassword}
             onChange={handleInputChange}
@@ -197,30 +193,29 @@ export default function ChangePasswordPage() {
              <div className="text-xs space-y-1">
                <div className={`flex items-center ${passwordValidation.hasUppercase ? 'text-green-600' : 'text-red-600'}`}>
                  <span className="mr-2">{passwordValidation.hasUppercase ? '✓' : '✗'}</span>
-                 {t('auth.passwordValidation.hasUppercase', 'Ít nhất 1 chữ in hoa (A-Z)')}
+                 {t('auth.passwordValidation.hasUppercase')}
                </div>
                <div className={`flex items-center ${passwordValidation.hasLowercase ? 'text-green-600' : 'text-red-600'}`}>
                  <span className="mr-2">{passwordValidation.hasLowercase ? '✓' : '✗'}</span>
-                 {t('auth.passwordValidation.hasLowercase', 'Ít nhất 1 chữ thường (a-z)')}
+                 {t('auth.passwordValidation.hasLowercase')}
                </div>
                <div className={`flex items-center ${passwordValidation.hasNumber ? 'text-green-600' : 'text-red-600'}`}>
                  <span className="mr-2">{passwordValidation.hasNumber ? '✓' : '✗'}</span>
-                 {t('auth.passwordValidation.hasNumber', 'Ít nhất 1 số (0-9)')}
+                 {t('auth.passwordValidation.hasNumber')}
                </div>
                <div className={`flex items-center ${passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-red-600'}`}>
                  <span className="mr-2">{passwordValidation.hasSpecialChar ? '✓' : '✗'}</span>
-                 {t('auth.passwordValidation.hasSpecialChar', 'Ít nhất 1 ký tự đặc biệt (@$!%*?&)')}
+                 {t('auth.passwordValidation.hasSpecialChar')}
                </div>
                <div className={`flex items-center ${formData.newPassword.length >= 6 ? 'text-green-600' : 'text-red-600'}`}>
                  <span className="mr-2">{formData.newPassword.length >= 6 ? '✓' : '✗'}</span>
-                 {t('auth.passwordValidation.minLength', 'Ít nhất 6 ký tự')}
+                 {t('auth.passwordValidation.minLength')}
                </div>
              </div>
            )}
 
           <label className="text-xs text-gray-500">
-            ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
-            ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
+            ({t('auth.passwordHint')})
           </label>
 
             <input
@@ -229,7 +224,7 @@ export default function ChangePasswordPage() {
                 formData.confirmPassword && formData.newPassword !== formData.confirmPassword ? 'border-red-500' : 
                 formData.confirmPassword && formData.newPassword === formData.confirmPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
               }`}
-              placeholder={t('auth.confirmPasswordPlaceholder', 'NHẬP LẠI MẬT KHẨU MỚI')}
+              placeholder={t('auth.confirmPasswordPlaceholder')}
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
@@ -243,15 +238,14 @@ export default function ChangePasswordPage() {
                }`}>
                  <span className="mr-2">{formData.newPassword === formData.confirmPassword ? '✓' : '✗'}</span>
                  {formData.newPassword === formData.confirmPassword 
-                   ? t('auth.passwordValidation.passwordMatch', 'Mật khẩu khớp') 
-                   : t('auth.passwordValidation.passwordMismatch', 'Mật khẩu không khớp')
+                   ? t('auth.passwordValidation.passwordMatch') 
+                   : t('auth.passwordValidation.passwordMismatch')
                  }
                </div>
              )}
 
             <label className="text-xs text-gray-500">
-              ({t('auth.passwordHint', 'chứa 1 IN HOA, 1 thường, 1 số, 1 ký tự đặc biệt')})<br />
-              ({t('auth.passwordHintEn', 'min 1 UPPERCASE, 1 lowercase, 1 number, 1 special character')})
+              ({t('auth.passwordHint')})
             </label>
 
             {/* Hiển thị lỗi nếu có */}
@@ -271,8 +265,7 @@ export default function ChangePasswordPage() {
                  ? 'opacity-50 cursor-not-allowed bg-gray-100' 
                  : 'hover:bg-gray-200'
              }`}>
-              {t('common.confirm', 'XÁC NHẬN')} <br />
-              <span className="text-xs text-gray-600">({t('common.accept', 'Accept')})</span>
+              {t('common.confirm')}
             </button>
           </div>
         </div>

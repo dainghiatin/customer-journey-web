@@ -1,472 +1,398 @@
 import React, { useState, useEffect } from "react";
-import { getFavoriteWallets, getWalletFromToken } from "../services/walletService";
-import { data, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 import {
-  Home as HomeIcon,
-  KeyboardIcon as KeyboardIcon,
-} from "lucide-react";
+  getFavoriteWallets,
+  getWalletFromToken,
+} from "../services/walletService";
+import { data, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from "lucide-react";
 
 const GoodsPaymentPage = () => {
   const { t } = useTranslation();
-  return (<>
-    <div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.goodsAccount', 'TÀI KHOẢN HÀNG HÓA')}
-          <div className="text-xs italic">({t('payment.goodsAccountEn', 'Goods account')})</div>
+  return (
+    <>
+      <div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.goodsAccount")}
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-1"></div>
+          <div className="col-span-2">
+            <button className="border-1 px-6 py-2 font-bold rounded text-sm">
+              {t("payment.transferToWallet")}
+            </button>
+          </div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          ({t('payment.money', 'tiền')})
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-4">
+            <select name="" id="" className="border w-full">
+              <option value="">{t("payment.posted")}</option>
+              <option value="">{t("payment.joined")}</option>
+            </select>
+          </div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.acceptingDeposit")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
-        <div className="col-span-1"></div>
-        <div className="col-span-2">
-          <button className="border-1 px-6 py-2 font-bold rounded text-sm">
-            {t('payment.transferToWallet', 'CHUYỂN VỀ VÍ')}
-            <br />
-            ({t('payment.transferToWalletEn', 'Transfer to wallet')})
-          </button>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.goodsId")}:
+          </div>
+
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            <select name="" id="" className="border">
+              <option value="">({t("payment.select")})</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+            </select>
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-4">
-          <select name="" id="" className="border w-full">
-            <option value="">
-              {t('payment.posted', 'BÀI ĐĂNG')} <br />
-              ({t('payment.postedEn', 'POSTED')})
-            </option>
-            <option value="">{t('payment.joined', 'BÀI THAM GIA')} ({t('payment.joinedEn', 'JOINED')})</option>
-          </select>
-        </div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.acceptingDeposit', 'ĐANG NHẬN CỌC')}:
-          <div className="text-xs italic">({t('payment.acceptingDepositEn', 'Accepting deposit')})</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.goodsId', 'ID HÀNG HÓA')}:
-          <div className="text-xs italic">({t('payment.goodsIdEn', 'ID of goods')})</div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.status")}:
+          </div>
+
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
+
+          <div className="col-span-5"></div>
         </div>
 
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          <select name="" id="" className="border">
-            <option value="">({t('payment.select', 'Chọn')})</option>
-            <option value="">1</option>
-            <option value="">2</option>
-            <option value="">3</option>
-          </select>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.status', 'TRẠNG THÁI')}:
-          <div className="text-xs italic">({t('payment.statusEn', 'status')})</div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.initial")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
 
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          ({t('payment.command', 'lệnh')})
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.actual")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            <input
+              type="text"
+              placeholder={t("payment.enterAmount")}
+              className="w-10 h-10"
+            />
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.handover")})
+          </div>
+          <div className="col-span-5"></div>
         </div>
 
-        <div className="col-span-5"></div>
-      </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.deposit")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
+        </div>
 
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.initial', 'BAN ĐẦU')}:
-          <div className="text-xs italic">({t('payment.initialEn', 'Follow goods\'s ID')})</div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.remainingAmount")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
 
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.actual', 'THỰC TẾ')}:
-          <div className="text-xs italic">({t('payment.actualEn', 'Actual')})</div>
+        <div className="grid grid-cols-8 border-blue-800">
+          <div className="col-span-1"></div>
+          <div className="col-span-2 flex justify-end my-4">
+            <button className="border-3 px-6 py-2 font-bold rounded">
+              {t("payment.confirm")}
+            </button>
+          </div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          <input
-            type="text"
-            placeholder={t('payment.enterAmount', '(nhập số tiền)')}
-            className="w-10 h-10"
-          />
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          ({t('payment.handover', 'BBBG')}) ({t('payment.handoverEn', 'Handover')})
-        </div>
-        <div className="col-span-5"></div>
-      </div>
 
-
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.deposit', 'ĐẶT CỌC')}:
-          <div className="text-xs italic">({t('payment.depositEn', 'Deposit')})</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.remainingAmount', 'SỐ TIỀN CÒN LẠI PHẢI TRẢ')}:
-          <div className="text-xs italic">({t('payment.remainingAmountEn', 'Amount remaining to be paid')})</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-
-      <div className="grid grid-cols-8 border-blue-800">
-        <div className="col-span-1"></div>
-        <div className="col-span-2 flex justify-end my-4">
-          <button className="border-3 px-6 py-2 font-bold rounded">
-            {t('payment.confirm', 'XÁC NHẬN')}
-            <div className="text-xs italic">({t('payment.confirmEn', 'Accept')})</div>
-          </button>
-        </div>
-      </div>
-
-      {/* <div className="grid grid-cols-10 border-blue-800">
+        {/* <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
           SỐ TIỀN ĐANG KHÓA
           <div className="text-xs italic">(Pending)</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
+          ({t('payment.command')})
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           VNĐ
         </div>
         <div className="col-span-5"></div>
       </div> */}
-    </div>
+      </div>
 
+      <div className="grid grid-cols-2 gap-2 p-2">
+        <div className="grid gap-5 border-black-800 pr-2">
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.deliveryAndReceivePayment")}
+          </div>
 
-    <div className="grid grid-cols-2 gap-2 p-2">
-
-      <div className="grid gap-5 border-black-800 pr-2">
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.deliveryAndReceivePayment', 'GIAO HÀNG VÀ NHẬN THANH TOÁN')}
-          <div className="text-xs italic">
-            ({t('payment.deliveryAndReceivePaymentEn', 'Delivery goods and receive payment')})
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.takeBackGoodsLose100")}
+          </div>
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.returnGoodsGet50")}
           </div>
         </div>
 
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.takeBackGoodsLose100', 'NHẬN LẠI HÀNG VÀ BÙ 100% CỌC')}
-          <div className="text-xs italic">
-            ({t('payment.takeBackGoodsLose100En', 'Take back goods and lost 100% deposit')})
+        <div className="grid gap-5 pl-2">
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.receiveGoodsAndPayment")}
           </div>
-        </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
-          <div className="text-xs italic">
-            ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.returnGoodsGet50")}
+          </div>
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.returnGoodsGet100")}
           </div>
         </div>
       </div>
 
-      <div className="grid gap-5 pl-2">
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.receiveGoodsAndPayment', 'NHẬN HÀNG VÀ THANH TOÁN')}
-          <div className="text-xs italic">
-            ({t('payment.receiveGoodsAndPaymentEn', 'Receive goods and payment')})
-          </div>
+      <div className="grid grid-cols-8 border-t border-black-800">
+        <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
+          {t("payment.reason")}:
         </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.returnGoodsGet50', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 50% CỌC')}
-          <div className="text-xs italic">
-            ({t('payment.returnGoodsGet50En', 'Return goods and take 50% deposite')})
-          </div>
-        </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          {t('payment.returnGoodsGet100', 'TRẢ LẠI HÀNG VÀ ĐƯỢC 100% CỌC')}
-          <div className="text-xs italic">
-            ({t('payment.returnGoodsGet100En', 'Return goods and take 100% deposite')})
-          </div>
+        <div className="col-span-7">
+          <input type="text" />
         </div>
       </div>
-    </div>
-
-
-    <div className="grid grid-cols-8 border-t border-black-800">
-      <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
-        {t('payment.reason', 'LÝ DO')}:
-        <div className="text-xs italic">({t('payment.reasonEn', 'Reason')})</div>
-      </div>
-      <div className="col-span-7">
-        <input type="text" />
-      </div>
-    </div>
-
-  </>)
-}
+    </>
+  );
+};
 
 const FreelancerPaymentPage = () => {
   const { t } = useTranslation();
-  return (<>
+  return (
+    <>
+      <div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.freelancerAccount")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-1"></div>
+          <div className="col-span-2">
+            <button className="border-1 px-6 py-2 font-bold rounded text-sm">
+              {t("payment.transferToWallet")}
+            </button>
+          </div>
+        </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-4">
+            <select name="" id="" className="border w-full">
+              <option value="">{t("payment.posted")}</option>
+              <option value="">{t("payment.joined")}</option>
+            </select>
+          </div>
+        </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.acceptingDeposit")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
+        </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.jobId")}:
+          </div>
 
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            <select name="" id="" className="border">
+              <option value="">({t("payment.select")})</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+            </select>
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
+        </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.status")}:
+          </div>
 
-    <div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.freelancerAccount', 'TÀI KHOẢN CÔNG VIỆC TỰ DO')}:
-          <div className="text-xs italic">({t('payment.freelancerAccountEn', 'Freelancer account')})</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-1"></div>
-        <div className="col-span-2">
-          <button className="border-1 px-6 py-2 font-bold rounded text-sm">
-            CHUYỂN VỀ VÍ
-            <br />
-            (Transfer to wallet)
-          </button>
-        </div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-4">
-          <select name="" id="" className="border w-full">
-            <option value="">
-              BÀI ĐĂNG <br />
-              (POSTED)
-            </option>
-            <option value="">BÀI THAM GIA (JOINED)</option>
-          </select>
-        </div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ĐANG NHẬN CỌC:
-          <div className="text-xs italic">(Accepting deposit)</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          {t('payment.jobId', 'ID CÔNG VIỆC')}:
-          <div className="text-xs italic">({t('payment.jobIdEn', 'Job ID')})</div>
-        </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
 
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          <select name="" id="" className="border">
-            <option value="">(Chọn)</option>
-            <option value="">1</option>
-            <option value="">2</option>
-            <option value="">3</option>
-          </select>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          TRẠNG THÁI:
-          <div className="text-xs italic">(status)</div>
+          <div className="col-span-5"></div>
         </div>
 
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.initial")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.money")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
 
-        <div className="col-span-5"></div>
-      </div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.actual")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            <input
+              type="text"
+              placeholder={t("payment.enterAmount")}
+              className="w-10 h-10"
+            />
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.handover")})
+          </div>
+          <div className="col-span-5"></div>
+        </div>
 
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          BAN ĐẦU:
-          <div className="text-xs italic">(Follow goods's ID)</div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.deposit")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (tiền)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
 
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          THỰC TẾ:
-          <div className="text-xs italic">(Actual)</div>
+        <div className="grid grid-cols-10 border-blue-800">
+          <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
+            {t("payment.remainingAmount")}:
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            ({t("payment.command")})
+          </div>
+          <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
+            VNĐ
+          </div>
+          <div className="col-span-5"></div>
         </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          <input
-            type="text"
-            placeholder="(nhập số tiền)"
-            className="w-10 h-10"
-          />
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (BBBG) (Handover)
-        </div>
-        <div className="col-span-5"></div>
-      </div>
 
+        <div className="grid grid-cols-8 border-blue-800">
+          <div className="col-span-1"></div>
+          <div className="col-span-2 flex justify-end my-4">
+            <button className="border-3 px-6 py-2 font-bold rounded">
+              {t("payment.confirm")}
+            </button>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          ĐẶT CỌC:
-          <div className="text-xs italic">(Deposit)</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-
-      <div className="grid grid-cols-10 border-blue-800">
-        <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
-          SỐ TIỀN CÒN LẠI PHẢI TRẢ:
-          <div className="text-xs italic">(Amount remaining to be paid)</div>
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
-        </div>
-        <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          VNĐ
-        </div>
-        <div className="col-span-5"></div>
-      </div>
-
-      <div className="grid grid-cols-8 border-blue-800">
-        <div className="col-span-1"></div>
-        <div className="col-span-2 flex justify-end my-4">
-          <button className="border-3 px-6 py-2 font-bold rounded">
-            XÁC NHẬN
-            <div className="text-xs italic">(Accept)</div>
-          </button>
-        </div>
-      </div>
-
-      {/* <div className="grid grid-cols-10 border-blue-800">
+        {/* <div className="grid grid-cols-10 border-blue-800">
         <div className="col-span-2  border-blue-800 p-2 font-bold text-sm">
           SỐ TIỀN ĐANG KHÓA
           <div className="text-xs italic">(Pending)</div>
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-          (lệnh)
+          ({t('payment.command')})
         </div>
         <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
           VNĐ
         </div>
         <div className="col-span-5"></div>
       </div> */}
-    </div>
+      </div>
 
-
-    <div className="grid grid-cols-2 gap-2 p-2">
-
-      <div className="grid gap-5 border-black-800 pr-2">
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          NHẬN KẾT QUẢ VÀ THANH TOÁN
-          <div className="text-xs italic">
-            (Take result and payment)
+      <div className="grid grid-cols-2 gap-2 p-2">
+        <div className="grid gap-5 border-black-800 pr-2">
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.takeResultAndPayment")}
+          </div>
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.notTakeResultTake50")}
+          </div>
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.notDeliverWorkLost100")}
           </div>
         </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          KHÔNG NHẬN KẾT QUẢ VÀ ĐƯỢC 50% CỌC
-          <div className="text-xs italic">
-            (Not take result and take 50% deposite)
+
+        <div className="grid gap-5 pl-2">
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.completedWorkReceivePayment")}
           </div>
-        </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          KHÔNG GIAO VIỆC VÀ BÙ 100% CỌC
-          <div className="text-xs italic">
-            (Not deliver work and lost 100% deposite)
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.notCompletedWorkLost100")}
+          </div>
+          <div className="border-3 p-3 font-bold text-center rounded-lg">
+            {t("payment.notAcceptTake50")}
           </div>
         </div>
       </div>
 
-      <div className="grid gap-5 pl-2">
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          HOÀN THÀNH VIỆC VÀ NHẬN THANH TOÁN
-          <div className="text-xs italic">
-            (Completed work and receive payment)
-          </div>
+      <div className="grid grid-cols-8 border-t border-black-800">
+        <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
+          {t("payment.reason")}:
         </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          KHÔNG HOÀN THÀNH VIỆC VÀ BÙ 100% CỌC
-          <div className="text-xs italic">
-            (Not accept and lost 100% deposit)
-          </div>
-        </div>
-        <div className="border-3 p-3 font-bold text-center rounded-lg">
-          KHÔNG NHẬN VIỆC VÀ ĐƯỢC 50% CỌC
-          <div className="text-xs italic">
-            (Not accept and take 50% deposit)
-          </div>
+        <div className="col-span-7">
+          <input type="text" />
         </div>
       </div>
-    </div>
-
-
-    <div className="grid grid-cols-8 border-t border-black-800">
-      <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
-        LÝ DO:
-        <div className="text-xs italic">(Reason)</div>
-      </div>
-      <div className="col-span-7">
-        <input type="text" />
-      </div>
-    </div>
-
-  </>)
-}
+    </>
+  );
+};
 
 const PaymentPage = () => {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [Page, setPage] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -475,17 +401,19 @@ const PaymentPage = () => {
     account_of_goods: 0,
     account_of_freelancer: 0,
     account_of_ailive: 0,
-    pending_amount: 0
-  })
+    pending_amount: 0,
+  });
 
   const [favorites, setFavorites] = useState([
     {
       id: 0,
-      cccd: "(danh bạ)"
-    }
-  ])
+      cccd: "(danh bạ)",
+    },
+  ]);
 
-  const [favoriteWalletSelected, setFavoriteWalletSelected] = useState(favorites[0])
+  const [favoriteWalletSelected, setFavoriteWalletSelected] = useState(
+    favorites[0]
+  );
 
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -498,29 +426,30 @@ const PaymentPage = () => {
   }, [color]);
 
   function isNumberKey(evt) {
-  var charCode = (evt.which) ? evt.which : evt.keyCode
-  if (charCode > 31 && (charCode < 48 || charCode > 57))
-    return false;
-  return true;
-}
+    var charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+    return true;
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setUser(token);
-    getWalletFromToken(token).then((res) => {
-      setWallet(res.data)
-    }).catch((err) => {
-      console.log(err);
-    })
-    getFavoriteWallets(token).then((res) => {
-      setFavorites([...favorites, ...res.data?.wallets])
-      console.log(res.data?.wallets);
-
-    }).catch((err) => {
-      console.log(err);
-    })
-
-  }, [])
+    getWalletFromToken(token)
+      .then((res) => {
+        setWallet(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    getFavoriteWallets(token)
+      .then((res) => {
+        setFavorites([...favorites, ...res.data?.wallets]);
+        console.log(res.data?.wallets);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="flex justify-center py-8 px-4">
@@ -545,11 +474,8 @@ const PaymentPage = () => {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('payment.paymentTransaction', 'GIAO DỊCH THANH TOÁN')}
+              &nbsp;- {t("payment.paymentTransaction")}
             </h1>
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('payment.paymentTransactionEn', 'Payment Transaction')})</i>
-            </h2>
           </div>
 
           <button
@@ -566,18 +492,16 @@ const PaymentPage = () => {
           <div className="grid grid-cols-8">
             <div className="col-span-4 p-2 font-bold text-sm"></div>
             <div className="col-span-4 p-2 font-bold text-sm text-end">
-              {t('payment.scanQr', 'Quét QR')}
-              <br />
-              <i>({t('payment.scanQrEn', 'Scan QR')})</i>
+              {t("payment.scanQr")}
             </div>
           </div>
 
           {/* Main Transaction Grid */}
 
           <div className="grid grid-cols-6 text-center text-sm">
-            <div className="col-span-2 grid grid-cols-4 text-center text-sm" >
+            <div className="col-span-2 grid grid-cols-4 text-center text-sm">
               <div className="col-span-1 row-span-4 border p-2 font-bold flex flex-col items-start justify-center text-center">
-                {t('payment.wallet', 'Ví')} <br /> <i>{t('payment.walletEn', 'Wallet')}</i>
+                {t("payment.wallet")}
               </div>
               <div className="col-span-2 row-span-4 border p-2 flex flex-col items-center justify-center">
                 {wallet?.total}
@@ -588,36 +512,36 @@ const PaymentPage = () => {
             </div>
             <div className="col-span-4 grid grid-cols-6 text-center text-sm">
               <div className="col-span-1 row-span-4 border p-2 font-bold flex flex-col items-center justify-center text-center">
-                CHUYỂN <br />
-                <i>(Transfer)</i>
+                {t("payment.transfer")}
               </div>
 
               <div className="col-span-1 border p-2 font-bold">
                 <label className="text-xl text-gray-500 mb-1 italic">
-                  Số tiền
+                  {t("payment.amount")}
                 </label>
                 <input
                   type="number"
                   min={0}
-                  placeholder="(nhập số tiền)"
+                  placeholder={t("payment.enterAmountPlaceholder")}
                   className="w-20 h-10 text-center"
-                    pattern="[0-9]*"
+                  pattern="[0-9]*"
                   onKeyDown={isNumberKey}
                 />
-                <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
+                <span className="text-xs text-gray-500 mt-1 italic">
+                  {t("payment.amountEn")}
+                </span>
               </div>
 
               <div className="col-span-1 border p-2 font-bold">
-                ĐẾN <br />
-                <i>(To)</i>
+                {t("payment.to")}
               </div>
               <div className="col-span-2 grid grid-cols-2 border">
                 <div className="border p-2 flex justify-center items-center">
-                  CCCD/MST
-                  <br />
-                  (ID)</div>
+                  {t("payment.id")}
+                </div>
                 {/* <div className="border p-2">(danh bạ)</div> */}
-                <select className="border p-2"
+                <select
+                  className="border p-2"
                   value={favoriteWalletSelected.id}
                   defaultValue={0}
                   onChange={(e) => setFavoriteWalletSelected(e.target.value)}
@@ -632,119 +556,122 @@ const PaymentPage = () => {
               </div>
 
               <div className="col-span-1 row-span-4 border p-2 font-bold flex flex-col items-center justify-center text-center">
-                CHẤP NHẬN
-                <i>(ACCEPT)</i>
+                {t("payment.accept")}
               </div>
 
               {/* Hàng 2: Tài khoản HÀNG HÓA */}
               <div className="col-span-1 border p-2 flex flex-col items-center">
                 <label className="text-xl text-gray-500 mb-1 italic">
-                  Số tiền
+                  {t("payment.amount")}
                 </label>
                 <input
                   type="number"
                   min={0}
-                  placeholder="(nhập số tiền)"
+                  placeholder={t("payment.enterAmountPlaceholder")}
                   className="w-20 h-10 text-center"
-                    pattern="[0-9]*"
-
+                  pattern="[0-9]*"
                   onKeyDown={(e) => {
-    // allow control keys (backspace, delete, arrows, tab)
-    if (
-      ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)
-    ) {
-      return;
-    }
-    // block anything that is not a digit
-    if (!/^\d$/.test(e.key)) {
-      e.preventDefault();
-    }
-  }}
-                  onPaste={(e) => { 
+                    // allow control keys (backspace, delete, arrows, tab)
+                    if (
+                      [
+                        "Backspace",
+                        "Delete",
+                        "ArrowLeft",
+                        "ArrowRight",
+                        "Tab",
+                      ].includes(e.key)
+                    ) {
+                      return;
+                    }
+                    // block anything that is not a digit
+                    if (!/^\d$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onPaste={(e) => {
                     const paste = e.clipboardData.getData("text");
                     if (!/^\d+$/.test(paste)) {
                       e.preventDefault(); // block if not digits only
                     }
                   }}
                 />
-                <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
+                <span className="text-xs text-gray-500 mt-1 italic">
+                  {t("payment.amountEn")}
+                </span>
               </div>
               <div className="col-span-1 border p-2 font-bold">
-                ĐẾN <br />
-                <i>(To)</i>
+                {t("payment.to")}
               </div>
               <div className="col-span-2 border p-2">
-                TÀI KHOẢN HÀNG HÓA <br />
-                <i>(Account of Goods)</i>
+                {t("payment.accountOfGoods")}
               </div>
 
               {/* Hàng 3: Tài khoản CÔNG VIỆC TỰ DO */}
               <div className="col-span-1 border p-2 flex flex-col items-center">
                 <label className="text-xl text-gray-500 mb-1 italic">
-                  Số tiền
+                  {t("payment.amount")}
                 </label>
                 <input
                   type="number"
                   min={0}
-                  placeholder="(nhập số tiền)"
+                  placeholder={t("payment.enterAmountPlaceholder")}
                   className="w-20 h-10 text-center"
                   onKeyDown={(e) => {
                     if (["e", "E", "+", "-", "."].includes(e.key)) {
                       e.preventDefault(); // block typing invalid chars
                     }
                   }}
-                  onPaste={(e) => { 
+                  onPaste={(e) => {
                     const paste = e.clipboardData.getData("text");
                     if (!/^\d+$/.test(paste)) {
                       e.preventDefault(); // block if not digits only
                     }
                   }}
                 />
-                <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
+                <span className="text-xs text-gray-500 mt-1 italic">
+                  {t("payment.amountEn")}
+                </span>
               </div>
               <div className="col-span-1 border p-2 font-bold">
-                ĐẾN <br />
-                <i>(To)</i>
+                {t("payment.to")}
               </div>
               <div className="col-span-2 border p-2">
-                TÀI KHOẢN CÔNG VIỆC TỰ DO <br />
-                <i>(Account of Freelancer)</i>
+                {t("payment.accountOfFreelancer")}
               </div>
 
               {/* Hàng 4: Tài khoản Ai LIVE */}
               <div className="col-span-1 border p-2 flex flex-col items-center">
                 <label className="text-xl text-gray-500 mb-1 italic">
-                  Số tiền
+                  {t("payment.amount")}
                 </label>
                 <input
                   type="number"
                   min={0}
-                  placeholder="(nhập số tiền)"
+                  placeholder={t("payment.enterAmountPlaceholder")}
                   className="w-20 h-10 text-center"
                   onKeyDown={(e) => {
                     if (["e", "E", "+", "-", "."].includes(e.key)) {
                       e.preventDefault(); // block typing invalid chars
                     }
                   }}
-                  onPaste={(e) => { 
+                  onPaste={(e) => {
                     const paste = e.clipboardData.getData("text");
                     if (!/^\d+$/.test(paste)) {
                       e.preventDefault(); // block if not digits only
                     }
                   }}
                 />
-                <span className="text-xs text-gray-500 mt-1 italic">(Amount)</span>
+                <span className="text-xs text-gray-500 mt-1 italic">
+                  {t("payment.amountEn")}
+                </span>
               </div>
               <div className="col-span-1 border p-2 font-bold">
-                ĐẾN <br />
-                <i>(To)</i>
+                {t("payment.to")}
               </div>
               <div className="col-span-2 border p-2">
-                TÀI KHOẢN Ai LIVE <br />
-                <i>(Account of Ai LIVE)</i>
+                {t("payment.accountOfAiLive")}
               </div>
             </div>
-
           </div>
 
           <div>
@@ -760,24 +687,23 @@ const PaymentPage = () => {
                   <i>(WITHDRAWNTH)</i>
                 </div> */}
                 <select name="" id="" className="h-full">
-                  <option value="">GỬI THÊM (Input addition)</option>
-                  <option value="">RÚT RA (Withdrawnth)</option>
+                  <option value="">{t("payment.inputAddition")}</option>
+                  <option value="">{t("payment.withdrawnth")}</option>
                 </select>
               </div>
               <div className="col-span-1 border-blue-800 p-2 text-sm text-center">
                 <input
                   type="number"
                   min={0}
-                  placeholder="(nhập số tiền)"
+                  placeholder={t("payment.enterAmountPlaceholder")}
                   className="h-full"
-                    pattern="[0-9]*"
-
+                  pattern="[0-9]*"
                   onKeyDown={(e) => {
                     if (["e", "E", "+", "-", "."].includes(e.key)) {
                       e.preventDefault(); // block typing invalid chars
                     }
                   }}
-                  onPaste={(e) => { 
+                  onPaste={(e) => {
                     const paste = e.clipboardData.getData("text");
                     if (!/^\d+$/.test(paste)) {
                       e.preventDefault(); // block if not digits only
@@ -790,36 +716,37 @@ const PaymentPage = () => {
               </div>
               <div className="col-span-1">
                 <div className="border-3 border-black font-bold rounded cursor-pointer hover:bg-white-100 text-center">
-                  CHẤP NHẬN (Accept)
+                  {t("payment.accept")}
                 </div>
               </div>
               <div className="col-span-2"></div>
               <div className="col-span-2">
                 <div className="border-3 border-black font-bold rounded cursor-pointer hover:bg-white-100 text-center">
-                  THANH TOÁN DỊCH VỤ
-                  <br />
-                  (Service payment)
+                  {t("payment.servicePayment")}
                 </div>
               </div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 p-2">
-            <button onClick={() => { setPage(Page !== "goods" ? "goods" : null) }} className="grid gap-5 border-black-800 pr-2">
+            <button
+              onClick={() => {
+                setPage(Page !== "goods" ? "goods" : null);
+              }}
+              className="grid gap-5 border-black-800 pr-2"
+            >
               <div className="border-3 p-3 font-bold text-center rounded-lg">
-                HÀNG HÓA
-                <div className="text-xs italic">
-                  (Goods)
-                </div>
+                {t("payment.goods")}
               </div>
-
             </button>
 
-            <button onClick={() => { setPage(Page !== "freelancer" ? "freelancer" : null) }} className="grid gap-5 pl-2">
+            <button
+              onClick={() => {
+                setPage(Page !== "freelancer" ? "freelancer" : null);
+              }}
+              className="grid gap-5 pl-2"
+            >
               <div className="border-3 p-3 font-bold text-center rounded-lg">
-                CÔNG VIỆC TỰ DO
-                <div className="text-xs italic">
-                  (Freelancer)
-                </div>
+                {t("payment.freelancer")}
               </div>
             </button>
           </div>
@@ -832,7 +759,7 @@ const PaymentPage = () => {
                 <div className="text-xs italic">(Goods account)</div>
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (tiền)
+                ({t('payment.money')})
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
                 VNĐ
@@ -865,7 +792,7 @@ const PaymentPage = () => {
                 <div className="text-xs italic">(Follow goods's ID)</div>
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (tiền)
+                ({t('payment.money')})
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
                 VNĐ
@@ -881,12 +808,12 @@ const PaymentPage = () => {
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center text-center">
                 <input
                   type="text"
-                  placeholder="(nhập số tiền)"
+                  placeholder={t('payment.enterAmount')}
                   className="w-10 h-10"
                 />
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (BBBG) (Handover)
+                ({t('payment.handover')})
               </div>
               <div className="col-span-5"></div>
             </div>
@@ -898,7 +825,7 @@ const PaymentPage = () => {
                 <div className="text-xs italic">(Deposit)</div>
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (lệnh)
+                ({t('payment.command')})
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
                 VNĐ
@@ -912,7 +839,7 @@ const PaymentPage = () => {
                 <div className="text-xs italic">(Addition to pay)</div>
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (lệnh)
+                ({t('payment.command')})
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
                 VNĐ
@@ -936,7 +863,7 @@ const PaymentPage = () => {
                 <div className="text-xs italic">(Pending)</div>
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
-                (lệnh)
+                ({t('payment.command')})
               </div>
               <div className="col-span-1  border-blue-800 p-2 text-sm text-center">
                 VNĐ
@@ -982,8 +909,7 @@ const PaymentPage = () => {
   
           <div className="grid grid-cols-8 border-t border-black-800">
             <div className="col-span-1 border-r border-black-800 p-2 font-bold text-sm">
-              LÝ DO:
-              <div className="text-xs italic">(Reason)</div>
+              {t('payment.reason')}
             </div>
             <div className="col-span-7">
               <input type="text" />
