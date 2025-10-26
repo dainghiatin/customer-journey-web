@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Eye as EyeIcon, Forward as ForwardIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function ProductGridEditable({ products = [], onItemsChange }) {
   const { t } = useTranslation();
   const [items, setItems] = useState(products || []);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     setItems(products || []);
@@ -53,6 +55,54 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
 
   return (
     <>
+      <div className="border border-gray-300">
+        <div className="flex flex-col sm:flex-row">
+          <div className="border-r border-gray-300 p-2 text-center min-w-[60px] sm:min-w-[80px]">
+            <div>ID</div>
+          </div>
+          <div className="flex-1 border-r border-gray-300 p-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <input
+                type="text"
+                className="flex-1 w-full sm:w-auto border border-gray-300 p-1 text-sm"
+                disabled
+              />
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <button
+                  onClick={() => setIsFollowing(!isFollowing)}
+                  className={`p-1 rounded-full transition-colors ${
+                    isFollowing
+                      ? "text-blue-500 hover:text-blue-600"
+                      : "text-gray-400 hover:text-blue-500"
+                  }`}
+                  title={
+                    isFollowing
+                      ? t("productGrid.unfollow")
+                      : t("productGrid.follow")
+                  }
+                >
+                  <EyeIcon
+                    size={18}
+                    strokeWidth={isFollowing ? 2.5 : 1.5}
+                    className={isFollowing ? "text-blue-500" : "text-gray-400"}
+                  />
+                </button>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    alert(t("productGrid.linkCopied"));
+                  }}
+                  className="p-1 rounded-full text-green-500 hover:text-green-600 transition-colors"
+                  title={t("productGrid.share")}
+                >
+                  <ForwardIcon size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="overflow-x-auto">
         {/* Header columns with horizontal scroll */}
         <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">

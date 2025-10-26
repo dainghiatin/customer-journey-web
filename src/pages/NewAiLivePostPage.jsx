@@ -161,7 +161,7 @@ export default function NewAiLivePostPage() {
               - {t("aiLive.newPost")}
             </h1>
             <h2 className="text-xl italic text-gray-600">
-              {t("aiLive.newPostEn")}
+              
             </h2>
           </div>
           <button

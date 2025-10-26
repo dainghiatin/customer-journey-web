@@ -262,7 +262,7 @@ export default function NewGoodPostPage() {
               - {t("goods.newPost")}
             </h1>
             <h2 className="text-xl italic text-gray-600">
-              {t("goods.newPostEn")}
+              
             </h2>
           </div>
           <button
