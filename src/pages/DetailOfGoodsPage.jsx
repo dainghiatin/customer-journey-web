@@ -176,11 +176,8 @@ const fetchProductDetails = async () => {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('detailOfGoods.title', 'CHI TIẾT HÀNG HÓA')}
+              &nbsp;- {t('detailOfGoods.title')}
             </h1>
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('detailOfGoods.titleEn', 'Detail of goods')})</i>
-            </h2>
           </div>
           <button 
             className="text-red-600 hover:text-red-800"
@@ -192,7 +189,7 @@ const fetchProductDetails = async () => {
         {/* TÀI KHOẢN HÀNG HÓA Section */}
         <div className="grid grid-cols-5 border border-gray-300">
           <div className="border-r border-gray-300 p-2">
-            <div className="font-bold text-center">TÀI KHOẢN HÀNG HÓA<br/><span className="text-sm font-normal italic">(Account of goods)</span></div>
+            <div className="font-bold text-center">{t('payment.goodsAccount')}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <input 
@@ -247,13 +244,12 @@ const fetchProductDetails = async () => {
             </div>
           </div>
           <div className="p-2 text-center">
-            <div className="font-bold">CHUYỂN VỀ VÍ</div>
-            <div className="text-sm italic text-center">(Transfer to wallet)</div>
+            <div className="font-bold">{t('payment.transferToWallet')}</div>
             <button 
               type="button" 
               className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
             >
-              Chuyển
+              {t('common.transfer')}
             </button>
           </div>
         </div>
@@ -268,10 +264,10 @@ const fetchProductDetails = async () => {
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                   >
-                    <option value="">{t('detailOfGoods.selectType', 'Chọn loại')}</option>
+                    <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(categories).map(([key, value]) => (
                       <option key={key} value={key}>
-                        {value.vi} ({value.en})
+                        {t(`detailOfGoods.category.${key}`)}
                       </option>
                     ))}
                   </select>
@@ -282,10 +278,10 @@ const fetchProductDetails = async () => {
                     value={selectedSubcategory}
                     onChange={(e) => setSelectedSubcategory(e.target.value)}
                   >
-                    <option value="">Chọn loại</option>
+                    <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(subcategories).map(([key, value]) => (
                       <option key={key} value={key}>
-                        {value.vi} ({value.en})
+                        {t(`detailOfGoods.subcategory.${key}`)}
                       </option>
                     ))}
                   </select>
@@ -296,19 +292,19 @@ const fetchProductDetails = async () => {
                     value={selectedCondition}
                     onChange={(e) => setSelectedCondition(e.target.value)}
                   >
-                    <option value="">Chọn loại</option>
+                    <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(conditions).map(([key, value]) => (
                       <option key={key} value={key}>
-                        {value.vi} ({value.en})
+                        {t(`detailOfGoods.condition.${key}`)}
                       </option>
                     ))}
                   </select>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold w-2/5">
                   <select className="w-full p-2 border border-gray-300 rounded">
-                    <option value="">{t('detailOfGoods.all', 'TẤT CẢ')} ({t('detailOfGoods.allEn', 'All')})</option>
-                    <option value="">{t('detailOfGoods.selectProvince', 'Chọn tỉnh')} ({t('detailOfGoods.selectProvinceEn', 'Select province')})</option>
-                    <option value="">{t('detailOfGoods.selectCountry', 'Chọn nước')} ({t('detailOfGoods.selectCountryEn', 'Select country')})</option>
+                    <option value="">{t('detailOfGoods.all')}</option>
+                    <option value="">{t('detailOfGoods.selectProvince')}</option>
+                    <option value="">{t('detailOfGoods.selectCountry')}</option>
                   </select>
                 </td>
               </tr>
@@ -327,9 +323,7 @@ const fetchProductDetails = async () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  {t('detailOfGoods.timeReviewPrice', 'THỜI GIAN DUYỆT GIÁ')}
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.timeReviewPriceEn', 'Time review price')})</span>
+                  {t('detailOfGoods.timeReviewPrice')}
                 </td>
                 <td
                   className="border border-gray-300 p-2 text-center"
@@ -343,9 +337,7 @@ const fetchProductDetails = async () => {
                 <td
                   className="border border-gray-300 p-2 text-center font-bold w-1/5"
                 >
-                  {t('detailOfGoods.endTime', 'THỜI GIAN KẾT THÚC ĐĂNG BÀI')}:
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.endTimeEn', 'End post time')})</span>
+                  {t('detailOfGoods.endTime')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleDateString('vi-VN', {
@@ -353,7 +345,7 @@ const fetchProductDetails = async () => {
                     month: '2-digit',
                     year: 'numeric'
                   }) : ''}
-                  <span className="text-sm italic">({t('detailOfGoods.dayMonthYear', 'ngày, tháng, năm')})</span>
+                  <span className="text-sm italic">({t('detailOfGoods.dayMonthYear')})</span>
                 </td>
                <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleTimeString('vi-VN', {
@@ -361,14 +353,12 @@ const fetchProductDetails = async () => {
                     minute: '2-digit',
                     hour12: false
                   }) : ''}
-                  <span className="text-sm italic">({t('detailOfGoods.hourMinute', 'giờ, phút')})</span>
+                  <span className="text-sm italic">({t('detailOfGoods.hourMinute')})</span>
                 </td>
               </tr>
               <tr>
                 <td className="border border-gray-300 p-2 text-center font-bold w-1/5" rowSpan="2">
-                  {t('detailOfGoods.goodsAddress', 'ĐỊA CHỈ HÀNG HÓA')}:
-                  <br />
-                  <span className="text-sm italic">({t('detailOfGoods.goodsAddressEn', 'Goods address')})</span>
+                  {t('detailOfGoods.goodsAddress')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
                   {product.address}
@@ -402,9 +392,7 @@ const fetchProductDetails = async () => {
 
                     className="px-6 py-2 border rounded hover:bg-green-600 font-bold w-full"
                   >
-                    {t('detailOfGoods.accept', 'CHẤP NHẬN')}
-                    <br />
-                    <span className="text-sm italic">({t('detailOfGoods.acceptEn', 'Accept')})</span>
+                    {t('detailOfGoods.accept')}
                   </button>
                 </td>
                 <td
@@ -422,7 +410,7 @@ const fetchProductDetails = async () => {
             onClick={() => navigate(-1)}
             className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            {t('common.goBack', 'Quay lại')}
+            {t('common.goBack')}
           </button>
         </div>
       </div>

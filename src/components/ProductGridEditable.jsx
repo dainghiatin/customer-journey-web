@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ProductGridEditable({ products = [], onItemsChange }) {
+  const { t } = useTranslation();
   const [items, setItems] = useState(products || []);
 
   useEffect(() => {
@@ -56,143 +58,120 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
         <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
           <div className="border-r border-gray-300 p-2 text-center">
             <div>SỐ THỨ TỰ</div>
-            <div className="text-xs">(#)</div>
+            <div className="text-xs">{t("productGrid.sequenceNumber")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>TÊN HÀNG HÓA</div>
-            <div className="text-xs">(Name of goods)</div>
+            <div>{t("productGrid.nameOfGoods")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>MÃ SỐ</div>
-            <div className="text-xs">(Model)</div>
+            <div>{t("productGrid.model")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>KÍCH THƯỚC</div>
-            <div className="text-xs">(Size)</div>
+            <div>{t("productGrid.size")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>MÀU SẮC</div>
-            <div className="text-xs">(Color)</div>
+            <div>{t("productGrid.color")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>HÌNH ẢNH</div>
-            <div className="text-xs">
-              (Image) <span className="text-red-500">*</span>
+            <div>
+              {t("productGrid.image")} <span className="text-red-500">*</span>
             </div>
           </div>
           {/* New columns */}
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              CHẤT LƯỢNG, THÔNG TIN HÀNG HÓA <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">(Quality, information of goods)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>
-              SỐ NGÀY BẢO HÀNH ĐỔI TRẢ <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">(Days of warranty to change)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>
-              SỐ NGÀY BẢO HÀNH SỬA CHỮA <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">(Days of warranty to repair)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>
-              % TIỀN GIỮ LẠI ĐỂ BẢO HÀNH SỬA CHỮA <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">(% value to repair warranty)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>
-              SỐ NGÀY NHIỀU NHẤT ĐỂ GIAO HÀNG SAU KHI CHẤP NHẬN <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">
-              (Maximum number of days to delivery after acceptance)
+              {t("productGrid.qualityInfo")}{" "}
+              <span className="text-red-500">*</span>
             </div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              ĐỊA ĐIỂM GIAO HÀNG <span className="text-red-500">*</span>
+              {t("productGrid.warrantyChangeDays")}{" "}
+              <span className="text-red-500">*</span>
             </div>
-            <div className="text-xs">(Location of handover)</div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>
+              {t("productGrid.warrantyRepairDays")}{" "}
+              <span className="text-red-500">*</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>
+              {t("productGrid.repairWarrantyPercent")}{" "}
+              <span className="text-red-500">*</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>
+              {t("productGrid.maxDeliveryDays")}{" "}
+              <span className="text-red-500">*</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>
+              {t("productGrid.handoverLocation")}{" "}
+              <span className="text-red-500">*</span>
+            </div>
           </div>
           {/* THỜI LƯỢNG THỰC HIỆN split into 2 columns */}
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              THỜI LƯỢNG THỰC HIỆN <span className="text-red-500">*</span>
-            </div>
-            <div className="text-xs">(Contract duration) - Một/Nhiều</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>ĐƠN VỊ THỜI LƯỢNG</div>
-            <div className="text-xs">(Time/Year)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>THANH TOÁN TRỰC TIẾP</div>
-            <div className="text-xs">(Direct payment)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>YÊU CẦU ĐẶT CỌC, KÝ QUỸ CHO TT TRỰC TIẾP</div>
-            <div className="text-xs">
-              (Deposit requirement for direct payment) - Cài đặt mức chấp nhận
+              {t("productGrid.contractDuration")}{" "}
+              <span className="text-red-500">*</span>
             </div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>THANH TOÁN QUA SÀN TMĐT</div>
-            <div className="text-xs">(Payment via wallet)</div>
+            <div>{t("productGrid.timeUnit")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>YÊU CẦU ĐẶT CỌC, KÝ QUỸ QUA SÀN TMĐT</div>
-            <div className="text-xs">
-              (Deposit requirement to payment via wallet) - Cài đặt mức chấp nhận
+            <div>{t("productGrid.directPayment")}</div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>{t("productGrid.depositRequirementDirect")}</div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>{t("productGrid.paymentViaWallet")}</div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>{t("productGrid.depositRequirementWallet")}</div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center">
+            <div>
+              {t("productGrid.vat")} <span className="text-red-500">*</span>
             </div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              HÓA ĐƠN GIÁ TRỊ GIA TĂNG <span className="text-red-500">*</span>
+              {t("productGrid.quantityMinimum")}{" "}
+              <span className="text-red-500">*</span>
             </div>
-            <div className="text-xs">(VAT)</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              SỐ LƯỢNG TỐI THIỂU <span className="text-red-500">*</span>
+              {t("productGrid.unit")} <span className="text-red-500">*</span>
             </div>
-            <div className="text-xs">(Quantity minimum)</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              ĐVT <span className="text-red-500">*</span>
+              {t("productGrid.unitMarketPrice")}{" "}
+              <span className="text-red-500">*</span>
             </div>
-            <div className="text-xs">(Unit)</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div>ĐƠN GIÁ THỊ TRƯỜNG <span className="text-red-500">*</span></div>
-            <div className="text-xs">(Unit market price)</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
             <div>
-              ĐƠN GIÁ MONG MUỐN THẤP NHẤT / CAO NHẤT <span className="text-red-500">*</span>
+              {t("productGrid.lowestHighestAskingPrice")}{" "}
+              <span className="text-red-500">*</span>
             </div>
-            <div className="text-xs">(Lowest unit asking price) - chọn 1 trong 2</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>THÀNH TIỀN MONG MUỐN THẤP NHẤT / CAO NHẤT</div>
-            <div className="text-xs">(Lowest amount)</div>
+            <div>{t("productGrid.lowestAmount")}</div>
           </div>
           <div className="p-2 text-center border-r border-gray-300">
-            <div>GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤT</div>
-            <div className="text-xs">
-              (Lowest / Highest price to automatically accept)
-            </div>
+            <div>{t("productGrid.lowestHighestAutoAccept")}</div>
           </div>
           <div className="p-2 text-center border-r border-gray-300">
-            <div>GIÁ TỰ ĐỘNG TỪ CHỐI CAO NHẤT/THẤP NHẤT</div>
-            <div className="text-xs">
-              (AUTOMATIC REJECT HIGHEST/LOWEST PRICE)
-            </div>
+            <div>{t("productGrid.autoRejectPrice")}</div>
           </div>
         </div>
 
@@ -229,7 +208,9 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
               <input
                 type="text"
                 value={item.size}
-                onChange={(e) => handleItemChange(item.id, "size", e.target.value)}
+                onChange={(e) =>
+                  handleItemChange(item.id, "size", e.target.value)
+                }
                 className="w-full border border-gray-300 p-1 mt-1"
               />
             </div>
@@ -258,7 +239,7 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
                 type="button"
                 className="mt-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
               >
-                tải file
+                {t("productGrid.uploadFile")}
               </button>
             </div>
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -325,9 +306,13 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
                 }
                 className="w-full border border-gray-300 p-1 mt-1"
               >
-                <option value="">Chọn</option>
-                <option value="Kho bên bán">Kho bên bán</option>
-                <option value="Kho bên mua">Kho bên mua</option>
+                <option value="">{t("productGrid.choose")}</option>
+                <option value="Kho bên bán">
+                  {t("productGrid.sellerWarehouse")}
+                </option>
+                <option value="Kho bên mua">
+                  {t("productGrid.buyerWarehouse")}
+                </option>
               </select>
             </div>
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -342,22 +327,26 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
                 }
                 className="w-full border border-gray-300 p-1 mt-1"
               >
-                <option value="">Chọn</option>
-                <option value="one">Một (One)</option>
-                <option value="many">Nhiều (Many)</option>
+                <option value="">{t("productGrid.choose")}</option>
+                <option value="one">{t("productGrid.one")}</option>
+                <option value="many">{t("productGrid.many")}</option>
               </select>
             </div>
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
               <select
                 value={item.contractDurationUnit}
                 onChange={(e) =>
-                  handleItemChange(item.id, "contractDurationUnit", e.target.value)
+                  handleItemChange(
+                    item.id,
+                    "contractDurationUnit",
+                    e.target.value
+                  )
                 }
                 className="w-full border border-gray-300 p-1 mt-1"
               >
-                <option value="">Chọn</option>
-                <option value="time">LẦN (Time)</option>
-                <option value="year">NĂM (Year)</option>
+                <option value="">{t("productGrid.choose")}</option>
+                <option value="time">{t("productGrid.time")}</option>
+                <option value="year">{t("productGrid.year")}</option>
               </select>
             </div>
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -413,12 +402,14 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
               <select
                 value={item.vat}
-                onChange={(e) => handleItemChange(item.id, "vat", e.target.value)}
+                onChange={(e) =>
+                  handleItemChange(item.id, "vat", e.target.value)
+                }
                 className="w-full border border-gray-300 p-1 mt-1"
               >
-                <option value="">Chọn</option>
-                <option value="yes">CÓ/YES</option>
-                <option value="no">KHÔNG/NO</option>
+                <option value="">{t("productGrid.choose")}</option>
+                <option value="yes">{t("productGrid.yes")}</option>
+                <option value="no">{t("productGrid.no")}</option>
               </select>
             </div>
             <div className="border-r border-t border-b border-gray-300 p-2 text-center">
@@ -435,7 +426,9 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
               <input
                 type="text"
                 value={item.unit}
-                onChange={(e) => handleItemChange(item.id, "unit", e.target.value)}
+                onChange={(e) =>
+                  handleItemChange(item.id, "unit", e.target.value)
+                }
                 className="w-full border border-gray-300 p-1 mt-1"
               />
             </div>
@@ -510,23 +503,22 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
             className="border-r border-gray-300 p-2 text-center"
             style={{ gridColumnStart: 15 }}
           >
-            <span>Tổng (Toal): 0</span>
+            <span>{t("productGrid.total")}: 0</span>
           </div>
           <div
             className="border-r border-gray-300 p-2 text-center"
             style={{ gridColumnStart: 17 }}
           >
-            <span>Tổng (Toal): 0</span>
+            <span>{t("productGrid.total")}: 0</span>
           </div>
 
           <div
             className="border-r border-gray-300 p-2 text-center"
             style={{ gridColumnStart: 23 }}
           >
-            <span>Tổng (Toal): 0</span>
+            <span>{t("productGrid.total")}: 0</span>
           </div>
         </div>
-
       </div>
     </>
   );

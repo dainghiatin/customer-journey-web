@@ -146,11 +146,8 @@ export default function ListOfGoodsPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('goods.listOfGoods', 'DANH SÁCH HÀNG HÓA')}
+              &nbsp;- {t('goods.listOfGoods')}
             </h1>
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('goods.listOfGoodsEn', 'List of goods')})</i>
-            </h2>
           </div>
           <button 
             className="text-red-600 hover:text-red-800"
@@ -170,10 +167,10 @@ export default function ListOfGoodsPage() {
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
-                <option value="">{t('goods.selectType', 'Chọn loại')}</option>
+                <option value="">{t('goods.selectType')}</option>
                 {Object.entries(categories).map(([key, value]) => (
                   <option key={key} value={key}>
-                    {value.vi} ({value.en})
+                    {t(`goods.category.${key.toLowerCase()}`)}
                   </option>
                 ))}
               </select>
@@ -186,10 +183,10 @@ export default function ListOfGoodsPage() {
                 value={selectedSubcategory}
                 onChange={(e) => setSelectedSubcategory(e.target.value)}
               >
-                <option value="">{t('goods.selectSubcategory', 'Chọn danh mục con')}</option>
+                <option value="">{t('goods.selectSubcategory')}</option>
                 {Object.entries(subcategories).map(([key, value]) => (
                   <option key={key} value={key}>
-                    {value.vi} ({value.en})
+                    {t(`goods.subcategory.${key.toLowerCase()}`)}
                   </option>
                 ))}
               </select>
@@ -202,10 +199,10 @@ export default function ListOfGoodsPage() {
                 value={selectedCondition}
                 onChange={(e) => setSelectedCondition(e.target.value)}
               >
-                <option value="">{t('goods.selectCondition', 'Chọn điều kiện')}</option>
+                <option value="">{t('goods.selectCondition')}</option>
                 {Object.entries(conditions).map(([key, value]) => (
                   <option key={key} value={key}>
-                    {value.vi} ({value.en})
+                    {t(`goods.condition.${key.toLowerCase()}`)}
                   </option>
                 ))}
               </select>
@@ -228,20 +225,20 @@ export default function ListOfGoodsPage() {
                   }));
                 }}
               >
-                <option value="">{t('goods.selectCountry', 'Chọn quốc gia')}</option>
-                <option value="Vietnam">{t('goods.vietnam', 'Việt Nam')} ({t('goods.vietnamEn', 'Vietnam')})</option>
-                <option value="USA">{t('goods.usa', 'Hoa Kỳ')} ({t('goods.usaEn', 'USA')})</option>
-                <option value="China">{t('goods.china', 'Trung Quốc')} ({t('goods.chinaEn', 'China')})</option>
-                <option value="Japan">{t('goods.japan', 'Nhật Bản')} ({t('goods.japanEn', 'Japan')})</option>
-                <option value="Korea">{t('goods.korea', 'Hàn Quốc')} ({t('goods.koreaEn', 'Korea')})</option>
+                <option value="">{t('goods.selectCountry')}</option>
+                <option value="Vietnam">{t('goods.vietnam')}</option>
+                <option value="USA">{t('goods.usa')}</option>
+                <option value="China">{t('goods.china')}</option>
+                <option value="Japan">{t('goods.japan')}</option>
+                <option value="Korea">{t('goods.korea')}</option>
               </select>
             </div>
             
             {/* Column 5 - All and Filters */}
             <div className="border-r-2 border-black p-2 flex items-center justify-center">
             <select className="w-full p-2 border border-gray-300 my-4">
-                    <option value="">{t('goods.all', 'TẤT CẢ')} ({t('goods.allEn', 'All')})</option>
-                    <option value="">{t('goods.selectProvince', 'Chọn tỉnh')} ({t('goods.selectProvinceEn', 'Select province')})</option>
+                    <option value="">{t('goods.all')}</option>
+                    <option value="">{t('goods.selectProvince')}</option>
                     <option value="">TPHCM</option>
                   </select>
             </div>
@@ -250,10 +247,10 @@ export default function ListOfGoodsPage() {
           {/* Search section */}
           <div className="mt-2 p-2 border-2 border-black">
             <div className="flex items-center">
-              <div className="font-bold mr-4">1. {t('goods.search', 'TÌM KIẾM')} <i>({t('goods.searchEn', 'search')})</i>:</div>
+              <div className="font-bold mr-4">1. {t('goods.search')}:</div>
               <input 
                 type="text" 
-                placeholder={t('goods.searchPlaceholder', 'Gõ vào để tìm kiếm...')} 
+                placeholder={t('goods.searchPlaceholder')} 
                 className="flex-1 p-2 rounded"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -263,7 +260,7 @@ export default function ListOfGoodsPage() {
           
           {/* Listing section */}
           <div className="mt-2 p-2 border-2 border-black">
-            <div className="font-bold">2. {t('goods.listOfStores', 'DANH SÁCH CÁC GIAN HÀNG')}</div>
+            <div className="font-bold">2. {t('goods.listOfStores')}</div>
             
             {/* Sample listings */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">

@@ -55,7 +55,7 @@ export default function AiLivePage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>{" "}
-              - Ai LIVE
+              - {t('aiLive.pageTitle')}
             </h1>
           </div>
           <button 
@@ -70,15 +70,13 @@ export default function AiLivePage() {
         <div className="mt-6">
         <div className="grid grid-cols-5 border border-black text-center text-black">
           <div className="p-2 font-semibold border-r">
-            {t('aiLive.accountOfAiLive', 'TÀI KHOẢN Ai LIVE')}
-            <br />
-            <i>({t('aiLive.accountOfAiLiveEn', 'Account of Ai LIVE')})</i>
+            {t('aiLive.accountOfAiLive')}
           </div>
-          <div className="p-2 font-semibold border-r">(lệnh)</div>
+          <div className="p-2 font-semibold border-r">({t('payment.command')})</div>
           <div className="p-2 font-semibold border-r text-yellow-600">
             VNĐ
             <br />
-            <span className="text-xs">({t('aiLive.currencyNote', 'thay đổi bằng tiền bản địa sau đăng nhập')})</span>
+            <span className="text-xs">({t('aiLive.currencyNote')})</span>
           </div>
           <div className="p-2 border-r">
             <input
@@ -86,13 +84,11 @@ export default function AiLivePage() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               className="w-full text-center border border-gray-400 rounded px-2 py-1"
-              placeholder={t('aiLive.enterNumber', 'Nhập số')}
+              placeholder={t('aiLive.enterNumber')}
             />
           </div>
           <div className="p-2 font-semibold">
-            {t('aiLive.transferToWallet', 'CHUYỂN VỀ VÍ')}
-            <br />
-            <i>({t('aiLive.transferToWalletEn', 'Transfer to wallet')})</i>
+            {t('aiLive.transferToWallet')}
           </div>
         </div>
         </div>
@@ -102,12 +98,12 @@ export default function AiLivePage() {
         {/* 6 Buttons */}
         <div className="grid grid-cols-3 gap-4 mt-6">
           {[
-            { label: t('aiLive.livestream', 'LIVESTREAM'), sub: t('aiLive.livestreamSub', '(Goods)'), value: "LIVESTREAM" },
-            { label: t('aiLive.video', 'VIDEO'), sub: "", value: "VIDEO" },
-            { label: t('aiLive.movie', 'PHIM'), sub: t('aiLive.movieSub', '(MOVIES)'), value: "MOVIE" },
-            { label: t('aiLive.live', 'TRỰC TIẾP'), sub: t('aiLive.liveSub', '(Live)'), value: "LIVE" },
-            { label: t('aiLive.equipment', 'CÔNG CỤ'), sub: t('aiLive.equipmentSub', '(Equipment)'), value: "EQUIPMENT" },
-            { label: t('aiLive.game', 'TRÒ CHƠI'), sub: t('aiLive.gameSub', '(Game)'), value: "GAME" },
+            { label: t('aiLive.livestream'), sub: t('aiLive.livestreamSub'), value: "LIVESTREAM" },
+            { label: t('aiLive.video'), sub: "", value: "VIDEO" },
+            { label: t('aiLive.movie'), sub: t('aiLive.movieSub'), value: "MOVIE" },
+            { label: t('aiLive.live'), sub: t('aiLive.liveSub'), value: "LIVE" },
+            { label: t('aiLive.equipment'), sub: t('aiLive.equipmentSub'), value: "EQUIPMENT" },
+            { label: t('aiLive.game'), sub: t('aiLive.gameSub'), value: "GAME" },
           ].map((item, idx) => (
             <button
               key={idx}
@@ -115,8 +111,12 @@ export default function AiLivePage() {
               onClick={() => {setSelectedComponent(item.value);}}
             >
               {item.label}
-              <br />
-              <span className="italic text-sm">{item.sub}</span>
+              {item.sub && (
+                <>
+                  <br />
+                  <span className="italic text-sm">{item.sub}</span>
+                </>
+              )}
             </button>
           ))}
         </div>

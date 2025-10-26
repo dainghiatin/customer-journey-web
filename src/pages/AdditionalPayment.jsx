@@ -42,84 +42,74 @@ const AdditionalPaymentPage = () => {
                 className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
               />
             </span>
-            &nbsp;- {t('additionalPayment.title', 'GIAO DỊCH THANH TOÁN (GỬI THÊM)')}
+            &nbsp;- {t('additionalPayment.title')}
           </h1>
-          <h2 className="text-2xl text-black mt-2">
-            <i>({t('additionalPayment.titleEn', 'Additional Payment')})</i>
-          </h2>
         </div>
         <button 
           className="text-red-600 hover:text-red-800"
           onClick={() => navigate("/admin-control")}
         >
-          <KeyboardIcon size={28} />
+          <KeyboardIconIcon size={28} />
         </button>
       </div>
 
       {/* Mã QR */}
       <div className=" p-2 mt-2 flex items-center">
-        <span className="ml-2 font-bold">{t('payment.qr', 'QR')}</span>
+        <span className="ml-2 font-bold">{t('payment.qr')}</span>
       </div>
 
       {/* Bảng thông tin */}
       <div className=" mt-2">
         <div className="grid grid-cols-2  p-2">
-          <span className="font-bold">{t('additionalPayment.sendMore', 'GỬI THÊM')}</span>
+          <span className="font-bold">{t('additionalPayment.sendMore')}</span>
         </div>
 
         <div className="grid grid-cols-2  p-2">
           <span className="font-bold">
-            {t('additionalPayment.accountHolder', 'CHỦ TÀI KHOẢN')}:
-            <div className="text-xs italic">({t('additionalPayment.accountHolderEn', 'Bank account holder')})</div>
+            {t('additionalPayment.accountHolder')}:
           </span>
-          <span className="text-center">{t('additionalPayment.companyName', 'CÔNG TY TNHH ĐẠI NGHĨA TÍN')}</span>
+          <span className="text-center">{t('additionalPayment.companyName')}</span>
         </div>
 
         <div className="grid grid-cols-2  p-2">
           <span className="font-bold">
-            {t('additionalPayment.accountNumber', 'SỐ TÀI KHOẢN')}:
-            <div className="text-xs italic">({t('additionalPayment.accountNumberEn', 'Bank account number')})</div>
+            {t('additionalPayment.accountNumber')}:
           </span>
-          <span className="text-center">(lệnh)</span>
+          <span className="text-center">({t('payment.command')})</span>
         </div>
 
         <div className="grid grid-cols-2  p-2">
           <span className="font-bold">
-            {t('additionalPayment.bankName', 'TÊN NGÂN HÀNG')}:
-            <div className="text-xs italic">({t('additionalPayment.bankNameEn', 'Name of receive bank')})</div>
+            {t('additionalPayment.bankName')}:
           </span>
-          <span className="text-center">(lệnh)</span>
+          <span className="text-center">({t('payment.command')})</span>
         </div>
 
         <div className="grid grid-cols-2  p-2">
           <span className="font-bold">
-            {t('additionalPayment.transferContent', 'NỘI DUNG CHUYỂN KHOẢN')}:
-            <div className="text-xs italic">({t('additionalPayment.transferContentEn', 'Content of transfer')})</div>
+            {t('additionalPayment.transferContent')}:
           </span>
-          <span className="text-center">(lệnh)</span>
+          <span className="text-center">({t('payment.command')})</span>
         </div>
 
         <div className="grid grid-cols-2 p-2">
           <span className="font-bold">
-            {t('additionalPayment.amount', 'SỐ TIỀN')}:
-            <div className="text-xs italic">({t('additionalPayment.amountEn', 'Amount')})</div>
+            {t('additionalPayment.amount')}:
           </span>
           <span className="text-center">
-            <input type="number" className="border" placeholder={t('additionalPayment.enterPlaceholder', ' (nhập)')} />
+            <input type="number" className="border" placeholder={t('additionalPayment.enterPlaceholder')} />
           </span>
         </div>
       </div>
 
       {/* Tải biên lai */}
       <div className="border border-black p-3 mt-2 text-center font-bold rounded">
-        {t('additionalPayment.uploadReceipt', 'TẢI BIÊN LAI LÊN')}
-        <div className="text-xs italic">({t('additionalPayment.uploadReceiptEn', 'Upload bank transfer bill')})</div>
+        {t('additionalPayment.uploadReceipt')}
       </div>
 
       {/* Chấp nhận */}
       <div className="border border-black p-3 mt-2 text-center font-bold rounded">
-        {t('additionalPayment.accept', 'CHẤP NHẬN')}
-        <div className="text-xs italic">({t('additionalPayment.acceptEn', 'Accept')})</div>
+        {t('additionalPayment.accept')}
       </div>
     </div>
   );

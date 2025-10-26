@@ -3,11 +3,11 @@ import Tesseract from "tesseract.js";
 import "../styles/Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import {
   Home as HomeIcon,
   KeyboardIcon as KeyboardIcon,
-  Camera as CameraIcon
+  Camera as CameraIcon,
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
 import useBlinkIdScanner from "../components/MicrolinkIDScanner";
@@ -37,7 +37,7 @@ export default function NewPostPage() {
   const [previewBlocked, setPreviewBlocked] = useState(false);
   const containerRef = useRef(null);
 
-  const { scanId, toggle} = useBlinkIdScanner({
+  const { scanId, toggle } = useBlinkIdScanner({
     onSuccess: (result) => {
       setHasIdCaptured(true);
       setIdPhotoDataUrl(result.faceImage);
@@ -46,9 +46,9 @@ export default function NewPostPage() {
     },
     onError: (error) => {
       console.error("BlinkID Scan Error:", error);
-      alert(t('scanner.error', 'Lỗi khi quét ID. Vui lòng thử lại.'));
+      alert(t("scanner.error"));
       closeCamera();
-    }
+    },
   });
 
   const handleChangeColor = (e) => {
@@ -65,7 +65,7 @@ export default function NewPostPage() {
     // Cleanup camera stream when component unmounts
     return () => {
       if (cameraStream) {
-        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream.getTracks().forEach((track) => track.stop());
       }
     };
   }, [color, cameraStream]);
@@ -76,8 +76,8 @@ export default function NewPostPage() {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       setCameraStream(stream);
       setShowCamera(true);
-      setIsVideoMode(mode === 'video');
-      
+      setIsVideoMode(mode === "video");
+
       if (videoRef.current) {
         const video = videoRef.current;
         video.srcObject = stream;
@@ -92,19 +92,24 @@ export default function NewPostPage() {
       }
     } catch (error) {
       console.error("Error accessing camera:", error);
-      alert(t('camera.error', 'Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập.'));
+      alert(t("camera.error"));
     }
   };
 
   const closeCamera = () => {
     if (cameraStream) {
-      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream.getTracks().forEach((track) => track.stop());
     }
     setCameraStream(null);
     setShowCamera(false);
     setIsVideoMode(false);
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      try { mediaRecorderRef.current.stop(); } catch (_) {}
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      try {
+        mediaRecorderRef.current.stop();
+      } catch (_) {}
     }
     recordedChunksRef.current = [];
     if (recordTimerRef.current) {
@@ -129,15 +134,15 @@ export default function NewPostPage() {
   const capturePhoto = () => {
     if (!videoRef.current) return;
     const video = videoRef.current;
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const width = video.videoWidth || 640;
     const height = video.videoHeight || 480;
     canvas.width = width;
     canvas.height = height;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.drawImage(video, 0, 0, width, height);
-    const dataUrl = canvas.toDataURL('image/png');
+    const dataUrl = canvas.toDataURL("image/png");
     setIdPhotoDataUrl(dataUrl);
     setHasIdCaptured(true);
     closeCamera();
@@ -150,7 +155,9 @@ export default function NewPostPage() {
   const startRecording = () => {
     if (!cameraStream) return;
     recordedChunksRef.current = [];
-    const mediaRecorder = new MediaRecorder(cameraStream, { mimeType: 'video/webm' });
+    const mediaRecorder = new MediaRecorder(cameraStream, {
+      mimeType: "video/webm",
+    });
     mediaRecorderRef.current = mediaRecorder;
     mediaRecorder.ondataavailable = (event) => {
       if (event.data && event.data.size > 0) {
@@ -158,10 +165,12 @@ export default function NewPostPage() {
       }
     };
     mediaRecorder.onstop = () => {
-      const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
+      const blob = new Blob(recordedChunksRef.current, { type: "video/webm" });
       const url = URL.createObjectURL(blob);
       if (businessVideoUrl) {
-        try { URL.revokeObjectURL(businessVideoUrl); } catch (_) {}
+        try {
+          URL.revokeObjectURL(businessVideoUrl);
+        } catch (_) {}
       }
       setBusinessVideoUrl(url);
       setHasBusinessVideo(true);
@@ -178,7 +187,10 @@ export default function NewPostPage() {
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
       mediaRecorderRef.current.stop();
     }
     if (recordTimerRef.current) {
@@ -197,49 +209,51 @@ export default function NewPostPage() {
       setOcrError(null);
 
       // Create an off-DOM video element to seek to 5s
-      const tempVideo = document.createElement('video');
+      const tempVideo = document.createElement("video");
       tempVideo.src = videoUrl;
-      tempVideo.crossOrigin = 'anonymous';
-      tempVideo.preload = 'auto';
+      tempVideo.crossOrigin = "anonymous";
+      tempVideo.preload = "auto";
 
       await new Promise((resolve, reject) => {
         const onLoaded = () => resolve();
-        const onError = () => reject(new Error('Cannot load recorded video for OCR'));
-        tempVideo.addEventListener('loadedmetadata', onLoaded, { once: true });
-        tempVideo.addEventListener('error', onError, { once: true });
+        const onError = () =>
+          reject(new Error("Cannot load recorded video for OCR"));
+        tempVideo.addEventListener("loadedmetadata", onLoaded, { once: true });
+        tempVideo.addEventListener("error", onError, { once: true });
       });
 
-      const targetTime = Math.min(5, tempVideo.duration ? tempVideo.duration - 0.1 : 5);
+      const targetTime = Math.min(
+        5,
+        tempVideo.duration ? tempVideo.duration - 0.1 : 5
+      );
 
       await new Promise((resolve) => {
         const onSeeked = () => resolve();
         tempVideo.currentTime = targetTime > 0 ? targetTime : 0;
-        tempVideo.addEventListener('seeked', onSeeked, { once: true });
+        tempVideo.addEventListener("seeked", onSeeked, { once: true });
       });
 
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       const width = tempVideo.videoWidth || 640;
       const height = tempVideo.videoHeight || 480;
       canvas.width = width;
       canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Canvas context not available');
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas context not available");
       ctx.drawImage(tempVideo, 0, 0, width, height);
 
-      const dataUrl = canvas.toDataURL('image/png');
-      const { data } = await Tesseract.recognize(dataUrl, 'eng+vie');
-      const text = (data && data.text) ? data.text.trim() : '';
+      const dataUrl = canvas.toDataURL("image/png");
+      const { data } = await Tesseract.recognize(dataUrl, "eng+vie");
+      const text = data && data.text ? data.text.trim() : "";
       setOcrHasText(Boolean(text));
     } catch (err) {
-      console.error('OCR error:', err);
-      setOcrError(err.message || 'OCR failed');
+      console.error("OCR error:", err);
+      setOcrError(err.message || "OCR failed");
       setOcrHasText(null);
     } finally {
       setIsOcrRunning(false);
     }
   };
-
-
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -253,7 +267,6 @@ export default function NewPostPage() {
           </button>
           {/* Tiêu đề ở giữa */}
           <div className="text-center mb-4 relative flex-1">
-
             <h1 className="text-3xl font-bold text-black relative inline-block">
               <span className="relative">
                 4{/* input màu ngay dưới số 2 */}
@@ -264,12 +277,12 @@ export default function NewPostPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('posts.newPost', 'ĐĂNG BÀI MỚI')}
+              &nbsp;- {t("posts.newPost")}
             </h1>
 
             {/* LOGIN bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>({t('posts.newPostEn', 'New post')})</i>
+              <i>{t("posts.newPostEn")}</i>
             </h2>
           </div>
           <button
@@ -284,37 +297,45 @@ export default function NewPostPage() {
         <div className="mt-6" ref={containerRef}>
           <div className="grid grid-cols-2 gap-4 border border-gray-300">
             {/* Scan CCCD */}
-            <div className="border-r border-gray-400 p-4 text-center cursor-pointer" onClick={(e) => toggle(e)}>
-               <div className="flex flex-col items-center justify-center h-40">
-                 <CameraIcon size={48} className="mb-2" />
-                 <h3 className="font-bold text-lg">{t('posts.scanId', 'CCCD CỦA NGƯỜI ĐĂNG BÀI')}</h3>
-                 <p className="text-sm italic">({t('posts.scanIdEn', 'Poster\'s ID')})</p>
-                 {hasIdCaptured && (
-                   <p className="text-green-600 mt-2">{t('camera.captured', 'Đã chụp ảnh')}</p>
-                 )}
-               </div>
-             </div>
-
-            {/* Business registration video recording */}
-            <div className="p-4 text-center cursor-pointer" onClick={(e) => openCamera(e, 'video')}>
+            <div
+              className="border-r border-gray-400 p-4 text-center cursor-pointer"
+              onClick={(e) => toggle(e)}
+            >
               <div className="flex flex-col items-center justify-center h-40">
                 <CameraIcon size={48} className="mb-2" />
-                <h3 className="font-bold text-lg">{t('posts.recordVideo', 'ĐĂNG KÝ KINH DOANH CỦA DOANH NGHIỆP ĐĂNG BÀI')}</h3>
-                <p className="text-sm italic">({t('posts.recordVideoEn', 'Poster\'s TRADE REGISTRATION COMPANY')})</p>
+                <h3 className="font-bold text-lg">{t("posts.scanId")}</h3>
+                {hasIdCaptured && (
+                  <p className="text-green-600 mt-2">{t("camera.captured")}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Business registration video recording */}
+            <div
+              className="p-4 text-center cursor-pointer"
+              onClick={(e) => openCamera(e, "video")}
+            >
+              <div className="flex flex-col items-center justify-center h-40">
+                <CameraIcon size={48} className="mb-2" />
+                <h3 className="font-bold text-lg">{t("posts.recordVideo")}</h3>
                 {hasBusinessVideo && (
                   <div className="text-center mt-2">
-                    <p className="text-green-600">{t('camera.videoRecorded', 'Đã quay video')}</p>
+                    <p className="text-green-600">
+                      {t("camera.videoRecorded")}
+                    </p>
                     {isOcrRunning && (
-                      <p className="text-blue-600 mt-1">{t('ocr.running', 'Đang kiểm tra chữ trong video...')}</p>
+                      <p className="text-blue-600 mt-1">{t("ocr.running")}</p>
                     )}
                     {!isOcrRunning && ocrError && (
-                      <p className="text-red-600 mt-1">{t('ocr.error', 'Lỗi OCR')}: {ocrError}</p>
+                      <p className="text-red-600 mt-1">
+                        {t("ocr.error")}: {ocrError}
+                      </p>
                     )}
                     {!isOcrRunning && ocrHasText === true && (
-                      <p className="text-green-700 mt-1">{t('ocr.hasText', 'Đã phát hiện có chữ trong video')}</p>
+                      <p className="text-green-700 mt-1">{t("ocr.hasText")}</p>
                     )}
                     {!isOcrRunning && ocrHasText === false && (
-                      <p className="text-yellow-700 mt-1">{t('ocr.noText', 'Không phát hiện chữ trong video')}</p>
+                      <p className="text-yellow-700 mt-1">{t("ocr.noText")}</p>
                     )}
                   </div>
                 )}
@@ -331,7 +352,7 @@ export default function NewPostPage() {
               <PostTypeMenu activeType={null} />
             ) : (
               <div className="p-4 text-center text-gray-700">
-                {t('posts.requirements', 'Vui lòng chụp ảnh CCCD và quay video đăng ký kinh doanh để tiếp tục')}
+                {t("posts.requirements")}
               </div>
             )}
           </div>
@@ -342,8 +363,8 @@ export default function NewPostPage() {
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg max-w-2xl w-full">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">{t('camera.title', 'Camera')}</h2>
-                <button 
+                <h2 className="text-xl font-bold">{t("camera.title")}</h2>
+                <button
                   className="text-gray-700 hover:text-gray-900"
                   onClick={closeCamera}
                 >
@@ -351,7 +372,7 @@ export default function NewPostPage() {
                 </button>
               </div>
               <div className="relative">
-                <video 
+                <video
                   ref={videoRef}
                   autoPlay
                   playsInline
@@ -364,55 +385,61 @@ export default function NewPostPage() {
                       className="bg-white text-black px-3 py-2 rounded shadow"
                       onClick={tryStartPreview}
                     >
-                      {t('camera.clickToPreview', 'Nhấn để xem preview camera')}
+                      {t("camera.clickToPreview")}
                     </button>
                   </div>
                 )}
                 {isVideoMode && isRecording && (
                   <div className="absolute top-2 left-2 bg-red-600 text-white text-sm px-2 py-1 rounded">
-                    {t('camera.recording', 'Đang quay...')} {String(Math.floor(recordSeconds / 60)).padStart(2, '0')}:{String(recordSeconds % 60).padStart(2, '0')}
+                    {t("camera.recording")}{" "}
+                    {String(Math.floor(recordSeconds / 60)).padStart(2, "0")}:
+                    {String(recordSeconds % 60).padStart(2, "0")}
                   </div>
                 )}
               </div>
               <div className="mt-4 flex justify-center">
                 {!isVideoMode ? (
                   <>
-                    <button 
+                    <button
                       className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
                       onClick={capturePhoto}
                     >
-                      {t('camera.capture', 'Chụp')}
+                      {t("camera.capture")}
                     </button>
-                    <button 
+                    <button
                       className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
                       onClick={closeCamera}
                     >
-                      {t('camera.cancel', 'Hủy')}
+                      {t("camera.cancel")}
                     </button>
                   </>
                 ) : (
                   <>
-                    <button 
-                      className={`px-4 py-2 rounded mr-2 text-white ${isRecording ? 'bg-red-300 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'}`}
+                    <button
+                      className={`px-4 py-2 rounded mr-2 text-white ${
+                        isRecording
+                          ? "bg-red-300 cursor-not-allowed"
+                          : "bg-red-500 hover:bg-red-600"
+                      }`}
                       onClick={startRecording}
                       disabled={isRecording}
                     >
-                      {t('camera.startRecording', 'Bắt đầu ghi')}
+                      {t("camera.startRecording")}
                     </button>
                     {isRecording && (
-                      <button 
+                      <button
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                         onClick={stopRecording}
                       >
-                        {t('camera.stopRecording', 'Dừng ghi')}
+                        {t("camera.stopRecording")}
                       </button>
                     )}
                     {!isRecording && (
-                      <button 
+                      <button
                         className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
                         onClick={closeCamera}
                       >
-                        {t('camera.cancel', 'Hủy')}
+                        {t("camera.cancel")}
                       </button>
                     )}
                   </>
