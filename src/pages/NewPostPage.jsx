@@ -282,7 +282,7 @@ export default function NewPostPage() {
 
             {/* LOGIN bên dưới */}
             <h2 className="text-2xl text-black mt-2">
-              <i>{t("posts.newPostEn")}</i>
+              
             </h2>
           </div>
           <button

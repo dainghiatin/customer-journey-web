@@ -50,7 +50,7 @@ export default function NewFreelancerPostPage() {
               &nbsp;- {t("freelancer.newPost")}
             </h1>
             <h2 className="text-2xl text-black mt-2">
-              <i>{t("freelancer.newPostEn")}</i>
+              
             </h2>
           </div>
           <button
