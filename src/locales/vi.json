@@ -42,7 +42,10 @@
     "percent": "%",
     "plus": "+",
     "yes": "CÓ",
-    "no": "KHÔNG"
+    "no": "KHÔNG",
+    "open": "Mở",
+    "viewFile": "Xem file",
+    "downloadFile": "Tải file"
    },
   "hero": {
     "mainTitle": "CÔNG BẰNG LỚN - UY TÍN LỚN",
@@ -119,7 +122,7 @@
     "startLocation": "ĐỊA ĐIỂM NHẬN VIỆC",
     "finishTime": "THỜI GIAN HOÀN THÀNH",
     "finishLocation": "ĐỊA ĐIỂM HOÀN THÀNH",
-    "deposit": "ĐẶT CỌC",
+    "deposit": "Đặt cọc, ký quỹ",
     "priceOffered": "GIÁ ĐƯA RA",
     "setPrice": "ĐẶT GIÁ",
     "serviceFee": "PHÍ DỊCH VỤ",
@@ -377,6 +380,7 @@
     "saveLocation": "KHU VỰC LƯU TRỮ",
     "saveLocationEn": "Save location",
     "choose": "Chọn",
+    "introduceYourself": "GIỚI THIỆU BẢN THÂN",
     "children": "THIẾU NHI",
     "memory": "LƯU NIỆM",
     "lifeExperience": "KINH NGHIỆM SỐNG",
@@ -398,6 +402,7 @@
     "startAdvertisingFromSecondsEn": "Start advertising from seconds…",
     "startAdvertisingFromViews": "KÍCH HOẠT QUẢNG CÁO TỪ LƯỢT XEM THỨ…",
     "startAdvertisingFromViewsEn": "Start advertising from views…",
+    "allowAdvertisingOnMovie": "CHO PHÉP QUẢNG CÁO TRÊN PHIM NÀY",
     "confirmCopyright": "CAM KẾT BẢN QUYỀN",
     "confirmCopyrightEn": "Confirm copyright",
     "uploadMovie": "TẢI PHIM LÊN",
@@ -413,8 +418,8 @@
     "watchPrice": "GIÁ XEM",
     "watchPriceEn": "Watch price",
     "watchPricePlaceholder": "Nhập giá xem (VNĐ / PHIM)",
-    "movieOwnerReceive": "% CHỦ PHIM NHẬN VỀ",
-    "movieOwnerReceiveEn": "% Movies owner receive",
+    "movieOwnerReceive": "CHỦ PHIM NHẬN VỀ",
+    "movieOwnerReceiveEn": "Movies owner receive",
     "ownerReceivePlaceholder": "%",
     "advertisingOnMainpage": "QUẢNG CÁO TRÊN TRANG CHỦ",
     "advertisingOnMainpageEn": "Advertising on mainpage",
@@ -715,6 +720,7 @@
     "korea": "Hàn Quốc"
   },
   "aiLive": {
+    "pageTitle": "Ai LIVE",
     "accountOfAiLive": "TÀI KHOẢN Ai LIVE",
     "accountOfAiLiveEn": "Account of Ai LIVE",
     "currencyNote": "thay đổi bằng tiền bản địa sau đăng nhập",
@@ -770,7 +776,7 @@
     "enterAmount": "(nhập số tiền)",
     "handover": "BBBG",
     "handoverEn": "Handover",
-    "deposit": "ĐẶT CỌC",
+    "deposit": "Đặt cọc, ký quỹ",
     "depositEn": "Deposit",
     "remainingAmount": "SỐ TIỀN CÒN LẠI PHẢI TRẢ",
     "remainingAmountEn": "Amount remaining to be paid",
@@ -953,6 +959,8 @@
     "acceptEn": "Accept",
     "timeReviewPrice": "THỜI GIAN DUYỆT GIÁ",
     "timeReviewPriceEn": "Price review time",
+    "goodsVerify": "XÁC MINH HÀNG HÓA",
+    "posterInfo": "THÔNG TIN NGƯỜI ĐĂNG BÀI",
     "category": {
       "sale": "HÀNG BÁN",
       "buy": "CẦN MUA",

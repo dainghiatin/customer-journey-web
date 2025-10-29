@@ -149,7 +149,7 @@ export default function AiLiveMovieComponent() {
             <input
                 type="number"
                 placeholder={t('aiLiveMovie.enterAmount', 'Nhập số tiền')}
-                className="mt-1 w-24 text-center text-xs border border-black rounded px-1 py-0.5"
+                className="mt-1 w-24 text-right text-xs border border-black rounded px-1 py-0.5"
             />
             </div>
 

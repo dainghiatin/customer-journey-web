@@ -126,7 +126,7 @@ export default function NewFreelancerPostPage() {
               {/* Column 1 - THỰC TẾ */}
               <div
                 className={`border-r border-gray-300 p-4 text-center cursor-pointer ${
-                  activeTab === "direct" ? "bg-orange-100" : ""
+                  activeTab === "direct" ? "bg-blue-400" : ""
                 }`}
                 onClick={() => setActiveTab("direct")}
               >
@@ -137,11 +137,11 @@ export default function NewFreelancerPostPage() {
               {/* Column 2 - TRỰC TUYẾN */}
               <div
                 className={`p-4 text-center cursor-pointer ${
-                  activeTab === "online" ? "bg-blue-100" : ""
+                  activeTab === "online" ? "bg-blue-400" : ""
                 }`}
                 onClick={() => setActiveTab("online")}
               >
-                <h3 className="font-bold text-blue-500">
+                <h3 className="font-bold text-blue-900">
                   {t("freelancer.online")}
                 </h3>
               </div>

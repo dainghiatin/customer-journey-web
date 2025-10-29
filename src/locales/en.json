@@ -42,7 +42,10 @@
     "percent": "%",
     "plus": "+",
     "yes": "YES",
-    "no": "NO"
+    "no": "NO",
+    "open": "Open",
+    "viewFile": "View file",
+    "downloadFile": "Download file"
    },
   "aiLive": {
     "avatar": "AVATAR",
@@ -463,6 +466,7 @@
     "korea": "Korea"
   },
   "aiLive": {
+    "pageTitle": "Ai LIVE",
     "accountOfAiLive": "AI LIVE ACCOUNT",
     "accountOfAiLiveEn": "Account of Ai LIVE",
     "currencyNote": "change to local currency after login",
@@ -701,6 +705,8 @@
     "acceptEn": "Accept",
     "timeReviewPrice": "TIME REVIEW PRICE",
     "timeReviewPriceEn": "Price review time",
+    "goodsVerify": "GOODS VERIFY",
+    "posterInfo": "POSTER'S INFORMATION",
     "category": {
       "sale": "SALE",
       "buy": "BUY",
@@ -931,6 +937,7 @@
     "saveLocation": "SAVE LOCATION",
     "saveLocationEn": "Save location",
     "choose": "Choose",
+    "introduceYourself": "Introduce yourself",
     "children": "Children",
     "memory": "Memory",
     "lifeExperience": "Life experience",
@@ -952,6 +959,7 @@
     "startAdvertisingFromSecondsEn": "Start advertising from seconds...",
     "startAdvertisingFromViews": "START ADVERTISING FROM VIEWS...",
     "startAdvertisingFromViewsEn": "Start advertising from views...",
+    "allowAdvertisingOnMovie": "ALLOW ADVERTISING ON THIS MOVIE",
     "confirmCopyright": "CONFIRM COPYRIGHT",
     "confirmCopyrightEn": "Confirm copyright",
     "uploadMovie": "UPLOAD MOVIES FILE",
@@ -967,8 +975,8 @@
     "watchPrice": "WATCH PRICE",
     "watchPriceEn": "Watch price",
     "watchPricePlaceholder": "Enter watch price (VND / MOVIE)",
-    "movieOwnerReceive": "% MOVIES OWNER RECEIVE",
-    "movieOwnerReceiveEn": "% Movies owner receive",
+    "movieOwnerReceive": "MOVIES OWNER RECEIVE",
+    "movieOwnerReceiveEn": "Movies owner receive",
     "ownerReceivePlaceholder": "%",
     "advertisingOnMainpage": "ADVERTISING ON MAINPAGE",
     "advertisingOnMainpageEn": "Advertising on mainpage",
