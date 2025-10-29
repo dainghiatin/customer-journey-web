@@ -27,13 +27,13 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
             <div>ID</div>
           </div>
           <div className="flex-1 border-r border-gray-300 p-2">
-            <div className="flex flex-col sm:flex-row items-center gap-2">
+            <div className="flex flex-row items-center gap-2">
               <input
                 type="text"
-                className="flex-1 w-full sm:w-auto border border-gray-300 p-1 text-sm"
+                className="flex-1 min-w-0 border border-gray-300 p-1 text-sm"
                 disabled
               />
-              <div className="flex items-center space-x-2 flex-shrink-0">
+              <div className="flex items-center space-x-2 flex-shrink-0 flex-nowrap whitespace-nowrap">
                 <button
                   onClick={() => setIsFollowing(!isFollowing)}
                   className={`p-1 rounded-full transition-colors ${
@@ -465,7 +465,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "unitMarketPrice", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 disabled
               />
             </div>
@@ -476,7 +476,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "unitAskingPrice", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 placeholder=""
                 disabled
               />
@@ -488,7 +488,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "amountDesired", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 placeholder=""
                 disabled
               />
@@ -500,7 +500,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "autoAcceptPrice", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 placeholder=""
                 disabled
               />
@@ -512,7 +512,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "autoRejectPrice", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 placeholder=""
                 disabled
               />
@@ -524,7 +524,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
                 onChange={(e) =>
                   handleItemChange(item.id, "setPrice", e.target.value)
                 }
-                className="w-full border border-gray-300 p-1 mt-1"
+                className="w-full border border-gray-300 p-1 mt-1 text-right"
                 placeholder=""
               />
             </div>

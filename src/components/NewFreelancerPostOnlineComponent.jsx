@@ -46,7 +46,7 @@ const NewFreelancerPostOnlineComponent = () => {
             1
           </div>
           <div className="col-span-11 p-2">
-            <div className="font-bold">{t("newFreelancerOnline.jobName")}</div>
+            <div className="sr-only">{t("newFreelancerOnline.jobName")}</div>
             <div className="flex items-center">
               <input
                 type="text"
@@ -65,7 +65,7 @@ const NewFreelancerPostOnlineComponent = () => {
             2
           </div>
           <div className="col-span-11 p-2">
-            <div className="font-bold">{t("newFreelancerOnline.estimate")}</div>
+            <div className="sr-only">{t("newFreelancerOnline.estimate")}</div>
             <div className="flex items-center">
               <input
                 type="text"
@@ -83,15 +83,19 @@ const NewFreelancerPostOnlineComponent = () => {
             3
           </div>
           <div className="col-span-11 p-2">
-            <div className="font-bold">
+            <div className="sr-only">
               {t("newFreelancerOnline.jobProfile")}
             </div>
-            <div className="flex items-center">
-              <input
-                type="file"
-                className="w-full mt-2 p-2 border border-gray-300 rounded"
-                placeholder={t("newFreelancerOnline.jobProfilePlaceholder")}
-              />
+            <div className="flex items-center w-full">
+              <div className="relative w-full mt-2">
+                <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                  {t("newFreelancerOnline.jobProfile")}
+                </span>
+                <input
+                  type="file"
+                  className="w-full p-2 border border-gray-300 rounded bg-transparent pl-70"
+                />
+              </div>
               <span className="text-red-500 font-bold ml-2 mt-2">*</span>
             </div>
           </div>
@@ -103,9 +107,7 @@ const NewFreelancerPostOnlineComponent = () => {
             4
           </div>
           <div className="col-span-11 p-2">
-            <div className="font-bold">
-              {t("newFreelancerOnline.requirements")}
-            </div>
+            <div className="sr-only">{t("newFreelancerOnline.requirements")}</div>
             <div className="flex items-center">
               <textarea
                 className="w-full mt-2 p-2 border border-gray-300 rounded"
@@ -124,26 +126,36 @@ const NewFreelancerPostOnlineComponent = () => {
           </div>
           <div className="col-span-11 p-2 space-y-4">
             <div>
-              <div className="font-bold">
+              <div className="sr-only">
                 {t("newFreelancerOnline.startTime")}
               </div>
               <div className="flex items-center">
-                <input
-                  type="datetime-local"
-                  className="w-full mt-2 p-2 border border-gray-300 rounded"
-                />
+                <div className="relative w-full mt-2">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    {t("newFreelancerOnline.startTime")}
+                  </span>
+                  <input
+                    type="datetime-local"
+                    className="w-full p-2 border border-gray-300 rounded bg-transparent pl-70 text-right"
+                  />
+                </div>
                 <span className="text-red-500 font-bold ml-2 mt-2">*</span>
               </div>
             </div>
             <div>
-              <div className="font-bold">
+              <div className="sr-only">
                 {t("newFreelancerOnline.finishTime")}
               </div>
               <div className="flex items-center">
-                <input
-                  type="datetime-local"
-                  className="w-full mt-2 p-2 border border-gray-300 rounded"
-                />
+                <div className="relative w-full mt-2">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    {t("newFreelancerOnline.finishTime")}
+                  </span>
+                  <input
+                    type="datetime-local"
+                    className="w-full p-2 border border-gray-300 rounded bg-transparent pl-70 text-right"
+                  />
+                </div>
                 <span className="text-red-500 font-bold ml-2 mt-2">*</span>
               </div>
             </div>
@@ -163,7 +175,7 @@ const NewFreelancerPostOnlineComponent = () => {
               type="number"
               min="1"
               step="1"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-right"
               placeholder={t("newFreelancerOnline.pricePlaceholder")}
               onKeyDown={(e) => {
                 // Prevent negative sign, decimal point, and non-numeric characters
@@ -257,7 +269,7 @@ const NewFreelancerPostOnlineComponent = () => {
               type="number"
               min="1"
               step="1"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-right"
               placeholder={t("newFreelancerOnline.depositPlaceholder")}
               onKeyDown={(e) => {
                 // Prevent negative sign, decimal point, and non-numeric characters
@@ -308,7 +320,7 @@ const NewFreelancerPostOnlineComponent = () => {
                     type="number"
                     min="0"
                     step="1"
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-2 border border-gray-300 rounded text-right"
                     onKeyDown={(e) => {
                       // Prevent negative sign, decimal point, and non-numeric characters
                       if (
@@ -345,7 +357,7 @@ const NewFreelancerPostOnlineComponent = () => {
                     type="number"
                     min="0"
                     step="1"
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-2 border border-gray-300 rounded text-right"
                     onKeyDown={(e) => {
                       // Prevent negative sign, decimal point, and non-numeric characters
                       if (
@@ -390,7 +402,7 @@ const NewFreelancerPostOnlineComponent = () => {
                     type="number"
                     min="0"
                     step="1"
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-2 border border-gray-300 rounded text-right"
                     onKeyDown={(e) => {
                       // Prevent negative sign, decimal point, and non-numeric characters
                       if (
@@ -451,73 +463,15 @@ const NewFreelancerPostOnlineComponent = () => {
                 <div className="font-bold border border-gray-300 p-3 bg-gray-50">
                   {t("newFreelancerOnline.totalFeesVat")}
                 </div>
-                <div className="border border-gray-300 p-2">
-                  <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    className="w-full p-2 border border-gray-300 rounded"
-                    onKeyDown={(e) => {
-                      // Prevent negative sign, decimal point, and non-numeric characters
-                      if (
-                        e.key === "-" ||
-                        e.key === "." ||
-                        e.key === "e" ||
-                        e.key === "E" ||
-                        e.key === "+"
-                      ) {
-                        e.preventDefault();
-                      }
-                    }}
-                    onChange={(e) => {
-                      // Ensure only non-negative integers
-                      const value = e.target.value;
-                      if (
-                        value &&
-                        (parseFloat(value) < 0 ||
-                          !Number.isInteger(parseFloat(value)))
-                      ) {
-                        e.target.value = "";
-                      }
-                    }}
-                  />
-                </div>
+                <div className="border border-gray-300 p-2 flex items-center justify-center">0</div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">
                   {t("common.percent")}
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">
                   {t("common.plus")}
                 </div>
-                <div className="border border-gray-300 p-2">
-                  <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    className="w-full p-2 border border-gray-300 rounded"
-                    onKeyDown={(e) => {
-                      // Prevent negative sign, decimal point, and non-numeric characters
-                      if (
-                        e.key === "-" ||
-                        e.key === "." ||
-                        e.key === "e" ||
-                        e.key === "E" ||
-                        e.key === "+"
-                      ) {
-                        e.preventDefault();
-                      }
-                    }}
-                    onChange={(e) => {
-                      // Ensure only non-negative integers
-                      const value = e.target.value;
-                      if (
-                        value &&
-                        (parseFloat(value) < 0 ||
-                          !Number.isInteger(parseFloat(value)))
-                      ) {
-                        e.target.value = "";
-                      }
-                    }}
-                  />
+                <div className="border border-gray-300 p-2 flex items-center justify-end">
+                  <div className="w-full p-2 text-right">({t("payment.command")})</div>
                 </div>
                 <div className="flex items-center justify-center border border-gray-300 p-3">
                   VNĐ

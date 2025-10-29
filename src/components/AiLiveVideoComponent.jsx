@@ -51,6 +51,7 @@ export default function AiLiveVideoComponent() {
     {/* Danh mục chủ đề */}
     <div className="grid grid-cols-5 border border-black text-xs text-center">
     {[
+        ["GIỚI THIỆU BẢN THÂN", "Introduce yourself"],
         ["THIẾU NHI", "Children"],
         ["LƯU NIỆM", "Memory"],
         ["KINH NGHIỆM SỐNG", "Life experience"],
@@ -179,7 +180,7 @@ export default function AiLiveVideoComponent() {
             <input
                 type="number"
                 placeholder={t('aiLiveMovie.enterAmount', 'Nhập số tiền')}
-                className="mt-1 w-24 text-center text-xs border border-black rounded px-1 py-0.5"
+                className="mt-1 w-24 text-right text-xs border border-black rounded px-1 py-0.5"
             />
             </div>
 

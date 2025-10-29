@@ -24,6 +24,7 @@ export default function DetailOfGoodsPage() {
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [isVisible1, setIsVisible1] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
   const [priceData, setPriceData] = useState({
@@ -138,6 +139,59 @@ export default function DetailOfGoodsPage() {
     fetchProductDetails();
 
   }, [id]);
+
+  // Map localStorage values (EN upper-case) to internal keys used by this page
+  const mapCategoryToKey = (value) => {
+    const v = (value || "").toUpperCase();
+    switch (v) {
+      case "SALE": return "sale";
+      case "BUY": return "buy";
+      case "RENT": return "rent";
+      case "FOR RENT": return "forRent";
+      case "SERVICES": return "service";
+      default: return "";
+    }
+  };
+
+  const mapSubcategoryToKey = (value) => {
+    const v = (value || "").toUpperCase();
+    switch (v) {
+      case "GOODS": return "goods";
+      case "LAND AND HOUSE": return "land";
+      case "VEHICLE": return "vehicle";
+      case "MANPOWER": return "manpower";
+      case "IMPORT - EXPORT": return "importExport";
+      default: return "";
+    }
+  };
+
+  const mapConditionToKey = (value) => {
+    const v = (value || "").toUpperCase();
+    switch (v) {
+      case "SCRAP": return "scrap";
+      case "NEW": return "new";
+      case "OLD": return "old";
+      case "UNUSED": return "unused";
+      default: return "";
+    }
+  };
+
+  // Load filter context from localStorage set on the home page and lock the UI controls
+  useEffect(() => {
+    const lsCategory = localStorage.getItem("category");
+    const lsSubcategory = localStorage.getItem("subcategory");
+    const lsCondition = localStorage.getItem("condition");
+    const lsNation = localStorage.getItem("nation");
+    const lsProvince = localStorage.getItem("province");
+    const lsDistrict = localStorage.getItem("district");
+
+    setSelectedCategory((prev) => mapCategoryToKey(lsCategory) || prev);
+    setSelectedSubcategory((prev) => mapSubcategoryToKey(lsSubcategory) || prev);
+    setSelectedCondition((prev) => mapConditionToKey(lsCondition) || prev);
+    setSelectedCountry((prev) => lsNation || prev);
+    setSelectedProvince((prev) => lsProvince || prev);
+    setSelectedDistrict((prev) => lsDistrict || prev);
+  }, []);
 
 const fetchProductDetails = async () => {
       try {
@@ -262,7 +316,7 @@ const fetchProductDetails = async () => {
                   <select 
                     className="w-full p-2 border border-gray-300 rounded"
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    disabled
                   >
                     <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(categories).map(([key, value]) => (
@@ -276,7 +330,7 @@ const fetchProductDetails = async () => {
                   <select 
                     className="w-full p-2 border border-gray-300 rounded"
                     value={selectedSubcategory}
-                    onChange={(e) => setSelectedSubcategory(e.target.value)}
+                    disabled
                   >
                     <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(subcategories).map(([key, value]) => (
@@ -290,7 +344,7 @@ const fetchProductDetails = async () => {
                   <select 
                     className="w-full p-2 border border-gray-300 rounded"
                     value={selectedCondition}
-                    onChange={(e) => setSelectedCondition(e.target.value)}
+                    disabled
                   >
                     <option value="">{t('detailOfGoods.selectType')}</option>
                     {Object.entries(conditions).map(([key, value]) => (
@@ -301,11 +355,20 @@ const fetchProductDetails = async () => {
                   </select>
                 </td>
                 <td className="border border-gray-300 p-2 text-center font-bold w-2/5">
-                  <select className="w-full p-2 border border-gray-300 rounded">
-                    <option value="">{t('detailOfGoods.all')}</option>
-                    <option value="">{t('detailOfGoods.selectProvince')}</option>
-                    <option value="">{t('detailOfGoods.selectCountry')}</option>
-                  </select>
+                  <div className="text-center">
+                    <select className="w-full p-2 border border-gray-300 rounded mb-2" disabled value={selectedCountry || ""}>
+                      <option value="">{t('detailOfGoods.selectCountry')}</option>
+                      {selectedCountry && (
+                        <option value={selectedCountry}>{selectedCountry}</option>
+                      )}
+                    </select>
+                    <select className="w-full p-2 border border-gray-300 rounded mb-2" disabled value={selectedProvince || ""}>
+                      <option value="">{t('detailOfGoods.selectProvince')}</option>
+                      {selectedProvince && (
+                        <option value={selectedProvince}>{selectedProvince}</option>
+                      )}
+                    </select>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -357,7 +420,7 @@ const fetchProductDetails = async () => {
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5" rowSpan="2">
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5" rowSpan="1">
                   {t('detailOfGoods.goodsAddress')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
@@ -369,6 +432,32 @@ const fetchProductDetails = async () => {
 
                 </td>
               </tr>
+              {/* Goods Verify */}
+              <tr>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                  {t('detailOfGoods.goodsVerify')}:
+                </td>
+                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
+                  <img src="/video.jpg" alt="video" className="h-24 w-auto object-cover border inline-block" />
+                </td>
+                <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
+                  <button type="button" className="bg-gray-300 px-4 py-2 rounded hover:bg-blue-600">
+                    {t('common.viewFile')}
+                  </button>
+                </td>
+              </tr>
+              {/* Poster's Information */}
+              <tr>
+                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                  {t('detailOfGoods.posterInfo')}:
+                </td>
+                <td className="border border-gray-300 p-2" colSpan="4">
+                  <button type="button" className="bg-gray-300 hover:bg-gray-100 text-black font-bold py-2 px-6 border border-gray-200 rounded">
+                    {t('common.open')}
+                  </button>
+                </td>
+              </tr>
+              
             </tbody>
           </table>
         </div>
