@@ -65,7 +65,7 @@ const HeaderComponent = ({
 
                 <div
                     onClick={() => document.getElementById("colorPicker").click()}
-                    style={{ width: "100%", height: "6vh" }}
+                    style={{ width: "100%", minHeight: "3.3vh" }}
                     className="cursor-pointer flex border-b border-black border-r justify-center items-center"
                 >
                     <div className="table-cell flex items-center font-bold py-1 px-1 ">
@@ -103,7 +103,7 @@ const HeaderComponent = ({
                             </option>
                         ))}
 
-                        
+
                     </select>
                 </div>
 
