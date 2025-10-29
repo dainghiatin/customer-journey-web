@@ -102,6 +102,8 @@ const HeaderComponent = ({
                                 {colorOption.name}
                             </option>
                         ))}
+
+                        
                     </select>
                 </div>
 
