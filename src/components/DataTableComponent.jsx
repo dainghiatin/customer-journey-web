@@ -13,7 +13,7 @@ const DataTableComponent = () => {
       {/* Row 1 */}
       <div className="flex border-b border-black">
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
-          {t("metrics.listedValue", "GIÁ TRỊ LÊN SÀN:")}
+          {t("metrics.listedValue", "GIÁ TRỊ LÊN SÀN")}:
         </div>
         <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
           <strong>{metric.listedValue}</strong>
@@ -60,7 +60,7 @@ const DataTableComponent = () => {
           className="flex items-center justify-center font-bold py-1 px-1 border-r border-black"
           style={{ flex: "0 0 33.37%" }}
         >
-          {t("metrics.bankUpdate", "NGÂN HÀNG CẬP NHẬT")}
+          {t("metrics.bankUpdate", "NGÂN HÀNG CẬP NHẬT")}:
         </div>
 
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
@@ -80,10 +80,10 @@ const DataTableComponent = () => {
       {/* Row 4 */}
       <div className="flex border-b border-black">
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
-          {t("metrics.withTerm", "CÓ KỲ HẠN")}
+          {t("metrics.withTerm", "CÓ KỲ HẠN")}:
         </div>
         <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
-          {t("metrics.update", "CẬP NHẬT")}
+          {t("metrics.update", "CẬP NHẬT")}:
         </div>
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
           {t("metrics.withdrawn", "ĐÃ RÚT")}:
@@ -102,10 +102,10 @@ const DataTableComponent = () => {
       {/* Row 5 */}
       <div className="flex">
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
-          {t("metrics.withoutTerm", "KHÔNG KỲ HẠN")}
+          {t("metrics.withoutTerm", "KHÔNG KỲ HẠN")}:
         </div>
         <div className="flex-2 flex items-center justify-end py-1 px-1 border-r border-black">
-          {t("metrics.update", "CẬP NHẬT")}
+          {t("metrics.update", "CẬP NHẬT")}:
         </div>
         <div className="table-cell flex items-center font-bold py-1 px-1 border-r border-black">
           {t("metrics.remaining", "CÒN LẠI")}:
