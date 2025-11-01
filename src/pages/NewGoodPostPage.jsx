@@ -19,7 +19,7 @@ import {
 } from "../constants/filterConstants";
 
 export default function NewGoodPostPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
   const [user, setUser] = useState(null);
   const [selectedType, setSelectedType] = useState("");
@@ -381,7 +381,7 @@ export default function NewGoodPostPage() {
                 <div className="font-bold">1</div>
               </div>
               <div className="border-r border-gray-300 p-2 text-center">
-                <div className="font-bold  p-1 mt-1">VN</div>
+                <div className="font-bold  p-1 mt-1">{t("goods.vn")}</div>
                 <div className="mt-1 flex items-center justify-center">
                   <span className="mr-2">D|</span>
                 </div>
@@ -455,13 +455,25 @@ export default function NewGoodPostPage() {
                           onChange={(e) => setSelectedType(e.target.value)}
                         >
                           <option value="">
-                            {categories?.[0]?.vi || "Chọn danh mục"}
+                            {t("goods.selectCategory")}
                           </option>
-                          {categories.slice(1).map((c, idx) => (
-                            <option key={`cat-${idx}`} value={c.en}>
-                              {c.vi}
-                            </option>
-                          ))}
+                          {categories.slice(1).map((c, idx) => {
+                            const isVi = (i18n.language || 'vi').toLowerCase().startsWith('vi');
+                            // Map en values to translation keys
+                            const categoryKeyMap = {
+                              'SALE': 'sale',
+                              'BUY': 'buy',
+                              'RENT': 'rent',
+                              'FOR RENT': 'for_rent',
+                              'SERVICES': 'service'
+                            };
+                            const key = categoryKeyMap[c.en] || c.en.toLowerCase();
+                            return (
+                              <option key={`cat-${idx}`} value={c.en}>
+                                {t(`goods.category.${key}`) || (isVi ? c.vi : c.en)}
+                              </option>
+                            );
+                          })}
                         </select>
                       </div>
                     </div>
@@ -473,13 +485,25 @@ export default function NewGoodPostPage() {
                           onChange={(e) => setSelectedCategory(e.target.value)}
                         >
                           <option value="">
-                            {subCategories?.[0]?.vi || "Chọn phân loại"}
+                            {t("goods.selectSubcategoryPlaceholder")}
                           </option>
-                          {subCategories.slice(1).map((sc, idx) => (
-                            <option key={`sub-${idx}`} value={sc.en}>
-                              {sc.vi}
-                            </option>
-                          ))}
+                          {subCategories.slice(1).map((sc, idx) => {
+                            const isVi = (i18n.language || 'vi').toLowerCase().startsWith('vi');
+                            // Map en values to translation keys
+                            const subcategoryKeyMap = {
+                              'GOODS': 'goods',
+                              'LAND AND HOUSE': 'landhouse',
+                              'VEHICLE': 'vehicle',
+                              'MANPOWER': 'manpower',
+                              'IMPORT - EXPORT': 'import_export'
+                            };
+                            const key = subcategoryKeyMap[sc.en] || sc.en.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+                            return (
+                              <option key={`sub-${idx}`} value={sc.en}>
+                                {t(`goods.subcategory.${key}`) || (isVi ? sc.vi : sc.en)}
+                              </option>
+                            );
+                          })}
                         </select>
                       </div>
                     </div>
@@ -491,13 +515,24 @@ export default function NewGoodPostPage() {
                           onChange={(e) => setSelectedCondition(e.target.value)}
                         >
                           <option value="">
-                            {conditions?.[0]?.vi || "Chọn tình trạng"}
+                            {t("goods.selectConditionPlaceholder")}
                           </option>
-                          {conditions.slice(1).map((cd, idx) => (
-                            <option key={`cond-${idx}`} value={cd.en}>
-                              {cd.vi}
-                            </option>
-                          ))}
+                          {conditions.slice(1).map((cd, idx) => {
+                            const isVi = (i18n.language || 'vi').toLowerCase().startsWith('vi');
+                            // Map en values to translation keys
+                            const conditionKeyMap = {
+                              'SCRAP': 'scrap',
+                              'NEW': 'new',
+                              'OLD': 'old',
+                              'UNUSED': 'unused'
+                            };
+                            const key = conditionKeyMap[cd.en] || cd.en.toLowerCase();
+                            return (
+                              <option key={`cond-${idx}`} value={cd.en}>
+                                {t(`goods.condition.${key}`) || (isVi ? cd.vi : cd.en)}
+                              </option>
+                            );
+                          })}
                         </select>
                       </div>
                     </div>
@@ -610,7 +645,7 @@ export default function NewGoodPostPage() {
                     value={goodsInfo.priceReviewTime}
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 p-1"
-                    placeholder="(nhập)"
+                    placeholder={t("goods.enter")}
                   />
                 </div>
                 <div className="col-span-7 text-center flex items-center justify-center">
@@ -633,7 +668,7 @@ export default function NewGoodPostPage() {
                     value={goodsInfo.endPostDate}
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 p-1"
-                    placeholder="(nhập)"
+                    placeholder={t("goods.enter")}
                   />
                 </div>
                 <div className="col-span-4 border-r border-gray-300 p-2">
@@ -643,7 +678,7 @@ export default function NewGoodPostPage() {
                     value={goodsInfo.endPostTime}
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 p-1"
-                    placeholder="(nhập)"
+                    placeholder={t("goods.enter")}
                   />
                 </div>
                 <div className="col-span-5 text-center flex items-center justify-center">
@@ -769,7 +804,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.eventPercentFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -797,7 +832,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.eventFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -811,7 +846,7 @@ export default function NewGoodPostPage() {
                             }
                           }}
                         />
-                        <span className="text-gray-700">VND</span>
+                        <span className="text-gray-700">{t("goods.vnd")}</span>
                       </div>
                       <div className="col-span-3 border-l border-gray-300 p-2 text-center">
                         <span>{t("goods.prepay")}</span>
@@ -832,7 +867,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.livestreamPercentFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -860,7 +895,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.livestreamFee || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 mr-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -874,7 +909,7 @@ export default function NewGoodPostPage() {
                             }
                           }}
                         />
-                        <span className="text-gray-700">VND</span>
+                        <span className="text-gray-700">{t("goods.vnd")}</span>
                       </div>
                       <div className="col-span-3 border-l border-gray-300 p-2 text-center">
                         <span>{t("goods.prepay")}</span>
@@ -895,7 +930,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.videoAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -944,7 +979,7 @@ export default function NewGoodPostPage() {
                         <div className="w-full p-1 mr-1 text-right">
                           ({t("payment.command")})
                         </div>
-                        <span className="text-gray-700">VND</span>
+                        <span className="text-gray-700">{t("goods.vnd")}</span>
                       </div>
                       <div className="col-span-3 border-l border-gray-300 p-2 text-center">
                         <span>{t("goods.prepay")}</span>
@@ -978,7 +1013,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.advertisingAmount || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -994,7 +1029,7 @@ export default function NewGoodPostPage() {
                         />
                       </div>
                       <div className="col-span-5 p-2 text-center">
-                        <div>VND</div>
+                        <div>{t("goods.vnd")}</div>
                       </div>
                     </div>
 
@@ -1014,7 +1049,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.mainPageAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -1030,7 +1065,7 @@ export default function NewGoodPostPage() {
                         />
                       </div>
                       <div className="col-span-5 p-2 text-center">
-                        <div>VND / GIÂY (S) / LƯỢT XEM (View)</div>
+                        <div>{t("goods.vndPerSecondView")}</div>
                       </div>
                     </div>
 
@@ -1048,7 +1083,7 @@ export default function NewGoodPostPage() {
                           value={goodsInfo.videoAd || ""}
                           onChange={handleInputChange}
                           className="w-full border border-gray-300 p-1 text-right"
-                          placeholder="(nhập)"
+                          placeholder={t("goods.enter")}
                           onKeyDown={(e) => {
                             // Prevent negative sign, decimal point, and non-numeric characters
                             if (
@@ -1064,7 +1099,7 @@ export default function NewGoodPostPage() {
                         />
                       </div>
                       <div className="col-span-5 p-2 text-center">
-                        <div>VND / GIÂY (S) / LƯỢT XEM (View)</div>
+                        <div>{t("goods.vndPerSecondView")}</div>
                       </div>
                     </div>
 

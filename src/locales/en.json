@@ -425,48 +425,6 @@
     "noText": "No text detected in video",
     "noTextEn": "No text detected in video"
   },
-  "goods": {
-    "listOfGoods": "LIST OF GOODS",
-    "listOfGoodsEn": "List of goods",
-    "selectType": "Select type",
-    "selectSubcategory": "Select subcategory",
-    "selectCondition": "Select condition",
-    "all": "ALL",
-    "allEn": "All",
-    "selectProvince": "Select province",
-    "selectProvinceEn": "Select province",
-    "selectCountry": "Select country",
-    "selectCountryEn": "Select country",
-    "search": "SEARCH",
-    "searchEn": "search",
-    "searchPlaceholder": "Type to search...",
-    "listOfStores": "LIST OF STORES",
-    "category": {
-      "sale": "SALE",
-      "buy": "BUY",
-      "rent": "RENT",
-      "for_rent": "FOR RENT",
-      "service": "SERVICE"
-    },
-    "subcategory": {
-      "goods": "GOODS",
-      "landhouse": "REAL ESTATE",
-      "vehicle": "VEHICLE",
-      "manpower": "MANPOWER",
-      "import_export": "IMPORT - EXPORT"
-    },
-    "condition": {
-      "scrap": "SCRAP",
-      "new": "NEW",
-      "old": "OLD",
-      "unused": "UNUSED"
-    },
-    "vietnam": "Vietnam",
-    "usa": "USA",
-    "china": "China",
-    "japan": "Japan",
-    "korea": "Korea"
-  },
   "aiLive": {
     "pageTitle": "Ai LIVE",
     "accountOfAiLive": "AI LIVE ACCOUNT",
@@ -779,9 +737,51 @@
     },
 
   "goods": {
+    "listOfGoods": "LIST OF GOODS",
+    "listOfGoodsEn": "List of goods",
+    "selectType": "Select type",
+    "selectSubcategory": "Select subcategory",
+    "selectCondition": "Select condition",
+    "selectCountry": "Select country",
+    "selectCountryEn": "Select country",
+    "search": "SEARCH",
+    "searchEn": "search",
+    "searchPlaceholder": "Type to search...",
+    "listOfStores": "LIST OF STORES",
+    "vietnam": "Vietnam",
+    "usa": "USA",
+    "china": "China",
+    "japan": "Japan",
+    "korea": "Korea",
+    "selectCategory": "Select category",
+    "selectSubcategoryPlaceholder": "Select subcategory",
+    "selectConditionPlaceholder": "Select condition",
+    "enter": "(enter)",
+    "vnd": "VND",
+    "vn": "VN",
+    "vndPerSecondView": "VND / SECOND (S) / VIEW (View)",
+    "category": {
+      "sale": "SALE",
+      "buy": "BUY",
+      "rent": "RENT",
+      "for_rent": "FOR RENT",
+      "service": "SERVICE"
+    },
+    "subcategory": {
+      "goods": "GOODS",
+      "landhouse": "REAL ESTATE",
+      "vehicle": "VEHICLE",
+      "manpower": "MANPOWER",
+      "import_export": "IMPORT - EXPORT"
+    },
+    "condition": {
+      "scrap": "SCRAP",
+      "new": "NEW",
+      "old": "OLD",
+      "unused": "UNUSED"
+    },
     "title": "Products",
     "newProduct": "New Product",
-    "category": "Category",
     "price": "Price",
     "description": "Description",
     "addToCart": "Add to Cart",
@@ -1012,16 +1012,6 @@
     "termsAgreementEn": "I confirm that I am the owner, have the copyright, and am authorized to transmit and broadcast these videos, movies, and live broadcasts without advertising, sale goods and I agree and accept to comply with the contract as well as all terms and conditions required by the E-Commercial.",
     "post": "POST",
     "postEn": "Post"
-  },
-  "payment": {
-    "title": "Payment",
-    "amount": "Amount",
-    "method": "Method",
-    "additional": "Additional Payment",
-    "withdraw": "Withdraw",
-    "balance": "Balance",
-    "transaction": "Transaction",
-    "history": "History"
   },
   "rewards": {
     "title": "Rewards",

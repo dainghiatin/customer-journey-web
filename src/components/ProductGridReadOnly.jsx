@@ -30,7 +30,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
             <div className="flex flex-row items-center gap-2">
               <input
                 type="text"
-                className="flex-1 min-w-0 border border-gray-300 p-1 text-sm"
+                className="flex-1 min-w-0 p-1 text-sm"
                 disabled
               />
               <div className="flex items-center space-x-2 flex-shrink-0 flex-nowrap whitespace-nowrap">
