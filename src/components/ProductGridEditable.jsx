@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Eye as EyeIcon, Forward as ForwardIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import useHorizontalScrollbar from "../custom-hooks/useHorizontalScrollbar";
 
 export default function ProductGridEditable({ products = [], onItemsChange }) {
   const { t } = useTranslation();
   const [items, setItems] = useState(products || []);
   const [isFollowing, setIsFollowing] = useState(false);
+  const { containerRef, trackRef, thumbRef } = useHorizontalScrollbar();
 
   useEffect(() => {
     setItems(products || []);
   }, [products]);
+
 
   const handleItemChange = (id, field, value) => {
     const updated = items.map((item) =>
@@ -103,7 +106,7 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto-scroll">
+      <div className="overflow-x-auto-scroll scroll-x" ref={containerRef}>
         {/* Header columns with horizontal scroll */}
         <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
           <div className="border-r border-gray-300 p-2 text-center">
@@ -568,6 +571,10 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
           >
             <span>{t("productGrid.total")}: 0</span>
           </div>
+        </div>
+        {/* Always-visible horizontal scrollbar track + moving thumb */}
+        <div className="scrollbar-track" aria-hidden="true" ref={trackRef}>
+          <div className="scrollbar-thumb" ref={thumbRef}></div>
         </div>
       </div>
     </>
