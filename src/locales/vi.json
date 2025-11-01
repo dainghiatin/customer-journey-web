@@ -220,9 +220,51 @@
     "advertising": "QUẢNG CÁO"
   },
   "goods": {
+    "listOfGoods": "DANH SÁCH HÀNG HÓA",
+    "listOfGoodsEn": "List of goods",
+    "selectType": "Chọn loại",
+    "selectSubcategory": "Chọn danh mục con",
+    "selectCondition": "Chọn điều kiện",
+    "selectCountry": "Chọn nước",
+    "selectCountryEn": "Select country",
+    "search": "TÌM KIẾM",
+    "searchEn": "search",
+    "searchPlaceholder": "Gõ vào để tìm kiếm...",
+    "listOfStores": "DANH SÁCH CÁC GIAN HÀNG",
+    "vietnam": "Việt Nam",
+    "usa": "Hoa Kỳ",
+    "china": "Trung Quốc",
+    "japan": "Nhật Bản",
+    "korea": "Hàn Quốc",
+    "selectCategory": "Chọn danh mục",
+    "selectSubcategoryPlaceholder": "Chọn phân loại",
+    "selectConditionPlaceholder": "Chọn tình trạng",
+    "enter": "(nhập)",
+    "vnd": "VNĐ",
+    "vn": "VN",
+    "vndPerSecondView": "VNĐ / GIÂY (S) / LƯỢT XEM (View)",
+    "category": {
+      "sale": "HÀNG BÁN",
+      "buy": "CẦN MUA",
+      "rent": "HÀNG THUÊ",
+      "for_rent": "CHO THUÊ",
+      "service": "DỊCH VỤ"
+    },
+    "subcategory": {
+      "goods": "HÀNG HÓA",
+      "landhouse": "BẤT ĐỘNG SẢN",
+      "vehicle": "PHƯƠNG TIỆN",
+      "manpower": "NHÂN LỰC",
+      "import_export": "XUẤT - NHẬP KHẨU"
+    },
+    "condition": {
+      "scrap": "PHẾ LIỆU",
+      "new": "MỚI",
+      "old": "CŨ",
+      "unused": "CHƯA SỬ DỤNG"
+    },
     "title": "Sản phẩm",
     "newProduct": "Sản phẩm mới",
-    "category": "Danh mục",
     "price": "Giá",
     "description": "Mô tả",
     "addToCart": "Thêm vào giỏ",
@@ -454,16 +496,6 @@
     "post": "ĐĂNG",
     "postEn": "Post"
   },
-  "payment": {
-    "title": "Thanh toán",
-    "amount": "Số tiền",
-    "method": "Phương thức",
-    "additional": "Thanh toán bổ sung",
-    "withdraw": "Rút tiền",
-    "balance": "Số dư",
-    "transaction": "Giao dịch",
-    "history": "Lịch sử"
-  },
   "rewards": {
     "title": "Phần thưởng",
     "category": "Danh mục phần thưởng",
@@ -677,48 +709,6 @@
     "noText": "Không phát hiện chữ trong video",
     "noTextEn": "No text detected in video"
   },
-  "goods": {
-    "listOfGoods": "DANH SÁCH HÀNG HÓA",
-    "listOfGoodsEn": "List of goods",
-    "selectType": "Chọn loại",
-    "selectSubcategory": "Chọn danh mục con",
-    "selectCondition": "Chọn điều kiện",
-    "all": "TẤT CẢ",
-    "allEn": "All",
-    "selectProvince": "Chọn tỉnh",
-    "selectProvinceEn": "Select province",
-    "selectCountry": "Chọn nước",
-    "selectCountryEn": "Select country",
-    "search": "TÌM KIẾM",
-    "searchEn": "search",
-    "searchPlaceholder": "Gõ vào để tìm kiếm...",
-    "listOfStores": "DANH SÁCH CÁC GIAN HÀNG",
-    "category": {
-      "sale": "HÀNG BÁN",
-      "buy": "CẦN MUA",
-      "rent": "HÀNG THUÊ",
-      "for_rent": "CHO THUÊ",
-      "service": "DỊCH VỤ"
-    },
-    "subcategory": {
-      "goods": "HÀNG HÓA",
-      "landhouse": "BẤT ĐỘNG SẢN",
-      "vehicle": "PHƯƠNG TIỆN",
-      "manpower": "NHÂN LỰC",
-      "import_export": "XUẤT - NHẬP KHẨU"
-    },
-    "condition": {
-      "scrap": "PHẾ LIỆU",
-      "new": "MỚI",
-      "old": "CŨ",
-      "unused": "CHƯA SỬ DỤNG"
-    },
-    "vietnam": "Việt Nam",
-    "usa": "Hoa Kỳ",
-    "china": "Trung Quốc",
-    "japan": "Nhật Bản",
-    "korea": "Hàn Quốc"
-  },
   "aiLive": {
     "pageTitle": "Ai LIVE",
     "accountOfAiLive": "TÀI KHOẢN Ai LIVE",
@@ -834,7 +824,15 @@
     "notCompletedWorkLost100": "KHÔNG HOÀN THÀNH VIỆC VÀ BÙ 100% CỌC",
     "notCompletedWorkLost100En": "Not accept and lost 100% deposit",
     "notAcceptTake50": "KHÔNG NHẬN VIỆC VÀ ĐƯỢC 50% CỌC",
-    "notAcceptTake50En": "Not accept and take 50% deposit"
+    "notAcceptTake50En": "Not accept and take 50% deposit",
+    "title": "Thanh toán",
+    "amount": "Số tiền",
+    "method": "Phương thức",
+    "additional": "Thanh toán bổ sung",
+    "withdraw": "Rút tiền",
+    "balance": "Số dư",
+    "transaction": "Giao dịch",
+    "history": "Lịch sử"
    },
    "additionalPayment": {
      "title": "GIAO DỊCH THANH TOÁN (GỬI THÊM)",

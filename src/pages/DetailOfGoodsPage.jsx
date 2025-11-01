@@ -141,32 +141,44 @@ export default function DetailOfGoodsPage() {
   }, [id]);
 
   // Map localStorage values (EN upper-case) to internal keys used by this page
+  // Xử lý cả giá trị từ localStorage và API (có thể khác format)
   const mapCategoryToKey = (value) => {
-    const v = (value || "").toUpperCase();
+    if (!value) return "";
+    const v = value.toString().toUpperCase().replace(/_/g, " ").trim();
     switch (v) {
       case "SALE": return "sale";
       case "BUY": return "buy";
       case "RENT": return "rent";
-      case "FOR RENT": return "forRent";
-      case "SERVICES": return "service";
+      case "FOR RENT": 
+      case "FORRENT": return "forRent";
+      case "SERVICES": 
+      case "SERVICE": return "service";
       default: return "";
     }
   };
 
   const mapSubcategoryToKey = (value) => {
-    const v = (value || "").toUpperCase();
+    if (!value) return "";
+    const v = value.toString().toUpperCase().replace(/_/g, " ").trim();
     switch (v) {
       case "GOODS": return "goods";
-      case "LAND AND HOUSE": return "land";
+      case "LAND AND HOUSE": 
+      case "LAND HOUSE": 
+      case "LANDHOUSE": 
+      case "LAND_HOUSE": return "land";
       case "VEHICLE": return "vehicle";
       case "MANPOWER": return "manpower";
-      case "IMPORT - EXPORT": return "importExport";
+      case "IMPORT - EXPORT": 
+      case "IMPORT-EXPORT": 
+      case "IMPORT_EXPORT": 
+      case "IMPORTEXPORT": return "importExport";
       default: return "";
     }
   };
 
   const mapConditionToKey = (value) => {
-    const v = (value || "").toUpperCase();
+    if (!value) return "";
+    const v = value.toString().toUpperCase().replace(/_/g, " ").trim();
     switch (v) {
       case "SCRAP": return "scrap";
       case "NEW": return "new";
@@ -198,11 +210,47 @@ const fetchProductDetails = async () => {
         const response = await getProductById(id);
         setProduct(response.data.data);
         console.log(response.data.data);
-        setSelectedCategory(response.data.data.listingType);
-        setSelectedSubcategory(response.data.data.categoryType);
-        setSelectedCondition(response.data.data.conditionType);
-        setSelectedCountry(response.data.data.nation);
-        setSelectedProvince(response.data.data.province);
+        
+        // Ưu tiên giá trị từ localStorage (từ filter ở trang chủ), nếu không có thì dùng từ API
+        const lsCategory = localStorage.getItem("category");
+        const lsSubcategory = localStorage.getItem("subcategory");
+        const lsCondition = localStorage.getItem("condition");
+        const lsNation = localStorage.getItem("nation");
+        const lsProvince = localStorage.getItem("province");
+        
+        if (lsCategory) {
+          setSelectedCategory(mapCategoryToKey(lsCategory));
+        } else if (response.data.data.listingType) {
+          // Map giá trị từ API về đúng format nếu cần
+          const apiCategory = response.data.data.listingType;
+          setSelectedCategory(mapCategoryToKey(apiCategory));
+        }
+        
+        if (lsSubcategory) {
+          setSelectedSubcategory(mapSubcategoryToKey(lsSubcategory));
+        } else if (response.data.data.categoryType) {
+          const apiSubcategory = response.data.data.categoryType;
+          setSelectedSubcategory(mapSubcategoryToKey(apiSubcategory));
+        }
+        
+        if (lsCondition) {
+          setSelectedCondition(mapConditionToKey(lsCondition));
+        } else if (response.data.data.conditionType) {
+          const apiCondition = response.data.data.conditionType;
+          setSelectedCondition(mapConditionToKey(apiCondition));
+        }
+        
+        if (lsNation) {
+          setSelectedCountry(lsNation);
+        } else if (response.data.data.nation) {
+          setSelectedCountry(response.data.data.nation);
+        }
+        
+        if (lsProvince) {
+          setSelectedProvince(lsProvince);
+        } else if (response.data.data.province) {
+          setSelectedProvince(response.data.data.province);
+        }
       } catch (error) {
         console.error("Error fetching product details:", error);
       }
@@ -211,7 +259,7 @@ const fetchProductDetails = async () => {
     <div className="min-h-screen w-full">
       <div className="bg-transparent p-4 w-full">
         {/* Header with Navigation */}
-        <div className="flex items-center justify-between relative">
+        <div className="flex items-center justify-between relative mb-2">
           <button 
             className="text-red-600 hover:text-red-800 relative"
             onClick={() => navigate("/")}
@@ -219,18 +267,15 @@ const fetchProductDetails = async () => {
             <HomeIcon size={28} />
           </button>
           {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative flex-1">
+          <div className="text-center relative flex-1 flex items-center justify-center gap-2">
+            <input
+              type="color"
+              value={color}
+              onChange={handleChangeColor}
+              className="w-10 h-8 cursor-pointer"
+            />
             <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                6
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>
-              &nbsp;- {t('detailOfGoods.title')}
+              6 - {t('detailOfGoods.title')}
             </h1>
           </div>
           <button 
@@ -240,139 +285,137 @@ const fetchProductDetails = async () => {
             <KeyboardIcon size={28} />
           </button>
         </div>
-        {/* TÀI KHOẢN HÀNG HÓA Section */}
-        <div className="grid grid-cols-5 border border-gray-300">
-          <div className="border-r border-gray-300 p-2">
-            <div className="font-bold text-center">{t('payment.goodsAccount')}</div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <input 
-              type="number" 
-              name="exchangeRate" 
-              className="w-full border border-gray-300 p-1 mt-1" 
-              defaultValue="1"
-              onChange={(e) => {
-                const value = parseFloat(e.target.value) || 1;
-                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                document.getElementById('calculatedValue').value = calculatedValue;
-              }}     
-            />
-            <div className="font-bold flex items-center justify-center">
-              <span className="mr-2">{isVisible1 ? "1" : "•••"}</span>
+        {/* TÀI KHOẢN HÀNG HÓA Section - Chỉ hiển thị khi đã đăng nhập */}
+        {user && (
+          <div className="grid grid-cols-5 border border-gray-300 mt-2">
+            <div className="border-r border-gray-300 p-2">
+              <div className="font-bold text-center">{t('payment.goodsAccount')}</div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center">
+              <input 
+                type="number" 
+                name="exchangeRate" 
+                className="w-full border border-gray-300 p-1 mt-1" 
+                defaultValue="1"
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value) || 1;
+                  const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                  document.getElementById('calculatedValue').value = calculatedValue;
+                }}     
+              />
+              <div className="font-bold flex items-center justify-center">
+                <span className="mr-2">{isVisible1 ? "1" : "•••"}</span>
+                <button 
+                  type="button" 
+                  onClick={() => setIsVisible1(!isVisible1)}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+                </button>
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center">
+              <div className="font-bold  p-1 mt-1">VN</div>
+              <div className="mt-1 flex items-center justify-center">
+                <span className="mr-2">D|</span>
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center">
+              <input 
+                type="number" 
+                name="exchangeRate" 
+                className="w-full border border-gray-300 p-1 mt-1" 
+                defaultValue="1"
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value) || 1;
+                  const calculatedValue = value * 1; // Tỉ giá mặc định là 1
+                  document.getElementById('calculatedValue').value = calculatedValue;
+                }}
+              />
+              <div className="font-bold flex items-center justify-center">
+                <span className="mr-2">{isVisible2 ? "1" : "•••"}</span>
+                <button 
+                  type="button" 
+                  onClick={() => setIsVisible2(!isVisible2)}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+                </button>
+              </div>
+            </div>
+            <div className="p-2 text-center">
+              <div className="font-bold text-sm">{t('payment.transferToWallet')}</div>
               <button 
                 type="button" 
-                onClick={() => setIsVisible1(!isVisible1)}
-                className="text-gray-600 hover:text-gray-900"
+                className="mt-1 w-full bg-blue-500 text-white px-2 py-1 text-sm rounded hover:bg-blue-600 whitespace-nowrap"
               >
-                {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+                {t('common.transfer')}
               </button>
             </div>
           </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div className="font-bold  p-1 mt-1">VN</div>
-            <div className="mt-1 flex items-center justify-center">
-              <span className="mr-2">D|</span>
-            </div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <input 
-              type="number" 
-              name="exchangeRate" 
-              className="w-full border border-gray-300 p-1 mt-1" 
-              defaultValue="1"
-              onChange={(e) => {
-                const value = parseFloat(e.target.value) || 1;
-                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                document.getElementById('calculatedValue').value = calculatedValue;
-              }}
-            />
-            <div className="font-bold flex items-center justify-center">
-              <span className="mr-2">{isVisible2 ? "1" : "•••"}</span>
-              <button 
-                type="button" 
-                onClick={() => setIsVisible2(!isVisible2)}
-                className="text-gray-600 hover:text-gray-900"
+        )}
+        {/* Category Selection - Tối ưu không gian */}
+        <div className="mt-2">
+          <div className="grid grid-cols-5 gap-2">
+            <div className="flex items-center justify-center">
+              <select 
+                className="w-full p-2 border border-gray-300"
+                value={selectedCategory}
+                disabled
               >
-                {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-              </button>
+                <option value="">{t('detailOfGoods.selectType')}</option>
+                {Object.entries(categories).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {t(`detailOfGoods.category.${key}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center justify-center">
+              <select 
+                className="w-full p-2 border border-gray-300"
+                value={selectedSubcategory}
+                disabled
+              >
+                <option value="">{t('detailOfGoods.selectType')}</option>
+                {Object.entries(subcategories).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {t(`detailOfGoods.subcategory.${key}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center justify-center">
+              <select 
+                className="w-full p-2 border border-gray-300"
+                value={selectedCondition}
+                disabled
+              >
+                <option value="">{t('detailOfGoods.selectType')}</option>
+                {Object.entries(conditions).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {t(`detailOfGoods.condition.${key}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center justify-center">
+              <select className="w-full p-2 border border-gray-300" disabled value={selectedCountry || ""}>
+                <option value="">{t('detailOfGoods.selectCountry')}</option>
+                {selectedCountry && (
+                  <option value={selectedCountry}>{selectedCountry}</option>
+                )}
+              </select>
+            </div>
+            <div className="flex items-center justify-center">
+              <select className="w-full p-2 border border-gray-300" disabled value={selectedProvince || ""}>
+                <option value="">{t('detailOfGoods.selectProvince')}</option>
+                {selectedProvince && (
+                  <option value={selectedProvince}>{selectedProvince}</option>
+                )}
+              </select>
             </div>
           </div>
-          <div className="p-2 text-center">
-            <div className="font-bold">{t('payment.transferToWallet')}</div>
-            <button 
-              type="button" 
-              className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-            >
-              {t('common.transfer')}
-            </button>
-          </div>
-        </div>
-        {/* Category Selection Table */}
-        <div className="w-full border border-gray-300 mt-4">
-          <table className="w-full border-collapse">
-            <tbody>
-              <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  <select 
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={selectedCategory}
-                    disabled
-                  >
-                    <option value="">{t('detailOfGoods.selectType')}</option>
-                    {Object.entries(categories).map(([key, value]) => (
-                      <option key={key} value={key}>
-                        {t(`detailOfGoods.category.${key}`)}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  <select 
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={selectedSubcategory}
-                    disabled
-                  >
-                    <option value="">{t('detailOfGoods.selectType')}</option>
-                    {Object.entries(subcategories).map(([key, value]) => (
-                      <option key={key} value={key}>
-                        {t(`detailOfGoods.subcategory.${key}`)}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
-                  <select 
-                    className="w-full p-2 border border-gray-300 rounded"
-                    value={selectedCondition}
-                    disabled
-                  >
-                    <option value="">{t('detailOfGoods.selectType')}</option>
-                    {Object.entries(conditions).map(([key, value]) => (
-                      <option key={key} value={key}>
-                        {t(`detailOfGoods.condition.${key}`)}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td className="border border-gray-300 p-2 text-center font-bold w-2/5">
-                  <div className="text-center">
-                    <select className="w-full p-2 border border-gray-300 rounded mb-2" disabled value={selectedCountry || ""}>
-                      <option value="">{t('detailOfGoods.selectCountry')}</option>
-                      {selectedCountry && (
-                        <option value={selectedCountry}>{selectedCountry}</option>
-                      )}
-                    </select>
-                    <select className="w-full p-2 border border-gray-300 rounded mb-2" disabled value={selectedProvince || ""}>
-                      <option value="">{t('detailOfGoods.selectProvince')}</option>
-                      {selectedProvince && (
-                        <option value={selectedProvince}>{selectedProvince}</option>
-                      )}
-                    </select>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
 
         {/* ID Section */}
@@ -385,7 +428,7 @@ const fetchProductDetails = async () => {
           <table className="w-full border-collapse">
             <tbody>
               <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                <td className="border border-gray-300 p-2 text-center font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.timeReviewPrice')}
                 </td>
                 <td
@@ -398,7 +441,8 @@ const fetchProductDetails = async () => {
               </tr>
               <tr>
                 <td
-                  className="border border-gray-300 p-2 text-center font-bold w-1/5"
+                  className="border border-gray-300 p-2 text-center font-bold"
+                  style={{ width: '30%' }}
                 >
                   {t('detailOfGoods.endTime')}:
                 </td>
@@ -408,19 +452,17 @@ const fetchProductDetails = async () => {
                     month: '2-digit',
                     year: 'numeric'
                   }) : ''}
-                  <span className="text-sm italic">({t('detailOfGoods.dayMonthYear')})</span>
                 </td>
-               <td className="border border-gray-300 p-2 text-center w-1/6">
+                 <td className="border border-gray-300 p-2 text-center w-1/6">
                   {product.endPostTime ? new Date(product.endPostTime).toLocaleTimeString('vi-VN', {
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false
                   }) : ''}
-                  <span className="text-sm italic">({t('detailOfGoods.hourMinute')})</span>
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5" rowSpan="1">
+                <td className="border border-gray-300 p-2 text-center font-bold" style={{ width: '30%' }} rowSpan="1">
                   {t('detailOfGoods.goodsAddress')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
@@ -434,7 +476,7 @@ const fetchProductDetails = async () => {
               </tr>
               {/* Goods Verify */}
               <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                <td className="border border-gray-300 p-2 text-center font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.goodsVerify')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
@@ -448,7 +490,7 @@ const fetchProductDetails = async () => {
               </tr>
               {/* Poster's Information */}
               <tr>
-                <td className="border border-gray-300 p-2 text-center font-bold w-1/5">
+                <td className="border border-gray-300 p-2 text-center font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.posterInfo')}:
                 </td>
                 <td className="border border-gray-300 p-2" colSpan="4">
@@ -463,8 +505,8 @@ const fetchProductDetails = async () => {
         </div>
 
 
-        {/* Accept Section */}
-        <div className="w-full  mt-4">
+        {/* Accept Section - Temp Hidden */}
+        {/* <div className="w-full  mt-4">
           <table className="w-full border-collapse">
             <tbody>
               <tr>
@@ -491,7 +533,7 @@ const fetchProductDetails = async () => {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         {/* Back Button */}
         <div className="mt-6 text-center">

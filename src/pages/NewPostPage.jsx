@@ -13,6 +13,14 @@ import PostTypeMenu from "../components/PostTypeMenu";
 import useBlinkIdScanner from "../components/MicrolinkIDScanner";
 import { extractSideDocumentImage } from "@microblink/blinkid";
 
+// MOCK MODE: Read from environment variable to bypass camera/video verification
+// Set VITE_MOCK_VERIFICATION=true in .env file to enable mock mode
+// Set VITE_MOCK_VERIFICATION=false to use real verification
+// Defaults to false (real verification) if not set
+const MOCK_VERIFICATION =
+  String(import.meta.env.VITE_MOCK_VERIFICATION || "false").toLowerCase() ===
+  "true";
+
 export default function NewPostPage() {
   const { t } = useTranslation();
   const [color, setColor] = useState(localStorage.getItem("selectedColor"));
@@ -36,6 +44,44 @@ export default function NewPostPage() {
   const recordTimerRef = useRef(null);
   const [previewBlocked, setPreviewBlocked] = useState(false);
   const containerRef = useRef(null);
+
+  // Mock functions to bypass verification
+  const mockIdCapture = () => {
+    // Create a mock data URL (transparent 1x1 image)
+    const mockDataUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+    setIdPhotoDataUrl(mockDataUrl);
+    setHasIdCaptured(true);
+  };
+
+  const mockVideoRecord = () => {
+    // Create a mock video blob URL (using canvas as placeholder)
+    // In real mode, this would be a recorded video blob
+    const canvas = document.createElement("canvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, 640, 480);
+      ctx.fillStyle = "#fff";
+      ctx.font = "24px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Mock Video", 320, 240);
+    }
+    canvas.toBlob((blob) => {
+      if (blob) {
+        // In mock mode, we use image blob as placeholder for video
+        // This is acceptable for bypassing verification
+        const url = URL.createObjectURL(blob);
+        setBusinessVideoUrl(url);
+        setHasBusinessVideo(true);
+        // Mock OCR results - simulate successful OCR with text found
+        setOcrHasText(true);
+        setIsOcrRunning(false);
+        setOcrError(null);
+      }
+    }, "image/png");
+  };
 
   const { scanId, toggle } = useBlinkIdScanner({
     onSuccess: (result) => {
@@ -299,7 +345,14 @@ export default function NewPostPage() {
             {/* Scan CCCD */}
             <div
               className="border-r border-gray-400 p-4 text-center cursor-pointer"
-              onClick={(e) => toggle(e)}
+              onClick={(e) => {
+                if (MOCK_VERIFICATION) {
+                  e.preventDefault();
+                  mockIdCapture();
+                } else {
+                  toggle(e);
+                }
+              }}
             >
               <div className="flex flex-col items-center justify-center h-40">
                 <CameraIcon size={48} className="mb-2" />
@@ -313,7 +366,14 @@ export default function NewPostPage() {
             {/* Business registration video recording */}
             <div
               className="p-4 text-center cursor-pointer"
-              onClick={(e) => openCamera(e, "video")}
+              onClick={(e) => {
+                if (MOCK_VERIFICATION) {
+                  e.preventDefault();
+                  mockVideoRecord();
+                } else {
+                  openCamera(e, "video");
+                }
+              }}
             >
               <div className="flex flex-col items-center justify-center h-40">
                 <CameraIcon size={48} className="mb-2" />
