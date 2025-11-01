@@ -103,7 +103,7 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
         </div>
       </div>
 
-      <div style={{ WebkitOverflowScrolling: "touch", overflowX: "auto" }}>
+      <div className="overflow-x-auto-scroll">
         {/* Header columns with horizontal scroll */}
         <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
           <div className="border-r border-gray-300 p-2 text-center">
