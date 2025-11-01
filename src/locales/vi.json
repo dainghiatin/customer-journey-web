@@ -21,7 +21,7 @@
     "confirm": "Xác nhận",
     "close": "Đóng",
     "advertising": "QUẢNG CÁO",
-     "updateNotice": "DANH SÁCH THƯỞNG",
+     "updateNotice": "NHẬN GIẢM GIÁ",
     "companyName": "© CÔNG TY TNHH ĐẠI NGHĨA TÍN",
     "taxCode": "MST: 3702678200",
     "stt": "STT",
@@ -45,7 +45,8 @@
     "no": "KHÔNG",
     "open": "Mở",
     "viewFile": "Xem file",
-    "downloadFile": "Tải file"
+    "downloadFile": "Tải file",
+    "search": "TÌM KIẾM"
    },
   "hero": {
     "mainTitle": "CÔNG BẰNG LỚN - UY TÍN LỚN",
@@ -90,7 +91,12 @@
     "goods": "Sản phẩm",
     "rewards": "Phần thưởng",
     "payment": "Thanh toán",
-    "profile": "Hồ sơ"
+    "profile": "Hồ sơ",
+    "logout": "Đăng xuất",
+    "profileEn": "Profile",
+    "login": "ĐĂNG NHẬP",
+    "register": "ĐĂNG KÝ",
+    "logout": "THOAT"
    },
    "navigation": {
      "newPost": "ĐĂNG BÀI MỚI",

@@ -34,11 +34,12 @@ const CountrySpecificComponent = ({ userCountry = 'vi' }) => {
   const isLoggedIn = localStorage.getItem('authToken') !== null && localStorage.getItem('authToken') !== '';
 
   return (
-    <div className="!hidden md:!block w-full h-full flex flex-col avt" style={{ width: "clamp(50px, 130px, 130px) " }}>
+    <div className="!hidden md:!block w-full h-full flex flex-col avt" >
       {/* Global Logo - Planet Earth */}
           <img
             src={isLoggedIn ? currentCountry.flag : './planet.jpg'}
             alt="Country"
+            style={{height: '95%'}}
             className="w-full h-full max-w-[100px] max-h-[100px] sm:max-w-[130px] sm:max-h-[130px] md:max-w-[130px] md:max-h-[200px] object-contain mx-auto"
           />
     </div>

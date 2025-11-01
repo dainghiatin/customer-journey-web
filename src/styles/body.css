@@ -149,6 +149,7 @@
 .main-aside-2-2 {
     background-color: orange;
     color: rgb(11, 11, 212);
+    text-wrap: nowrap;
 }
 
 /* ACTION SECTION */

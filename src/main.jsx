@@ -65,7 +65,7 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
       <BrowserRouter>
         <PasswordGate>
-          <App />
+          <App /> 
         </PasswordGate>
       </BrowserRouter>
     </StrictMode>

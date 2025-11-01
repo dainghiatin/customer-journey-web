@@ -23,7 +23,7 @@
     "close": "Close",
     "accept": "Accept",
     "advertising": "ADVERTISING",
-     "updateNotice": "UPDATE REWARD LIST, GOODS QUANTITY ….",
+     "updateNotice": "LIST OF DISCOUNT",
     "companyName": "© DAI NGHIA TIN COMPANY LIMITED",
     "taxCode": "Tax ID: 3702678200",
     "stt": "No.",
@@ -45,7 +45,8 @@
     "no": "NO",
     "open": "Open",
     "viewFile": "View file",
-    "downloadFile": "Download file"
+    "downloadFile": "Download file",
+    "search": "SEARCH"
    },
   "aiLive": {
     "avatar": "AVATAR",
@@ -167,20 +168,21 @@
   },
   "navigation": {
     "home": "Home",
-    "freelancer": "Freelancer",
     "aiLive": "AI Live",
     "goods": "Products",
     "rewards": "Rewards",
     "payment": "Payment",
-    "profile": "Profile"
-   },
-   "navigation": {
-     "newPost": "NEW POST",
+    "profile": "Profile",
+    "profileEn": "Profile",
+    "login": "LOG IN",
+    "newPost": "NEW POST",
      "newPostEn": "New Post",
      "freelancer": "FREELANCER",
      "freelancerEn": "Freelancer",
      "paymentTransaction": "PAYMENT",
-     "paymentTransactionEn": "Payment"
+     "paymentTransactionEn": "Payment",
+     "register": "REGISTER",
+     "logout": "EXIT"
    },
   "freelancer": {
     "title": "Freelancer",

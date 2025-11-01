@@ -46,6 +46,16 @@ function HeroHeader({
   const marginBottom = isCompact ? "2vw" : "-1.5vw";
   const marginTop = isCompact ? "1vw" : "-6vh";
 
+  const text = t("navigation.freelancer", "CÔNG VIỆC TỰ DO");
+  const charCount = text.length;
+
+  const baseFontSize = Math.max(10, Math.min(30, 33.5 - charCount));
+
+  const textPayment = t("navigation.paymentTransaction", "THANH TOÁN");
+  const charCountPayment = textPayment.length;
+
+  const baseFontSizePayment = Math.max(10, Math.min(50, 49 - (8/3.2) * charCountPayment));
+
   return (
     <>
       <div style={{ position: "relative", marginBottom: "5px" }}>
@@ -157,37 +167,30 @@ function HeroHeader({
         <aside className="main-aside-2">
           <Link
             to={"freelancer"}
-            className=" border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center cursor-pointer"
+            className="border-1 main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center cursor-pointer"
             style={{
               right: "66%",
               position: "absolute",
               bottom: "-2vw",
-              height: "clamp(18px,3.2vw, 45px)",
+              height: "clamp(18px, 3.2vw, 45px)",
             }}
           >
-            <div
-              className="flex items-center justify-center"
+            <p
               style={{
+                width: "100%",
+                height: "100%",
+                margin: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 color: "black",
-                textAlign: "center",
-                fontSize: "clamp(7px, 1.2vw, 1.7vw)",
-                height: "clamp(20px, 4vw, 60px)",
+                fontSize: `${baseFontSize}px`,
               }}
             >
-              <p
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  margin: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <strong>{t("navigation.freelancer", "CÔNG VIỆC TỰ DO")}</strong>
-              </p>
-            </div>
+              <strong>{text}</strong>
+            </p>
           </Link>
+
           <Link
             to={"payment"}
             className=" cursor-pointer main-aside-2-2 border w-[18vw] sm:w-[12vw] right-[1vw] sm:right-[2vw] flex items-center justify-center"
@@ -195,7 +198,7 @@ function HeroHeader({
               position: "absolute",
               bottom: "-2vw",
               left: "66%",
-              fontSize: "clamp(7px, 1.7vw, 2vw)",
+              fontSize: `${baseFontSizePayment}px`,
               height: "clamp(18px,3.2vw, 45px)",
             }}
           >
@@ -233,6 +236,7 @@ const DropdownAuth = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+  const { t } = useTranslation();
 
   const handleAvatarClick = () => {
     fileInputRef.current?.click();
@@ -333,26 +337,26 @@ const DropdownAuth = () => {
             navigate("login");
           }}
           style={{
-            fontSize: "clamp(10px, 1vw, 20px)",
+            fontSize: "clamp(10px, 1.2vw, 20px)",
             fontWeight: "bold",
             cursor: "pointer",
             border: "1px solid black",
-            padding: "1vw",
+            padding: "0.4vw",
             marginBottom: "1vw",
           }}
         >
-          ĐĂNG NHẬP
+          {t("navigation.login", "ĐĂNG NHẬP")}
         </button>
       ) : (
         <div
           className="flex flex-col items-center justify-center"
           style={{
-            fontSize: "clamp(10px, 1vw, 20px)",
+            fontSize: "clamp(10px, 1.2vw, 20px)",
             fontWeight: "bold",
             background: "none",
             cursor: "pointer",
             border: "1px solid black",
-            padding: "1vw",
+            padding: "0.4vw",
             justifyContent: "center",
             alignItems: "center",
             display: "flex",
@@ -385,7 +389,7 @@ const DropdownAuth = () => {
         <div
           className="flex items-center justify-center gap-2 h-[55px]"
           style={{
-            fontSize: "clamp(10px, 1vw, 20px)",
+            fontSize: "clamp(10px, 1.2vw, 20px)",
             fontWeight: "bold",
             background: "none",
             cursor: "pointer",
@@ -413,14 +417,14 @@ const DropdownAuth = () => {
             navigate("register");
           }}
           style={{
-            fontSize: "clamp(10px, 1vw, 20px)",
+            fontSize: "clamp(10px, 1.2vw, 20px)",
             fontWeight: "bold",
             cursor: "pointer",
             border: "1px solid black",
-            padding: "1vw",
+            padding: "0.4vw",
           }}
         >
-          ĐĂNG KÝ
+          {t("navigation.register", "ĐĂNG KÝ")}
         </button>
       ) : (
         <button
@@ -432,15 +436,15 @@ const DropdownAuth = () => {
             window.location.reload();
           }}
           style={{
-            fontSize: "clamp(10px, 1vw, 20px)",
+            fontSize: "clamp(10px, 1.2vw, 20px)",
             fontWeight: "bold",
             background: "none",
             cursor: "pointer",
             border: "1px solid black",
-            padding: "1vw",
+            padding: "0.4vw",
           }}
         >
-          THOÁT
+          {t("navigation.logout", "THOÁT")}
         </button>
       )}
     </div>
@@ -472,9 +476,9 @@ const Body = () => {
 
         <section
           className="main-section-2"
-          // style={{
-          //     maxWidth: 800
-          // }}
+        // style={{
+        //     maxWidth: 800
+        // }}
         >
           <div className="main-section-info-1">
             <div style={{ width: "100%" }}>
@@ -602,7 +606,7 @@ const Body = () => {
                 </section> */}
         <section
           className="main-section-2"
-          // style={{ maxWidth: 800 }}
+        // style={{ maxWidth: 800 }}
         >
           <div className="main-section-info-2" style={{ height: "32%" }}>
             <div style={{ width: "70%" }}>
@@ -721,6 +725,7 @@ const Body = () => {
 };
 
 function SearchSection() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <section
@@ -736,7 +741,7 @@ function SearchSection() {
           onClick={() => navigate(`/list-of-goods`)}
         >
           <h3>
-            <strong>TÌM KIẾM</strong>
+            <strong>{t("common.search", "TÌM KIẾM")}</strong>
           </h3>
         </button>
       </div>

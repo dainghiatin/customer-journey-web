@@ -39,36 +39,40 @@ const HeaderComponent = ({
 
     return (
         <>
-            <div className="flex flex-col items-center" style={{ width: "fit-content", justifyContent: "start", borderRadius: "1px" }}>
-                {/* QR Button */}
-                <div className="flex flex-col border border-[#1242ae] rounded-[1px] overflow-hidden">
-                    {/* QR Button */}
-                    <div
-                        onClick={onQrClick}
-                        className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b"
-                    >
-                        <p className="px-2 font-bold">QR</p>
+            <div
+                className="flex flex-col text-sm text-center"
+                style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}
+            >
+                <div
+                    onClick={onQrClick}
+                    className="cursor-pointer flex border-b border-r border-black justify-center items-center"
+                >
+                    <div className="table-cell flex items-center font-bold py-1 px-1">
+                        QR
                     </div>
+                </div>
 
-                    {/* Computer / Mobile Icon */}
-                    <div className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b">
-                        <p className="px-2 hidden md:block">
-                            APP
-                        </p>
-                        <p className="px-2 block md:hidden">
-                            <i className="fa-solid fa-mobile-screen-button"></i>
-                        </p>
+                <div
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center   "
+                >
+                    <div className="table-cell flex items-center font-bold py-1 px-1 hidden md:block text-center">
+                        APP
                     </div>
+                    <div className="table-cell flex items-center font-bold py-1 px-1 block md:hidden">
+                        <i className="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                </div>
 
-                    {/* Color Picker */}
-                    <div
-                        className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b"
-                        onClick={() => document.getElementById("colorPicker").click()}
-                    >
+                <div
+                    onClick={() => document.getElementById("colorPicker").click()}
+                    style={{ width: "100%", minHeight: "3.3vh" }}
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"
+                >
+                    <div className="table-cell flex items-center font-bold py-1 px-1 ">
                         <div
                             style={{
-                                width: "clamp(20px, 4vw, 40px)",
-                                height: "clamp(15px, 1.6vw, 40px)",
+                                
+                                height: "100%",
                             }}
                             className="cursor-pointer"
                         ></div>
@@ -82,40 +86,42 @@ const HeaderComponent = ({
                             className="cursor-pointer"
                         />
                     </div>
+                </div>
 
-                    {/* Language Select */}
-                    <div className="cursor-pointer border-r border-[#1242ae] flex items-center justify-center border-b py-2">
-                        <select
-                            className="cursor-pointer bg-transparent outline-none"
-                            value={selectedLang}
-                            onChange={handleLanguageChange}
-                            style={{
-                                fontSize: "clamp(10px, 1vw, 20px)",
-                            }}
-                        >
-                            {colors.map((colorOption) => (
-                                <option key={colorOption.value} value={colorOption.value}>
-                                    {colorOption.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
 
-                    {/* Bell Icon */}
-                    <div
-                        style={{ width: "clamp(20px, 2vw, 40px)" }}
-                        className="cursor-pointer flex items-center justify-center py-2"
+                <div
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"
+                >
+                    <select
+                        className="table-cell flex items-center font-bold px-1 py-1 text-center"
+                        value={selectedLang}
+                        onChange={handleLanguageChange}
                     >
-                        <i
+                        {colors.map((colorOption) => (
+                            <option key={colorOption.value} value={colorOption.value}>
+                                {colorOption.name}
+                            </option>
+                        ))}
+
+
+                    </select>
+                </div>
+
+                <div
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"  
+                >
+                    <div className="table-cell flex items-center font-bold py-1 px-1 text-center">
+                         <i
                             style={{ fontSize: "clamp(10px, 1vw, 20px)" }}
                             className="fa-solid fa-bell"
                         ></i>
                     </div>
                 </div>
 
-
-
             </div>
+
+
+
 
             {isNotificationOpen && (
                 <div ref={dropdownRef} className="absolute left w-50 bg-white shadow-lg rounded-md z-50 border border-gray-200">
