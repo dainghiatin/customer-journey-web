@@ -21,7 +21,7 @@
     "confirm": "Xác nhận",
     "close": "Đóng",
     "advertising": "QUẢNG CÁO",
-     "updateNotice": "NHẬN GIẢM GIÁ",
+     "updateNotice": "DANH SÁCH NHẬN GIẢM GIÁ",
     "companyName": "© CÔNG TY TNHH ĐẠI NGHĨA TÍN",
     "taxCode": "MST: 3702678200",
     "stt": "STT",
@@ -86,25 +86,21 @@
   },
   "navigation": {
     "home": "Trang chủ",
-    "freelancer": "Freelancer",
-    "aiLive": "AI Live",
+    "aiLive": "Ai LIVE",
     "goods": "Sản phẩm",
     "rewards": "Phần thưởng",
     "payment": "Thanh toán",
     "profile": "Hồ sơ",
-    "logout": "Đăng xuất",
     "profileEn": "Profile",
     "login": "ĐĂNG NHẬP",
     "register": "ĐĂNG KÝ",
-    "logout": "THOAT"
-   },
-   "navigation": {
-     "newPost": "ĐĂNG BÀI MỚI",
-     "newPostEn": "New Post",
-     "freelancer": "CÔNG VIỆC TỰ DO",
-     "freelancerEn": "Freelancer",
-     "paymentTransaction": "THANH TOÁN",
-     "paymentTransactionEn": "Payment"
+    "logout": "THOAT",
+    "newPost": "ĐĂNG BÀI MỚI",
+    "newPostEn": "New Post",
+    "freelancer": "CÔNG VIỆC TỰ DO",
+    "freelancerEn": "Freelancer",
+    "paymentTransaction": "THANH TOÁN",
+    "paymentTransactionEn": "Payment"
    },
   "freelancer": {
     "title": "Freelancer",

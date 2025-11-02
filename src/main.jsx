@@ -10,6 +10,11 @@ import './i18n'
 // Simple password gate without blocking initial render
 function PasswordGate({ children }) {
   const pwd = import.meta.env.VITE_REACT_APP_PASSWORD || '123456';
+  const isEnabled = import.meta.env.VITE_REACT_APP_ENABLE_PASSWORD_GATE === 'true';
+  if (!isEnabled) {
+    return children;
+  }
+
   const [input, setInput] = useState('');
   const [verified, setVerified] = useState(!pwd); // if no password configured, skip gate
   const [error, setError] = useState('');
