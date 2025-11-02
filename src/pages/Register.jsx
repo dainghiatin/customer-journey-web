@@ -10,6 +10,8 @@ import { uploadImageToCloudinary } from "../services/cloudinary";
 import { downloadContract } from "../services/contractService";
 import { useTranslation } from 'react-i18next';
 import { verifyBankNumber } from "../services/authService";
+import PageHeaderWithOutColorPicker from '../components/PageHeaderWithOutColorPicker';
+
 
 
 const generateRandomPassword = (length = 8) => {
@@ -340,25 +342,12 @@ export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-        <div className="flex items-center justify-center relative">
-          {/* Tiêu đề ở giữa */}
-          <div className="text-center w-full relative">
-            <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                1{/* input màu ngay dưới số 1 */}
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>
-              &nbsp;- {t('register.registerTitle', 'ĐĂNG KÝ')}
-            </h1>
-
-
-          </div>
-        </div>
+       <PageHeaderWithOutColorPicker
+          color={color}
+          onColorChange={handleChangeColor}
+          titlePrefix="1"
+          title={t('register.registerTitle', 'ĐĂNG KÝ')}
+        />
         {page === 1 && (<div className="mt-6">
           {error && <p className="text-red-500">{error}</p>}
           <div className="space-y-4 mt-4">

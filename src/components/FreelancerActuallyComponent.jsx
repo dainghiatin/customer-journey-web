@@ -18,7 +18,7 @@ export default function FreelancerActuallyComponent({ freelancers }) {
   }, [searchTerm, freelancers]);
 
   return (
-    <div className="mt-4 border-2 border-orange-100 p-4">
+    <div className="pt-1">
       {/* Orange indicator bar at the top */}
       {/* <div className="bg-orange-500 text-white py-2 px-4 text-center mb-4">
         <span className="font-bold">THỰC TẾ</span>
@@ -26,13 +26,13 @@ export default function FreelancerActuallyComponent({ freelancers }) {
       </div> */}
 
       {/* Search input at the top */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder={t("freelancer.searchPlaceholder")}
-          className="w-full p-2 border rounded"
-        />
-      </div>
+      {/*<div className="mb-4">*/}
+      {/*  <input*/}
+      {/*    type="text"*/}
+      {/*    placeholder={t("freelancer.searchPlaceholder")}*/}
+      {/*    className="w-full p-2 border rounded"*/}
+      {/*  />*/}
+      {/*</div>*/}
 
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse">

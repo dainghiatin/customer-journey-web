@@ -22,7 +22,7 @@ export default function FreelancerOnlineComponent({ freelancers }) {
   };
 
   return (
-    <div className="mt-4 border-2 border-blue-100 p-4">
+    <div className="border-2 border-blue-100">
       {/* Blue indicator bar at the top */}
       {/* <div className="bg-blue-500 text-white py-2 px-4 text-center mb-4">
         <span className="font-bold">TRỰC TUYẾN</span>
@@ -30,13 +30,13 @@ export default function FreelancerOnlineComponent({ freelancers }) {
       </div> */}
 
       {/* Search input at the top */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder={t("freelancer.searchPlaceholder")}
-          className="w-full p-2 border rounded"
-        />
-      </div>
+      {/*<div className="mb-4">*/}
+      {/*  <input*/}
+      {/*    type="text"*/}
+      {/*    placeholder={t("freelancer.searchPlaceholder")}*/}
+      {/*    className="w-full p-2 border rounded"*/}
+      {/*  />*/}
+      {/*</div>*/}
 
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse">

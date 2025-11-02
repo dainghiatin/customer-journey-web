@@ -83,7 +83,7 @@
     "qrTitle": "MÃ QR ĐĂNG NHẬP",
     "qrError": "Không lấy được mã QR, vui lòng thử lại",
     "qrNoData": "Chưa có dữ liệu QR",
-    "loginEn": "ĐĂNG NHẬP"
+    "login": "ĐĂNG NHẬP"
   },
   "navigation": {
     "home": "Trang chủ",

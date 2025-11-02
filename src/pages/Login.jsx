@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { generateQrSession } from "../services/authService";
 import QRModalComponent from '../components/QRModalComponent';
+import PageHeaderWithOutColorPicker from '../components/PageHeaderWithOutColorPicker';
 
 
 export default function LoginPage() {
@@ -107,25 +108,12 @@ export default function LoginPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-        <div className="flex items-center justify-center relative">
-          {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative">
-            <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                2{/* input màu ngay dưới số 2 */}
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>
-              &nbsp;- {t('auth.loginTitle', 'ĐĂNG NHẬP')}
-            </h1>
-
-
-          </div>
-        </div>
+        <PageHeaderWithOutColorPicker
+          color={color} 
+          onColorChange={handleChangeColor}
+          titlePrefix="2"
+          title={t('auth.loginTitle', 'ĐĂNG NHẬP')}
+        />
 
         {/* LOGIN */}
         <div className="mt-6">
