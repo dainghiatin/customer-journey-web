@@ -70,7 +70,7 @@ export default function RegisterPage() {
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
   const [error, setError] = useState("");
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [isVerifying, setIsVerifying] = useState(false);
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
