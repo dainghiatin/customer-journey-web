@@ -165,7 +165,8 @@
     "qrTitle": "LOGIN QR CODE",
     "qrError": "Could not get QR code, please try again",
     "qrNoData": "No QR data",
-    "next": "NEXT"
+    "next": "NEXT",
+    "login": "LOG IN"
   },
   "navigation": {
     "home": "Home",
@@ -282,7 +283,9 @@
      "loginErrorEn": "Your information inputed is not correct, please try again",
      "invalidCredentials": "Invalid login credentials!",
      "idPlaceholder": "BANK NUMBER (ID)",
+     "idPlaceholderEn": "Bank number (ID)",
      "password": "PASSWORD",
+     "passwordEn": "Password",
      "captchaPlaceholder": "INPUT CAPCHA CODE",
      "registerSuccess": "Registration successful!",
      "registerError": "Registration failed. Please try again.",

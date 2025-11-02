@@ -123,10 +123,7 @@ export default function LoginPage() {
               &nbsp;- {t('auth.loginTitle', 'ĐĂNG NHẬP')}
             </h1>
 
-            {/* LOGIN bên dưới */}
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('common.login', 'Login')})</i>
-            </h2>
+
           </div>
         </div>
 
@@ -174,23 +171,19 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-4">
-              <div className="flex gap-4 w-full">
-                <button
-                  className="border-2 w-[50%] border-black text-black font-bold px-6 py-4 rounded hover:bg-gray-200 flex-1"
-                  onClick={handleLogin}
-                >
-                  {t('auth.loginTitle', 'ĐĂNG NHẬP')} <br />
+              <div className="text-center mt-4">
+                  <button
+                      className={`border-2 border-black font-bold px-1 py-2 rounded flex-1`}
+                      onClick={handleLogin}
 
-                </button>
+                  >
+                      {t('auth.login', 'ĐĂNG NHẬP')} <br />
+                  </button>
               </div>
-            </div>
             {errorMessage && (
               <h2 className="text-xl text-center text-red-500">
                 {t('auth.loginError', 'THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI')} <br />
-                <span className="text-xs text-red-500">
-                  ({t('auth.loginErrorEn', 'Your information inputed is not correct, please try again')})
-                </span>
+
               </h2>
             )}
           </div>
