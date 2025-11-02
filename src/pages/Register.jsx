@@ -356,10 +356,7 @@ export default function RegisterPage() {
               &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝ')}
             </h1>
 
-            {/* Register bên dưới */}
-            <h2 className="text-2xl text-black mt-2">
-              <i>({t('common.register', 'Register')})</i>
-            </h2>
+
           </div>
         </div>
         {page === 1 && (<div className="mt-6">
@@ -376,7 +373,7 @@ export default function RegisterPage() {
                     }
                   }}
                   value={selectedCountry}
-                  placeholder={t('auth.countryPlaceholder', 'Quốc gia (Nation)')}
+                  placeholder={t('register.countryPlaceholder', 'Quốc gia (Nation)')}
                   className="w-full"
                 />
                 <span className="text-red-500 ml-2">*</span>
@@ -427,7 +424,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.accountNumberPlaceholder', 'ID = SỐ TÀI KHOẢN NGÂN HÀNG')}
+                  placeholder={t('register.accountNumberPlaceholder', 'ID = SỐ TÀI KHOẢN NGÂN HÀNG')}
                   name="bank_number"
                   value={formData.bank_number}
                   onChange={handleInputChange}
@@ -443,7 +440,7 @@ export default function RegisterPage() {
                   value={formData.bank_name}
                   onChange={handleInputChange}
                 >
-                  <option value="">{t('auth.selectBankPlaceholder', 'Chọn ngân hàng (With bank)')}</option>
+                  <option value="">{t('register.selectBankPlaceholder', 'Chọn ngân hàng (With bank)')}</option>
                   <option value="GPBank">
                     Ngân hàng TNHH MTV Dầu khí toàn cầu (GPBank)
                   </option>
@@ -498,7 +495,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.recoveryCharacterPlaceholder', 'KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery character)')}
+                  placeholder={t('register.recoveryCharacterPlaceholder', 'KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Account recovery character)')}
                   name="recovery_character"
                   value={formData.recovery_character}
                   onChange={handleInputChange}
@@ -514,7 +511,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.repeatRecoveryCharacterPlaceholder', 'NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)')}
+                  placeholder={t('register.repeatRecoveryCharacterPlaceholder', 'NHẬP LẠI KÝ TỰ KHÔI PHỤC TÀI KHOẢN (Repeat account recovery character)')}
                   name="repeat_recovery_character"
                   value={formData.repeat_recovery_character}
                   onChange={handleInputChange}
@@ -530,7 +527,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className="border p-2 rounded w-full"
-                  placeholder={t('auth.referrerIdPlaceholder', 'ID NGƯỜI GIỚI THIỆU')}
+                  placeholder={t('register.referrerIdPlaceholder', 'ID NGƯỜI GIỚI THIỆU')}
                   name="reference_id"
                   value={formData.reference_id}
                   onChange={handleInputChange}
@@ -542,14 +539,14 @@ export default function RegisterPage() {
           </div>
           <div className="text-center mt-4">
             <button
-              className={`border-2 border-black font-bold px-6 py-2 rounded flex-1 w-100 ${isFormValid() && !isVerifying
+              className={`border-2 border-black font-bold px-1 py-2 rounded flex-1  ${isFormValid() && !isVerifying
                 ? 'text-black hover:bg-gray-200'
                 : 'text-gray-400 bg-gray-100 cursor-not-allowed'
                 }`}
               onClick={handleNextClick}
               disabled={!isFormValid() || isVerifying}
             >
-              {t('common.next', 'Tiếp Theo')} <br />
+              {t('register.next', 'Tiếp Theo')} <br />
             </button>
           </div>
         </div>)}
