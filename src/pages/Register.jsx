@@ -70,7 +70,7 @@ export default function RegisterPage() {
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337/api";
   const [error, setError] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [isVerifying, setIsVerifying] = useState(false);
   const handleChangeColor = (e) => {
     const newColor = e.target.value;
@@ -353,7 +353,7 @@ export default function RegisterPage() {
                   className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
                 />
               </span>
-              &nbsp;- {t('auth.registerTitle', 'ĐĂNG KÝ')}
+              &nbsp;- {t('register.registerTitle', 'ĐĂNG KÝ')}
             </h1>
 
 
@@ -558,8 +558,8 @@ export default function RegisterPage() {
               onClick={handleContractDownload}
             >
               <div className="flex flex-col items-center text-center">
-                <p>{t('auth.checkContract', 'KIỂM TRA LẠI HỢP ĐỒNG SẼ KÝ')} <em className="text-red-500">*</em></p>
-                <p>({t('auth.clickToViewFile', 'Click to view file')})</p>
+                <p>{t('register.checkContract')} <em className="text-red-500">*</em></p>
+                <p>({t('register.clickToViewFile')})</p>
               </div>
             </button>
 
@@ -592,50 +592,34 @@ export default function RegisterPage() {
                 <span className="text-red-500 text-lg">*</span>
               </div>
               <div className="text-left">
-                {t('auth.contractConfirmation', 'Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng cũng như tuân thủ mọi điều khoản và điều kiện do website - app yêu cầu bao gồm thêm các nội dung sau:')} <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.contractConfirmationEn', 'I confirm that I have read, understood and agreed to sign the contract and comply with all terms and conditions required by the website - app including more contents that:')})
-                </span>{" "}
+                {t('register.contractConfirmation', 'Tôi xác nhận đã đọc, hiểu rõ và đồng ý, chấp nhận ký hợp đồng cũng như tuân thủ mọi điều khoản và điều kiện do website - app yêu cầu bao gồm thêm các nội dung sau:')} <br />
                 <br />
-                <b>{t('auth.term1', '1. Tự động đăng xuất sau 168 h đăng nhập.')}</b> <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.term1En', 'Automatically log out after 168 hours of login')})
-                </span>
+                <b>{t('register.term1', '1. Tự động đăng xuất sau 168 h đăng nhập.')}</b> <br />
                 <br />
-                <b>{t('auth.term2', '2. Tự động khóa tài khoản sau 365 h (giờ) đăng xuất.')}</b>
+                <b>{t('register.term2', '2. Tự động khóa tài khoản sau 365 h (giờ) đăng xuất.')}</b>
+                  <br/>
                 <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.term2En', 'Automatically lock account after 365 hours of logging out')})
-                </span>
+                <b>{t('register.term3', '3. Tự động xóa tài khoản sau 365 ngày bị khóa.')}</b>
                 <br />
-                <b>{t('auth.term3', '3. Tự động xóa tài khoản sau 365 ngày bị khóa.')}</b>
                 <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.term3En', 'Automatically delete account after 365 days of being locked')})
-                </span>
+                <b>{t('register.term4', '4. Đăng nhập sai liên tiếp 05 lần sẽ bị khóa tài khoản.')}</b>
                 <br />
-                <b>{t('auth.term4', '4. Đăng nhập sai liên tiếp 05 lần sẽ bị khóa tài khoản.')}</b>
                 <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.term4En', 'Login incorrectly 05 times in a row will lock the account')})
-                </span>
+                <b>{t('register.term5', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
                 <br />
-                <b>{t('auth.term5', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
                 <br />
-                <span className="text-xs text-gray-600">
-                  ({t('auth.term5En', 'Automatically delete after 365 days posted')})
-                </span>
-                <br />
+                  <b>{t('register.term6', '5.Tự động xóa bài sau 365 ngày được đăng.')}</b>
+                  <br />
+                  <br />
               </div>
             </div>
             <div className="text-center mt-4">
               <button
-                className="border-2 border-black text-black font-bold px-6 py-2 rounded hover:bg-gray-200 flex-1 w-100"
+                className="border-2 border-black text-black font-bold px-1 py-2 rounded hover:bg-gray-200 flex-1"
                 onClick={() => handleRegister()}
                 tooltip={!isReadContract ? 'Vui lòng đọc và chấp nhận hợp đồng' : ''}
               >
-                {t('auth.registerTitle', 'Đăng ký')} <br />
-                <span className="text-xs text-gray-600">({t('common.register', 'Register')})</span>
+                {t('register.registerTitle', 'Đăng ký')}
               </button>
             </div>
           </div>
