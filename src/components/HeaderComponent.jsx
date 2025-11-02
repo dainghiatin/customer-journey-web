@@ -8,7 +8,8 @@ const HeaderComponent = ({
     onColorChange,
     onQrClick,
     selectedLang,
-    onLanguageChange
+    onLanguageChange,
+    isUserLoggedIn,
 }) => {
     const { t, i18n } = useTranslation();
     const notifications = useNotifications(17);
@@ -41,11 +42,12 @@ const HeaderComponent = ({
         <>
             <div
                 className="flex flex-col text-sm text-center"
-                style={{ fontSize: "clamp(6px, 0.75vw, 14px)" }}
+                style={{ fontSize: "clamp(6px, 0.75vw, 14px)", paddingTop: !isUserLoggedIn ? 0 : '27px' }}
             >
                 <div
                     onClick={onQrClick}
-                    className="cursor-pointer flex border-b border-r border-black justify-center items-center"
+                    style={{ minHeight: !isUserLoggedIn ? 0 : '28px' }}
+                    className="cursor-pointer flex border-b border-r border-t border-black justify-center items-center min-h-7"
                 >
                     <div className="table-cell flex items-center font-bold py-1 px-1">
                         QR
@@ -53,7 +55,8 @@ const HeaderComponent = ({
                 </div>
 
                 <div
-                    className="cursor-pointer flex border-b border-black border-r justify-center items-center   "
+                    style={{ minHeight: !isUserLoggedIn ? 0 : '28px' }}
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-7"
                 >
                     <div className="table-cell flex items-center font-bold py-1 px-1 hidden md:block text-center">
                         APP
@@ -66,12 +69,13 @@ const HeaderComponent = ({
                 <div
                     onClick={() => document.getElementById("colorPicker").click()}
                     style={{ width: "100%", minHeight: "3.3vh" }}
-                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-6"
                 >
                     <div className="table-cell flex items-center font-bold py-1 px-1 ">
                         <div
                             style={{
-                                
+                                minHeight: "2vh",
+                                width: "100%",
                                 height: "100%",
                             }}
                             className="cursor-pointer"
@@ -90,7 +94,8 @@ const HeaderComponent = ({
 
 
                 <div
-                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"
+                    style={{ minHeight: !isUserLoggedIn ? 0 : '28px' }}
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-6"
                 >
                     <select
                         className="table-cell flex items-center font-bold px-1 py-1 text-center"
@@ -108,7 +113,7 @@ const HeaderComponent = ({
                 </div>
 
                 <div
-                    className="cursor-pointer flex border-b border-black border-r justify-center items-center"  
+                    className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-6"
                 >
                     <div className="table-cell flex items-center font-bold py-1 px-1 text-center">
                          <i

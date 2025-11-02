@@ -87,7 +87,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
     <div className="w-full h-full px-1">
       <div className="w-full h-full flex flex-col">
         {/* Company Name Header */}
-        <div className="text-center mb-1 sm:mb-2 md:mb-4">
+        <div className="text-center mb-1 sm:mb-1 md:mb-1">
           <h2 className="font-bold text-xs sm:text-sm md:text-lg break-words leading-tight">
             {currentData.companyName}
           </h2>
