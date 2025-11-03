@@ -72,7 +72,7 @@
     "loginError": "THÔNG TIN NHẬP CHƯA CHÍNH XÁC, VUI LÒNG NHẬP LẠI",
     "loginErrorEn": "Your information inputed is not correct, please try again",
     "invalidCredentials": "Thông tin đăng nhập không chính xác!",
-    "idPlaceholder": "ID = STK NGÂN HÀNG",
+    "idPlaceholder": "ID",
     "captchaPlaceholder": "NHẬP MÃ CAPCHA ",
     "countryPlaceholder": "QUỐC GIA",
     "referrerIdPlaceholder": "TK NGÂN HÀNG NGƯỜI GIỚI THIỆU ",

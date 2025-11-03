@@ -154,7 +154,7 @@
     "loginError": "INCORRECT INFORMATION, PLEASE TRY AGAIN",
     "loginErrorEn": "Your information inputed is not correct, please try again",
     "invalidCredentials": "Invalid login credentials!",
-    "idPlaceholder": "BANK NUMBER (ID)",
+    "idPlaceholder": "ID",
     "captchaPlaceholder": "INPUT CAPTCHA CODE",
     "countryPlaceholder": "Country (Nation)",
     "referrerIdPlaceholder": "1 Member ID take discount",
