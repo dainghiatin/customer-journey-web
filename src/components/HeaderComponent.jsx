@@ -10,6 +10,7 @@ const HeaderComponent = ({
     selectedLang,
     onLanguageChange,
     isUserLoggedIn,
+    className = ""
 }) => {
     const { t, i18n } = useTranslation();
     const notifications = useNotifications(17);
@@ -41,7 +42,7 @@ const HeaderComponent = ({
     return (
         <>
             <div
-                className="flex flex-col text-sm text-center"
+                className={`flex flex-col text-sm text-center menu-left-top ${className}`}
                 style={{ fontSize: "clamp(6px, 0.75vw, 14px)", paddingTop: !isUserLoggedIn ? 0 : '27px' }}
             >
                 <div
@@ -58,11 +59,11 @@ const HeaderComponent = ({
                     style={{ minHeight: !isUserLoggedIn ? 0 : '28px' }}
                     className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-7"
                 >
-                    <div className="table-cell flex items-center font-bold py-1 px-1 hidden md:block text-center">
+                    <div className="table-cell items-center font-bold py-1 px-1 md:block text-center appicon">
                         APP
                     </div>
-                    <div className="table-cell flex items-center font-bold py-1 px-1 block md:hidden">
-                        <i className="fa-solid fa-mobile-screen-button"></i>
+                    <div className="table-cell items-center font-bold py-1 px-1 md:hidden">
+                        <i className="fa-solid fa-computer"></i>
                     </div>
                 </div>
 
@@ -98,7 +99,7 @@ const HeaderComponent = ({
                     className="cursor-pointer flex border-b border-black border-r justify-center items-center min-h-6"
                 >
                     <select
-                        className="table-cell flex items-center font-bold px-1 py-1 text-center"
+                        className="table-cell flex items-center font-bold py-1 text-center"
                         value={selectedLang}
                         onChange={handleLanguageChange}
                     >

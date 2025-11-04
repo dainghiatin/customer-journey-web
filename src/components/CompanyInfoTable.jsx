@@ -60,7 +60,7 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
       daiDien: 'John Smith',
       soGphd: 'GP987654321',
       nganHang: 'Bank of America',
-      chucDanh: 'Chief Executive Officer',
+      chucDanh: 'CE0',
       diaChi: '456 Main Street, New York, NY 10001, USA'
     }
   };
@@ -101,72 +101,74 @@ const CompanyInfoTable = ({ userCountry = 'vi' }) => {
                 <tbody className="text-xs">
                   {/* Row 1: MST and SỐ GPHĐ */}
                   <tr className="border-b border-black">
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
+                    <td className=" info-cell sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'MST:' : 'TAX ID:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black w-1/4 sm:w-3/10 text-xs break-all data-cell">
+                    <td className="info-cell sm:p-2 border-r border-black w-1/4 sm:w-3/10 text-xs break-all data-cell">
                       <div className="break-all leading-tight">{currentData.mst}</div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 w-1/4 sm:w-1/5 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'SỐ GPHĐ:' : 'LICENSE NO:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 w-1/4 sm:w-3/10 text-xs break-all data-cell">
+                    <td className="info-cell sm:p-2 w-1/4 sm:w-3/10 text-xs break-all data-cell">
                       <div className="break-all leading-tight">{currentData.soGphd}</div>
                     </td>
                   </tr>
                   
                   {/* Row 2: STK and Ngân hàng */}
                   <tr className="border-b border-black">
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'STK:' : 'ACCOUNT:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black text-xs break-all data-cell">
+                    <td className="info-cell sm:p-2 border-r border-black text-xs break-all data-cell">
                       <div className="break-all leading-tight">{currentData.stk}</div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'NGÂN HÀNG:' : 'Bank:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 text-xs break-words data-cell">
+                    <td className="info-cell sm:p-2 text-xs break-words data-cell">
                       <div className="break-words leading-tight">{currentData.nganHang}</div>
                     </td>
                   </tr>
                   
                   {/* Row 3: ĐẠI DIỆN and CHỨC DANH */}
                   <tr className="border-b border-black">
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'ĐẠI DIỆN:' : 'REPRESENTATIVE:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black text-xs break-words data-cell">
+                    <td className="info-cell sm:p-2 border-r border-black text-xs break-words data-cell">
                       <div className="break-words leading-tight">{currentData.daiDien}</div>
                     </td>
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words label-cell"
+                    style={{width: '10%'}}
+                    >
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'CHỨC DANH:' : 'POSITION:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 text-xs break-words data-cell">
+                    <td className="info-cell sm:p-2 text-xs break-words data-cell">
                       <div className="break-words leading-tight">{currentData.chucDanh}</div>
                     </td>
                   </tr>
                   
                   {/* Row 4: ĐỊA CHỈ (full width) */}
                   <tr>
-                    <td className="p-1 sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words align-top label-cell">
+                    <td className="info-cell sm:p-2 border-r border-black font-bold bg-gray-100 text-xs break-words align-top label-cell">
                       <div className="break-words leading-tight">
                         {currentLang === 'vi' ? 'ĐỊA CHỈ:' : 'ADDRESS:'}
                       </div>
                     </td>
-                    <td className="p-1 sm:p-2 text-xs break-words align-top data-cell" colSpan="3">
+                    <td className="info-cell sm:p-2 text-xs break-words align-top data-cell" colSpan="3">
                       <div className="break-words leading-tight">{currentData.diaChi}</div>
                     </td>
                   </tr>

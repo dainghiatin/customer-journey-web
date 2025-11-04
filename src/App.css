@@ -7,8 +7,9 @@
     width: 100%;
     gap: 0px 0px;
     margin: 0;
-    align-items: stretch;  
+    align-items: stretch;
 }
+
 @media screen and (max-width: 768px) {
     .grid-container {
         margin-bottom: 30px;
@@ -18,8 +19,9 @@
 
 
 
-    
+
 }
+
 .hove:hover {
     background-color: #4e79de;
 }
@@ -28,7 +30,7 @@
 /* GRID COL 1 */
 .grid-col-1 {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     width: 5%;
     /* justify-content: center; */
     max-width: 100%;
@@ -53,8 +55,8 @@
     justify-content: center;
 }
 
-.grid-col-1 div > p {
-     margin: 0;
+.grid-col-1 div>p {
+    margin: 0;
 }
 
 .grid-col-2 {
@@ -65,15 +67,16 @@
     /* aspect-ratio:/3; */
     /* aspect-ratio: 3/1; */
     /* border: 1px solid black; */
-    flex:1;
+    flex: 1;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
 }
+
 .cursor-pointer:hover {
-    background-color: #4e79de;
+    background-color: #4e79de !important;
     cursor: pointer;
 }
 
@@ -112,18 +115,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
-.grid-col-3-title h1, h2 {
+.grid-col-3-title h1,
+h2 {
     margin: 0;
-} 
+}
 
 .grid-col-3-info {
     border: 1px solid black;
     display: grid;
     grid-template-columns: auto auto auto auto;
-    grid-template-rows: auto auto auto ;
+    grid-template-rows: auto auto auto;
 
 }
 
@@ -137,7 +141,7 @@
     justify-content: center;
 }
 
-.grid-col-3-info div > p {
+.grid-col-3-info div>p {
     margin: 0;
     padding: 4PX;
 }
@@ -160,6 +164,7 @@
     align-items: center;
     width: clamp(52%, 52%, 100%);
 }
+
 @media screen and (max-width: 768px) {
     .grid-col-4 {
         display: none;
@@ -175,9 +180,9 @@
     /* padding: 4PX; */
 }
 
-.grid-col-4 div > p {
+.grid-col-4 div>p {
     margin: 0;
- 
+
 }
 
 /* Additional mobile styles for CompanyInfoTable */
@@ -185,17 +190,17 @@
     .company-info-table {
         font-size: 10px !important;
     }
-    
+
     .company-info-table td {
         padding: 2px !important;
         line-height: 1.2 !important;
     }
-    
+
     .company-info-table .label-cell {
         font-size: 9px !important;
         font-weight: bold;
     }
-    
+
     .company-info-table .data-cell {
         font-size: 9px !important;
     }
@@ -206,52 +211,96 @@ td {
     max-width: 1vw;
 }
 
-@media screen and (max-width: 391px) {
+@media screen and (max-width: 500px) {
     .company-info-table {
         font-size: 8px !important;
     }
-    
+
     .company-info-table td {
         padding: 1px !important;
     }
-    
+
     .company-info-table .label-cell,
     .company-info-table .data-cell {
         font-size: 8px !important;
     }
+
     .avt {
         display: none !important;
-    }   
+    }
+
     .avtblock {
         display: none !important;
     }
+
+    .appicon {
+        display: none !important;
+    }
+
+    .hero-title {
+        margin-top: -16px !important;
+    }
+
+    .menu-left-top {
+        width: 7vw;
+        padding-top: 0px !important;
+    }
+
+    .filter-container {
+        margin-top: 2vh !important;
+    }
+
+    .filter-item {
+        font-size: clamp(6px, 0.75vw, 14px) !important;
+        padding: 1px !important;
+        border: 1px solid black !important;
+    }
+
+    .auth-dropdown {
+        top: 10rem !important;
+    }
 }
 
+.menu-left-top-login {
+    width: 3vw;
+    padding-top: 27px !important;
+}
+
+.info-cell {
+    width: 10%;
+    max-width: 100px !important;
+    font-size: 1.7vh !important;
+}
 
 @keyframes marquee {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .marquee-wrapper {
-  display: inline-flex;
-  animation: marquee 20s linear infinite;
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
 }
 
 /* Pause when hover any card */
 .marquee-wrapper:hover {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 td {
     width: 10%;
-    max-width: 100px !important; 
+    max-width: 100px !important;
 }
 
 .row-h {
-  @apply h-[23px] flex items-center;
+    @apply h-[23px] flex items-center;
 }
 
 .table-cell {
-  flex: 0.7;
+    flex: 0.7;
 }

@@ -19,12 +19,13 @@ import NewAiLivePostPage from './pages/NewAiLivePostPage.jsx'
 import AdminControlPage from './pages/AdminControlPage.jsx'
 import RewardListPage from './pages/RewardListPage.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
+import HomeWrapper from './pages/HomeWrapper.jsx'
 function App() {
 
   return (
     <>
      <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/" element={<HomeWrapper />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/login" element={<LoginPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />

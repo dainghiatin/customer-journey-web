@@ -12,6 +12,7 @@ const CategorySelect = ({
     placeholderKey,
     isDisabled = false,
     initIndex = 0,
+    className = '',
 }) => {
     const { t, i18n } = useTranslation();
     const [itemList, setItemList] = useState(items || []);
@@ -71,9 +72,9 @@ const CategorySelect = ({
     };
 
     return (
-        <div style={{ position: 'relative', flex: 1 }} className='cursor-pointer'>
+        <div style={{ position: 'relative', flex: 1 }} className={`${className}`}>
             <select
-                className='cursor-pointer'
+                className='cursor-pointer filter-item'
                 value={selectedIndex >= 0 ? String(selectedIndex) : initIndex || ''}
                 onChange={handleChange}
                 disabled={isDisabled || isLoading}

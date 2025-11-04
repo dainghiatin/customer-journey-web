@@ -76,7 +76,7 @@ function EventFilterComponent() {
 
     return (
         <>
-            <div style={{
+            <div className="filter-container" style={{
                 display: 'flex',
                 flexDirection: 'row',
                 width: "100%",
@@ -105,7 +105,7 @@ function EventFilterComponent() {
                     value={condition}
                     placeholder={{ vi: "Chọn tình trạng", en: "Select condition" }}
                 />
-                <div className="flex-1">
+                <div className="flex-1 ">
                     <CategorySelect
                         title="Nation"
                         items={[]}
@@ -116,6 +116,7 @@ function EventFilterComponent() {
                         initIndex={1}
                     />
                     <CategorySelect
+                        className="flex"
                         title="Province"
                         items={[]}
                         onChange={handleCategoryChange}

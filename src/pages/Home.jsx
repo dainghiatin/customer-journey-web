@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { BookUserIcon } from "lucide-react";
+import {useState, useEffect} from "react";
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import {BookUserIcon} from "lucide-react";
 
 // Components
-import { HeroHeader, Body, SearchSection, DropdownAuth } from "../components/Body";
+import {HeroHeader, Body, SearchSection, DropdownAuth} from "../components/Body";
 import GlobalInfoComponent from '../components/GlobalInfoComponent';
 import CountrySpecificComponent from '../components/CountrySpecificComponent';
 import CompanyInfoTable from '../components/CompanyInfoTable';
@@ -15,14 +15,15 @@ import HeaderComponent from "../components/HeaderComponent";
 import QRModalComponent from "../components/QRModalComponent";
 import FooterComponent from "../components/FooterComponent";
 import DataTableComponent from "../components/DataTableComponent";
+import HomeBody from "../components/HomeBody";
 
 
 // Services
-import { generateQrSessionInfo } from "../services/authService";
+import {generateQrSessionInfo} from "../services/authService";
 
 function HomePage() {
-    const { t, i18n } = useTranslation();
-    const { user, isAuthenticated } = useSelector(state => state.auth);
+    const {t, i18n} = useTranslation();
+    const {user, isAuthenticated} = useSelector(state => state.auth);
     const lang = localStorage.getItem("selectedLang") || "vi";
     // State management
     const [selectedLang, setSelectedLang] = useState(lang || i18n.language);
@@ -49,6 +50,8 @@ function HomePage() {
     }, []);
 
     useEffect(() => {
+        console.log("HomePage useEffect");
+
         const savedColor = localStorage.getItem("selectedColor");
         if (savedColor) {
             setColor(savedColor);
@@ -141,7 +144,7 @@ function HomePage() {
     return (
         <>
             <header className="grid-container "
-                style={{ position: "relative", top: 0, zIndex: 1000 }}
+
             >
                 {/* Header Component */}
 
@@ -153,41 +156,43 @@ function HomePage() {
                     onLanguageChange={handleLanguageChange}
                     isUserLoggedIn={isUserLoggedIn}
                 />
-                <DropdownAuth />
+                <DropdownAuth/>
 
                 {/* Main Content Grid */}
                 {!isUserLoggedIn && (
-                <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt" style={{ maxWidth: "clamp(50px, 123px, 130px) ", margin: "0 2px" }} >
-                    <CountrySpecificComponent userCountry={selectedLang} />
-                </div>)}
+                    <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
+                         style={{maxWidth: "clamp(50px, 123px, 130px) ", margin: "0 2px"}}>
+                        <CountrySpecificComponent userCountry={selectedLang}/>
+                    </div>)}
                 {isUserLoggedIn && (
-                    <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt" style={{ maxWidth: "clamp(50px, 130px, 130px) ", margin: "0 2px" }} >
-                        <GlobalInfoComponent userCountry={selectedLang} />
+                    <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
+                         style={{maxWidth: "clamp(50px, 130px, 130px) ", margin: "0 2px"}}>
+                        <GlobalInfoComponent userCountry={selectedLang}/>
                     </div>)}
 
-                <div className="!hidden md:!block flex-2" style={{ height: "100%", flex: 3 }}>
+                <div className="!hidden md:!block flex-2" style={{height: "100%", flex: 3}}>
                     {isUserLoggedIn ? (
-                        <CompanyInfoTable userCountry={selectedLang} />
+                        <CompanyInfoTable userCountry={selectedLang}/>
                     ) : (
-                        <DataTableComponent />
+                        <DataTableComponent/>
                     )}
                 </div>
 
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
-                    <div className="!hidden md:!block grid-col-4 w-full " style={{ marginTop: "-1vw" }}>
-                        <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
+                    <div className="!hidden md:!block grid-col-4 w-full " style={{marginTop: "-1vw"}}>
+                        <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry}/>
 
-                        <EventFilterComponent />
+                        <EventFilterComponent/>
                     </div>
                 )}
 
                 {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
-                <div className="md:hidden w-full flex flex-col mt-2 w-full"
-                    style={{ width: "clamp(80%, 80%, 100%) " }}
+                <div className="md:hidden w-full flex flex-col mt-2"
+
                 >
-                    <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry} />
-                    <EventFilterComponent />
+                    <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry}/>
+                    <EventFilterComponent/>
                 </div>
             </header>
 
@@ -195,23 +200,14 @@ function HomePage() {
 
 
             {!isUserLoggedIn && (
-                <div className="flex" style={{ marginTop: "-20px" }}>
+                <div className="flex" style={{marginTop: "-20px"}}>
                     <div className="hidden md:block w-full">
-                        <HeroHeader isCompact={false} />
-                        <EventFilterComponent />
+                        <HeroHeader isCompact={false}/>
+                        <EventFilterComponent/>
                     </div>
                 </div>
             )}
-
-
-            <EventComponent />
-
-            <FooterComponent />
-
-            <AdBanner />
-
-            {/* QR Modal */}
-            <QRModalComponent
+ <QRModalComponent
                 isOpen={isQrModalOpen}
                 onClose={handleCloseQrModal}
                 isLoading={isQrLoading}
@@ -220,14 +216,8 @@ function HomePage() {
                 onScanResult={handleScanResult}
                 isAuthenticated={isUserLoggedIn}
             />
-            <button
-                title="Sổ liên lạc"
-                aria-label="Sổ liên lạc"
-                style={baseStyle}
-                
-            >
-                <BookUserIcon size={26} strokeWidth={2.5} />
-            </button>
+
+            <HomeBody/>
         </>
     );
 }
