@@ -7,9 +7,15 @@ const HomeWrapper = () => {
     const isMobile = window.innerWidth <= 500;
     const isHomeLogin = (!isUserLogLocal && !isMobile);
     console.log(isHomeLogin, isMobile, isUserLogLocal);
+    if (isMobile) {
+        return <HomeDefault />;
+    }
+    if (isUserLogLocal) {
+        return <HomeLogin />;
+    }
     return (
         <>
-            {isUserLogLocal ? <HomeLogin /> : <HomeDefault />} 
+            { <HomeDefault />} 
         </>
     );
 }

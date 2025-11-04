@@ -141,37 +141,57 @@ function HomePageLogin() {
                     isUserLoggedIn={isUserLoggedIn}
                     className="menu-left-top-login"
                 />
-                <DropdownAuth />
+               <DropdownAuth/>
 
                 {/* Main Content Grid */}
-                <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
-                    style={{ maxWidth: "clamp(50px, 123px, 130px) ", margin: "0 2px" }}>
-                    <CountrySpecificComponent userCountry={selectedLang} />
+                {!isUserLoggedIn && (
+                    <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
+                         style={{maxWidth: "clamp(50px, 123px, 130px) ", margin: "0 2px"}}>
+                        <CountrySpecificComponent userCountry={selectedLang}/>
+                    </div>)}
+                {isUserLoggedIn && (
+                    <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
+                         style={{maxWidth: "clamp(50px, 130px, 130px) ", margin: "0 2px"}}>
+                        <GlobalInfoComponent userCountry={selectedLang}/>
+                    </div>)}
+
+                <div className="!hidden md:!block flex-2" style={{height: "100%", flex: 3}}>
+                    {isUserLoggedIn ? (
+                        <CompanyInfoTable userCountry={selectedLang}/>
+                    ) : (
+                        <DataTableComponent/>
+                    )}
                 </div>
-                
 
-                <div className="!hidden md:!block flex-2" style={{ height: "100%", flex: 3 }}>
-                    <CompanyInfoTable userCountry={selectedLang} />
+                {/* HeroHeader as fourth column when logged in */}
+                {isUserLoggedIn && (
+                    <div className="!hidden md:!block grid-col-4 w-full " style={{marginTop: "-1vw"}}>
+                        <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry}/>
+
+                        <EventFilterComponent/>
+                    </div>
+                )}
+
+                {/* Mobile layout - Show HeroHeader and EventFilterComponent in a separate row */}
+                <div className="md:hidden w-full flex flex-col mt-2"
+
+                >
+                    <HeroHeader selectedLang={selectedLang} isCompact={true} ismobile={true} userCountry={userCountry}/>
+                    <EventFilterComponent/>
                 </div>
-
-                <div className="!hidden md:!block grid-col-4 w-full " style={{ marginTop: "-1vw" }}>
-                    <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry} />
-
-                    <EventFilterComponent />
-                </div>
-
-
             </header>
 
             {/* Body Content */}
 
 
-            {/* <div className="flex" style={{ marginTop: "-20px" }}>
-                <div className="hidden md:block w-full">
-                    <HeroHeader isCompact={false} />
-                    <EventFilterComponent />
+            {!isUserLoggedIn && (
+                <div className="flex" style={{marginTop: "-20px"}}>
+                    <div className="hidden md:block w-full">
+                        <HeroHeader isCompact={false}/>
+                        <EventFilterComponent/>
+                    </div>
                 </div>
-            </div> */}
+            )}
 
             <QRModalComponent
                 isOpen={isQrModalOpen}
