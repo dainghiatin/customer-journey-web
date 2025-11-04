@@ -165,7 +165,7 @@ function HomePageLogin() {
 
                 {/* HeroHeader as fourth column when logged in */}
                 {isUserLoggedIn && (
-                    <div className="!hidden md:!block grid-col-4 w-full " style={{marginTop: "-1vw"}}>
+                    <div className="!hidden md:!block grid-col-4 w-full " style={{marginTop: "-2vw"}}>
                         <HeroHeader selectedLang={selectedLang} isCompact={true} userCountry={userCountry}/>
 
                         <EventFilterComponent/>
