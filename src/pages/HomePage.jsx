@@ -148,10 +148,7 @@ function HomePageLogin() {
                     style={{ maxWidth: "clamp(50px, 123px, 130px) ", margin: "0 2px" }}>
                     <CountrySpecificComponent userCountry={selectedLang} />
                 </div>
-                <div className="flex-1 avtblock !hidden md:!block w-full h-full flex flex-col avt"
-                    style={{ maxWidth: "clamp(50px, 130px, 130px) ", margin: "0 2px" }}>
-                    <GlobalInfoComponent userCountry={selectedLang} />
-                </div>
+                
 
                 <div className="!hidden md:!block flex-2" style={{ height: "100%", flex: 3 }}>
                     <CompanyInfoTable userCountry={selectedLang} />
