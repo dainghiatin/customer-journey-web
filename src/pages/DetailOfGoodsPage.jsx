@@ -428,7 +428,7 @@ const fetchProductDetails = async () => {
           <table className="w-full border-collapse">
             <tbody>
               <tr>
-                <td className="border border-gray-300 p-2 text-end font-bold" style={{ width: '30%' }}>
+                <td className="border border-gray-300 p-2 text-left font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.timeReviewPrice')}:
                 </td>
                 <td
@@ -441,7 +441,7 @@ const fetchProductDetails = async () => {
               </tr>
               <tr>
                 <td
-                  className="border border-gray-300 p-2 text-end font-bold"
+                  className="border border-gray-300 p-2 text-left font-bold"
                   style={{ width: '30%' }}
                 >
                   {t('detailOfGoods.endTime')}:
@@ -462,7 +462,7 @@ const fetchProductDetails = async () => {
                 </td>
               </tr>
               <tr>
-                <td className="border border-gray-300 p-2 text-end font-bold" style={{ width: '30%' }} rowSpan="1">
+                <td className="border border-gray-300 p-2 text-left font-bold" style={{ width: '30%' }} rowSpan="1">
                   {t('detailOfGoods.goodsAddress')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
@@ -476,7 +476,7 @@ const fetchProductDetails = async () => {
               </tr>
               {/* Goods Verify */}
               <tr>
-                <td className="border border-gray-300 p-2 text-end font-bold" style={{ width: '30%' }}>
+                <td className="border border-gray-300 p-2 text-left font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.goodsVerify')}:
                 </td>
                 <td className="border border-gray-300 p-2 text-center" style={{ width: 'calc(2/6 * 100%)' }}>
@@ -490,7 +490,7 @@ const fetchProductDetails = async () => {
               </tr>
               {/* Poster's Information */}
               <tr>
-                <td className="border border-gray-300 p-2 text-end font-bold" style={{ width: '30%' }}>
+                <td className="border border-gray-300 p-2 text-left font-bold" style={{ width: '30%' }}>
                   {t('detailOfGoods.posterInfo')}:
                 </td>
                 <td className="border border-gray-300 p-2" colSpan="4">
