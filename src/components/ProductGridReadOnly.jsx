@@ -22,7 +22,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
   return (
     <>
       <div className="border border-gray-300">
-        <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-row">
           <div className="border-r border-gray-300 p-2 text-center min-w-[60px] sm:min-w-[80px]">
             <div>ID</div>
           </div>
@@ -73,7 +73,7 @@ export default function ProductGridReadOnly({ products = [], onItemsChange }) {
         {/* Header columns with horizontal scroll */}
         <div className="grid grid-flow-col auto-cols-[220px] border-t border-gray-300">
           <div className="border-r border-gray-300 p-2 text-center">
-            <div>SỐ THỨ TỰ</div>
+            <div>{t("common.stt", "SỐ THỨ TỰ")}</div>
             <div className="text-xs">{t("productGrid.sequenceNumber")}</div>
           </div>
           <div className="border-r border-gray-300 p-2 text-center">

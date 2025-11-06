@@ -7,6 +7,7 @@ import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from "lucide-react";
 import { createProduct } from "../services/productService";
 import ProductGrid from "../components/ProductGrid";
 import PostTypeMenu from "../components/PostTypeMenu";
+import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPicker.jsx";
 import {
   getCountries,
   getCountryByCode,
@@ -298,36 +299,28 @@ export default function NewGoodPostPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
-        <div className="flex items-center justify-between relative">
-          <button
-            className="text-red-600 hover:text-red-800 relative"
-            onClick={() => navigate("/")}
-          >
-            <HomeIcon size={28} />
-          </button>
-          {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative flex-1">
-            <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                4
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>{" "}
-              - {t("goods.newPost")}
-            </h1>
-            <h2 className="text-xl italic text-gray-600"></h2>
-          </div>
-          <button
-            className="text-red-600 hover:text-red-800"
-            onClick={() => navigate("/admin-control")}
-          >
-            <KeyboardIcon size={28} />
-          </button>
-        </div>
+        <PageHeaderWithOutColorPicker
+          color={color}
+          onColorChange={handleChangeColor}
+          titlePrefix="4"
+          leftButton={
+            <button
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          }
+          rightButton={
+            <button
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <KeyboardIcon size={28} />
+            </button>
+          }
+          title={t("goods.newPost")}
+        />
 
         {/* Main Form */}
         <div className="mt-6">
@@ -426,9 +419,6 @@ export default function NewGoodPostPage() {
               </div>
               <div className="p-2 text-center">
                 <div className="font-bold">{t("goods.transferToWallet")}</div>
-                <div className="text-sm italic text-center">
-                  {t("goods.transferToWalletEn")}
-                </div>
                 <button
                   type="button"
                   className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
@@ -957,7 +947,7 @@ export default function NewGoodPostPage() {
                         <div>{t("goods.vatOtherFees")}</div>
                       </div>
                       <div className="col-span-8 border-r border-gray-300 p-2">
-                        <div className="text-xs text-right">0</div>
+                        <div className="text-right">0</div>
                       </div>
                       <div className="col-span-5 p-2 text-center">
                         <div className="">%</div>
@@ -977,7 +967,7 @@ export default function NewGoodPostPage() {
                       </div>
                       <div className="col-span-5 border-l border-gray-300 p-2 flex items-center">
                         <div className="w-full p-1 mr-1 text-right">
-                          ({t("payment.command")})
+                          0
                         </div>
                         <span className="text-gray-700">{t("goods.vnd")}</span>
                       </div>

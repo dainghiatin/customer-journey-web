@@ -334,7 +334,7 @@ export default function NewPostPage() {
 
                 {/* Two large boxes layout */}
                 <div className="mt-6" ref={containerRef}>
-                    <div className="grid grid-cols-2 gap-4 border border-gray-300">
+                    <div className="grid grid-cols-2 border border-gray-300">
                         {/* Scan CCCD */}
                         <div
                             className="border-r border-gray-400 p-4 text-center cursor-pointer"

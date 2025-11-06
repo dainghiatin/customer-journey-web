@@ -48,7 +48,7 @@
     "downloadFile": "Download file",
     "search": "SEARCH"
    },
-  "aiLive": {
+  "aiLiveLegacy": {
     "avatar": "AVATAR",
     "clickStats": "click = go to statistics",
     "whoFollowsMe": "AI FOLLOWERS FOLDER",
@@ -188,7 +188,7 @@
    },
   "freelancer": {
     "title": "Freelancer",
-    "newPost": "New Post",
+    "newPost": "NEW POST",
     "online": "Online",
     "offline": "Offline",
     "category": "Category",
@@ -431,7 +431,7 @@
     "noText": "No text detected in video",
     "noTextEn": "No text detected in video"
   },
-  "aiLive": {
+  "aiLiveLegacy2": {
     "pageTitle": "Ai LIVE",
     "accountOfAiLive": "AI LIVE ACCOUNT",
     "accountOfAiLiveEn": "Account of Ai LIVE",
@@ -794,7 +794,7 @@
     "buyNow": "Buy Now",
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
-    "newPost": "NEW POST - GOODS",
+    "newPost": "NEW POST",
     "newPostEn": "New post",
     "accountOfGoods": "ACCOUNT OF GOODS",
     "accountOfGoodsEn": "Account of goods",
@@ -926,11 +926,23 @@
     "linkCopied": "Link copied!"
   },
   "aiLive": {
-    "newPost": "NEW POST",
-    "newPostEn": "New post",
-    "accountOfAiLive": "ACCOUNT OF AI LIVE",
+    "pageTitle": "Ai LIVE",
+    "accountOfAiLive": "AI LIVE ACCOUNT",
+    "accountOfAiLiveEn": "Account of Ai LIVE",
+    "currencyNote": "change to local currency after login",
+    "enterNumber": "Enter number",
     "transferToWallet": "TRANSFER TO WALLET",
     "transferToWalletEn": "Transfer to wallet",
+    "livestream": "LIVESTREAM",
+    "livestreamSub": "(Goods)",
+    "movieSub": "(MOVIES)",
+    "liveSub": "(Live)",
+    "equipment": "EQUIPMENT",
+    "equipmentSub": "(Equipment)",
+    "game": "GAME",
+    "gameSub": "(Game)",
+    "newPost": "NEW POST",
+    "newPostEn": "New post",
     "transfer": "Transfer",
     "video": "VIDEO",
     "movie": "MOVIE",
