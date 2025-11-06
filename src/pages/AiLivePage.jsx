@@ -10,6 +10,8 @@ import AiLiveVideoComponent from "../components/AiLiveVideoComponent";
 import AiLiveMovieComponent from "../components/AiLiveMovieComponent";
 import AiLiveLiveComponent from "../components/AiLiveLiveComponent";
 import { useTranslation } from 'react-i18next';
+import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPicker.jsx";
+import NumericInput from "../components/NumericInput.jsx";
 
 
 export default function AiLivePage() {
@@ -19,6 +21,8 @@ export default function AiLivePage() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [selectedComponent, setSelectedComponent] = useState(null);
+
+  // Using the shared NumericInput component for numeric-only input
 
 
   useEffect(() => {
@@ -37,34 +41,28 @@ export default function AiLivePage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between relative mb-6">
-          <button 
-            className="text-red-600 hover:text-red-800 relative"
-            onClick={() => navigate("/")}
-          >
-            <HomeIcon size={28} />
-          </button>
-          <div className="text-center mb-4 relative flex-1">
-            <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                8
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleChangeColor}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>{" "}
-              - {t('aiLive.pageTitle')}
-            </h1>
-          </div>
-          <button 
-            className="text-red-600 hover:text-red-800"
-            onClick={() => navigate("/admin-control")}
-          >
-            <KeyboardIcon size={28} />
-          </button>
-        </div>
+        <PageHeaderWithOutColorPicker
+          color={color}
+          onColorChange={handleChangeColor}
+          titlePrefix="8"
+          leftButton={
+            <button
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          }
+          rightButton={
+            <button
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <KeyboardIcon size={28} />
+            </button>
+          }
+          title={t('aiLive.pageTitle')}
+        />
 
         {/* Grid Content */}
         <div className="mt-6">
@@ -72,17 +70,14 @@ export default function AiLivePage() {
           <div className="p-2 font-semibold border-r">
             {t('aiLive.accountOfAiLive')}
           </div>
-          <div className="p-2 font-semibold border-r">({t('payment.command')})</div>
+          <div className="p-2 font-semibold border-r">0</div>
           <div className="p-2 font-semibold border-r text-yellow-600">
             VNĐ
-            <br />
-            <span className="text-xs">({t('aiLive.currencyNote')})</span>
           </div>
           <div className="p-2 border-r">
-            <input
-              type="number"
+            <NumericInput
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={setInputValue}
               className="w-full text-center border border-gray-400 rounded px-2 py-1"
               placeholder={t('aiLive.enterNumber')}
             />
@@ -111,12 +106,6 @@ export default function AiLivePage() {
               onClick={() => {setSelectedComponent(item.value);}}
             >
               {item.label}
-              {item.sub && (
-                <>
-                  <br />
-                  <span className="italic text-sm">{item.sub}</span>
-                </>
-              )}
             </button>
           ))}
         </div>

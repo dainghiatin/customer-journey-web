@@ -11,6 +11,7 @@ import {
   EyeOff as EyeOffIcon,
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
+import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPicker.jsx";
 
 export default function NewAiLivePostPage() {
   const { t } = useTranslation();
@@ -148,38 +149,28 @@ export default function NewAiLivePostPage() {
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between relative">
-          <button
-            className="text-red-600 hover:text-red-800 relative"
-            onClick={() => navigate("/")}
-          >
-            <HomeIcon size={28} />
-          </button>
-          {/* Tiêu đề ở giữa */}
-          <div className="text-center mb-4 relative flex-1">
-            <h1 className="text-3xl font-bold text-black relative inline-block">
-              <span className="relative">
-                4
-                <input
-                  type="color"
-                  value={color}
-                  onChange={handleColorChange}
-                  className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-10 h-8 cursor-pointer"
-                />
-              </span>{" "}
-              - {t("aiLive.newPost")}
-            </h1>
-            <h2 className="text-xl italic text-gray-600">
-              
-            </h2>
-          </div>
-          <button
-            className="text-red-600 hover:text-red-800"
-            onClick={() => navigate("/admin-control")}
-          >
-            <KeyboardIcon size={28} />
-          </button>
-        </div>
+        <PageHeaderWithOutColorPicker
+          color={color}
+          onColorChange={handleColorChange}
+          titlePrefix="4"
+          leftButton={
+            <button
+              className="text-red-600 hover:text-red-800 relative"
+              onClick={() => navigate("/")}
+            >
+              <HomeIcon size={28} />
+            </button>
+          }
+          rightButton={
+            <button
+              className="text-red-600 hover:text-red-800"
+              onClick={() => navigate("/admin-control")}
+            >
+              <KeyboardIcon size={28} />
+            </button>
+          }
+          title={t("aiLive.newPost")}
+        />
 
         {/* Tabs */}
         <div className="border border-black text-black">
@@ -317,14 +308,14 @@ export default function NewAiLivePostPage() {
                   -- {t("aiLive.saveLocation")} --
                 </option>
                 <option>{t("aiLive.introduceYourself")}</option>
-                <option>{t("aiLive.children")}</option>
-                <option>{t("aiLive.memory")}</option>
-                <option>{t("aiLive.lifeExperience")}</option>
                 <option>{t("aiLive.economySociety")}</option>
                 <option>{t("aiLive.sport")}</option>
                 <option>{t("aiLive.entertainment")}</option>
                 <option>{t("aiLive.creative")}</option>
                 <option>{t("aiLive.campaignsEvents")}</option>
+                <option>{t("aiLive.children")}</option>
+                <option>{t("aiLive.memory")}</option>
+                <option>{t("aiLive.lifeExperience")}</option>
                 <option>{t("aiLive.startupIdeas")}</option>
               </select>
             </div>
@@ -418,13 +409,7 @@ export default function NewAiLivePostPage() {
                 placeholder={t("aiLive.movieName")}
               />
             </div>
-            <div className="bg-cyan-100 p-4">
-              <input
-                type="text"
-                className="w-full border rounded px-2 py-1"
-                placeholder={t("aiLive.fileName")}
-              />
-            </div>
+
             <div className="bg-cyan-100 p-4">
               <span className="sr-only">* {t("aiLive.productOwnership")}</span>
               <div className="relative w-full">
@@ -583,13 +568,7 @@ export default function NewAiLivePostPage() {
                 placeholder={t("aiLive.liveName")}
               />
             </div>
-            <div className="bg-green-100 p-4">
-              <input
-                type="text"
-                className="w-full border rounded px-2 py-1"
-                placeholder={t("aiLive.fileName")}
-              />
-            </div>
+
             <div className="bg-green-100 p-4">
               <span className="sr-only">{t("aiLive.productOwnership")}</span>
               <div className="relative w-full">
@@ -635,7 +614,8 @@ export default function NewAiLivePostPage() {
             <div className="bg-green-100 p-4">
               <div className="flex flex-wrap -mx-2">
                 <div className="w-1/3 px-2 flex items-center">
-                  <span className="sr-only">{t("aiLive.advertisingOnMainpage")}</span>
+                <input type="checkbox" className="mr-2" />
+                  <span className="">{t("aiLive.advertisingOnMainpage")}</span>
                 </div>
 
                 <div className="w-2/3 px-2">
@@ -683,13 +663,15 @@ export default function NewAiLivePostPage() {
                 />
                 {t("aiLive.allowAdvertisingOnLive")}
               </label>
-              <div>
-                <input
-                  type="number"
-                  className="w-full border px-2 py-1"
-                  placeholder={t("aiLive.showAd")}
-                />
-              </div>
+              {allowAdLive && (
+                <div>
+                  <input
+                    type="number"
+                    className="w-full border px-2 py-1"
+                    placeholder={t("aiLive.showAd")}
+                  />
+                </div>
+              )}
 
               {allowAdLive && (
                 <>
