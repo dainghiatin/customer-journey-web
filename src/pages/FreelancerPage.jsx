@@ -153,7 +153,7 @@ export default function FreelancerPage() {
                 <PageHeaderWithOutColorPicker
                     color={color}
                     onColorChange={handleChangeColor}
-                    titlePrefix="4"
+                    titlePrefix="7"
                     leftButton={
                         <button
                             className="text-red-600 hover:text-red-800 relative"
