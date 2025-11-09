@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Login.css";
 import axios from "axios";
-import {getFreelancer} from "../services/freelancerService";
-import {useNavigate} from "react-router-dom";
+import { getFreelancer } from "../services/freelancerService";
+import { useNavigate } from "react-router-dom";
 import FreelancerActuallyComponent from "../components/FreelancerActuallyComponent";
 import FreelancerOnlineComponent from "../components/FreelancerOnlineComponent";
-import {getWalletFromToken} from "../services/walletService";
-import {getFreelancerWithNullPic} from "../services/freelancerService";
-import {useTranslation} from 'react-i18next';
+import { getWalletFromToken } from "../services/walletService";
+import { getFreelancerWithNullPic } from "../services/freelancerService";
+import { useTranslation } from 'react-i18next';
 import {
     Home as HomeIcon,
     KeyboardIcon as KeyboardIcon,
@@ -16,7 +16,7 @@ import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPi
 
 
 export default function FreelancerPage() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [color, setColor] = useState(localStorage.getItem("selectedColor"));
     const [activeTab, setActiveTab] = useState("actual"); // "actual" or "online"
     const [user, setUser] = useState(null);
@@ -147,7 +147,9 @@ export default function FreelancerPage() {
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen">
+        <>
+        
+        <div className="flex justify-center items-center">
             <div className="w-full max-w-4xl mx-auto">
                 {/* Header with Navigation */}
                 <PageHeaderWithOutColorPicker
@@ -159,7 +161,7 @@ export default function FreelancerPage() {
                             className="text-red-600 hover:text-red-800 relative"
                             onClick={() => navigate("/")}
                         >
-                            <HomeIcon size={28}/>
+                            <HomeIcon size={28} />
                         </button>
                     }
                     rightButton={
@@ -167,7 +169,7 @@ export default function FreelancerPage() {
                             className="text-red-600 hover:text-red-800"
                             onClick={() => navigate("/admin-control")}
                         >
-                            <KeyboardIcon size={28}/>
+                            <KeyboardIcon size={28} />
                         </button>
                     }
                     title={t("posts.freelancer")}
@@ -194,51 +196,51 @@ export default function FreelancerPage() {
                 {!loading && (
                     <>
                         {/* Table layout */}
-                        <div className="mt-6">
+                        <div className="">
                             <div className="overflow-hidden">
                                 {/* Row 1: TÀI KHOẢN CÔNG VIỆC TỰ DO */}
                                 {isLoggedIn && (
-                                <div className="grid grid-cols-12 border-b border-gray-300">
-                                    <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                                        {t('freelancer.accountOfFreelancer')}
-                                    </div>
-                                    <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                                        <input disabled type="text" value={wallet.account_of_freelancer}
-                                               placeholder={`(${t('payment.command')})`}
-                                               className="w-full p-1 border rounded"/>
+                                    <div className="grid grid-cols-12 border-b border-gray-300">
+                                        <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
+                                            {t('freelancer.accountOfFreelancer')}
+                                        </div>
+                                        <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                                            <input disabled type="text" value={wallet.account_of_freelancer}
+                                                placeholder={`(${t('payment.command')})`}
+                                                className="w-full p-1 border rounded" />
 
 
+                                        </div>
+                                        <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
+                                        <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                                            <input type="text" placeholder={`(${t('common.enter')})`}
+                                                className="w-full p-1 border rounded" />
+                                        </div>
+                                        <div className="col-span-2 p-3 text-center font-bold">
+                                            {t('freelancer.transferToWallet')}
+                                        </div>
                                     </div>
-                                    <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
-                                    <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                                        <input type="text" placeholder={`(${t('common.enter')})`}
-                                               className="w-full p-1 border rounded"/>
-                                    </div>
-                                    <div className="col-span-2 p-3 text-center font-bold">
-                                        {t('freelancer.transferToWallet')}
-                                    </div>
-                                </div>
                                 )}
 
-                            {/* Row 2: ĐĂNG ĐẶT CỌC */}
+                                {/* Row 2: ĐĂNG ĐẶT CỌC */}
                                 {user && (
-                                <div className="grid grid-cols-12 border-b border-gray-300">
-                                <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
-                            {t('freelancer.depositing')}
-                            </div>
-                            <div className="col-span-2 p-3 border-r border-gray-300 text-center">
-                                <input disabled value={wallet.pending_amount} type="text"
-                                       placeholder={`(${t('payment.command')})`}
-                                       className="w-full p-1 border rounded"/>
+                                    <div className="grid grid-cols-12 border-b border-gray-300">
+                                        <div className="col-span-4 p-3 border-r border-gray-300 font-bold">
+                                            {t('freelancer.depositing')}
+                                        </div>
+                                        <div className="col-span-2 p-3 border-r border-gray-300 text-center">
+                                            <input disabled value={wallet.pending_amount} type="text"
+                                                placeholder={`(${t('payment.command')})`}
+                                                className="w-full p-1 border rounded" />
 
-                            </div>
-                            <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
-                            <div className="col-span-4"></div>
-                        </div>
+                                        </div>
+                                        <div className="col-span-2 p-3 border-r border-gray-300 text-center">VNĐ</div>
+                                        <div className="col-span-4"></div>
+                                    </div>
                                 )}
 
                                 {/* Row 3: THỰC TẾ / TRỰC TUYẾN */}
-                                <div className="grid grid-cols-2 mt-4">
+                                <div className="flex justify-center">
                                     <div
                                         className={`p-3 border border-gray-300 text-center font-bold cursor-pointer ${activeTab === "actual" ? "bg-orange-100" : ""}`}
                                         onClick={() => setActiveTab("actual")}
@@ -256,14 +258,17 @@ export default function FreelancerPage() {
                         </div>
 
                         {/* Render the appropriate component based on the active tab */}
-                        {activeTab === "actual" ? (
-                            <FreelancerActuallyComponent freelancers={freelancersOffline}/>
-                        ) : (
-                            <FreelancerOnlineComponent freelancers={freelancersOnline}/>
-                        )}
+
                     </>
                 )}
             </div>
+            
         </div>
+        {activeTab === "actual" ? (
+                <FreelancerActuallyComponent freelancers={freelancersOffline} />
+            ) : (
+                <FreelancerOnlineComponent freelancers={freelancersOnline} />
+            )}
+        </>
     );
 }

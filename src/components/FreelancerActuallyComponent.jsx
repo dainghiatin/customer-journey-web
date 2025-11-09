@@ -32,9 +32,8 @@ function FilterDropdown({ options, selectedValue, onFilterChange, placeholder })
               <button
                 key={index}
                 onClick={() => handleSelect(option)}
-                className={`block w-full text-left px-3 py-1 text-sm hover:bg-gray-100 ${
-                  selectedValue === option ? "bg-blue-100" : ""
-                }`}
+                className={`block w-full text-left px-3 py-1 text-sm hover:bg-gray-100 ${selectedValue === option ? "bg-blue-100" : ""
+                  }`}
               >
                 {option}
               </button>
@@ -104,163 +103,207 @@ export default function FreelancerActuallyComponent({ freelancers }) {
   return (
     <div className="pt-1">
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 p-2 text-center">
-                {t("common.stt")}
-                <FilterDropdown
-                  options={getUniqueValues('id').map(id => id.toString())}
-                  selectedValue={filters.id}
-                  onFilterChange={(value) => handleFilterChange('id', value)}
-                  placeholder="All IDs"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.jobName")}
-                <FilterDropdown
-                  options={getUniqueValues('name')}
-                  selectedValue={filters.name}
-                  onFilterChange={(value) => handleFilterChange('name', value)}
-                  placeholder="All Jobs"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.estimate")}
-                <FilterDropdown
-                  options={getUniqueValues('estimate')}
-                  selectedValue={filters.estimate}
-                  onFilterChange={(value) => handleFilterChange('estimate', value)}
-                  placeholder="All Estimates"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.requirements")}
-                <FilterDropdown
-                  options={getUniqueValues('requirement')}
-                  selectedValue={filters.requirement}
-                  onFilterChange={(value) => handleFilterChange('requirement', value)}
-                  placeholder="All Requirements"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.startTime")}
-                <FilterDropdown
-                  options={getUniqueValues('startTime')}
-                  selectedValue={filters.startTime}
-                  onFilterChange={(value) => handleFilterChange('startTime', value)}
-                  placeholder="All Start Times"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.startLocation")}
-                <FilterDropdown
-                  options={getUniqueValues('startLocation')}
-                  selectedValue={filters.startLocation}
-                  onFilterChange={(value) => handleFilterChange('startLocation', value)}
-                  placeholder="All Start Locations"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.finishTime")}
-                <FilterDropdown
-                  options={getUniqueValues('endTime')}
-                  selectedValue={filters.endTime}
-                  onFilterChange={(value) => handleFilterChange('endTime', value)}
-                  placeholder="All Finish Times"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.finishLocation")}
-                <FilterDropdown
-                  options={getUniqueValues('endLocation')}
-                  selectedValue={filters.endLocation}
-                  onFilterChange={(value) => handleFilterChange('endLocation', value)}
-                  placeholder="All Finish Locations"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.deposit")}
-                <FilterDropdown
-                  options={getUniqueValues('deposit')}
-                  selectedValue={filters.deposit}
-                  onFilterChange={(value) => handleFilterChange('deposit', value)}
-                  placeholder="All Deposits"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.priceOffered")}
-                <FilterDropdown
-                  options={getUniqueValues('price')}
-                  selectedValue={filters.price}
-                  onFilterChange={(value) => handleFilterChange('price', value)}
-                  placeholder="All Prices"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("freelancer.serviceFee")}
-                <FilterDropdown
-                  options={getUniqueValues('serviceFee')}
-                  selectedValue={filters.serviceFee}
-                  onFilterChange={(value) => handleFilterChange('serviceFee', value)}
-                  placeholder="All Service Fees"
-                />
-              </th>
-              <th className="border border-gray-300 p-2 text-center">
-                {t("common.accept")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredFreelancers.map((freelancer, index) => (
-              <tr key={freelancer.id}>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.id}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.name}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.estimate}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.requirement}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.startTime}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.startLocation}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.endTime}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.endLocation}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.deposit}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.price}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  {freelancer.serviceFee}
-                </td>
-                <td className="border border-gray-300 p-2 text-center">
-                  <button
-                    onClick={() =>
-                      handleAcceptFreelancer(freelancer.documentId)
-                    }
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
-                  >
-                    {t("common.accept")}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* Header columns with horizontal scroll */}
+        <div className="grid grid-flow-col border-t border-gray-300 font-bold bg-gray-100">
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "50px" }}>
+            <div>{t("common.stt", "SỐ THỨ TỰ")}</div>
+          </div>
+
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+            <div>
+              {t("freelancer.jobName")}
+              <FilterDropdown
+                options={getUniqueValues('name')}
+                selectedValue={filters.name}
+                onFilterChange={(value) => handleFilterChange('name', value)}
+                placeholder="All Jobs"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+            <div>{t("freelancer.estimate")}
+              <FilterDropdown
+                options={getUniqueValues('estimate')}
+                selectedValue={filters.estimate}
+                onFilterChange={(value) => handleFilterChange('estimate', value)}
+                placeholder="All Estimates"
+              /></div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "160px" }}>
+            <div className="flex justify-center items-center " style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t('freelancer.requirements') }} />
+              <FilterDropdown
+                options={getUniqueValues('requirement')}
+                selectedValue={filters.requirement}
+                onFilterChange={(value) => handleFilterChange('requirement', value)}
+                placeholder="All Requirements"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.startTime") }} />
+              <FilterDropdown
+                options={getUniqueValues('startTime')}
+                selectedValue={filters.startTime}
+                onFilterChange={(value) => handleFilterChange('startTime', value)}
+                placeholder="All Start Times"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.startLocation") }} />
+              <FilterDropdown
+                options={getUniqueValues('startLocation')}
+                selectedValue={filters.startLocation}
+                onFilterChange={(value) => handleFilterChange('startLocation', value)}
+                placeholder="All Start Locations"
+              />
+            </div>
+          </div>
+          {/* New columns */}
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.finishTime") }} />
+              <FilterDropdown
+                options={getUniqueValues('endTime')}
+                selectedValue={filters.endTime}
+                onFilterChange={(value) => handleFilterChange('endTime', value)}
+                placeholder="All Finish Times"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.finishLocation") }} />
+              <FilterDropdown
+                options={getUniqueValues('endLocation')}
+                selectedValue={filters.endLocation}
+                onFilterChange={(value) => handleFilterChange('endLocation', value)}
+                placeholder="All Finish Locations"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "130px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.deposit") }} />
+              <FilterDropdown
+                options={getUniqueValues('deposit')}
+                selectedValue={filters.deposit}
+                onFilterChange={(value) => handleFilterChange('deposit', value)}
+                placeholder="All Deposits"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t('freelancer.priceOffered') }} />
+              <FilterDropdown
+                options={getUniqueValues('price')}
+                selectedValue={filters.price}
+                onFilterChange={(value) => handleFilterChange('price', value)}
+                placeholder="All Prices"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+            <div className="flex justify-center items-center" style={{ alignItems: "baseline" }}>
+              <p dangerouslySetInnerHTML={{ __html: t("freelancer.setPrice") }} />
+              <FilterDropdown
+                options={getUniqueValues('serviceFee')}
+                selectedValue={filters.serviceFee}
+                onFilterChange={(value) => handleFilterChange('serviceFee', value)}
+                placeholder="All Service Fees"
+              />
+            </div>
+          </div>
+          <div className="border-r border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+            {t("freelancer.accept")}
+          </div>
+        </div>
+
+
+        {filteredFreelancers.map((freelancer, index) => (
+          <div
+            key={index}
+            className="grid grid-flow-col border-t border-b  border-gray-300"
+          >
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "50px" }}>
+              {index + 1}
+            </div>
+
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+              <div>
+                {freelancer.name}
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+              <div>
+                {freelancer.estimate}
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "160px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.requirement }} />
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.startTime }} />
+
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "150px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.startLocation }} />
+
+              </div>
+            </div>
+            {/* New columns */}
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.finishTime }} />
+
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "180px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.endLocation }} />
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "130px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.deposit }} />
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.price }} />
+              </div>
+            </div>
+            <div className="border-r border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+              <div className="flex justify-center items-center">
+                <p dangerouslySetInnerHTML={{ __html: freelancer.serviceFee }} />
+              </div>
+            </div>
+            <div className="border-r  border-gray-300 p-2 text-center" style={{ width: "120px" }}>
+              <div className="flex justify-center items-center">
+                <button
+                  onClick={() =>
+                    handleAcceptFreelancer(freelancer.documentId)
+                  }
+                  className="bg-green-500 hover:bg-green-600 text-white rounded"
+                >
+                  {t("common.accept")}
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        ))}
+
       </div>
     </div>
   );

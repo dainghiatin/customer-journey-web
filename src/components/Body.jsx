@@ -31,7 +31,7 @@ function HeroHeader({
         localStorage.getItem("authToken") !== "";
 
     // Adjust font sizes based on compact mode
-    let titleFontSize = isCompact ? "2vw" : "3.2vw";
+    let titleFontSize = isCompact ? "1.6vw" : "3.2vw";
     if (ismobile) {
         titleFontSize = "2.8vw";
     }

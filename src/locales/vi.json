@@ -106,7 +106,7 @@
   "freelancer": {
     "title": "Freelancer",
     "newPost": "ĐĂNG BÀI MỚI",
-    "online": "Trực tuyến",
+    "online": "TRỰC TUYẾN",
     "offline": "Ngoại tuyến",
     "category": "Danh mục",
     "skills": "Kỹ năng",
@@ -119,20 +119,21 @@
     "jobNameEn": "Name of shift",
     "estimate": "ƯỚC LƯỢNG",
     "estimateEn": "Estimate",
-    "requirements": "YÊU CẦU NHÂN LỰC, PHƯƠNG TIỆN",
+    "requirements": "NHÂN LỰC, <br> PHƯƠNG TIỆN",
     "requirementsEn": "Manpower, equipment requirements",
-    "startTime": "THỜI GIAN NHẬN VIỆC",
-    "startLocation": "ĐỊA ĐIỂM NHẬN VIỆC",
-    "finishTime": "THỜI GIAN HOÀN THÀNH",
-    "finishLocation": "ĐỊA ĐIỂM HOÀN THÀNH",
-    "deposit": "Đặt cọc, ký quỹ",
-    "priceOffered": "GIÁ ĐƯA RA",
+    "startTime": "THỜI GIAN <br> NHẬN VIỆC",
+    "startLocation": "ĐỊA ĐIỂM <br> NHẬN VIỆC",
+    "finishTime": "THỜI GIAN <br> HOÀN THÀNH",
+    "finishLocation": "ĐỊA ĐIỂM <br> HOÀN THÀNH",
+    "deposit": "KÝ QUỸ <br> HAI BÊN",
+    "priceOffered": "GIÁ <br> ĐƯA RA",
     "setPrice": "ĐẶT GIÁ",
     "serviceFee": "PHÍ DỊCH VỤ",
     "accountOfFreelancer": "TÀI KHOẢN CÔNG VIỆC TỰ DO",
     "transferToWallet": "CHUYỂN VỀ VÍ",
     "depositing": "ĐĂNG ĐẶT CỌC",
-    "actual": "THỰC TẾ"
+    "actual": "THỰC TẾ",
+    "accept": "XÁC NHẬN"
   },
   
   "aiLiveStream": {

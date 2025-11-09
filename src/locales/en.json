@@ -218,7 +218,9 @@
     "actual": "ACTUAL",
     "sortingCriteria3": "3 - Earliest completion time",
     "sortingCriteria4": "4 - Lowest price",
-    "sortingCriteria5": "5 - Highest price"
+    "sortingCriteria5": "5 - Highest price",
+    "sortingCriteria6": "6 - Followers profit",
+    "accept": "ACCEPT"
   },
   "freelancerOnline": {
     "searchPlaceholder": "SEARCH: Job ID, job name",
