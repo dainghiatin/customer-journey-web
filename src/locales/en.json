@@ -767,7 +767,7 @@
     "enter": "(enter)",
     "vnd": "VND",
     "vn": "VN",
-    "vndPerSecondView": "VND / SECOND (S) / VIEW (View)",
+    "vndPerSecondView": "VND / SECOND (S) / VIEW ",
     "category": {
       "sale": "SALE",
       "buy": "BUY",
@@ -906,9 +906,9 @@
     "quantityMinimum": "QUANTITY MINIMUM",
     "unit": "UNIT",
     "unitMarketPrice": "UNIT MARKET PRICE",
-    "lowestHighestAskingPrice": "LOWEST UNIT ASKING PRICE - choose 1 of 2",
+    "lowestHighestAskingPrice": "LOWEST UNIT ASKING PRICE",
     "lowestAmount": "LOWEST AMOUNT",
-    "lowestHighestAutoAccept": "LOWEST / HIGHEST PRICE TO AUTOMATICALLY ACCEPT - follow order",
+    "lowestHighestAutoAccept": "LOWEST / HIGHEST PRICE TO AUTOMATICALLY ACCEPT",
     "autoRejectPrice": "AUTOMATIC REJECT HIGHEST/LOWEST PRICE",
     "setPrice": "SET PRICE",
     "total": "TOTAL",
@@ -925,7 +925,9 @@
     "follow": "Follow",
     "unfollow": "Unfollow",
     "share": "Share",
-    "linkCopied": "Link copied!"
+    "linkCopied": "Link copied!",
+    "lowest":"LOWEST",
+    "highest":"HIGHEST"
   },
   "aiLive": {
     "pageTitle": "Ai LIVE",
