@@ -19,7 +19,7 @@ const PageHeaderWithOutColorPicker = ({color, onColorChange, titlePrefix = "2", 
               />
               <div className="text-center mb-4 relative">
                   <h1 className="text-3xl font-bold text-black relative inline-block">
-                      &nbsp;{titlePrefix} - {title}
+                      &nbsp;{titlePrefix ? `${titlePrefix} - ` : ""}  {title}
                   </h1>
               </div>
           </div>

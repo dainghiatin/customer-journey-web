@@ -119,7 +119,7 @@ export default function ChangePasswordPage() {
                 <PageHeaderWithOutColorPicker
                     color={color}
                     onColorChange={handleChangeColor}
-                    titlePrefix="4"
+                    titlePrefix=""
                     leftButton={
                         <button
                             className="text-red-600 hover:text-red-800 relative"
@@ -136,6 +136,7 @@ export default function ChangePasswordPage() {
                             <KeyboardIcon size={28}/>
                         </button>
                     }
+                    title={t('register.changePasswordTitle')}
                 />
 
                 <div className="mt-6">
@@ -149,7 +150,6 @@ export default function ChangePasswordPage() {
               (CHANGE YOUR PASSWORD)
             </span>
           </h4> */}
-                    <span className="text-xl font-bold text-black">{t('auth.changePasswordTitle')}</span>
                     <div className="grid gap-4 mt-5">
                         <input
                             type="text"
@@ -174,7 +174,7 @@ export default function ChangePasswordPage() {
                                 formData.newPassword && !passwordValidation.isValid ? 'border-red-500' :
                                     formData.newPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
                             }`}
-                            placeholder={t('auth.newPasswordPlaceholder')}
+                            placeholder={t('register.newPasswordPlaceholder')}
                             name="newPassword"
                             value={formData.newPassword}
                             onChange={handleInputChange}
@@ -187,34 +187,34 @@ export default function ChangePasswordPage() {
                                 <div
                                     className={`flex items-center ${passwordValidation.hasUppercase ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className="mr-2">{passwordValidation.hasUppercase ? '✓' : '✗'}</span>
-                                    {t('auth.passwordValidation.hasUppercase')}
+                                    {t('register.passwordValidation.hasUppercase')}
                                 </div>
                                 <div
                                     className={`flex items-center ${passwordValidation.hasLowercase ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className="mr-2">{passwordValidation.hasLowercase ? '✓' : '✗'}</span>
-                                    {t('auth.passwordValidation.hasLowercase')}
+                                    {t('register.passwordValidation.hasLowercase')}
                                 </div>
                                 <div
                                     className={`flex items-center ${passwordValidation.hasNumber ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className="mr-2">{passwordValidation.hasNumber ? '✓' : '✗'}</span>
-                                    {t('auth.passwordValidation.hasNumber')}
+                                    {t('register.passwordValidation.hasNumber')}
                                 </div>
                                 <div
                                     className={`flex items-center ${passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className="mr-2">{passwordValidation.hasSpecialChar ? '✓' : '✗'}</span>
-                                    {t('auth.passwordValidation.hasSpecialChar')}
+                                    {t('register.passwordValidation.hasSpecialChar')}
                                 </div>
                                 <div
                                     className={`flex items-center ${formData.newPassword.length >= 6 ? 'text-green-600' : 'text-red-600'}`}>
                                     <span className="mr-2">{formData.newPassword.length >= 6 ? '✓' : '✗'}</span>
-                                    {t('auth.passwordValidation.minLength')}
+                                    {t('register.passwordValidation.minLength')}
                                 </div>
                             </div>
                         )}
 
-                        <label className="text-xs text-gray-500">
-                            ({t('auth.passwordHint')})
-                        </label>
+                        {/* <label className="text-xs text-gray-500">
+                            ({t('register.passwordHint')})
+                        </label> */}
 
                         <input
                             type="password"
@@ -222,7 +222,7 @@ export default function ChangePasswordPage() {
                                 formData.confirmPassword && formData.newPassword !== formData.confirmPassword ? 'border-red-500' :
                                     formData.confirmPassword && formData.newPassword === formData.confirmPassword && passwordValidation.isValid ? 'border-green-500' : 'border-gray-300'
                             }`}
-                            placeholder={t('auth.confirmPasswordPlaceholder')}
+                            placeholder={t('register.confirmPasswordPlaceholder')}
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
@@ -237,15 +237,15 @@ export default function ChangePasswordPage() {
                                 <span
                                     className="mr-2">{formData.newPassword === formData.confirmPassword ? '✓' : '✗'}</span>
                                 {formData.newPassword === formData.confirmPassword
-                                    ? t('auth.passwordValidation.passwordMatch')
-                                    : t('auth.passwordValidation.passwordMismatch')
+                                    ? t('register.passwordValidation.passwordMatch')
+                                    : t('register.passwordValidation.passwordMismatch')
                                 }
                             </div>
                         )}
-
+{/* 
                         <label className="text-xs text-gray-500">
                             ({t('auth.passwordHint')})
-                        </label>
+                        </label> */}
 
                         {/* Hiển thị lỗi nếu có */}
                         {error && (
