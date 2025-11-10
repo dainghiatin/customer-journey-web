@@ -8,6 +8,9 @@ import NewFreelancerPostOnlineComponent from "../components/NewFreelancerPostOnl
 import { Home as HomeIcon, KeyboardIcon as KeyboardIcon } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
 import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPicker.jsx";
+import GoodsAccount from "../components/GoodsAccount.jsx";
+
+
 
 export default function NewFreelancerPostPage() {
   const { t } = useTranslation();
@@ -28,7 +31,7 @@ export default function NewFreelancerPostPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
           onColorChange={handleChangeColor}
@@ -53,65 +56,12 @@ export default function NewFreelancerPostPage() {
         />
 
         {/* Table layout matching the image */}
-        <div className="mt-6">
+        <div className="mt-1">
           <div className="border border-gray-300">
             {/* Top Categories Section */}
             <PostTypeMenu activeType="freelancer" />
             {/* TÀI KHOẢN HÀNG HÓA Section */}
-            <div className="grid grid-cols-5 border-b border-gray-300">
-              <div className="border-r border-gray-300 p-2">
-                <div className="font-bold text-center">
-                  {t("freelancer.accountOfFreelancer")}
-                </div>
-              </div>
-              <div className="border-r border-gray-300 p-2 text-center">
-                <input
-                  type="number"
-                  name="exchangeRate"
-                  className="w-full border border-gray-300 p-1 mt-1"
-                  defaultValue="1"
-                  onChange={(e) => {
-                    const value = parseFloat(e.target.value) || 1;
-                    const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                    document.getElementById("calculatedValue").value =
-                      calculatedValue;
-                  }}
-                />
-                <div className="font-bold">1</div>
-              </div>
-              <div className="border-r border-gray-300 p-2 text-center">
-                <div className="font-bold  p-1 mt-1">VN</div>
-                <div className="mt-1 flex items-center justify-center">
-                  <span className="mr-2">D|</span>
-                </div>
-              </div>
-              <div className="border-r border-gray-300 p-2 text-center">
-                <input
-                  type="number"
-                  name="exchangeRate"
-                  className="w-full border border-gray-300 p-1 mt-1"
-                  defaultValue="1"
-                  onChange={(e) => {
-                    const value = parseFloat(e.target.value) || 1;
-                    const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                    document.getElementById("calculatedValue").value =
-                      calculatedValue;
-                  }}
-                />
-                <div className="font-bold">1</div>
-              </div>
-              <div className="p-2 text-center">
-                <div className="font-bold">
-                  {t("freelancer.transferToWallet")}
-                </div>
-                <button
-                  type="button"
-                  className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                >
-                  Chuyển
-                </button>
-              </div>
-            </div>
+            <GoodsAccount title={t("freelancer.accountOfFreelancer")} onTransfer={{}} />
             {/* Two columns layout */}
             <div className="grid grid-cols-2">
               {/* Column 1 - THỰC TẾ */}

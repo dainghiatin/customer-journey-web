@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import PostTypeMenu from "../components/PostTypeMenu";
 import PageHeaderWithOutColorPicker from "../components/PageHeaderWithOutColorPicker.jsx";
+import GoodsAccount from "../components/GoodsAccount.jsx";
+
 
 export default function NewAiLivePostPage() {
   const { t } = useTranslation();
@@ -32,8 +34,7 @@ export default function NewAiLivePostPage() {
   const [movieName, setMovieName] = useState("");
   const [liveName, setLiveName] = useState("");
   const [activeTab, setActiveTab] = useState("video"); // Thêm state tab
-  const [isVisible1, setIsVisible1] = useState(false);
-  const [isVisible2, setIsVisible2] = useState(false);
+
 
   // Advertising toggles per tab
   const [allowAdVideo, setAllowAdVideo] = useState(false);
@@ -147,8 +148,7 @@ export default function NewAiLivePostPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
-        {/* Header */}
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
           onColorChange={handleColorChange}
@@ -176,99 +176,30 @@ export default function NewAiLivePostPage() {
         <div className="border border-black text-black">
           <PostTypeMenu activeType="ailive" />
         </div>
-        {/* TÀI KHOẢN HÀNG HÓA Section */}
-        <div className="grid grid-cols-5 border border-gray-300">
-          <div className="border-r border-gray-300 p-2">
-            <div className="font-bold text-center">
-              {t("aiLive.accountOfAiLive")}
-            </div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <input
-              type="number"
-              name="exchangeRate"
-              className="w-full border border-gray-300 p-1 mt-1"
-              defaultValue="0"
-              onChange={(e) => {
-                const value = parseFloat(e.target.value) || 0;
-                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                document.getElementById("calculatedValue").value =
-                  calculatedValue;
-              }}
-            />
-            <div className="font-bold flex items-center justify-center">
-              <span className="mr-2">{isVisible1 ? "0" : "•••"}</span>
-              <button
-                type="button"
-                onClick={() => setIsVisible1(!isVisible1)}
-                className="text-gray-600 hover:text-gray-900"
-              >
-                {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-              </button>
-            </div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <div className="font-bold  p-1 mt-1">VN</div>
-            <div className="mt-1 flex items-center justify-center">
-              <span className="mr-2">D|</span>
-            </div>
-          </div>
-          <div className="border-r border-gray-300 p-2 text-center">
-            <input
-              type="number"
-              name="exchangeRate"
-              className="w-full border border-gray-300 p-1 mt-1"
-              defaultValue="0"
-              onChange={(e) => {
-                const value = parseFloat(e.target.value) || 0;
-                const calculatedValue = value * 1; // Tỉ giá mặc định là 1
-                document.getElementById("calculatedValue").value =
-                  calculatedValue;
-              }}
-            />
-            <div className="font-bold flex items-center justify-center">
-              <span className="mr-2">{isVisible2 ? "0" : "•••"}</span>
-              <button
-                type="button"
-                onClick={() => setIsVisible2(!isVisible2)}
-                className="text-gray-600 hover:text-gray-900"
-              >
-                {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-              </button>
-            </div>
-          </div>
-          <div className="p-2 text-center">
-            <div className="font-bold">{t("aiLive.transferToWallet")}</div>
-            <button
-              type="button"
-              className="mt-1 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-            >
-              {t("aiLive.transfer")}
-            </button>
-          </div>
-        </div>
+
+        <GoodsAccount title={t("aiLive.accountOfAiLive")} onTransfer={{}} />
+
+
+
         {/* Categories: VIDEO - PHIM - TRỰC TIẾP */}
         <div className="grid grid-cols-3 text-center mt-4">
           <div
-            className={`p-3 font-bold cursor-pointer ${
-              activeTab === "video" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
-            }`}
+            className={`p-3 font-bold cursor-pointer ${activeTab === "video" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+              }`}
             onClick={() => setActiveTab("video")}
           >
             {t("aiLive.video")}
           </div>
           <div
-            className={`p-3 font-bold cursor-pointer ${
-              activeTab === "movie" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
-            }`}
+            className={`p-3 font-bold cursor-pointer ${activeTab === "movie" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+              }`}
             onClick={() => setActiveTab("movie")}
           >
             {t("aiLive.movie")}
           </div>
           <div
-            className={`p-3 font-bold cursor-pointer ${
-              activeTab === "live" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
-            }`}
+            className={`p-3 font-bold cursor-pointer ${activeTab === "live" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+              }`}
             onClick={() => setActiveTab("live")}
           >
             {t("aiLive.live")}
@@ -328,9 +259,9 @@ export default function NewAiLivePostPage() {
                   checked={allowAdVideo}
                   onChange={(e) => setAllowAdVideo(e.target.checked)}
                 />
-                              <span>{t("aiLive.allowAdvertising")}</span>
+                <span>{t("aiLive.allowAdvertising")}</span>
               </label>
-              
+
             </div>
             {allowAdVideo && (
               <>
@@ -449,42 +380,42 @@ export default function NewAiLivePostPage() {
               </label>
             </div>
             {allowAdMovie && (
-            <>
-            <div className="bg-cyan-100 p-4">
-              <span className="sr-only">{t("aiLive.advertisingOnMainpage")}</span>
-              <input
-                type="number"
-                className="w-full border px-2 py-1"
-                placeholder={t("aiLive.deposit")}
-              />
-            </div>
-            <div className="bg-cyan-100 p-4">
-              <div className="flex flex-wrap -mx-2">
-                <div className="w-1/2 px-2">
+              <>
+                <div className="bg-cyan-100 p-4">
+                  <span className="sr-only">{t("aiLive.advertisingOnMainpage")}</span>
                   <input
                     type="number"
                     className="w-full border px-2 py-1"
-                    placeholder={t("aiLive.unitPrice")}
+                    placeholder={t("aiLive.deposit")}
                   />
                 </div>
-                <div className="w-1/2 px-2">
-                  <span className="sr-only">{t("aiLive.adContent")}</span>
-                  <div className="relative w-full">
-                    {!movieAdFile && (
-                      <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-gray-400">
-                        {t("aiLive.choose")}
-                      </span>
-                    )}
-                    <input
-                      type="file"
-                      className="w-full border rounded px-2 py-1 bg-transparent pl-16"
-                      onChange={(e) => setMovieAdFile(e.target.files?.[0] || null)}
-                    />
+                <div className="bg-cyan-100 p-4">
+                  <div className="flex flex-wrap -mx-2">
+                    <div className="w-1/2 px-2">
+                      <input
+                        type="number"
+                        className="w-full border px-2 py-1"
+                        placeholder={t("aiLive.unitPrice")}
+                      />
+                    </div>
+                    <div className="w-1/2 px-2">
+                      <span className="sr-only">{t("aiLive.adContent")}</span>
+                      <div className="relative w-full">
+                        {!movieAdFile && (
+                          <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-gray-400">
+                            {t("aiLive.choose")}
+                          </span>
+                        )}
+                        <input
+                          type="file"
+                          className="w-full border rounded px-2 py-1 bg-transparent pl-16"
+                          onChange={(e) => setMovieAdFile(e.target.files?.[0] || null)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            </>
+              </>
             )}
             <div className="bg-cyan-100 p-4"></div>
           </div>
@@ -614,7 +545,7 @@ export default function NewAiLivePostPage() {
             <div className="bg-green-100 p-4">
               <div className="flex flex-wrap -mx-2">
                 <div className="w-1/3 px-2 flex items-center">
-                <input type="checkbox" className="mr-2" />
+                  <input type="checkbox" className="mr-2" />
                   <span className="">{t("aiLive.advertisingOnMainpage")}</span>
                 </div>
 
