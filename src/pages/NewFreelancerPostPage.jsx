@@ -71,7 +71,7 @@ export default function NewFreelancerPostPage() {
                 }`}
                 onClick={() => setActiveTab("direct")}
               >
-                <h3 className="font-bold text-orange-500">
+                <h3 className="font-bold ">
                   {t("freelancer.actual")}
                 </h3>
               </div>
@@ -82,7 +82,7 @@ export default function NewFreelancerPostPage() {
                 }`}
                 onClick={() => setActiveTab("online")}
               >
-                <h3 className="font-bold text-blue-900">
+                <h3 className="font-bold ">
                   {t("freelancer.online")}
                 </h3>
               </div>
