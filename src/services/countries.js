@@ -57,7 +57,7 @@ export const getCountryByCode = async (name) => {
     const country = await response.json();
 
     const all = { vi: "Chọn tỉnh/thành", en: "Select province/city" }
-    const provices = [all, ...country.data.states.map(state => ({
+    const provices = [...country.data.states.map(state => ({
       vi: state.name,
       en: state.name,
     }))];

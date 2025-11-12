@@ -267,8 +267,8 @@ export default function ListOfGoodsPage() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-transparent backdrop-blur-md p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+    <div className="flex min-h-screen">
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
         {/* Header with Navigation */}
         <div className="flex items-center justify-between relative mb-2">
           <button 
