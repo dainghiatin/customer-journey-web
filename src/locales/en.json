@@ -798,7 +798,7 @@
     "outOfStock": "Out of Stock",
     "newPost": "NEW POST",
     "newPostEn": "New post",
-    "accountOfGoods": "ACCOUNT OF GOODS",
+    "accountOfGoods": "ACCOUNT OF <br> GOODS",
     "accountOfGoodsEn": "Account of goods",
     "transferToWallet": "TRANSFER TO WALLET",
     "transferToWalletEn": "Transfer to wallet",
@@ -931,8 +931,8 @@
   },
   "aiLive": {
     "pageTitle": "Ai LIVE",
-    "accountOfAiLive": "AI LIVE ACCOUNT",
-    "accountOfAiLiveEn": "Account of Ai LIVE",
+    "accountOfAiLive": "AI LIVE <br> ACCOUNT",
+    "accountOfAiLiveEn": "Account of <br> Ai LIVE",
     "currencyNote": "change to local currency after login",
     "enterNumber": "Enter number",
     "transferToWallet": "TRANSFER TO WALLET",
@@ -948,7 +948,7 @@
     "newPost": "NEW POST",
     "newPostEn": "New post",
     "transfer": "Transfer",
-    "video": "VIDEO",
+    "video": "VIDEO & AUDIO",
     "movie": "MOVIE",
     "movieEn": "Movies",
     "live": "LIVE",
@@ -1033,7 +1033,9 @@
     "termsAgreement": "I confirm that I am the owner, have the copyright, and am authorized to transmit and broadcast these videos, movies, and live broadcasts without advertising, sale goods and I agree and accept to comply with the contract as well as all terms and conditions required by the E-Commercial.",
     "termsAgreementEn": "I confirm that I am the owner, have the copyright, and am authorized to transmit and broadcast these videos, movies, and live broadcasts without advertising, sale goods and I agree and accept to comply with the contract as well as all terms and conditions required by the E-Commercial.",
     "post": "POST",
-    "postEn": "Post"
+    "postEn": "Post",
+    "chooseVideo": "UPLOAD VIDEO & AUDIO",
+    "seconds": "VND/SECOND/VIEW"
   },
   "rewards": {
     "title": "Rewards",

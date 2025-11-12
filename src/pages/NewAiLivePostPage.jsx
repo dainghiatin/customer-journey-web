@@ -210,31 +210,30 @@ export default function NewAiLivePostPage() {
         {activeTab === "video" && (
           <div className="text-black text-sm mt-1">
             {/* VIDEO COLUMN */}
-            <div className="bg-blue-100 p-4">
+            <div className="bg-blue-100 p-2">
               <span className="sr-only">* {t("aiLive.uploadVideo")}</span>
-              <div className="relative w-full">
-                {!videoFile && (
+              <div className="flex items-center">
+                <div className="relative w-full border rounded">
                   <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-gray-400">
                     {t("aiLive.choose")}
                   </span>
-                )}
-                <input
-                  type="file"
-                  onChange={(e) => setVideoFile(e.target.files[0])}
-                  className="w-full border rounded px-2 py-1 mt-1 bg-transparent pl-16"
-                />
+                  <input
+                    type="file"
+                    onChange={(e) => setVideoFile(e.target.files[0])}
+                    className="w-full p-1 border-gray-300 rounded bg-transparent pl-70 text-right"
+                  />
+                </div>
               </div>
+
+
               <input
                 type="text"
                 value={videoName}
                 onChange={(e) => setVideoName(e.target.value)}
                 className="w-full border rounded px-2 py-1 mt-1"
-                placeholder={t("aiLive.videoName")}
+                placeholder={t("aiLiveVideo.videoName")}
               />
-            </div>
-            <div className="bg-blue-100 p-4">
-              <span className="sr-only">* {t("aiLive.saveLocation")}</span>
-              <select className="w-full border rounded px-2 py-1">
+              <select className="w-full border rounded p-1 mt-1">
                 <option value="" disabled selected>
                   -- {t("aiLive.saveLocation")} --
                 </option>
@@ -249,70 +248,98 @@ export default function NewAiLivePostPage() {
                 <option>{t("aiLive.lifeExperience")}</option>
                 <option>{t("aiLive.startupIdeas")}</option>
               </select>
-            </div>
-            <div className="bg-blue-100 p-4">
 
-              <label className="inline-flex items-center">
+              <label className="inline-flex items-center mt-1">
                 <input
                   type="checkbox"
                   className="mr-2"
                   checked={allowAdVideo}
                   onChange={(e) => setAllowAdVideo(e.target.checked)}
                 />
-                <span>{t("aiLive.allowAdvertising")}</span>
+                <span>{t("aiLiveVideo.allowAdvertising")}</span>
               </label>
-
-            </div>
-            {allowAdVideo && (
-              <>
-                <div className="bg-blue-100 p-4">
-                  <div className="flex flex-wrap -mx-2">
-                    <div className="w-1/2 px-2">
+              {allowAdVideo ? (
+                <>
+                  <div className="flex flex-wrap mx-2 justify-between">
+                    <div className=" flex-1 flex justify-start items-center border border-gray-300 rounded w-1/3 m-2">
+                      <span className="flex-1 text-gray-500 border-r">
+                        {t("aiLiveVideo.showAd")}
+                      </span>
                       <input
                         type="number"
-                        className="w-full border px-2 py-1"
-                        placeholder={t("aiLive.showAd")}
+                        className="flex-1 px-2 py-1 text-right"
+                      // placeholder={t("aiLive.showAd")}
                       />
+                      <span className="flex-1 text-gray-500 border-l pl-1">
+                        {t("aiLiveVideo.seconds")}
+                      </span>
                     </div>
-                    <div className="w-1/2 px-2">
+                    <div className="flex-1 flex justify-start items-center border border-gray-300 rounded w-1/3 m-2">
+
+                      <span className="flex-1 text-gray-500 border-r">
+                        {t("aiLiveVideo.insertAd")}
+                      </span>
                       <input
                         type="number"
-                        className="w-full border px-2 py-1"
-                        placeholder={t("aiLive.insertAd")}
+                        className="flex-1 px-2 py-1 text-right"
+                      // placeholder={t("aiLive.showAd")}
                       />
+                      <span className="flex-1 text-gray-500 border-l pl-1">
+                        {t("aiLiveVideo.seconds")}
+                      </span>
+
+
+
                     </div>
                   </div>
+                </>
+              ) : null}
+
+              <div className="">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    className="mr-2"
+                  />
+                  <span>{t("aiLive.confirmCopyright")}</span>
+                </label>
+
+              </div>
+
+            </div>
+
+
+            {/* {allowAdVideo && (
+              <>
+                <div className="bg-blue-100 p-4">
+
                 </div>
                 <div className="bg-blue-100 p-4">
-                  {/** Temporarily hidden per request **/}
                   {false && (
                     <>
-                      <input
-                        type="number"
-                        className="w-full border px-2 py-1"
-                        placeholder={t("aiLive.startAdvertisingFromSeconds")}
-                      />
-                      <input
-                        type="number"
-                        className="w-full border px-2 py-1 mt-4"
-                        placeholder={t("aiLive.startAdvertisingFromViews")}
-                      />
+                      <div className="flex items-center">
+                        <input
+                          type="number"
+                          className="w-full border px-2 py-1"
+                          placeholder={t("aiLive.startAdvertisingFromSeconds")}
+                        />
+
+                      </div>
+
+                      <div>
+                        <input
+                          type="number"
+                          className="w-full border px-2 py-1 mt-4"
+                          placeholder={t("aiLive.startAdvertisingFromViews")}
+                        />
+                      </div>
+
                     </>
                   )}
                 </div>
               </>
-            )}
-            <div className="bg-blue-100 p-4">
-              <div className="flex items-center">
-                <div className="w-1/15 flex justify-start pl-2">
-                  <input type="checkbox" className="w-6 h-6" />
-                </div>
-                <div className="w-14/15">
-                  <span className="ml-2">{t("aiLive.confirmCopyright")}</span>
-                </div>
-              </div>
-            </div>
-            <div className="bg-blue-100 p-4"></div>
+            )} */}
+
           </div>
         )}
         {activeTab === "movie" && (
@@ -672,7 +699,7 @@ export default function NewAiLivePostPage() {
           </div>
         )}
         {/* DÒNG CAM KẾT CUỐI CÙNG */}
-        <div className="border border-black p-4 mt-6 bg-white">
+        <div className="border border-black p-2 bg-white">
           <label className="flex items-center gap-2 mb-2">
             <input type="checkbox" className="w-4 h-4 text-red-500" />
             <span className="font-semibold text-black">Tick</span>
@@ -683,10 +710,10 @@ export default function NewAiLivePostPage() {
         </div>
 
         {/* NÚT ĐĂNG */}
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-3">
           <button
             type="submit"
-            className="px-8 border py-3 font-bold rounded hover:bg-gray-100 transition-all"
+            className="px-8 border py-3 font-bold rounded hover:bg-gray-100 transition-all cursor-pointer"
           >
             {t("aiLive.post")}
           </button>

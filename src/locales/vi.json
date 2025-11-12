@@ -175,9 +175,13 @@
     "sortingCriteria1": "1 - Nạp tiền quảng cáo lớn - 2 - Số lượng phí trả sau lời - 3 - Gần trị hàng hóa lời - 4 - Thứ tự bán hàng",
     "sortingCriteria2": "(5 - Số bài viết (6 - 6 - Người theo dõi lời )",
     "video": "VIDEO",
-    "videoName": "Tên VIDEO",
+    "videoName": "TÊN VIDEO",
     "noView": "KHÔNG XEM",
-    "advertising": "QUẢNG CÁO"
+    "advertising": "QUẢNG CÁO",
+    "allowAdvertising": "CHO PHÉP QUẢNG CÁO TRÊN VIDEO & AUDIO NÀY",
+    "seconds": "VND/GIÂY/LƯỢT XEM",
+    "showAd": "HIỂN THỊ QUẢNG CÁO",
+    "insertAd": "CHÈN QUẢNG CÁO"
   },
   "goods": {
     "listOfGoods": "DANH SÁCH HÀNG HÓA",
@@ -233,7 +237,7 @@
     "outOfStock": "Hết hàng",
     "newPost": "ĐĂNG BÀI MỚI",
     "newPostEn": "New post",
-    "accountOfGoods": "TÀI KHOẢN HÀNG HÓA",
+    "accountOfGoods": "TÀI KHOẢN <br> HÀNG HÓA",
     "accountOfGoodsEn": "Account of goods",
     "transferToWallet": "CHUYỂN VỀ VÍ",
     "transferToWalletEn": "Transfer to wallet",
@@ -523,7 +527,7 @@
     "newPost": "ĐĂNG BÀI MỚI",
     "newPostEn": "New post",
     "pageTitle": "Ai LIVE",
-    "accountOfAiLive": "TÀI KHOẢN Ai LIVE",
+    "accountOfAiLive": "TÀI KHOẢN <br> Ai LIVE",
     "accountOfAiLiveEn": "Account of Ai LIVE",
     "currencyNote": "thay đổi bằng tiền bản địa sau đăng nhập",
     "enterNumber": "Nhập số",
@@ -531,7 +535,7 @@
     "transferToWalletEn": "Transfer to wallet",
     "livestream": "LIVESTREAM",
     "livestreamSub": "(HÀNG HÓA)",
-    "video": "VIDEO",
+    "video": "VIDEO & AUDIO",
     "movie": "PHIM",
     "movieSub": "(PHIM)",
     "live": "TRỰC TIẾP",
@@ -550,7 +554,10 @@
     "entertainment": "GIẢI TRÍ",
     "creative": "SÁNG TẠO",
     "campaignsEvents": "CHIẾN DỊCH & SỰ KIỆN",
-    "startupIdeas": "Ý TƯỞNG KHỞI NGHIỆP"
+    "startupIdeas": "Ý TƯỞNG KHỞI NGHIỆP",
+    "choose": "TẢI VIDEO & AUDIO",
+    "post": "BÀI ĐĂNG",
+    "termsAgreement": "Tôi xác nhận tôi là chủ sở hữu, có bản quyền và được phép truyền tải và phát sóng các video, phim và chương trình phát sóng trực tiếp này mà không có quảng cáo, hàng hóa bán hàng và tôi đồng ý và chấp nhận tuân thủ hợp đồng cũng như tất cả các điều khoản và điều kiện theo yêu cầu của E-Commercial."
   },
   "payment": {
     "bdk": "3-BĐK",
@@ -623,7 +630,7 @@
     "accountOfGoodsEn": "Account of Goods",
     "accountOfFreelancer": "TÀI KHOẢN CÔNG VIỆC TỰ DO",
     "accountOfFreelancerEn": "Account of Freelancer",
-    "accountOfAiLive": "TÀI KHOẢN AI LIVE",
+    "accountOfAiLive": "TÀI KHOẢN <br> AI LIVE",
     "accountOfAiLiveEn": "Account of Ai LIVE",
     "inputAddition": "GỬI THÊM",
     "inputAdditionEn": "Input addition",
