@@ -147,7 +147,7 @@ export default function NewAiLivePostPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center ">
       <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
@@ -173,7 +173,7 @@ export default function NewAiLivePostPage() {
         />
 
         {/* Tabs */}
-        <div className="border border-black text-black">
+        <div className="">
           <PostTypeMenu activeType="ailive" />
         </div>
 

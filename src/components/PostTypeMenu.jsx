@@ -23,17 +23,17 @@ export default function PostTypeMenu({ activeType }) {
   };
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="flex justify-center items-center ">
       <div
-        className={`border p-2 cursor-pointer ${
-          activeType === "goods" ? "bg-blue-500 text-white" : ""
+        className={` border border-gray-300 p-2 cursor-pointer flex-1 max-w-[130px]  ${
+          activeType === "goods" ? "bg-blue-500 text-white " : ""
         }`}
         onClick={() => handleTypeChange("goods")}
       >
         <div className="font-bold text-center">{t("posts.goods")}</div>
       </div>
       <div
-        className={`border p-2 cursor-pointer ${
+        className={` border border-gray-300 p-2 cursor-pointer flex-1 max-w-[130px] ${
           activeType === "freelancer" ? "bg-blue-500 text-white" : ""
         }`}
         onClick={() => handleTypeChange("freelancer")}
@@ -41,7 +41,7 @@ export default function PostTypeMenu({ activeType }) {
         <div className="font-bold text-center">{t("posts.freelancer")}</div>
       </div>
       <div
-        className={`border p-2 cursor-pointer ${
+          className={` border border-gray-300 p-2 cursor-pointer flex-1 max-w-[130px] ${
           activeType === "ailive" ? "bg-blue-500 text-white" : ""
         }`}
         onClick={() => handleTypeChange("ailive")}

@@ -325,7 +325,7 @@ export default function NewGoodPostPage() {
 
         {/* Main Form */}
         <div className="mt-1">
-          <form onSubmit={handleSubmit} className="border border-gray-300">
+          <form onSubmit={handleSubmit} className=" border-gray-300">
             {/* Top Categories Section */}
             <PostTypeMenu activeType="goods" />
 

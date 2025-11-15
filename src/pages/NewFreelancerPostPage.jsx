@@ -57,7 +57,7 @@ export default function NewFreelancerPostPage() {
 
         {/* Table layout matching the image */}
         <div className="mt-1">
-          <div className="border border-gray-300">
+          <div className=" border-gray-300">
             {/* Top Categories Section */}
             <PostTypeMenu activeType="freelancer" />
             {/* TÀI KHOẢN HÀNG HÓA Section */}
