@@ -299,7 +299,7 @@ export default function NewGoodPostPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
           onColorChange={handleChangeColor}
@@ -538,7 +538,7 @@ export default function NewGoodPostPage() {
                     name="priceReviewTime"
                     value={goodsInfo.priceReviewTime}
                     onChange={handleInputChange}
-                    className="w-full border-gray-300 p-1"
+                    className="w-full border-gray-300 p-1 max-w-[80px]"
                     placeholder={t("goods.enter")}
                   />
                 </div>
@@ -555,25 +555,17 @@ export default function NewGoodPostPage() {
                 </div>
                 <div className="col-span-6 border-r border-gray-300 p-2">
                   <input
-                    type="date"
+                    type="datetime-local"
                     name="endPostDate"
                     value={goodsInfo.endPostDate}
                     onChange={handleInputChange}
-                    className="w-full border border-gray-300 p-1 text-right"
+                    className="max-w-80 border border-gray-300 p-1 text-right"
                     placeholder={t("goods.enter")}
                     style={{ border: "none" }}
                   />
                 </div>
                 <div className="col-span-6 border-r border-gray-300 p-2">
-                  <input
-                    type="time"
-                    name="endPostTime"
-                    value={goodsInfo.endPostTime}
-                    onChange={handleInputChange}
-                    className="w-full border border-gray-300 p-1"
-                    placeholder={t("goods.enter")}
-                    style={{ border: "none" }}
-                  />
+
                 </div>
 
               </div>
@@ -587,7 +579,15 @@ export default function NewGoodPostPage() {
                   <div>{t("goods.goodsAddress")}</div>
                 </div>
                 <div className="col-span-6 border-r border-gray-300 p-2">
-                  <select
+                  <textarea
+                    type="text"
+                    value={goodsInfo.goodsAddress}
+                    onChange={(e) => setGoodsInfo((prev) => ({ ...prev, goodsAddress: e.target.value }))}
+                    className="w-full border-gray-300 p-1 text-left"
+                  // placeholder={t("goods.enter")}
+                  />
+
+                  {/* <select
                     className="w-full border-gray-300 p-1"
                     value={selectedProvince}
                     onChange={async (e) => {
@@ -644,7 +644,10 @@ export default function NewGoodPostPage() {
                         {d.vi || d.en}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                </div>
+                <div className="col-span-6 border-r border-gray-300 p-2 text-center flex items-center justify-center">
+                  (MAP)
                 </div>
 
               </div>
@@ -690,7 +693,7 @@ export default function NewGoodPostPage() {
                         name="eventPercentFee"
                         value={goodsInfo.eventPercentFee || ""}
                         onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 mr-1 text-right"
+                        className="w-full border-gray-300 p-1  text-right"
                         placeholder={t("goods.enter")}
                         onKeyDown={(e) => {
                           // Prevent negative sign, decimal point, and non-numeric characters
@@ -718,7 +721,7 @@ export default function NewGoodPostPage() {
                         name="eventFee"
                         value={goodsInfo.eventFee || ""}
                         onChange={handleInputChange}
-                        className="w-full  border-gray-300 p-1 mr-1 text-right"
+                        className="w-full  border-gray-300 p-1 text-right"
                         placeholder={t("goods.enter")}
                         onKeyDown={(e) => {
                           // Prevent negative sign, decimal point, and non-numeric characters
@@ -755,7 +758,7 @@ export default function NewGoodPostPage() {
                         name="livestreamPercentFee"
                         value={goodsInfo.livestreamPercentFee || ""}
                         onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 mr-1 text-right"
+                        className="w-full border-gray-300 p-1 text-right"
                         placeholder={t("goods.enter")}
                         onKeyDown={(e) => {
                           // Prevent negative sign, decimal point, and non-numeric characters
@@ -783,7 +786,7 @@ export default function NewGoodPostPage() {
                         name="livestreamFee"
                         value={goodsInfo.livestreamFee || ""}
                         onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 mr-1 text-right"
+                        className="w-full border-gray-300 p-1 text-right"
                         placeholder={t("goods.enter")}
                         onKeyDown={(e) => {
                           // Prevent negative sign, decimal point, and non-numeric characters
@@ -803,8 +806,14 @@ export default function NewGoodPostPage() {
                     <div className="col-span-1 border-r border-gray-300 p-2 text-center">
                       {t("goods.vnd")}
                     </div>
-                    <div className="col-span-4 border-gray-300 p-2 text-center">
+                    <div className="col-span-2 border-r border-gray-300 p-2 text-center">
                       <span>{t("goods.prepay")}</span>
+                    </div>
+                    <div className="col-span-2 border-gray-300 p-2 text-center flex items-center justify-center">
+                      <label htmlFor="videoAd" className="block cursor-pointer-label">
+                        {t("goods.uploadAd")}
+                      </label>
+                      <input hidden type="file" name="videoAd" id="videoAd" className="w-full border-gray-300 p-1" />
                     </div>
                   </div>
 
@@ -885,159 +894,81 @@ export default function NewGoodPostPage() {
                 </div>
               </div>
 
-              {/* Row 8 */}
-              <div className="grid grid-cols-17 border-b border-gray-300">
-                <div className="col-span-1 border-r border-gray-300 p-2 text-center flex items-center justify-center">
+
+
+              <div className="grid grid-cols-17 grid-rows-4 border-b border-gray-300">
+                {/* Row number */}
+                <div className="col-span-1 row-span-4 border-r border-gray-300 p-2 flex items-center justify-center">
                   <span className="font-bold">8</span>
                 </div>
-                <div className="col-span-4 border-r border-gray-300 p-2 flex items-center">
+
+                {/* Advertising Fee title */}
+                <div className="col-span-4 row-span-4 border-r border-gray-300 p-2 flex items-center">
                   <div className="font-semibold">{t("goods.advertisingFee")}</div>
                 </div>
 
-                {/* Right side with sub-rows */}
-                <div className="col-span-12">
-                  {/* NẠP TIỀN QUẢNG CÁO */}
-                  <div className="grid grid-cols-17 border-b border-gray-300">
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <div>{t("goods.amountForAdvertising")}</div>
+                {/* Common input props */}
+                {/** You can extract these into a component if needed */}
+                {[
+                  {
+                    label: t("goods.amountForAdvertising"),
+                    name: "advertisingAmount",
+                    value: goodsInfo.advertisingAmount,
+                    unit: t("goods.vnd"),
+                  },
+                  {
+                    label: t("goods.onMainPage"),
+                    name: "mainPageAd",
+                    value: goodsInfo.mainPageAd,
+                    unit: t("goods.vndPerSecondView"),
+                  },
+                  {
+                    label: t("goods.onVideo"),
+                    name: "videoAd",
+                    value: goodsInfo.videoAd,
+                    unit: t("goods.vndPerSecondView"),
+                  },
+                ].map((item, idx) => (
+                  <React.Fragment key={idx}>
+                    <div className={`col-span-3 border-r border-gray-300 p-2 flex items-center ${idx > 0 ? "border-t" : ""}`}>
+                      {item.label}
                     </div>
-                    <div className="col-span-5 border-r border-gray-300 p-2">
+
+                    <div className={`col-span-4 border-r border-gray-300 p-2 flex items-center ${idx > 0 ? "border-t" : ""}`}>
                       <input
                         type="number"
                         min="0"
                         step="1"
-                        name="advertisingAmount"
-                        value={goodsInfo.advertisingAmount || ""}
+                        name={item.name}
+                        value={item.value || ""}
                         onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 text-right"
+                        className="w-full border-gray-300 text-right"
                         placeholder={t("goods.enter")}
                         onKeyDown={(e) => {
-                          // Prevent negative sign, decimal point, and non-numeric characters
-                          if (
-                            e.key === "-" ||
-                            e.key === "." ||
-                            e.key === "e" ||
-                            e.key === "E" ||
-                            e.key === "+"
-                          ) {
-                            e.preventDefault();
-                          }
+                          if (["-", ".", "e", "E", "+"].includes(e.key)) e.preventDefault();
                         }}
                       />
                     </div>
-                    <div className="col-span-5 p-2 text-left">
-                      <div>{t("goods.vnd")}</div>
-                    </div>
-                  </div>
 
-                  {/* TRÊN TRANG CHỦ */}
-                  <div className="grid grid-cols-17 border-b border-gray-300">
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <div>{t(
-                        "goods.onMainPage"
-                      )}</div>
+                    <div className={`col-span-5 p-2 text-left border-gray-300 ${idx > 0 ? "border-t" : ""}`}>
+                      {item.unit}
                     </div>
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        name="mainPageAd"
-                        value={goodsInfo.mainPageAd || ""}
-                        onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 text-right"
-                        placeholder={t("goods.enter")}
-                        onKeyDown={(e) => {
-                          // Prevent negative sign, decimal point, and non-numeric characters
-                          if (
-                            e.key === "-" ||
-                            e.key === "." ||
-                            e.key === "e" ||
-                            e.key === "E" ||
-                            e.key === "+"
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
-                      />
-                    </div>
-                    <div className="col-span-5 p-2 text-left">
-                      <div>{t("goods.vndPerSecondView")}</div>
-                    </div>
-                  </div>
+                  </React.Fragment>
+                ))}
 
-                  {/* TRÊN VIDEO */}
-                  <div className="grid grid-cols-17 border-b border-gray-300">
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <div>{t("goods.onVideo")}</div>
-                    </div>
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        name="videoAd"
-                        value={goodsInfo.videoAd || ""}
-                        onChange={handleInputChange}
-                        className="w-full border-gray-300 p-1 text-right"
-                        placeholder={t("goods.enter")}
-                        onKeyDown={(e) => {
-                          // Prevent negative sign, decimal point, and non-numeric characters
-                          if (
-                            e.key === "-" ||
-                            e.key === "." ||
-                            e.key === "e" ||
-                            e.key === "E" ||
-                            e.key === "+"
-                          ) {
-                            e.preventDefault();
-                          }
-                        }}
-                      />
-                    </div>
-                    <div className="col-span-5 p-2 text-left">
-                      <div>{t("goods.vndPerSecondView")}</div>
-                    </div>
-                  </div>
-
-                  {/* NỘI DUNG QUẢNG CÁO */}
-                  <div className="grid grid-cols-17 border-b border-gray-300">
-                    <div className="col-span-5 border-r border-gray-300 p-2">
-                      <div>{t("goods.advertisingContent")}</div>
-                    </div>
-                    <div className="col-span-5 border-gray-300 p-2">
-                      <input
-                        type="file"
-                        className="w-full border-gray-300 p-1"
-                      />
-                    </div>
-                    <div className="col-span-5 p-2 text-center"></div>
-                  </div>
-
-                  {/* ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO */}
-                  <div className="grid grid-cols-17">
-                    <div className="col-span-10 border-gray-300 p-2 text-left">
-                      <div>
-                        <input
-                        type="checkbox"
-                        name="registerAdvertising"
-                        checked={goodsInfo.registerAdvertising || false}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 col-span-1"
-                      />
-                      <span>    {t("goods.registerAdvertising")}     </span>
-                      </div>
-                    </div>
-                    
-
-                    {/* <div className="col-span-5 p-2 text-center">
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
-                        {t("goods.serviceContract")}
-                      </button>
-                    </div> */}
-                  </div>
+                {/* Row 4 – Upload file */}
+                <div className="col-span-3 border-r border-t border-gray-300 p-2 flex items-center">
+                  {t("goods.advertisingContent")}
                 </div>
+
+                <div className="col-span-4 border-r border-t border-gray-300 p-2 flex items-center">
+                  <input type="file" className="w-full border-gray-300" />
+                </div>
+
+                <div className="col-span-5 border-t border-gray-300"></div>
               </div>
+
+
             </div>
 
             {/* Bottom declaration section */}

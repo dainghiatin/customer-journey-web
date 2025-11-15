@@ -30,11 +30,9 @@
     "enter": "nhập",
     "transfer": "Chuyển",
     "goBack": "Quay lại",
-    
     "errorOccurred": "Có lỗi xảy ra",
     "showingDefaultData": "Đang hiển thị dữ liệu mặc định",
     "accept": "Accept",
-    
     "bdk": "BĐK",
     "no_notifications": "Chưa có thông báo mới",
     "notifications": "Thông báo",
@@ -46,7 +44,6 @@
     "open": "Mở",
     "viewFile": "Xem file",
     "downloadFile": "Tải file"
-    
   },
   "hero": {
     "mainTitle": "CÔNG BẰNG LỚN - UY TÍN LỚN",
@@ -135,7 +132,6 @@
     "actual": "THỰC TẾ",
     "accept": "XÁC NHẬN"
   },
-  
   "aiLiveStream": {
     "followFolder": "THƯ MỤC THEO DÕI",
     "followFolderDesc": "Có cập nhật và hiển thị số lượng người đang theo dõi mình lên trên thư mục. Ấn vào thư mục để hiển thị AVATAR người theo dõi mình trong thư mục này.",
@@ -206,7 +202,7 @@
     "enter": "(nhập)",
     "vnd": "VNĐ",
     "vn": "VN",
-    "vndPerSecondView": "VNĐ / GIÂY (S) / LƯỢT XEM",
+    "vndPerSecondView": "VNĐ / GIÂY / LƯỢT XEM",
     "category": {
       "sale": "HÀNG BÁN",
       "buy": "CẦN MUA",
@@ -237,7 +233,7 @@
     "outOfStock": "Hết hàng",
     "newPost": "ĐĂNG BÀI MỚI",
     "newPostEn": "New post",
-    "accountOfGoods": "TÀI KHOẢN <br> HÀNG HÓA",
+    "accountOfGoods": "TÀI KHOẢN HÀNG HÓA",
     "accountOfGoodsEn": "Account of goods",
     "transferToWallet": "CHUYỂN VỀ VÍ",
     "transferToWalletEn": "Transfer to wallet",
@@ -311,6 +307,8 @@
     "onMainPageEn": "On main page",
     "onVideo": "TRÊN VIDEO",
     "onVideoEn": "On video",
+    "uploadAd": "TẢI LÊN VIDEO",
+    "uploadAdEn": "Upload ad",
     "advertisingContent": "NỘI DUNG QUẢNG CÁO",
     "advertisingContentEn": "Advertising content",
     "registerAdvertising": "ĐĂNG KÝ LÀM NỘI DUNG QUẢNG CÁO",
@@ -345,8 +343,9 @@
     "quantityMinimum": "SỐ LƯỢNG TỐI THIỂU",
     "unit": "ĐƠN VỊ TÍNH",
     "unitMarketPrice": "ĐƠN GIÁ THỊ TRƯỜNG",
-    "lowestHighestAskingPrice": "ĐƠN GIÁ MONG MUỐN THẤP NHẤT / CAO NHẤT",
+    "lowestHighestAskingPrice": "ĐƠN GIÁ MONG MUỐN",
     "lowestAmount": "THÀNH TIỀN MONG MUỐN THẤP NHẤT / CAO NHẤT",
+    "highestAmount": "THÀNH TIỀN MONG MUỐN THẤP CAO NHẤT",
     "lowestHighestAutoAccept": "GIÁ TỰ ĐỘNG DUYỆT THẤP NHẤT / CAO NHẤT",
     "autoRejectPrice": "GIÁ TỰ ĐỘNG TỪ CHỐI CAO NHẤT/THẤP NHẤT",
     "setPrice": "ĐẶT GIÁ",
@@ -368,7 +367,6 @@
     "lowest": "Thấp nhất",
     "highest": "Cao nhất"
   },
-  
   "rewards": {
     "title": "Phần thưởng",
     "category": "Danh mục phần thưởng",

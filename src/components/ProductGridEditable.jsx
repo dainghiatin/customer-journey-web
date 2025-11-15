@@ -8,6 +8,7 @@ export default function ProductGridEditable({ products = [], onItemsChange }) {
   const [items, setItems] = useState(products || []);
   const [isFollowing, setIsFollowing] = useState(false);
   const { containerRef, trackRef, thumbRef } = useHorizontalScrollbar();
+  const [lowestHighestAskingPrice, setLowestHighestAskingPrice] = useState(true);
 
   useEffect(() => {
     setItems(products || []);

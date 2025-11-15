@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import {
-  Home as HomeIcon,
-  KeyboardIcon as KeyboardIcon,
-  Eye as EyeIcon,
-  EyeOff as EyeOffIcon,
+    Home as HomeIcon,
+    KeyboardIcon as KeyboardIcon,
+    Eye as EyeIcon,
+    EyeOff as EyeOffIcon,
 } from "lucide-react";
 
-export default function GoodsAccount({ title,onTransfer }) {
+export default function GoodsAccount({ title, onTransfer }) {
     const { t } = useTranslation();
     const [isVisible1, setIsVisible1] = useState(false);
     const [isVisible2, setIsVisible2] = useState(false);
@@ -32,7 +32,7 @@ export default function GoodsAccount({ title,onTransfer }) {
         <div className="grid grid-cols-5 border border-gray-300">
             <div className="border-r border-gray-300 p-2 text-center flex items-center justify-center">
                 <div dangerouslySetInnerHTML={{ __html: title }} className="font-bold text-center">
-                    
+
                 </div>
             </div>
             <div className="border-r h-20 border-gray-300 text-center flex flex-col items-center justify-center">
@@ -49,15 +49,17 @@ export default function GoodsAccount({ title,onTransfer }) {
                     }}
                     style={{ textAlign: "right" }}
                 />
-                <div className="font-bold flex-1 border-gray-300 flex items-center justify-center">
-                    <span className="mr-2">{isVisible1 ? "0" : "•••"}</span>
-                    <button
+                <div className="font-bold flex-1 border-gray-300 w-full flex items-center justify-center">
+                    <div className="flex-4 text-left pl-1">{isVisible1 ? "0" : "•••"}</div>
+                    <div className="flex-1"><button
                         type="button"
                         onClick={() => setIsVisible1(!isVisible1)}
-                        className="text-gray-600 hover:text-gray-900"
+                        className="text-gray-600 hover:text-gray-900 flex-1"
                     >
                         {isVisible1 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-                    </button>
+                    </button></div>
+
+
                 </div>
             </div>
 
@@ -70,7 +72,7 @@ export default function GoodsAccount({ title,onTransfer }) {
                     style={{ textAlign: "center" }}
                 />
                 <div className="font-bold flex-1 border-gray-300 flex items-center justify-center">
-                   <span className="mr-2">D|</span>
+                    {/* <span className="mr-2">D|</span> */}
                 </div>
             </div>
 
@@ -89,15 +91,17 @@ export default function GoodsAccount({ title,onTransfer }) {
                     }}
                     style={{ textAlign: "right" }}
                 />
-                <div className="font-bold flex-1 border-gray-300 flex items-center justify-center">
-                    <span className="mr-2">{isVisible2 ? "0" : "•••"}</span>
-                    <button
-                        type="button"
-                        onClick={() => setIsVisible2(!isVisible2)}
-                        className="text-gray-600 hover:text-gray-900"
-                    >
-                        {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-                    </button>
+                <div className="font-bold flex-1 border-gray-300 w-full flex items-center justify-center">
+                    <div className="font-bold flex-1 border-gray-300 w-full flex items-center justify-center">
+                        <div className="flex-4 text-left pl-1">{isVisible2 ? "0" : "•••"}</div>
+                        <div className="flex-1"><button
+                            type="button"
+                            onClick={() => setIsVisible2(!isVisible2)}
+                            className="text-gray-600 hover:text-gray-900 flex-1"
+                        >
+                            {isVisible2 ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+                        </button></div>
+                    </div>
                 </div>
             </div>
 

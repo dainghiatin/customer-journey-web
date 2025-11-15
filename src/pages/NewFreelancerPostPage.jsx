@@ -31,7 +31,7 @@ export default function NewFreelancerPostPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
           onColorChange={handleChangeColor}
@@ -67,7 +67,7 @@ export default function NewFreelancerPostPage() {
               {/* Column 1 - THỰC TẾ */}
               <div
                 className={`border-r border-gray-300 p-4 text-center cursor-pointer ${
-                  activeTab === "direct" ? "bg-blue-400" : ""
+                  activeTab === "direct" ? "bg-blue-600" : ""
                 }`}
                 onClick={() => setActiveTab("direct")}
               >
@@ -78,7 +78,7 @@ export default function NewFreelancerPostPage() {
               {/* Column 2 - TRỰC TUYẾN */}
               <div
                 className={`p-4 text-center cursor-pointer ${
-                  activeTab === "online" ? "bg-blue-400" : ""
+                  activeTab === "online" ? "bg-blue-600" : ""
                 }`}
                 onClick={() => setActiveTab("online")}
               >

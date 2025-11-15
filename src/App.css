@@ -259,6 +259,9 @@ td {
     .auth-dropdown {
         top: 10rem !important;
     }
+    .tab{
+        font-size: 10px !important;
+    }
 }
 
 .menu-left-top-login {

@@ -148,7 +148,7 @@ export default function NewAiLivePostPage() {
 
   return (
     <div className="flex justify-center items-center ">
-      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
+      <div className="bg-transparent backdrop-blur-md p-1 rounded-lg shadow-lg w-full mx-auto">
         <PageHeaderWithOutColorPicker
           color={color}
           onColorChange={handleColorChange}
@@ -184,21 +184,21 @@ export default function NewAiLivePostPage() {
         {/* Categories: VIDEO - PHIM - TRỰC TIẾP */}
         <div className="grid grid-cols-3 text-center mt-4">
           <div
-            className={`p-3 font-bold cursor-pointer ${activeTab === "video" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+            className={`p-3 font-bold cursor-pointer ${activeTab === "video" ? "bg-blue-600 text-white" : "bg-blue-100 text-black"
               }`}
             onClick={() => setActiveTab("video")}
           >
             {t("aiLive.video")}
           </div>
           <div
-            className={`p-3 font-bold cursor-pointer ${activeTab === "movie" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+            className={`p-3 font-bold cursor-pointer ${activeTab === "movie" ? "bg-blue-600 text-white" : "bg-blue-100 text-black"
               }`}
             onClick={() => setActiveTab("movie")}
           >
             {t("aiLive.movie")}
           </div>
           <div
-            className={`p-3 font-bold cursor-pointer ${activeTab === "live" ? "bg-blue-400 text-white" : "bg-blue-100 text-black"
+            className={`p-3 font-bold cursor-pointer ${activeTab === "live" ? "bg-blue-600 text-white" : "bg-blue-100 text-black"
               }`}
             onClick={() => setActiveTab("live")}
           >
